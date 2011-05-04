@@ -1,0 +1,58 @@
+[/ 
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Glossary documentation file.
+ /]
+
+
+[section Glossary]
+
+[caution TODO Write!]
+
+[variablelist
+[[Child] [
+A given cursor's child is any cursor that is found in the range described by its
+`begin()` and `end()` member functions.
+]]
+
+[[Cursor] [
+Informally, a cursor is to a tree what an iterator is to a standard library container:
+a kind of pointer abstraction that denotes a position within the tree and can be 
+ereferenced or used to traverse the tree both horizontally and vertically.
+
+For a more formal definition, see (TODO: link to concept).
+]]
+
+[[Descendant] [
+A cursor's descendant is best defined recursively: It is
+* either a given cursor's child,
+* or a descendant of one of it's children.
+]]
+
+[[Multiway Tree] [
+]]
+
+[[Parent] [
+Pretty obvious: the inverse of a child.
+]]
+
+[[Root] [
+]]
+
+[[Sortable] [
+]]
+
+[[Subtree] [
+All descendants of a given cursor.
+]]
+
+] 
+
+[endsect] [/ Glossary]

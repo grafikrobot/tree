@@ -1,0 +1,260 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Implementation documentation file.
+ /]
+
+
+[section Implementation]
+
+[section (Multiway) Tree Search]
+
+[import ../example/stl_lower_bound.cpp]
+
+Due to their implicit-only nature within the Standard Library (as used by `map` or `set` internally), 
+there are no algorithms that deal with tree structures -- which naturally require an approach differing 
+from the one-dimesional, iterator(-interval)-based ones present in the STL. Most notably, binary search 
+algorithms like `lower_bound` and `upper_bound` hardly make sense using a linearized version of the tree 
+structure, i.e. given iterators pointing to the element containing the least and one past the one 
+containing the greatest element. Nevertheless, one-dimensional binary search can be logically continued 
+to binary tree search (as implicitly done by the associative containers' `lower_bound` etc. member 
+functions) and even multiway tree search, thus allowing consistent tree search for all types of sorted 
+multiway and binary trees (the latter being considered a special case of the former in the following).
+
+The (multiway tree) cursor design present in this library supports this continuation. 
+To motivate this, we illustrate this by crafting a `lower_bound` binary tree search algorithm. 
+To do so, consider the following piece of code:
+
+[stl_lower_bound_example]
+
+If this doesn't really excite you, that's perfectly okay. Note however that this kind of binary "flat"
+search does something that is similar to what a binary tree search algorithm just as well at every 
+branching point (node): 
+
+* Compare the search value to the node's.
+	* If the search value is greater than the node value, move down to the node's right child.
+	* Otherwise, move left.
+
+So we have two possible results depending on one given value, similar to a binary tree node where
+comparison with one value controls moving to either of two possible children.
+It would be nice (though admittedly still not overwhelming) to associate the existing `std::lower_bound`
+algorithm's result with another container (or, less strictly, another range) that we can move on to
+depending on the result of the former.
+
+That is what tree cursors offer in a very straight-forward manner: the result of `std::lower_bound` 
+(in the binary case either `c.begin()` or `c.end()` for a cursor `c`) ['is] again a tree cursor. 
+The background is that a tree cursor refines both a range ['and] a corresponding iterator concept (e.g. a
+Forward Readable Range with a Forward Readable Iterator). 
+
+Note that while coupling range with iterator concepts, we decide at the same time for a separation
+of the (user-supplied) value contents of a tree cursor and its children. This reflects the desire
+that tree traversal, as achieved by cursors, should be a structural matter rather than a
+content-dependent one (which can more concretely be seen e.g. in the fact that there is always one
+ child node more than values in a (multiway) tree).
+
+In particular, although `c.end()` can still not be dereferenced, there may well be other valid operations
+(independent of its `*` and `->` operators - those would only be useful in case ). In our case, this is
+ mainly range operations like `c.end().begin()` and `c.end().end()`; but as we can hardly always guarantee
+that there actually ['is] a child range, we need some way to detect these operations are really legal.
+This is what `c.empty()` is used for, and this includes an actual change to its expression semantics; it
+is guaranteed to be legal for any valid cursor `c` even if that cursor's `c.begin()` and `c.end()` are not
+(so we cannot really say that it is equivalent to `c.begin() == c.end()`). It is, however, about the
+only reasonable meaning `empty()` can assume in case of a cursor.
+
+[warning TODO: Add some graphics!]
+
+Going back to our binary tree search example, we as a first approach write down iterative invocation
+of `std::lower_bound`, to be terminated if a node has no further children:
+
+	while(!x.empty())
+		x = std::lower_bound(x.begin(), x.end(), val);
+
+There are some properties inherent to the tree cursor design that may look somewhat peculiar at 
+first glance. Given the child cursor obtained by `c.end()` - how do we obtain its value? The only 
+consequently possible answer is that we have to dereference its `begin()` child in turn, i.e. by 
+invoking `*(c.end().begin())`. The above example owns its clarity actually to this pecularity.
+
+Still, it is not yet complete. Given a tree's root as the initial `c`, we will traverse that tree
+as long as it has children - but what cursor do we return as our algorithm's result? Obviously, it is
+not necessarily the last value visited. Instead, we need to keep track of the last value visited ['that 
+was greater than the search value] and return that value eventually. In order to do so, we introduce the
+`parity()` function: `x.parity()` returns `0` if `x` was obtained as its parent's `begin()` cursor and 
+`1` if it is its parent's `end()`.
+
+	while(!x.empty()) {
+		x = std::lower_bound(x.begin(), x.end(), val);
+		if (!x.parity())
+			y = x;
+	}
+	
+If there is no such value in the entire (sub)tree (because all values
+are less than the search value or because it is empty), we'd intuitively want to return something like
+a "tree `end()`" to indicate the position where the search value could be inserted without changing the
+ordering. When searching, we will normally depart from a `tree.root()` 
+(that makes hardly sense to be called `begin()` 
+in the given context), which itself cannot be dereferenced (only its `tree.root().begin()` can).
+This suggests `root()` as return value if we cannot find the given value in the tree.
+In order for the algorithm to work not only for trees but also for any given subtree
+described by its root cursor, we state a version with a cursor instead of a tree as first
+parameter:
+
+	template <class TreeCursor, class T>
+	TreeCursor lower_bound(TreeCursor x, T const& val)
+	{
+		TreeCursor y = x;
+		while (x.empty()) {
+			x = std::lower_bound(x.begin(), x.end(), val);
+			if (!x.parity())
+				y = x;
+		}
+		return y;
+	}
+
+This should look very clear and illustrative; the nice thing about binary tree search is that you
+can use the same algorithm for whatever balancing mechanism you choose for it, so the above should
+work for red-black trees just as well as for treaps or splays (though in the latter case, you shouldn't
+forget to call the splay operation afterwards!).
+If you wonder if replacing a simple two-way decision control structure by a 
+not-exactly-so-lightweight STL algorithm was really worth it, let me for the time being refer you to the 
+following exercises that are meant to take things a step further...
+
+[section Exercises]
+# Replace `std::lower_bound` in the above algorithm by `custom_lower_bound`. The latter should invoke
+an inlined `trivial_lower_bound` function if its first two arguments are binary cursors, and 
+`std::lower_bound` otherwise.
+# "Specialize" the above algorithm for search values of a string type. (cf. Austern et al.)
+# Generalize the above algorithm for "multiway" trees.
+# Implement `upper_bound` for multiway trees.
+# Implement a two-argument version that takes a tree as the first 
+argument and uses the tree's `root` member in lieu of `x`. (You'll actually need
+two versions of that algorithm, one for `const` trees and one for mutable ones.)
+[/# Replace the member functions from the previous exercise by freestanding 
+ones. Implement them for non-cursor iterators so that `empty(iter)` always returns true.]
+[endsect] [/ Exercises]
+
+[endsect] [/ (Multiway) Tree Search]
+
+[section Tree Traversal]
+An interesting aspect of trees is that there are many ways to traverse a tree in a meaningful order.
+Among others, ['preorder], ['inorder] and ['postorder] are frequently encountered. For an overview, 
+consult your favorite Computer Science textbook or [@http://en.wikipedia.org/wiki/Tree_traversal 
+Wikipedia on Tree Traversal]. 
+Given only the essential minimum of information (i.e. child "pointers" from a parent "node", but
+no parent "pointers" from a child "node"), you will be told there, you have basically the choice between
+
+# a recursion (which implicitly uses the stack for storing the current "position" within the tree), or
+# an explicit stack representation, which has the advantage of also working iteratively.
+# With any amount of extra information, such as parent "pointers", using a stack can become obsolete
+altogether.
+
+[/import ../../../boost/tree/detail/algorithm/postorder.hpp]
+
+Boost.Tree offers you each of the options listed above, each found in a namepace indicating the respective
+traversal order. For option number 1, pass the (root cursor of the) subtree to be traversed to either of
+
+[/postorder_for_each]
+[/warning TODO: Use up-to-date Boostbook to embed current code snip form header files directly!]
+
+[funcref boost::tree::for_each for_each]
+
+The other two options are both invoked by constructing an `iterator` with a cursor as argument:
+
+[/warning FIXME: Invalid class reference]
+
+[classref boost::tree::iterator iterator]
+
+If the argument cursor is descending, the iterator that will be constructed will internally use a `std::stack`
+of cursors. If on the other hand the cursor is ascending (has a `parent` member function), the iterator 
+does not need such an explicit stack representation. Looking at textbook examples, 
+you will however notice that it does need one piece of extra information: normally in these examples, 
+there is a check if a given node's parent pointer is zero. There is no equivalent check possible with
+Boost.Tree, and in fact, it wouldn't even be desirable, as we also might want to traverse a subtree that
+is not equivalent to a "complete" tree object. Therefore, we need a second parameter beside the ascending
+cursor: an `int` indicating the "vertical" distance (or "generations") between the given cursor and the 
+root of the subtree it belongs to.
+
+[endsect] [/ Tree Traversal]
+
+[section Insertion and erasure semantics]
+Given the cursor semantics developed in the above section, the logically next step is to ask how 
+modifications of trees, i.e. in particular insertion and erasure operations are to be performed.
+Let us once again turn to existing "linear" STL concepts. The statement
+
+	container.insert(iter, value);
+
+conveys information via three parameters, thus creating three degrees of freedom
+for the insert statement of the given form, only two of which are really independent:
+
+# `value` is obviously completely independent from the container it is to be inserted into
+  and also from the iterator that indicates the position in front of which this is to happen.
+  (Apart from some compile-time constraints on type, of course.)
+# On the other hand, if `iter` does not point to an element of `container` 
+  (or past its end, i.e., is equal to `container.end()`), your code is going to segfault
+  during execution.
+
+Unfortunately, the latter issue (singularity) is a direct consequence of the `insert` 
+statement requiring at least three arguments (degrees of freedom); but any version that
+would require only two "really" independent parameters would also imply that one parameter
+conveys information about both what container to insert into and at what position to do so.
+As this would e.g. lead to iterators containing pointers to "their" containers 
+(which, in turn, take care of allocation and keep track of size and their `begin()` and 
+`end()` iterators) and thus 
+introduce considerable overhead, it was obviously not the insertion semantics
+chosen by the STL designers. It's nevertheless good to keep in mind that it's generally a good
+idea not to introduce too many degrees of freedom if they (partly) depend on each other.
+
+Turning to hierarchies, it is enlightening to consider the somewaht canonical
+(and minimum information) implementation of (binary tree) nodes containing 
+pointers to their (left and right) children (which, in case of forests, often become the 
+"left child" and "right sibling").
+How much information is needed to insert a value at an unambiguous position 
+within a tree?
+
+[warning TODO: Add some graphics!]
+
+# Again, the given `value`.
+# The node that is going to become the inserted value's right sibling 
+  (in analogy to the `iterator` parameter in linear STL container insert semantics).
+# The node that is going to be the inserted value's parent.
+# The hierarchy container the value is inserted into, assuming that we want it
+  to be the structure that is responsible for "administrative" issues 
+  (again in analogy to the linear STL containers).
+
+If the tree nodes do store more than just the essential minimum of information,
+certain items can be omitted (e.g. item 3 if nodes store pointers to their parents).
+In the general case, however, it seems we would need semantics like
+
+	tree.insert(parent, sibling, value);
+
+where `parent` and `sibling` are, consequently, `cursors`. Compared to linear
+containers, there are of course some more special cases that deserve special attention.
+
+Among the more interesting issues, `sibling` is a parameter that (for an acyclical tree)
+is partly dependent on `parent` - so passing a `parent` that is not actually `sibling`'s parent
+is likely to produce obscure errors. Moreover, if a node stores a pointer to their parent anyway,
+passing a `parent` link would be even redundant. For this and other reasons (detailed later),
+the semantics chosen here are
+
+	tree.insert(sibling, value);
+
+This implies that sibling also contains the information what its parent node is.
+In fact, the referential implementation has cursors contain a pointer to a
+node plus an index indicating what child node is actually referenced (0 being the leftmost etc). 
+This is especially useful in combination with the multiway tree navigation semantics
+introduced earlier, as it also realises the duality of cursors indicating a position
+not necessarily only within a hierarchy, but even within a node. Note that for
+nodes containing a parent pointer, the index could be omitted, with no spatial overhead
+introduced; only for nodes that do not contain a parent pointer, the index is really
+required. 
+
+[endsect] [/ Insertion and erasure semantics]
+
+[endsect] [/ Implementation]
+

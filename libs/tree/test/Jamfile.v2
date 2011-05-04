@@ -1,0 +1,54 @@
+#  Copyright (c) 2006-2009, Bernhard Reiter
+#
+#  Distributed under the Boost Software License, Version 1.0.
+#  (See accompanying file LICENSE_1_0.txt or copy at
+#  http:#www.boost.org/LICENSE_1_0.txt)
+
+using testing ;
+
+if ! $(BOOST_ROOT)
+{
+	BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
+}
+
+project :
+	:	requirements
+		<include>$(BOOST_ROOT)
+		<include>../../../
+#		<define>BOOST_TEST_DYN_LINK
+#		<define>BOOST_TEST_MAIN
+#		<link>shared
+#		<runtime-link>shared
+	;
+	
+test-suite tree :
+# Algorithms
+	[ run equal_test.cpp ]
+	[ run to_first_test.cpp ]
+	[ run to_last_test.cpp ]
+	[ run successor_test.cpp ]
+	[ run predecessor_test.cpp ]
+	[ run for_each_test.cpp ]
+##	[ run copy_test.cpp ]
+##	[ run transform_test.cpp ]
+#
+	[ run range_helpers_test.cpp ]
+	[ run binary_tree_test.cpp ]
+	[ run lower_bound_test.cpp ]
+	[ run upper_bound_test.cpp ]
+#	[ run key_search_binary_tree_test.cpp ]	
+#	[ run rank_search_binary_tree_test.cpp ]
+	[ run ascending_cursor_test.cpp ]
+	[ run horizontal_reverse_cursor_test.cpp ]
+	[ run insert_cursor_test.cpp ]
+	[ run algorithm_concepts_test.cpp ]	
+	[ run cursor_algorithm_test.cpp ]
+	[ run iterator_algorithm_test.cpp ]
+#	[ run red_black_tree_test.cpp ]
+	[ run treap_test.cpp ]
+	[ run forest_test.cpp ]
+#	[ run nary_tree_test.cpp ]
+	[ run multiway_tree_test.cpp ]
+	[ run balance_test.cpp ]
+#	[ run graph_test.cpp ]
+	;

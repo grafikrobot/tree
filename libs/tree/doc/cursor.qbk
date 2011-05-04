@@ -1,0 +1,211 @@
+[/ 
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ / 
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Cursor concepts documentation file.
+ /]
+
+[section Cursors]
+[section Overview]
+Cursors provide traversal and access mechanisms for navigation within a 
+[link boost_tree.concepts.hierarchy Hierarchy].
+Regarding their role and significance, cursors are to hierarchies what iterators are to established, 
+one-dimensional STL containers. 
+In fact, the Cursor concept is a refinement of the Iterator concept, or, more precisely, there is a
+Cursor concept corresponding to each of the existing [@http://www.sgi.com/tech/stl/Iterators.html Iterator]
+concepts. 
+Functionally, incrementing a cursor yields the next sibling of a given parent node's 
+(immediate) child (with corresponding results for decrementing and advancing operations, if present).
+
+Due to a tree's recursive, two-dimensional nature, and with iterators already catering for a given parent 
+node's child traversal, there still needs to be the aspect of vertical traversal accounted for;
+and as knowing the first and last child of a parent node is the natural complement to the "iterator"
+part outlined above, a Cursor is also a refinement of a [@http://www.boost.org/libs/range/index.html 
+Range] (it's not a Container because it doesn't own its children -- otherwise destroying a Cursor would 
+cause its immediate children, and, by recursive consequence, all its descendants to be destroyed as well).
+
+This design allows cursors to decouple their value (yielded by a dereference operation)
+
+[endsect] [/ Overview]
+
+
+[section Horizontal Traversal Cursors]
+TODO: Do we want cursors that can't be incremented to yield their next sibling?
+[table Horizontal Traversal Cursor Conceptual Requirements
+	[	
+		[Cursor concept]	
+		[Iterator concept refined]
+		[Range concept refined]
+	]
+	[	
+		[Horizontal Forward Cursor]
+		[[@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators Forward Traversal Iterator]]
+		[[@http://www.boost.org/libs/range/doc/range.html#forward_range Forward Range]]
+	]
+	[
+		[Horizontal Bidirectional Cursor]
+		[[@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators Bidirectional Traversal Iterator]]
+		[[@http://www.boost.org/libs/range/doc/range.html#bidirectional_range Bidirectional Range]]
+	]
+	[
+		[Horizontal Random Access Cursor]
+		[[@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators Random Access Traversal Iterator]]
+		[[@http://www.boost.org/libs/range/doc/range.html#random_access_range Random Access Range]]
+	]
+]
+
+[caution We still need `max_size()`; what about `swap()`, `iter_swap()`?]
+[caution `parity(a)`: linear in `parent(a)`'s children, O(1) for random access?]
+
+[caution Modification of empty() semantics... (valid for all types of tree?)]
+
+[caution Reverse cursors conceal `end()` (as `rbegin()` points actually to the last element, not
+one position behind, which is required for Multiway search to work.]
+
+Each row in the following table lists types, that, whenever present, are defined to be identical (the 
+ones in the latter two columns as introduced by the respective Iterator Traversal and Range Concepts):
+
+(The `cursor_*` types are in `namespace boost::tree`)
+
+[table Type equivalences
+	[
+		[Cursor]
+		[Iterator Traversal]	
+		[Range]
+	]
+	[
+		[`X` iff `X` is mutable]
+		[-]
+		[`boost::range_iterator<X>::type`]
+	]
+	[
+		[`X` iff `X` is `const`]
+		[-]
+		[`boost::range_const_iterator<X>::type`]
+	]
+	[
+		[-]
+		[`iterator_traits<X>::value_type`]
+		[`boost::range_value<X>::type`]
+	]
+	[
+		[-]
+		[`iterator_traits<X>::difference_type`]
+		[`boost::range_difference<X>::type`]
+	]
+]
+
+[endsect] [/ Horizontal Traversal Cursors ]
+
+[section Vertical Traversal Cursors]
+
+[section Vertical Forward Cursor]
+
+[table Valid Expressions
+	[
+		[Name]
+		[Expression]
+		[Return type]
+	]
+	[
+		[Vertical forward tag]
+		[`cursor_vertical_traversal<X>::type`]
+		[convertible to `forward_traversal_tag`]
+	]
+]
+[endsect] [/ Vertical Forward Cursor]
+
+
+[section Vertical Bidirectional Cursor]
+[table Valid Expressions
+	[
+		[Name]
+		[Expression]
+		[Return type]
+	]
+	[
+		[Parent cursor]
+		[`parent(a)`]
+		[`X`]
+	]
+	[
+		[Vertical bidrectional traversal tag]
+		[`cursor_vertical_traversal<X>::type`]
+		[convertible to `bidirectional_traversal_tag`]
+	]
+]
+
+[variablelist Complexity guarantees
+	[[`parent(a)`]	[Linear in the number of `parent(a)`'s immediate children]]
+]
+[endsect] [/ Vertical Bidirectional Cursor]
+
+[caution Use newly defined tags instead? How name them appropriately? `top_down` vs. `top_down_bottom_up`?
+Sounds ridiculously complex. And should we give other complexity guarantees (esp. for parent)?]
+
+[endsect] [/ Vertical Traversal Cursors ]
+
+
+[section Multiway Tree Cursors]
+A Multiway Cursor does not point to a ['node], but to a ['position within a node]
+(which often corresponds to a value); this difference might, at first glance and with only binary trees or 
+forests in mind, seem a little forced or even inappropriate -- but it gets justified as soon as one takes 
+Multiway Trees into consideration, and still offers powerful semantics when applied to binary trees.
+
+[caution get their max_size as a ctor parameter]
+
+[endsect] [/ Tree Cursors]
+
+[
+
+[section Binary Tree Cursors]
+[caution have a fixed arity/max_size]
+
+[caution Should they refine both multiway and forest? is that even possible?]
+
+[table Requirements
+	[
+		[Expression]
+		[Return type]
+		[Assertion/Pre-/Post-condition]
+	]
+	[	
+		[`cursor_arity<X>::type`]	
+		[convertible to `integral_constant<typename cursor_size<X>::type, 2>`]
+		[]
+	]
+	[
+		[`a.max_size()`]
+		[`boost::range_size<X>::type`]
+		[`a.max_size() == cursor_size<X>::type(typename cursor_arity<X>::type)`]
+			
+	]
+	[
+		[`a.rotate()`]
+		[]
+		[]
+			
+	]
+]
+[endsect] [/ N-ary Cursors ]
+
+[section Trie Cursor]
+[caution Is that much more than a slightly crippled multiway with c.end().empty() always? ]
+[endsect]
+
+[section TST Cursor]
+[endsect]
+
+[section Forest Cursor]
+[caution Can only forests and binary trees do pre/postorder traversal?]
+[endsect]
+
+
+
+[endsect] [/  Cursors ]

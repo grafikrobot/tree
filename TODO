@@ -1,0 +1,236 @@
+[/ 
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / TODO file; part of documentation also.
+ /]
+ 
+[section TODO]
+
+General:
+* iterator<postorder> probably needs to be overloaded and to contain a bool indicating if we're
+  dealing with "end" when we're at the root
+* In most algorithms, calls to index(c) appear after a c.to_parent() operation, so for 
+  increased effciency, we need a to_parent_return_index(c) function.
+* Fix binary_tree_test (rotate)
+* Apply all binary_tree_test cchecks also to fake_binary_tree in order to check if semantics
+  are mapped properly.
+* Subforest algorithms: with a first and last parameter (which, for binary tree based
+  forests, should be passed through to the corresponding binary cursor algorithms.
+* Do we need to_{left|right}most_ancestor?
+* Do we need multiway and plain cursor "flavor" tags (for algorithms)?
+* In case of forest cursor, is_leaf() should really be empty().
+* Add algorithms for construction of a tree based on two ranges specifying its
+  pre-/in-/postorder linearization (see Knuth).
+* preorder_insert_cursor: hopefully easy to implement...
+* Add checks for correspondence of concepts and archetypes!
+* Re-do forest (again!).
+  This seems to raise one issue, though: subtree algorithms operate on subtree root cursors,
+  not ranges.
+   (They might, however, work for "subforests". Consult Austern's segmented 
+  iterators paper!)
+  They also work for the important special case in which forest consists of only one
+  subtree!
+* Fix cursor_archetype. Currently, there's trouble eg with constructors.
+* Remove a cursor's cursor, const_cursor, iterator and const_iterator typedefs?
+  The latter two only make sense in a range algorithm context, where they might actually be
+  useful. (The former two are just aliases for completeness' sake.)
+* Make Order the last (instead of first) parameter in algorithms? That way, we could
+  assume reasonable defaults while offering explicit choice (eg for size(), find(), 
+  maybe even copy(): default to preorder).
+* Implement descending_node; and corresponding cursor.
+* Fix freestanding index() and members (esp. wrt cursor facade and adaptor!)
+* Redo all that balance(==balanced_tree)/searcher stuff. Avoid redundancy, that is, make them both use 
+  balanceRs for whatever they're up to, but don't make searcher depend on balance.
+* Add a congruence check algorithm (compare shapes of subtrees; call it "similar()"?).
+* Finish moving algorithm checks etc. to fake_binary_tree.
+* Revisit binary_tree . Can it be usable for both balanced and forest trees and still be
+  "light-weight" at the same time? Solution: Introduce an "inorder_optimised_binary_tree" 
+  (with O(1) inorder first and last cursors, and possibly
+  inorder insert and erase functions) for use with balancers, but without splice member functions.
+  Iterators, however, have to go from both types of binary_tree.
+* Rename node/nary.hpp back to node/binary.hpp (really? what about ternary), and cleanup.
+* Extend and parametrize subtree tests (subtree root, subtree size).
+* Clean up node/cursor/binary_tree implementation.
+* Fix forest copy
+* Fix cursor archetypes: *order copy checks don't compile
+* Implement forest_tree::insert_above.
+* Revisit namespaces.
+* Move some of the secondary stuff to a util/ dir? Is that what they're used for?
+* Think of a couple good examples (draw inspiration eg from Wikipedia: Tree traversal
+  or CRLS) and include them in the docs. Maybe move some files from libs/test to
+  example.
+* Migrate to using Jamfile.v2 from Intrusive (already used in our libs/example dir)
+* Add performance checks (to a libs/perf/ directory).
+* Look into SOC 2008 projects dsearch (already using concepts from Boost.Tree) and 
+  spacial_indexing (with tree classes of its own)
+* Can't we really do without inorder_erase()?
+* Check if Cursor(balanced_tree_iterator) really has no is_root member()! (BOOST_STATIC_ASSERT?)
+* Revisit binary_tree inorder iterator functions
+* Possibly sort out some more concepts, like trees with "downwards" or "upwards" insertion
+  (insert()/insert_above()), trees with values only at the leaves (makes sense in combination
+  with "upwards" insertion"), etc.
+* Is it really a good idea to use InCursor::size_type for size(Cursor)?
+  For a binary_cursor, a boolean size_type would be enough - but
+  not for a subtree algorithm like this one. Maybe we need two different size_types for
+  cursor - a "children" one for iterator compatibility and a "subtree" one for
+  "larger scale".
+* Use the example trees form Knuth as test example data.
+* Write (internal/external?) adaptors for other tree libraries, as Kaspar Peeters' or
+  Adobe's.
+  * External: what would we need? next()/prior(), plus to_begin()/to_end()/to_parent(),
+    deref, ...?
+  * Compare to BGL: Is it possible to modify adapted graphs using graph semantics?
+    If not, adaptation within the BGL would only map inspecting (read-only) functions.
+    (Compare this again to container vs sequence; also look into graph concepts.)
+    Finally, mind the implications for internal/external adaptation; they might be
+    generalised, if the above assumption is true.
+* Make algorithms work with empty subtrees.
+  (Not necessarily! If that means a check for empty(), it's better to leave it to
+  the user!)
+* Investigate the lower_bound for search vs insert purposes problem.
+* Take care of inorder begin() for binary_tree<int>.  
+* Keep in mind it's not necessarily a good thing to have *order end() be the last element's
+  right child. For inorder and postorder, it seems like the subtree root is a better choice.
+  For preorder, things are pretty diffcult.
+* Do a unit test that creates a random tree with a given number of elements. 
+  Let the cursor based *order algorithms then copy its elements into linear structures 
+  and compare these linear structures to an iterator-based *order traversal.
+* Should const_cursor have cbegin(), cend() and cparent() members?
+* have `erase()` operations return cursor/iterator instead of void (as in new STD)
+* We might need still more binary_tree members for more efficient functions operating on
+  ranges...
+* `insert()` and `erase()` semantics need reworking. For instance, Proposal 23.X.4.1.4 §2 
+  (and related for deletion and multiway tree insertion/deletion) are way too convoluted
+  for a really basic operation. Still, it's important to consider special cases such as
+  root nodes and fields of use such as `forest_trees`; but for the latter, something similar
+  as inorder_insert might come in handy.
+* Add (inorder-)threaded binary trees?? Are they useful? Can they be balanced?
+  They'd surely be interesting for experimenting with algorithms!
+* Start an RFC: what subtree algorithms should there be? In particular, of which of
+  the STL's linear algorithms should there be a hierarchical version?
+
+Testing:
+* Re-merge algorithm tests into algorithm_test.cpp after they're all tidied up?
+* Clean up binary_tree_test
+* Re-organize traversal tests:
+  * Verify algorithms to work
+    * 1. with at least one tree filled with given data
+    * 2. with an empty tree
+  Minimize possible points of failure, ie always compare to pre-defined test data.
+
+Testing tools:
+* Possibly calculate *order positions from level order indices
+  as of fake_binary_tree. Possibly change fake_binary_tree internal representation to a 
+  vector<bool> with indices indicating the level order position (and also the value),
+  and values indicating "empty or not".
+  
+Performance tests:
+* Implement a real output cursor (if possible) and use copy(preorder(), ...) to build a new tree.
+  Then, do some performance measurements comparing
+  * Different *orders;
+  * BOOST_RECURSIVE_ORDER_ALGORITHMS on and off;
+  * cursor and iterator based algorithms (from Boost.Tree and the STL, respectively)
+  Do these measurements also with algorithms other than copy.
+
+Pre-release:
+* Look into 
+  * boost/graph/tree_traits.hpp
+  * Matt Austern's segmented iterators paper (maybe relevant for level order algos).
+* Make directory structure reflect namespaces and vice versa.
+* Cleanup headers/ #include dependencies, whitespace, indentation.
+* Run Boost Inspect.
+
+Future: 
+* Exception safety?
+* Thread safety?
+* Add cool constructors/assignment à la C++0x, ie (nested) parentheses or Boost.Assign.
+* Do we need cursors that are not iterators, ie that provide to_begin() and to_end 
+  (and possibly to_parent()) operations, but not operator++() and --?
+* Optimise insert_cursor for use with binary_tree insert and copy ctor 
+  (preorder copy; ideally, we can guarantee RAII for every single element)
+  and clear/dtor (postorder for_each).
+* Deprecate non-preorder insert cursors.
+* Implement "flat" (sequential *order representation) trees (cf. Knuth, Fundamental Algorithms,
+  pp. 348--351). Possibly useful for automated testing of "real" (binary, forest) trees.
+
+Ask on the mailing list:
+
+* (iterator) Can we get rid of the need to declare iterator_core_access a friend (as we're already 
+  doing so with cursor_core_access, this should be enough).
+* (property_map): any need for an extract_property_map?
+
+Proposal:
+
+* Can we just build the proposal from doxygen and quickbook parts?
+* Change parity/parent complexity requirements at least for binary_tree::cursor? - See newsgroup thread.
+* Change complexity requirements for * order end() to constant? We're using root(), and
+  for postorder begin() - which is also root() - it's already constant. Then again, how much
+  do we cater for "pathological" implementations (and not so pathological ones, like 
+  threaded trees)?
+* Write a cursor_facade, cursor_adaptor, ascending_cursor, root_tracking_cursor
+  (and output_cursor_iterator_wrapper? etc.) proposal.
+* Add a revision log:
+ * Add to_parent() (replaces operator!()), to_begin() and to_end() descending cursor members.
+ * Remove shoot(), size() (rationale for size(): see std::list::size() O(n) vs O(1) discussion,
+   esp the Howard Hinnant comments, http://home.twcny.rr.com/hinnant/cpp_extensions/On_list_size.html )
+ * Change some occurences of "vector" (oops) to the respective tree type.
+ * cursor's begin(), end() and parent() members now only return cursor, same for const_cursor.
+  (This somewhat breaks with container requirements, but it makes sense this way.)
+* Add InputCursor requirements: binary cursor if it's a binary_tree member function, etc.
+* Cursor validity after insertion/erasure/clearing
+* Possibly rename ascending to hierarchy cursor? (because of other uses for ascending/cursors in a graph context)
+* Remove operator* requirement? (for upward-growing trees with data only on the bottom level --- like B+trees)
+* Refactor balancer section to map implementation 
+	(balanced_tree template class using policies -- like red_black -- from namespace balancers)
+* Add new metadata approach
+* Add inorder_erase to balanced_tree requirements
+
+Implementation:
+
+* Implement remaining (binary_tree) balancers, augmentors
+* Implement forest. Can its cursor type have an O(1) parent()?
+* Implement nary_tree, multiway_tree, b_tree, b_star_tree
+* Add tests for and rework
+	* binary_tree: subtree insert; splice operations
+	* red_black
+	* searcher
+* Concept checks.
+* Interoperability with BGL algorithms.
+* C++09: Add template typedefs (e.g. red_black_tree is balanced_tree<red_black_balancer, binary_tree>)
+
+Documentation:
+
+* Add images - there's quite a lot of public domain tree related stuff on Wikipedia!
+  (acknowledge their authors).
+* algorithms.qbk is rather pointless right now. Better use doygen for
+  an algorithm group.
+* Add a rationale for binary tree cursor semantics.
+* Make docs more coherent. If we're using doxygen for API documentation, don't
+  duplicate that information via quickbook!
+* Include examples output (requires some Jamfile tweaking)!
+* Add a tree visualisation of the documentation structure (as some kind of frontispiece)
+  to the docs!
+* Add FAQ
+  * How can I visualise a tree, eg as SVG image?
+* Take a look at BGL docs; they seem to be really well structured and written.
+* Add some illustrations (also for mapping how concepts relate to each other)
+* Overview: develop hierarchy/cursor concept step by step, using illustrations that 
+  depict what is introduced at what step (nodes with pointers to their siblings, children, parents,
+  a frame around a given cursor [and possibly additionally required information stated]
+  that signifies what amount of information is contained within that cursor.
+
+Further applications:
+
+* Implement associative containers and priority_queue specialization using searcher
+* Implement (binary) heap
+* Is it possible to implement BGL's traversal algorithms using tree semantics?
+* Trie
+
+[endsect]

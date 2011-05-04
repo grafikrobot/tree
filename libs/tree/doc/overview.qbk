@@ -1,0 +1,72 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Overview documentation file.
+ /]
+
+
+[section Overview]
+
+[section Motivation]
+Trees can be found in most fields of computer science. In C++, 
+[http://en.wikipedia.org/wiki/Self-balancing_binary_search_tree self-balancing binary search trees
+(SBBSTs)] are used in prominent implementations of the Standard Template Library's (STL) associative containers, ie
+`std::map`, `std::set` and their "multi" variants (Ref gcc?). But as we're only talking about implementations here,
+the actual trees aren't ever visible to a user of the STL. This of course already hints at the importance of
+trees plus at least one other level of indirection: trees for quick (O(log n)) associative storage and 
+retrieval of data.
+
+Furthermore, there are a couple of libraries that provide tree classes for the somewhat more obvious cases 
+in which the tree is not just an implementation detail, but where the actual hierarchical structure interface 
+is needed, eg for representing a directory hierarchy or an XML file.
+
+Existing efforts concerning C++ tree designs and implementations mostly try either to present somewhat 
+STL-compatible iterator-like types and tree classes for mapping the latter kind of external or "explicit" 
+structures (ref); or, on the other hand, untangle balancing mechanisms from key search and other 
+additional features (which are referred to as "augmenting" here, using the terminology from 
+[link cormen Cormen ['et al.]]). 
+At the time of this writing, no efforts are known to the author that would cater for both cases; and, as 
+an aspect of this fact, there are presently no efforts that try in turn to separate the underlying tree 
+structure or "topology" from searching, balancing and augmenting and open up its hierarchical interface.
+
+The present approach in providing a consistent framework for trees is arranged roughly around the following 
+principles:
+
+* ['Cursors] as a consequent continuation of the iterator concept for tree structures, abstracting the
+  usually underlying nodes.
+* ['Multiway tree search] as a generalization of binary tree search that in turn is viewed as a generalization
+of existing "linear" binary search algorithms (like `lower_bound`, `upper_bound` etc.) for STL containers.
+
+Note that this approach seeks to hide ['nodes] as much as possible from the library client, although they 
+play of course an important role in the assembly of a tree; nevertheless it was felt that they were not
+suitable for interface purposes. (Note e.g. that nodes are not as atomic an element for a tree as they
+might seem at first glance; in case of multiway trees, for example, each node contains a number of 
+values.)
+[endsect] [/ Motivation]
+
+[section Scope]
+Due to the nature of the fields of interest concerning trees (as opposed to their graph superset) in 
+computer science as well as the underlying technique, we implicitly mean a ['rooted ordered connected 
+acyclic graph] when we're
+talking about trees in the following.
+
+This includes, but is not limited to
+
+* Binary search trees; most notably, self-balancing ones, such as
+	* Red-black trees
+* B-trees
+* Ternary search trees
+* Forests, i.e. trees that aren't primarily used for searching but for mapping a hierarchical strucutre.
+...
+
+[endsect] [/ Scope]
+
+[endsect] [/ Overview]
+

@@ -1,0 +1,97 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Main documentation file.
+ /]
+
+[library Boost.Tree
+    [quickbook 1.4]
+    [authors [Reiter, Bernhard]]
+    [copyright 2006-2009 Bernhard Reiter]
+    [purpose Generic tree framework]
+    [license
+    		
+		Distributed under the Boost Software License, Version 1.0.
+		(See accompanying file LICENSE_1_0.txt or copy at
+		[@http://www.boost.org/LICENSE_1_0.txt])
+
+    ]
+]
+
+[def (tm) '''&#8482;''']
+[def __code_rep__ [@https://svn.boost.org/svn/boost/sandbox/SOC/2006/tree]]
+[def __browse_rep__ [@http://svn.boost.org/trac/boost/browser/sandbox/SOC/2006/tree]]
+
+[section Introduction]
+
+[caution This is not a Boost library (yet) but a work in progress that has not been reviewed 
+by the Boost community!]
+
+["Trees a pervasive in Computer Science and there are few programs that do not use a tree data-structure 
+in some form or another. The C++ standard library, however, does not provide a low-level tree-container.]
+--[@http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?Google_Summer_Of_Code_2006#TREE]
+
+[section Abstract]
+
+A well-known STL example, practically all known associative container ([multi_]{map|set}) implementations
+use a [@http://en.wikipedia.org/wiki/Red-black_tree red-black tree] as underlying structure to take care
+of the required sorting and searching. But binary search trees like red-black ones, however important, 
+are not the only genre of tree one is likely to encounter: apart from B-trees, tries or ternary search 
+tree that usually have similar purposes (i.e. to provide a structure for quick -- normally O(log n) -- 
+data retrieval and storage), trees might just map a given external structure most naturally (e.g. file 
+hierarchies or xml files).
+
+[endsect] [/Abstract]
+
+[section Download]
+
+This library's current state is only available via [@http://subversion.tigris.org/ svn] from the
+Boost Sandbox repository at __code_rep__.
+(This obsoletes the old Boost Consulting repository for Google Summer of Code 2006(tm) at
+ https://www.boost-consulting.com/svn/main/boost/soc/2006.) The source code can be 
+browsed online at __browse_rep__.
+
+A [@http://boost-consulting.com/vault/index.php?action=downloadfile&filename=tree-soc2006.zip&directory=Containers& snapshot]
+ of the final GSoC 2006 state (kindly provided by René Rivera) can be found at the 
+[@http://boost-consulting.com/vault/ Boost Vault].
+
+[endsect] [/Download]
+
+[section Proposal]
+TR2 Proposal text: [@n2101.html Tree Structures and Related Concepts for the C++ Standard Library (TR2)]
+(submitted as [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2101.html N2101] for TR2)
+[endsect]
+
+[section Acknowledgements]
+
+This library originated in [@http://code.google.com/soc/2006/boost/appinfo.html?csaid=E17EA7C7C537C131 one]
+out of [@http://code.google.com/soc/2006/boost/about.html ten] [@http://www.boost.org/ Boost] projects 
+sponsored by [@http://www.google.com Google] during their [@http://code.google.com/soc/2006 Summer of Code 2006]. 
+It was mentored by [@http://www.boost.org/people/rene_rivera.htm René Rivera].
+
+Kudos to DHL for forwarding my second check from rainy Vienna airport, Austria (30 minutes ride from 
+my place) on to Dubai, UAE, so it could catch some sun first.
+
+[endsect] [/Acknowledgements]
+
+[endsect] [/Introduction]
+
+[include overview.qbk]
+[include tutorial.qbk]
+
+[include concepts.qbk]
+[include algorithms.qbk]
+
+[/include proposal.qbk]
+[include implementation.qbk]
+[include glossary.qbk]
+[include references.qbk]
+[include ../../../TODO]
+[xinclude autodoc.xml]

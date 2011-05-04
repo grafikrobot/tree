@@ -1,0 +1,160 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Concepts documentation file.
+ /]
+
+
+ 
+[section Hierarchy]
+
+[section Description]
+A Hierarchy is in many aspects very similar to a [@http://www.sgi.com/tech/stl/Container.html Container]; 
+due to its hierarchical structure, it however needs a traversal mechanism different from the 
+one-dimensional one an [@http://www.sgi.com/tech/stl/Iterators.html Iterator] provides. Instead, a 
+[link boost_tree.concepts.cursor Cursor] is used (which is the reason why it refines neither Container
+nor Range). Note that the name `iterator` was deliberately not chosen to typedef cursor in order to
+allow for classes to model both Hierarchy and Container without name collisions.
+[endsect] [/ Description]
+
+[section Refinement of]
+[@http://www.sgi.com/tech/stl/Assignable.html Assignable], 
+[@http://www.sgi.com/tech/stl/CopyConstructible.html CopyConstructible]
+[endsect] [/ Refinement of]
+
+[section Associated Types]
+[note In the following tables, `X` is a type that models Hierarchy; `a` is an object of type `X`; 
+and `hierarchy_*` templates are in `namespace boost::tree`]
+
+[table Associated Types. 
+	[
+		[Type]
+		[Name]
+		[Description]
+	]
+	[
+		[Value type]
+		[`hierarchy_value<X>::type`]
+		[The type of the object stored in a hierarchy. The value type must be [@http://www.sgi.com/tech/stl/Assignable.html Assignable], but need not be [@http://www.sgi.com/tech/stl/DefaultConstructible.html DefaultConstructible][footnote [#typedef] This expression must be a `typedef`, that is, a synonym for a type that already has some other name.]]
+	]
+	[
+		[Cursor type]
+		[`hierarchy_cursor<X>::type`]
+		[The type of cursor used to move through a hierarchy's elements. The iterator's value type is expected to be the container's value type. A conversion from the cursor type to the const cursor type must exist. '''['''[link typedef a]''']''' ]
+	]
+	[
+		[Const cursor type]
+		[`hierarchy_const_cursor<X>::type`]
+		[A type of cursor that may be used to examine, but not to modify, a hierarchy's elements. ]
+	]
+	[
+		[Reference type]	
+		[`hierarchy_cursor<X>::reference`]
+		[A type that behaves as a reference to the hierarchy's value type.]
+	]
+	[
+		[Const reference type]
+		[`hierarchy_const_reference<X>::type`]
+		[A type that behaves as a const reference to the hierarchy's value type.]
+	]
+	[
+		[Pointer type]
+		[`hierarchy_pointer<X>::type`]
+		[A type that behaves as a pointer to the hierarchy's value type.]
+	]
+	[
+		[Distance type]
+		[`hierarchy_difference<X>::type`]
+		[A signed integral type used to represent the distance between two of the hierarchy's cursors. This type must be the same as the cursor's distance type.]
+	]
+	[
+		[Size type]
+		[`hierarchy_size<X>::type`]
+		[An unsigned integral type that can represent any nonnegative value of the hierarchy's distance type.]
+	]
+]
+
+[endsect] [/ Associated Types]
+
+[section Expressions]
+
+[note The methods in the "Expression" columns in the following tables are in `namespace boost::tree`]
+
+[table Valid Expressions
+	[
+		[Name]
+		[Expression]
+		[Return type]
+	]
+	[
+		[Hierarchy's root]
+		[`root(a)`]
+		[`hierarchy_cursor<X>::type` if `a` is mutable, `hierarchy_const_cursor<X>::type` otherwise]
+	]
+	[
+		[Is the hierarchy empty?]
+		[`empty(a)`]
+		[`bool`]
+	]
+]
+
+[table Expression semantics
+	[
+		[Expression]
+		[Semantics]
+		[Postcondition]
+	]
+	[
+		[`root(a)`]
+		[Returns a cursor pointing to the root element in the hierarchy]
+		[`root(a)` is either dereferenceable or `empty(a)` is true.]
+	]
+	[
+		[`empty(a)`]
+		[]
+		[-]
+	]
+]
+
+[caution The following fine?]
+
+[variablelist Complexity guarantees
+    [[`root(a)`]		[O(1)]]
+    [[`empty(a)`]	[O(log(n))]]
+]
+
+Invariants? Completeness could e.g. be done via preorder traversal
+But preorder for multiway?
+
+[endsect] [/ Valid expressions]
+
+
+
+
+[/ The ['size] of a hierarchy is the number of elements it contains. The size is a nonnegative number.]
+
+
+[endsect] [/ Hierarchy]
+
+[section Multiway Hierarchy]
+
+[section Refinement of]
+[link boost_tree.concepts.hierarchy Hierarchy]
+[endsect] [/ Refinement of]
+
+
+[caution Need to keep in mind that MultiwayHierarchies are almost exclusively used for searching!]
+
+[variablelist Complexity guarantees
+    [[`empty(a)`]	[O(1)]]
+]
+
+
+[endsect] [/ Multiway Hierarchy]

@@ -1,0 +1,95 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /
+ //////////////////////////////////////////////////////////////////////////////////////////////
+ /
+ / Boost.Tree
+ / Algorithms documentation file.
+ /]
+
+[import ../../../boost/tree/algorithm.hpp]
+[import ../../../boost/tree/general_algorithms.hpp]
+[import ../../../boost/tree/inorder_algorithms.hpp]
+[import ../example/for_each.cpp]
+
+[section Algorithms]
+
+While STL algorithms operate on (at least a pair of) iterators, for hierarchic structures
+as trees it is just natural to operate on a subtree which in turn are referenced by their
+"subtree root" cursor.
+
+Contrarily to iterator-based algorithms that normally just traverse a range given by two
+iterators starting at the first element linearly and terminating past the last element,
+there is no one such "natural" traversal for subtrees.
+
+There are, conversely, several different methods how to traverse a (sub)tree - one 
+has to choose eg whether to "visit" an element before, between or after its descendants.
+
+These three types of traversal are called /preorder/, /inorder/ and /postorder/, and 
+consequently, an algorithm can come in each out of these three flavors 
+(and many algorithms will come in all three). To indicate what version is desired,
+an instance of the corresponding type is passed as the first argument to the 
+algorithm.
+
+Algorithms can be used via
+
+[for_each_include_algorithm]
+
+TODO: Include illustration of example data tree.
+
+[section General Algorithms]
+
+[section equal]
+[equal]
+[equal_pred]
+[funcref boost::tree::equal Reference]
+[endsect] [/ equal]
+
+[section size]
+[size]
+[funcref boost::tree::size Reference]
+[endsect] [/ size]
+
+[endsect] [/ General Algorithms]
+
+[section Pre-, In-, and Postorder Algorithms]
+
+[section for_each]
+[for_each]
+[funcref boost::tree::for_each Reference]
+
+[section Example]
+[for_each_example]
+[endsect] [/Example]
+[endsect] [/for_each]
+
+[section copy]
+[copy]
+[funcref boost::tree::copy Reference]
+[endsect] [/copy]
+
+[section transform]
+[transform]
+[funcref boost::tree::transform Reference]
+[endsect] [/transform]
+
+[endsect] [/ Pre-, In-, and Postorder Algorithms]
+
+[section Inorder Binary Tree Search (BTS) Algorithms]
+[lower_bound]
+[lower_bound_cmp]
+
+[funcref boost::tree::lower_bound lower_bound reference]
+
+[upper_bound]
+[upper_bound_cmp]
+
+[funcref boost::tree::upper_bound upper_bound reference]
+
+[endsect] [/ Inorder Binary Search Algorithms]
+
+[endsect] [/ Algorithms]
