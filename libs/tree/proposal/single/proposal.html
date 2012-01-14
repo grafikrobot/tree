@@ -1,0 +1,1142 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title><style type="text/css">
+
+/********************************/
+/* start of styles in block.xsl */
+
+.formalpara-title {
+  font-weight: bold;
+}
+
+div.blockquote-title {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgmain-title {
+  font-weight: bold;
+}
+
+span.msgsub-title {
+  font-weight: bold;
+}
+
+span.msgrel-title {
+  font-weight: bold;
+}
+
+div.msglevel, div.msgorig, div.msgaud {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msglevel-title, span.msgorig-title, span.msgaud-title {
+  font-weight: bold;
+}
+
+div.msgexplan {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+span.msgexplan-title {
+  font-weight: bold;
+}
+
+/* end of styles in block.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in autotoc.xsl */
+
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+/* end of styles in autotoc.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in formal.xsl */
+
+div.figure-title {
+  font-weight: bold;
+}
+
+div.example-title {
+  font-weight: bold;
+}
+
+div.equation-title {
+  font-weight: bold;
+}
+
+div.table-title {
+  font-weight: bold;
+}
+
+div.sidebar-title {
+  font-weight: bold;
+}
+
+
+/* end of styles in formal.xsl */
+/********************************/
+
+/********************************/
+/* start of styles in verbatim.xsl */
+
+div.programlisting {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.screen {
+  white-space: pre;
+  font-family: monospace;
+}
+
+div.synopsis {
+  white-space: pre;
+  font-family: monospace;
+}
+
+/* end of styles in verbatim.xsl */
+/********************************/
+</style><style type="text/css">
+/*=============================================================================
+    Copyright (c) 2004 Joel de Guzman
+    Copyright (c) 2011-2012 Rene Rivera
+
+    Use, modification and distribution is subject to the Boost Software
+    License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+    http://www.boost.org/LICENSE_1_0.txt)
+=============================================================================*/
+
+/*=============================================================================
+    Body defaults
+=============================================================================*/
+body {
+	margin: 1em;
+	font-family: sans-serif;
+}
+
+/*=============================================================================
+    Paragraphs
+=============================================================================*/
+p {
+	text-align: left;
+	font-size: 10pt;
+	line-height: 1.15;
+}
+
+/*=============================================================================
+    Program listings
+=============================================================================*/
+
+/* Code on paragraphs */
+p tt.computeroutput {
+	font-size: 9pt;
+}
+
+pre.synopsis {
+	font-size: 90%;
+	margin: 1pc 4% 0pc 4%;
+	padding: 0.5pc 0.5pc 0.5pc 0.5pc;
+}
+
+.programlisting,.screen {
+	font-size: 9pt;
+	display: block;
+	margin: 1pc 4% 0pc 4%;
+	padding: 0.5pc 0.5pc 0.5pc 0.5pc;
+}
+
+/* Program listings in tables don't get borders */
+td .programlisting,td .screen {
+	margin: 0pc 0pc 0pc 0pc;
+	padding: 0pc 0pc 0pc 0pc;
+}
+
+/*=============================================================================
+    Headings
+=============================================================================*/
+h1,h2,h3,h4,h5,h6 {
+	text-align: left;
+	margin: 1em 0em 0.5em 0em;
+	font-weight: bold;
+}
+
+h1 {
+	font: 140%
+}
+
+h2 {
+	font: bold 140%
+}
+
+h3 {
+	font: bold 130%
+}
+
+h4 {
+	font: bold 120%
+}
+
+h5 {
+	font: italic 110%
+}
+
+h6 {
+	font: italic 100%
+}
+
+/* Top page titles */
+title,h1.title,h2.title
+    h3.title,h4.title,h5.title,h6.title,.refentrytitle {
+	font-weight: bold;
+	margin-bottom: 1pc;
+}
+
+h1.title {
+	font-size: 140%
+}
+
+h2.title {
+	font-size: 140%
+}
+
+h3.title {
+	font-size: 130%
+}
+
+h4.title {
+	font-size: 120%
+}
+
+h5.title {
+	font-size: 110%
+}
+
+h6.title {
+	font-size: 100%
+}
+
+.section h1 {
+	margin: 0em 0em 0.5em 0em;
+	font-size: 140%;
+}
+
+.section h2 {
+	font-size: 140%
+}
+
+.section h3 {
+	font-size: 130%
+}
+
+.section h4 {
+	font-size: 120%
+}
+
+.section h5 {
+	font-size: 110%
+}
+
+.section h6 {
+	font-size: 100%
+}
+
+/* Code on titles */
+h1 tt.computeroutput {
+	font-size: 140%
+}
+
+h2 tt.computeroutput {
+	font-size: 140%
+}
+
+h3 tt.computeroutput {
+	font-size: 130%
+}
+
+h4 tt.computeroutput {
+	font-size: 120%
+}
+
+h5 tt.computeroutput {
+	font-size: 110%
+}
+
+h6 tt.computeroutput {
+	font-size: 100%
+}
+
+/*=============================================================================
+    Author
+=============================================================================*/
+h3.author {
+	font-size: 100%
+}
+
+/*=============================================================================
+    Lists
+=============================================================================*/
+li {
+	font-size: 10pt;
+	line-height: 1.3;
+}
+
+/* Unordered lists */
+ul {
+	text-align: left;
+}
+
+/* Ordered lists */
+ol {
+	text-align: left;
+}
+
+/*=============================================================================
+    Links
+=============================================================================*/
+a {
+	text-decoration: none; /* no underline */
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/*=============================================================================
+    Spirit style navigation
+=============================================================================*/
+.spirit-nav {
+	text-align: right;
+}
+
+.spirit-nav a {
+	color: white;
+	padding-left: 0.5em;
+}
+
+.spirit-nav img {
+	border-width: 0px;
+}
+
+/*=============================================================================
+    Table of contents
+=============================================================================*/
+.toc {
+	margin: 1pc 4% 0pc 4%;
+	padding: 0.1pc 1pc 0.1pc 1pc;
+	font-size: 80%;
+	line-height: 1.15;
+}
+
+.boost-toc {
+	float: right;
+	padding: 0.5pc;
+}
+
+/*=============================================================================
+    Tables
+=============================================================================*/
+.table-title,div.table p.title {
+	margin-left: 4%;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
+}
+
+.informaltable table,.table table {
+	width: 92%;
+	margin-left: 4%;
+	margin-right: 4%;
+}
+
+div.informaltable table,div.table table {
+	padding: 4px;
+}
+
+/* Table Cells */
+div.informaltable table tr td,div.table table tr td {
+	padding: 0.5em;
+	text-align: left;
+	font-size: 9pt;
+}
+
+div.informaltable table tr th,div.table table tr th {
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	border: 1pt solid white;
+	font-size: 80%;
+}
+
+/*=============================================================================
+    Blurbs
+=============================================================================*/
+div.note,div.tip,div.important,div.caution,div.warning,p.blurb {
+	font-size: 9pt; /* A little bit smaller than the main text */
+	line-height: 1.2;
+	display: block;
+	margin: 1pc 4% 0pc 4%;
+	padding: 0.5pc 0.5pc 0.5pc 0.5pc;
+}
+
+p.blurb img {
+	padding: 1pt;
+}
+
+/*=============================================================================
+    Variable Lists
+=============================================================================*/
+
+/* Make the terms in definition lists bold */
+div.variablelist dl dt,span.term {
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+div.variablelist table tbody tr td {
+	text-align: left;
+	vertical-align: top;
+	padding: 0em 2em 0em 0em;
+	font-size: 10pt;
+	margin: 0em 0em 0.5em 0em;
+	line-height: 1;
+}
+
+div.variablelist dl dt {
+	margin-bottom: 0.2em;
+}
+
+div.variablelist dl dd {
+	margin: 0em 0em 0.5em 2em;
+	font-size: 10pt;
+}
+
+div.variablelist table tbody tr td p,div.variablelist dl dd p {
+	margin: 0em 0em 0.5em 0em;
+	line-height: 1;
+}
+
+/*=============================================================================
+    Misc
+=============================================================================*/
+
+/* Title of books and articles in bibliographies */
+span.title {
+	font-style: italic;
+}
+
+span.underline {
+	text-decoration: underline;
+}
+
+span.strikethrough {
+	text-decoration: line-through;
+}
+
+/* Copyright, Legal Notice */
+div div.legalnotice p {
+	text-align: left
+}
+
+/*=============================================================================
+    Colors
+=============================================================================*/
+@media screen { /* Links */
+	a {
+		color: #005a9c;
+	}
+	a:visited {
+		color: #9c5a9c;
+	}
+	h1 a,h2 a,h3 a,h4 a,h5 a,h6 a,h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,h1 a:visited,h2 a:visited,h3 a:visited,h4 a:visited,h5 a:visited,h6 a:visited
+		{
+		text-decoration: none; /* no underline */
+		color: #000000;
+	}
+
+	/* Syntax Highlighting */
+	.keyword {
+		color: #0000AA;
+	}
+	.identifier {
+		color: #000000;
+	}
+	.special {
+		color: #707070;
+	}
+	.preprocessor {
+		color: #402080;
+	}
+	.char {
+		color: teal;
+	}
+	.comment {
+		color: #800000;
+	}
+	.string {
+		color: teal;
+	}
+	.number {
+		color: teal;
+	}
+	.white_bkd {
+		background-color: #FFFFFF;
+	}
+	.dk_grey_bkd {
+		background-color: #999999;
+	}
+
+	/* Copyright, Legal Notice */
+	.copyright {
+		color: #666666;
+		font-size: small;
+	}
+	div div.legalnotice p {
+		color: #666666;
+	}
+
+	/* Program listing */
+	pre.synopsis {
+		border: 1px solid #DCDCDC;
+	}
+	.programlisting,.screen {
+		border: 1px solid #DCDCDC;
+	}
+	td .programlisting,td .screen {
+		border: 0px solid #DCDCDC;
+	}
+
+	/* Blurbs */
+	div.note,div.tip,div.important,div.caution,div.warning,p.blurb {
+		border: 1px solid #DCDCDC;
+	}
+
+	/* Table of contents */
+	.toc {
+		border: 1px solid #DCDCDC;
+	}
+
+	/* Tables */
+	div.informaltable table tr td,div.table table tr td {
+		border: 1px solid #DCDCDC;
+	}
+	div.informaltable table tr th,div.table table tr th {
+		background-color: #F0F0F0;
+		border: 1px solid #DCDCDC;
+	}
+
+	/* Misc */
+	span.highlight {
+		color: #00A000;
+	}
+}
+
+@media print { /* Links */
+	a {
+		color: black;
+	}
+	a:visited {
+		color: black;
+	}
+	.spirit-nav {
+		display: none;
+	}
+
+	/* Program listing */
+	pre.synopsis {
+		border: 1px solid gray;
+	}
+	.programlisting,.screen {
+		border: 1px solid gray;
+	}
+	td .programlisting,td .screen {
+		border: 0px solid #DCDCDC;
+	}
+
+	/* Table of contents */
+	.toc {
+		border: 1px solid gray;
+	}
+	.informaltable table,.table table {
+		border: 1px solid gray;
+		border-collapse: collapse;
+	}
+
+	/* Tables */
+	div.informaltable table tr td,div.table table tr td {
+		border: 1px solid gray;
+	}
+	div.informaltable table tr th,div.table table tr th {
+		border: 1px solid gray;
+	}
+
+	/* Misc */
+	span.highlight {
+		font-weight: bold;
+	}
+}
+
+.tree_proposal>.section {
+	font-family: serif;
+}
+
+.tree_proposal>.section {
+	margin: 1em;
+	padding: 1em 0em 1em 1.5em;
+	border-top: 1px solid #888888;
+	border-bottom: 1px solid #888888;
+}
+
+.tree_proposal ol {
+	margin: 0em;
+	padding: 0em;
+}
+
+.tree_proposal ol li {
+	margin: 0em 0em 1em 0em;
+	padding: 0em 0em 0em 0em;
+}
+
+.tree_proposal table {
+	border: 1px solid;
+	margin: 0em auto 0em auto;
+	border-spacing: 0em;
+	width: inherit;
+	padding: 0em !important;
+}
+
+.tree_proposal .table .title,
+.tree_proposal .table-title {
+	font-weight: bold;
+	margin: 1em auto 1em auto;
+	text-align: center;
+	caption-side: top;
+}
+
+.tree_proposal table th {
+    border: none !important;
+    border-bottom: 1px solid !important;
+    padding: 0.25em 0.5em 0em 0.5em;
+    background: transparent !important;
+}
+.tree_proposal table th p {
+    text-align: center !important;
+}
+
+.tree_proposal table td {
+	border: none !important;
+	border-top: 1px solid !important;
+	vertical-align: top;
+	padding: 0.25em 0.5em 0em 0.5em;
+    background: transparent !important;
+}
+
+.tree_proposal .docref {
+	float: right;
+}
+
+.tree_proposal .docref dt {
+	float: left;
+	font-style: italic;
+}
+
+.tree_proposal .docref dd {
+	margin-left: 8em;
+}
+
+.tree_proposal h1,
+.tree_proposal h2,
+.tree_proposal h3,
+.tree_proposal h4,
+.tree_proposal h5,
+.tree_proposal h6 {
+	clear: both;
+}
+
+.tree_proposal .byline {
+	text-align: center;
+}
+
+.tree_proposal .note {
+    background: #EEEEEE;
+    border: 1px solid #AAAAAA;
+    padding: 0.25em;
+}
+.tree_proposal .note .title {
+	display: none;
+}
+.tree_proposal .note p {
+	margin: 0.25em 0em 0.25em 0em;
+}
+.tree_proposal .note table {
+    border: none;
+    margin: 0em;
+    padding: 0em;
+}
+.tree_proposal .note table td,
+.tree_proposal .note table th {
+    border: none !important;
+}
+
+.tree_proposal .add {
+	text-decoration: overline;
+}
+
+.tree_proposal h2 {
+	font-size: 150%
+}
+
+.tree_proposal h3,
+.tree_proposal h4,
+.tree_proposal h5,
+.tree_proposal h6 {
+	font-size: 100%;
+}
+
+.tree_proposal .section-id {
+	float: right;
+	position: relative;
+	top: -1.25em;
+}
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="chapter" title="Hierarchical Data Structures and Related Concepts for the C++ Standard Library" id="tree"><div class="titlepage"><div><div><h2 class="title">Hierarchical Data Structures and Related Concepts for the C++ Standard Library</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Bernhard</span> <span class="surname">Reiter</span></h3></div></div><div><div class="author"><h3 class="author"><span class="firstname">René</span> <span class="surname">Rivera</span></h3></div></div><div><p class="copyright">Copyright © 2006-2009 Bernhard
+      Reiter and René Rivera</p></div><div><div class="legalnotice" title="Legal Notice"><a name="tree.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p></div></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl><dt><span class="section"><a href="#tree.preamble">1. Hierarchical Data Structures and Related
+    Concepts for the C++ Standard Library</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.introduction">1.1. Introduction</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope">1.2. Motivation and Scope</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.why_is_this_important">1.2.1. Why
+        is this important?</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a">1.2.2. What
+        kinds of problems does it address, and what kinds of programmers is it intended
+        to support?</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.is_it_based_on_existing_practice">1.2.3. Is
+        it based on existing practice?</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.is_there_a_reference_implementat">1.2.4. Is
+        there a reference implementation?</a></span></dt></dl></dd><dt><span class="section"><a href="#tree.preamble.impact_on_the_standard">1.3. Impact on the Standard</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_">1.3.1. What
+        does it depend on, and what depends on it?</a></span></dt><dt><span class="section"><a href="#tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i">1.3.2. Is
+        it a pure extension, or does it require changes to standard components?</a></span></dt><dt><span class="section"><a href="#tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda">1.3.3. Can
+        it be implemented using today's compilers, or does it require language features
+        that will only be available as part of C++11</a></span></dt></dl></dd><dt><span class="section"><a href="#tree.preamble.important_design_decisions">1.4. Important Design
+      Decisions</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.important_design_decisions.why_did_you_choose_the_specific_">1.4.1. Why
+        did you choose the specific design that you did?</a></span></dt><dt><span class="section"><a href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid">1.4.2. What
+        alternatives did you consider, and what are the tradeoffs?</a></span></dt><dt><span class="section"><a href="#tree.preamble.important_design_decisions.what_are_the_consequences_of_you">1.4.3. What
+        are the consequences of your choices, for users and implementors?</a></span></dt><dt><span class="section"><a href="#tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im">1.4.4. What
+        decisions are left up to implementors?</a></span></dt><dt><span class="section"><a href="#tree.preamble.important_design_decisions.if_there_are_any_similar_librari">1.4.5. If
+        there are any similar libraries in use, how do their design decisions compare
+        to yours?</a></span></dt></dl></dd><dt><span class="section"><a href="#tree.preamble.future_directions">1.5. Future Directions</a></span></dt></dl></dd><dt><span class="section"><a href="#tree.proposal">2. Proposed Text for Technical Report 2</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.proposal.tr_containers">2.1. Containers library [tr.containers]</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.proposal.tr_containers.tr_hierarchy">2.1.1. Hierarchy
+        containers [tr.hierarchy]</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.proposal.tr_containers.tr_hierarchy.tr_hierarchy_req">2.1.1.1. Hierarchy
+          container requirements [tr.hierarchy.req]</a></span></dt></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#tree.references">3. References</a></span></dt></dl></div><div class="section tree_preamble" title="1. Hierarchical Data Structures and Related Concepts for the C++ Standard Library"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.preamble">1. <a class="link" href="#tree.preamble" title="1. Hierarchical Data Structures and Related Concepts for the C++ Standard Library">Hierarchical Data Structures and Related
+    Concepts for the C++ Standard Library</a></h2></div></div></div><p>
+      <span class="bold"><strong>Bernhard Reiter and René Rivera</strong></span>
+    </p><div class="variablelist"><div class="variablelist-title"></div><dl><dt><span class="term">Document No.</span></dt><dd><p>
+            WG21/N2101=J16/06-0171
+          </p></dd><dt><span class="term">Date</span></dt><dd><p>
+            2006-11-05
+          </p></dd><dt><span class="term">Project</span></dt><dd><p>
+            Programming Language C++
+          </p></dd><dt><span class="term">Reply to</span></dt><dd><p>
+            Bernhard Reiter &lt;<a href="mailto:ockham@gmx.net" target="_top">ockham@gmx.net&gt;</a>,
+            René Rivera &lt;<a href="mailto:rrivera@acm.org" target="_top">rrivera@acm.org</a>&gt;
+          </p></dd></dl></div><div class="section tree_preamble_introduction" title="1.1. Introduction"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.introduction">1.1. <a class="link" href="#tree.preamble.introduction" title="1.1. Introduction">Introduction</a></h3></div></div></div><p>
+        This paper proposes addition of library components covering tree structures
+        and related concepts to the C++ Standard Library Technical Report 2. The
+        proposal is based on work towards a Boost tree component library.
+      </p><p>
+        The library strives to cover many of the relevant aspects within the vast
+        field linked to the notion of trees in computer science.
+      </p></div><div class="section tree_preamble_motivation_and_scope" title="1.2. Motivation and Scope"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.motivation_and_scope">1.2. <a class="link" href="#tree.preamble.motivation_and_scope" title="1.2. Motivation and Scope">Motivation and Scope</a></h3></div></div></div><div class="section tree_preamble_motivation_and_scope_why_is_this_important" title="1.2.1. Why is this important?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.why_is_this_important">1.2.1. <a class="link" href="#tree.preamble.motivation_and_scope.why_is_this_important" title="1.2.1. Why is this important?">Why
+        is this important?</a></h4></div></div></div><p>
+          This proposal is motivated by the wish to establish methods of dealing
+          with hierarchical data structures in a manner that is similar to that of
+          the Standard Template Library (STL) for linear ones. That is, it seeks
+          to provide clear, straight-forward, versatile and comprehensive concepts,
+          data structures and algorithms for trees and related structures that allow
+          efficient implementation while not exposing implementation details.
+        </p><p>
+          In particular, this proposal strives to unite types of hierarchical data
+          structures that have historically been treated separately, although there
+          is arguably good reason to view their role for algorithms as different
+          aspects of common underlying concepts. Formally, this proposal's desired
+          scope is covering all <span class="emphasis"><em>rooted ordered connected acyclic graphs</em></span>.
+        </p></div><div class="section tree_preamble_motivation_and_scope_what_kinds_of_problems_does_it_a" title="1.2.2. What kinds of problems does it address, and what kinds of programmers is it intended to support?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a">1.2.2. <a class="link" href="#tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a" title="1.2.2. What kinds of problems does it address, and what kinds of programmers is it intended to support?">What
+        kinds of problems does it address, and what kinds of programmers is it intended
+        to support?</a></h4></div></div></div><p>
+          Existing tree implementations as listed in the References section as well
+          as the number of posts on C++ related newsgroups give an evidence of very
+          general, high interest in tree and related data structures. Formalization
+          of how to deal with hierarchical data structures seems to be relevant as
+          programmers of any level of skill working in any given field is likely
+          to need such a structure at one point.
+        </p></div><div class="section tree_preamble_motivation_and_scope_is_it_based_on_existing_practice" title="1.2.3. Is it based on existing practice?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.is_it_based_on_existing_practice">1.2.3. <a class="link" href="#tree.preamble.motivation_and_scope.is_it_based_on_existing_practice" title="1.2.3. Is it based on existing practice?">Is
+        it based on existing practice?</a></h4></div></div></div><p>
+          No; this proposal originates in an effort to create a generic tree container
+          component for <a href="http://www.boost.org" target="_top">Boost</a> in the course
+          of <a href="http://code.google.com/soc/2006/boost/appinfo.html?csaid=E17EA7C7C537C131" target="_top">Google
+          Summer of Code&#8482; 2006</a>, so at the time of this writing, implementation
+          work is still unfinished and, however inspired by and striving to avoid
+          past issues and such ones arising from current implementation efforts (see
+          below) it is, it has not been used in practice yet.
+        </p></div><div class="section tree_preamble_motivation_and_scope_is_there_a_reference_implementat" title="1.2.4. Is there a reference implementation?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.is_there_a_reference_implementat">1.2.4. <a class="link" href="#tree.preamble.motivation_and_scope.is_there_a_reference_implementat" title="1.2.4. Is there a reference implementation?">Is
+        there a reference implementation?</a></h4></div></div></div><p>
+          Yes; the current state is available from svn from <a href="http://svn.boost.org/svn/boost/sandbox/tree" target="_top">http://svn.boost.org/svn/boost/sandbox/tree</a>.
+        </p></div></div><div class="section tree_preamble_impact_on_the_standard" title="1.3. Impact on the Standard"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.impact_on_the_standard">1.3. <a class="link" href="#tree.preamble.impact_on_the_standard" title="1.3. Impact on the Standard">Impact on the Standard</a></h3></div></div></div><div class="section tree_preamble_impact_on_the_standard_what_does_it_depend_on_and_what_" title="1.3.1. What does it depend on, and what depends on it?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_">1.3.1. <a class="link" href="#tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_" title="1.3.1. What does it depend on, and what depends on it?">What
+        does it depend on, and what depends on it?</a></h4></div></div></div><p>
+          It depends on some standard library components, such as <code class="literal">std::allocator</code>
+          which is used as the default allocator template argument at some points.
+          Concepts like allocators or iterators are reused and in some cases adapted.
+        </p></div><div class="section tree_preamble_impact_on_the_standard_is_it_a_pure_extension_or_does_i" title="1.3.2. Is it a pure extension, or does it require changes to standard components?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i">1.3.2. <a class="link" href="#tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i" title="1.3.2. Is it a pure extension, or does it require changes to standard components?">Is
+        it a pure extension, or does it require changes to standard components?</a></h4></div></div></div><p>
+          Most of the proposed library is a pure extension.
+        </p><p>
+          Some extensions <code class="literal">&lt;algorithm&gt;</code> and some extensions
+          to <code class="literal">&lt;iterator&gt;</code> are proposed.
+        </p><p>
+          Additionally, while not proposed herein, it has sometimes been suggested
+          to add a template parameter to the STL associative containers <code class="literal">set</code>,
+          <code class="literal">multiset</code>, <code class="literal">map</code>, and <code class="literal">multimap</code>
+          (and possibly an argument to their constructors) specifying a policy for
+          storing elements, or, more concretely, what tree. The balancers presented
+          in this proposal would lend themselves to such use. Indicating what type
+          of balanced hierarchy to use for associative containers would create some
+          amount of symmetry to TR1's <code class="literal">unordered</code> containers that
+          allow specification of a hash functor; it is however a momentous decision
+          in which position to put such a parameter. The same position as for <code class="literal">unordered</code>
+          containers (before the comparison functor) would require changes in existing
+          code; making it the last parameter (after the allocator) would allow existing
+          code to remain unchanged, but seems somewhat irritating when compared to
+          <code class="literal">unordered</code> containers.
+        </p></div><div class="section tree_preamble_impact_on_the_standard_can_it_be_implemented_using_toda" title="1.3.3. Can it be implemented using today's compilers, or does it require language features that will only be available as part of C++11"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda">1.3.3. <a class="link" href="#tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda" title="1.3.3. Can it be implemented using today's compilers, or does it require language features that will only be available as part of C++11">Can
+        it be implemented using today's compilers, or does it require language features
+        that will only be available as part of C++11</a></h4></div></div></div><p>
+          It can be, and partly has been, implemented with today's compilers.
+        </p><p>
+          Note that it might be worthwhile to investigate if the present Container
+          concept should be modified so that it only covers the requirements as of
+          paragraph 2 of section <a href="#tr.hierarchy.req" target="_top"> [tr..hierarchy.req]</a>
+          of this proposal, which correspond to the current Container concept with
+          the exception of any expressions that implicitly assume linear internal
+          structure and outsource those to a "Linear Container" concept
+          as similarly formalized in the <a href="http://boost.org/libs/range/doc/range.html" target="_top">Boost
+          Range concept</a> (<a href="http://boost.org/libs/range/doc/range.html" target="_top">http://boost.org/libs/range/doc/range.html</a>)
+          externally to the Standard.
+        </p></div></div><div class="section tree_preamble_important_design_decisions" title="1.4. Important Design Decisions"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.important_design_decisions">1.4. <a class="link" href="#tree.preamble.important_design_decisions" title="1.4. Important Design Decisions">Important Design
+      Decisions</a></h3></div></div></div><div class="section tree_preamble_important_design_decisions_why_did_you_choose_the_specific_" title="1.4.1. Why did you choose the specific design that you did?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.why_did_you_choose_the_specific_">1.4.1. <a class="link" href="#tree.preamble.important_design_decisions.why_did_you_choose_the_specific_" title="1.4.1. Why did you choose the specific design that you did?">Why
+        did you choose the specific design that you did?</a></h4></div></div></div><p>
+          One of the most important assets of the present design is the cursor concept
+          as a hierarchical continuation to the STL's iterator concept, and the externally
+          defined range concept. Among their benefits, cursors allow to handle both
+          client data access, by dereference, and subtree access while hiding the
+          normally underlying node structure and providing a uniform interface to
+          algorithms that are thus enabled to deal with a number of different kinds
+          of trees. On the other hand, this abstraction achieves independence of
+          implementation details, such as nodes for storage in many cases, allowing
+          the underlying concepts to be applicable to other possible implementations
+          as well.
+        </p></div><div class="section tree_preamble_important_design_decisions_what_alternatives_did_you_consid" title="1.4.2. What alternatives did you consider, and what are the tradeoffs?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid">1.4.2. <a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid" title="1.4.2. What alternatives did you consider, and what are the tradeoffs?">What
+        alternatives did you consider, and what are the tradeoffs?</a></h4></div></div></div><h6><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h0"></a>
+          <span><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees"></a></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees">Trees
+          of trees</a>
+        </h6><p>
+          Trees, being recursively defined data structures, seem to somewhat lend
+          themselves to recursive implementation, i.e. declaring them in a way so
+          they consist of a client value part and a certain number of trees in turn
+          (as e.g. in case of <a class="link" href="#">[haas]</a>). Such an approach
+          would allow for uniform treatment of the subtrees, but would duplicate
+          allocators and imply structure that need not be present. The tree, like
+          existing STL containers, should be responsible for data representation
+          and storage.
+        </p><h6><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h1"></a>
+          <span><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies"></a></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies">Augmentors/balancers
+          as policies</a>
+        </h6><p>
+          Inspired by <a class="link" href="#">[austern]</a> and <a class="link" href="#">[dreizin]</a>,
+          the original approach undertaken when working on the reference implementation
+          was to pass policy template arguments to template class <code class="literal">binary_tree</code>.
+          While reproducing the (otherwise unbalanced) tree/cursor interface seemed
+          logical at first, it turned out that this was conceptually not entirely
+          clean, as e.g. it preferred one type of linear order, namely inorder, over
+          the others by putting such strong focus on inorder-invariant balancing
+          and its possible applications; also, balancing and augmenting metadata
+          would inevitably have been much more visible. It seemed more appropriate
+          to have different balancing adaptors and augmenting adaptors that would
+          replicate the interface to do that work.
+        </p></div><div class="section tree_preamble_important_design_decisions_what_are_the_consequences_of_you" title="1.4.3. What are the consequences of your choices, for users and implementors?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_are_the_consequences_of_you">1.4.3. <a class="link" href="#tree.preamble.important_design_decisions.what_are_the_consequences_of_you" title="1.4.3. What are the consequences of your choices, for users and implementors?">What
+        are the consequences of your choices, for users and implementors?</a></h4></div></div></div><p>
+          As focus was put on versatility and comprehensiveness, we hope users will
+          find this a powerful framework that covers most important aspects of dealing
+          with hierarchical data structures in a rather intuitive way, once they
+          have adapted to the notion of cursors which, although being the interface
+          relevant portion of the well-known node implementation of trees, partly
+          diverge in their usage from plain node objects.
+        </p><p>
+          Wherever reasonably possible, strong time complexity guarantees are given,
+          which mostly, while trying not to require much space overhead, demand implementations
+          that make use of any time and space saving techniques available (e.g. using
+          arrays for both children of a binary tree node, see e.g. <a class="link" href="#">[austern]</a>),
+          which may partly restrict implementors to one "proper" way of
+          doing things.
+        </p></div><div class="section tree_preamble_important_design_decisions_what_decisions_are_left_up_to_im" title="1.4.4. What decisions are left up to implementors?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im">1.4.4. <a class="link" href="#tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im" title="1.4.4. What decisions are left up to implementors?">What
+        decisions are left up to implementors?</a></h4></div></div></div><p>
+          Most of the requirements for the library components presented in this proposal
+          are rather tightly formulated in order to allow for them being both efficient
+          and general enough. It is however hoped that the conceptual abstraction
+          of hierarchies and cursors may be of general use, also allowing for more
+          specific implementations where required (although probably not as part
+          of the library; ideally comparable to the role of containers and iterators
+          in modern C++ code).
+        </p></div><div class="section tree_preamble_important_design_decisions_if_there_are_any_similar_librari" title="1.4.5. If there are any similar libraries in use, how do their design decisions compare to yours?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.if_there_are_any_similar_librari">1.4.5. <a class="link" href="#tree.preamble.important_design_decisions.if_there_are_any_similar_librari" title="1.4.5. If there are any similar libraries in use, how do their design decisions compare to yours?">If
+        there are any similar libraries in use, how do their design decisions compare
+        to yours?</a></h4></div></div></div><p>
+          Trees, having attracted much attention in the C++ community, are found
+          in various implementations and as subjects of a number of papers. Contrary
+          to the present proposal, practically all of them deal either with trees
+          as used for sorted associative containers (with logarithmic time complexity
+          for more relevant operations, achieved by some sort of balancing; examples
+          are <a class="link" href="#">[dreizin]</a>, <a class="link" href="#">[ekman]</a>
+          and <a class="link" href="#">[karas]</a>; plus, most current STL implementations
+          use a red-black tree as their associative containers' base) or with what
+          we call "external" hierarchies in the following (whose structure
+          is dictated e.g. by a file system directory tree, an XML file or an AST;
+          see e.g. <a class="link" href="#">[gottschlich]</a>, <a class="link" href="#">[haas]</a>,
+          <a class="link" href="#">[parent]</a> and <a class="link" href="#">[peeters]</a>),
+          but rarely both fields of application.
+        </p><p>
+          Approaches as found in <a class="link" href="#">[austern]</a> or <a class="link" href="#">[mirwaisi]</a> go some steps further and have provided
+          valuable inspiration for this project, but still do not formalize anything
+          similar as the cursor-based interface in this proposal for dealing with
+          a tree's contents.
+        </p><p>
+          The <a href="http://www.boost.org/libs/graph/" target="_top">BGL</a>, finally,
+          deals with graphs that are even more general than hierarchical ones, which
+          does not allow them to profit from specific hierarchy properties as much
+          as the ones presented in this proposal. Making cursors logical extensions
+          of iterators would probably also have been more difficult with a BGL-based
+          approach.
+        </p></div></div><div class="section tree_preamble_future_directions" title="1.5. Future Directions"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.future_directions">1.5. <a class="link" href="#tree.preamble.future_directions" title="1.5. Future Directions">Future Directions</a></h3></div></div></div><p>
+        While it is hoped that the current proposal somewhat reunites balanced binary
+        trees, B-trees and "external" hierarchies, which should also facilitate
+        work with some higher-level structures (e.g. n-ary trees to implement tries),
+        some of those higher-level components might be an interesting feature to
+        add to the library, such as patricia tries or ternary search tries.
+      </p></div></div><div class="section tree_proposal" title="2. Proposed Text for Technical Report 2"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.proposal">2. <a class="link" href="#tree.proposal" title="2. Proposed Text for Technical Report 2">Proposed Text for Technical Report 2</a></h2></div></div></div><div class="note" title="Note"><h3 class="title">Note</h3><p>
+        Notes that are not part of the proposed text appear in gray boxes.
+      </p></div><div class="section tree_proposal_tr_containers" title="2.1. Containers library [tr.containers]"><div class="titlepage"><div><div><h3 class="title" id="tree.proposal.tr_containers">2.1. <a class="link" href="#tree.proposal.tr_containers" title="2.1. Containers library [tr.containers]">Containers library [tr.containers]</a></h3></div></div></div><div class="section tree_proposal_tr_containers_tr_hierarchy" title="2.1.1. Hierarchy containers [tr.hierarchy]"><div class="titlepage"><div><div><h4 class="title" id="tree.proposal.tr_containers.tr_hierarchy">2.1.1. <a class="link" href="#tree.proposal.tr_containers.tr_hierarchy" title="2.1.1. Hierarchy containers [tr.hierarchy]">Hierarchy
+        containers [tr.hierarchy]</a></h4></div></div></div><div class="section tree_proposal_tr_containers_tr_hierarchy_tr_hierarchy_req" title="2.1.1.1. Hierarchy container requirements [tr.hierarchy.req]"><div class="titlepage"><div><div><h5 class="title" id="tree.proposal.tr_containers.tr_hierarchy.tr_hierarchy_req">2.1.1.1. <a class="link" href="#tree.proposal.tr_containers.tr_hierarchy.tr_hierarchy_req" title="2.1.1.1. Hierarchy container requirements [tr.hierarchy.req]">Hierarchy
+          container requirements [tr.hierarchy.req]</a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                A hierarchy is an object that stores a finite set of objects, all
+                of the same type, in a hierarchical manner. Hierarchies introduce
+                a cursor concept for navigation instead of iterators. The library
+                provides two kinds of native hierarchies: <code class="literal">binary_tree</code>,
+                and <code class="literal">nary_tree</code>, along with hierarchy-yielding hierarchy
+                adaptors <code class="literal">forest_tree</code>, and <code class="literal">multiway_tree</code>.
+              </li><li class="listitem">
+                Hierarchy containers conform to the requirements of Containers ([lib.container.requirements]),
+                except that the expressions in Table 1 are not required to be valid,
+                where <code class="literal">a</code> and <code class="literal">b</code> denote values
+                of a type <code class="literal">X</code>, and <code class="literal">X</code> is a hierarchy
+                container class:
+                <div class="table"><a name="tree.proposal.tr_containers.tr_hierarchy.tr_hierarchy_req.container_requirements_that_are_"></a><div class="table-title">Table 1. Container requirements that are not required for hierarchy
+                  containers</div><div class="table-contents"><table class="table" summary="Container requirements that are not required for hierarchy
+                  containers"><colgroup><col></colgroup><thead><tr><th>
+                          <p>
+                            unsupported expression
+                          </p>
+                        </th></tr></thead><tbody><tr><td>
+                          <p>
+                            <code class="literal">X::iterator</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">X::const_iterator</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">X::reverse_iterator</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">X::const_reverse_iterator</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.begin()</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.end()</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.rbegin()</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.rend()</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a &lt; b</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a &gt; b</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a &lt;= b</code>
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a &gt;= b</code>
+                          </p>
+                        </td></tr></tbody></table></div></div><br class="table-break">
+              </li><li class="listitem">
+                Non-constant complexity requirements in this clause are stated in
+                one of a number of possible different ways: unless specified otherwise,
+                they are expressed in terms of the number of operations <code class="literal">n</code>,
+                which stands for the total number of elements in the hierarchy; in
+                some cases, however, they are stated in terms of another value.
+              </li><li class="listitem">
+                In Table 2 <code class="literal">X</code> denotes a hierarchy class containing
+                objects of type <code class="literal">T</code> and <code class="literal">a</code> denotes
+                a value of type <code class="literal">X</code>.
+                <div class="table"><a name="tree.proposal.tr_containers.tr_hierarchy.tr_hierarchy_req.hierarchy_requirements_in_additi"></a><div class="table-title">Table 2. Hierarchy requirements (in addition to container)</div><div class="table-contents"><table class="table" summary="Hierarchy requirements (in addition to container)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+                          <p>
+                            expression
+                          </p>
+                        </th><th>
+                          <p>
+                            return type
+                          </p>
+                        </th><th>
+                          <p>
+                            assertion/note<br> pre/post-condition
+                          </p>
+                        </th><th>
+                          <p>
+                            complexity
+                          </p>
+                        </th></tr></thead><tbody><tr><td>
+                          <p>
+                            <code class="literal">X::cursor</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            cursor type pointing to <code class="literal">T</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            any cursor category
+                          </p>
+                        </td><td>
+                          <p>
+                            compile time
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            X::const_cursor
+                          </p>
+                        </td><td>
+                          <p>
+                            cursor type pointing to <code class="literal">const T</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            any cursor category
+                          </p>
+                        </td><td>
+                          <p>
+                            compile time
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.root()</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            <code class="literal">iterator</code> for mutable <code class="literal">a</code>;<br>
+                            <code class="literal">const_iterator</code> for constant <code class="literal">a</code>
+                          </p>
+                        </td><td>
+                        </td><td>
+                          <p>
+                            constant
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">a.croot()</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            <code class="literal">const_iterator</code>
+                          </p>
+                        </td><td>
+                        </td><td>
+                          <p>
+                            constant
+                          </p>
+                        </td></tr><tr><td>
+                          <p>
+                            <code class="literal">typename X::template rebind&lt;U&gt;::other</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            <code class="literal">Y</code>
+                          </p>
+                        </td><td>
+                          <p>
+                            For all <code class="literal">U</code> (including <code class="literal">T</code>),
+                            <code class="literal">Y::template rebind&lt;T&gt;::other</code>
+                            is <code class="literal">X</code>.
+                          </p>
+                        </td><td>
+                          <p>
+                            compile time
+                          </p>
+                        </td></tr></tbody></table></div></div><br class="table-break">
+                <p>
+                  Notes: Those entries marked "(Note A)" should have at
+                  worst linear complexity. See the individual hierarchy containers
+                  for specific complexity.
+                </p>
+              </li></ol></div></div></div></div></div><div class="section tree_references" title="3. References"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.references">3. <a class="link" href="#tree.references" title="3. References">References</a></h2></div></div></div><div class="variablelist" title="References"><div class="variablelist-title">References</div><dl><dt><span class="term">austern</span></dt><dd><p>
+            Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
+            John. <span class="emphasis"><em>Untangling the Balancing and Searching of Balanced Binary
+            Search Trees</em></span>, Software: Practice and Experience 33(13): 1273-1298
+            (2003) Electronic Appendix: http://www.research.att.com/~bs/tree-appendix.pdf
+          </p></dd><dt><span class="term">cormen</span></dt><dd><p>
+            Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford.
+            <span class="emphasis"><em>Introduction to Algorithms</em></span>. Second Edition (MIT
+            Press, 2001)
+          </p></dd><dt><span class="term">dreizin</span></dt><dd><p>
+            Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. <span class="emphasis"><em>Policy-Based
+            Data Structures</em></span>, http://gcc.gnu.org/onlinedocs/libstdc++<span class="emphasis"><em>ext/pb_ds</em></span>
+          </p></dd><dt><span class="term">ekman</span></dt><dd><p>
+            Ekman, Rasmus. <span class="emphasis"><em>Structured Associative Containers</em></span>,
+            http://www.abc.se/~re/code/tst
+          </p></dd><dt><span class="term">gottschlich</span></dt><dd><p>
+            Gottschlich, Justin. <span class="emphasis"><em>C++ Trees</em></span>, http://www.gamedev.net/reference/articles/article2192.asp
+            and http://www.gamedev.net/reference/articles/article2233.asp
+          </p></dd><dt><span class="term">haas</span></dt><dd><p>
+            Haas, Mitchell. <span class="emphasis"><em>Tree Container Library</em></span>, http://www.datasoftsolutions.net/tree_container_library/overview.php
+          </p></dd><dt><span class="term">karas</span></dt><dd><p>
+            Karas, Walt. <span class="emphasis"><em>C++ AVL Tree Template</em></span>, http://us.geocities.com/wkaras/gen_cpp/avl_tree.html
+          </p></dd><dt><span class="term">knuth97</span></dt><dd><p>
+            Knuth, Donald E. <span class="emphasis"><em>The Art of Computer Programming</em></span>.
+            Volume 1: Fundamental Algorithms. Third Edition (Reading, Massachusetts:
+            Addison-Wesley, 1997)
+          </p></dd><dt><span class="term">knuth98</span></dt><dd><p>
+            Knuth, Donald E. <span class="emphasis"><em>The Art of Computer Programming</em></span>.
+            Volume 3: Sorting and Searching. Second Edition (Reading, Massachusetts:
+            Addison-Wesley, 1998)
+          </p></dd><dt><span class="term">mirwaisi</span></dt><dd><p>
+            Mirwaisi, Jeff. <span class="emphasis"><em>treelib</em></span>, https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2
+          </p></dd><dt><span class="term">parent</span></dt><dd><p>
+            Parent, Sean et al. <span class="emphasis"><em>forest</em></span>, http://opensource.adobe.com/group__forest__related.html
+          </p></dd><dt><span class="term">peeters</span></dt><dd><p>
+            Peeters, Kasper. <span class="emphasis"><em>tree.hh: an STL-like C++ tree class</em></span>,
+            http://www.aei.mpg.de/~peekas/tree/
+          </p></dd><dt><span class="term">rivera</span></dt><dd><p>
+            Rivera, René. <span class="emphasis"><em>RankTree.h</em></span>, http://redshift-software.com/~grafik/RankTree.h
+          </p></dd></dl></div></div></div></body></html>

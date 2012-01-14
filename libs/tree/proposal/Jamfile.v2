@@ -4,7 +4,6 @@
 #  (See accompanying file LICENSE_1_0.txt or copy at
 #  http:#www.boost.org/LICENSE_1_0.txt)
 
-using doxygen ;
 using quickbook ;
 
 if ! $(BOOST_ROOT)
@@ -12,46 +11,77 @@ if ! $(BOOST_ROOT)
 	BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
 }
 
-doxygen autodoc
-	:
-		[ glob ../../../boost/tree/*.hpp ]
-		#[ glob ../../../boost/tree/detail/augmentors/*.hpp ]
-		#[ glob ../../../boost/tree/detail/balancers/*.hpp ]
-	:
-		<doxygen:param>"PREDEFINED=\"BOOST_PROCESS_DOXYGEN\""
-		# add some macro for enabling use of differentiated comments
-		# (for doc or proposal use)
-		
-		# Include documentation for the code in the detail namespace?
-		#<xsl:param>boost.doxygen.detailns=documenteverything
-	;
-
-xml proposalqbk
+xml proposal
 	:
 		proposal.qbk
 	;
+explicit proposal ;
 
-boostbook proposal
-	:
-		proposalqbk
-	:
-		<dependency>autodoc
-		<xsl:param>boost.libraries=$(BOOST_ROOT)/libs/libraries.htm
-		#<xsl:param>boost.root=../../../../
-		<xsl:param>html.stylesheet=proposal.css
-		<xsl:param>doc.standalone=1
-		<xsl:param>nav.layout=none
-		<xsl:param>toc.section.depth=2
-		<xsl:param>section.autolabel=1
-		<xsl:param>section.autolabel.max.depth=3
-		<xsl:param>chapter.autolabel=0
-		<xsl:param>navig.graphics=0
-		
-		#<xsl:param>boost.image.srcimages/my_project_logo.png
-        #<xsl:param>boost.image.alt"\"My Project\""
-        #<xsl:param>boost.image.w=100
-        #<xsl:param>boost.image.h=50
-        #<xsl:param>nav.layout=none
-		
-		
-	;
+boostbook proposal-standalone
+    :
+    	proposal
+    :
+    	<xsl:param>html.stylesheet=proposal.css
+    	<xsl:param>doc.standalone=1
+    	<xsl:param>nav.layout=none
+    	<xsl:param>toc.section.depth=2
+    	<xsl:param>section.autolabel=1
+    	<xsl:param>section.autolabel.max.depth=3
+    	<xsl:param>chapter.autolabel=0
+    	<xsl:param>navig.graphics=0
+        <xsl:param>boost.root=../../..
+        #<xsl:param>generate.section.toc.level=3
+        <xsl:param>chunk.section.depth=1
+        <xsl:param>chunk.first.sections=1
+        <xsl:param>generate.id.attributes=1
+        #<xsl:param>generate.css.headers=1
+    
+        <dependency>proposal-standalone-images
+        <dependency>proposal-standalone-callouts
+        <dependency>proposal-standalone-css
+    ;
+explicit proposal-standalone ;
+
+install proposal-standalone-images
+    : [ glob $(BOOST_ROOT)/doc/src/images/*.png ]
+    : <location>html/images ;
+explicit proposal-standalone-images ;
+
+install proposal-standalone-callouts
+    : [ glob $(BOOST_ROOT)/doc/src/images/callouts/*.png ]
+    : <location>html/images/callouts ;
+explicit proposal-standalone-callouts ;
+
+install proposal-standalone-css
+    : [ glob $(BOOST_ROOT)/doc/src/*.css ]
+    : <location>html ;
+explicit proposal-standalone-css ;
+
+boostbook proposal-single
+    :
+        proposal
+    :
+        #<xsl:param>html.stylesheet=proposal.css
+        #<xsl:param>html.stylesheet=
+        <xsl:param>doc.standalone=1
+        <xsl:param>nav.layout=none
+        <xsl:param>navig.graphics=0
+        <xsl:param>boost.root=../../..
+        <xsl:param>admon.graphics=0
+        <xsl:param>toc.section.depth=100
+        <xsl:param>section.autolabel=1
+        <xsl:param>section.autolabel.max.depth=100
+        <xsl:param>chapter.autolabel=0
+        <xsl:param>generate.section.toc.level=0
+        <xsl:param>chunk.section.depth=0
+        <xsl:param>chunk.first.sections=100
+        <xsl:param>generate.id.attributes=1
+        <xsl:param>generate.css.header=1
+        <xsl:param>custom.css.source=$(BOOST_TREE_ROOT)/libs/tree/proposal/proposal.css.xml
+        <xsl:param>make.clean.html=1
+        
+        <location>single
+        <format>onehtml
+        <dependency>proposal.css.xml
+    ;
+	
