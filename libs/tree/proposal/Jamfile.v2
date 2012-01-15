@@ -1,4 +1,5 @@
 #  Copyright (c) 2006-2009, Bernhard Reiter
+#  Copyright (c) 2006-2012, Rene Rivera
 #
 #  Distributed under the Boost Software License, Version 1.0.
 #  (See accompanying file LICENSE_1_0.txt or copy at
@@ -8,27 +9,24 @@ using quickbook ;
 
 if ! $(BOOST_ROOT)
 {
-	BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
+    BOOST_ROOT = [ modules.peek : BOOST_ROOT ] ;
 }
-
-xml proposal
-	:
-		proposal.qbk
-	;
-explicit proposal ;
 
 boostbook proposal-standalone
     :
-    	proposal
+        proposal.qbk
     :
-    	<xsl:param>html.stylesheet=proposal.css
-    	<xsl:param>doc.standalone=1
-    	<xsl:param>nav.layout=none
-    	<xsl:param>toc.section.depth=2
-    	<xsl:param>section.autolabel=1
-    	<xsl:param>section.autolabel.max.depth=3
-    	<xsl:param>chapter.autolabel=0
-    	<xsl:param>navig.graphics=0
+        <location>xhtml
+        <format>xhtml
+        
+        <xsl:param>html.stylesheet=proposal.css
+        <xsl:param>doc.standalone=1
+        <xsl:param>nav.layout=none
+        <xsl:param>toc.section.depth=2
+        <xsl:param>section.autolabel=1
+        <xsl:param>section.autolabel.max.depth=3
+        <xsl:param>chapter.autolabel=0
+        <xsl:param>navig.graphics=0
         <xsl:param>boost.root=../../..
         #<xsl:param>generate.section.toc.level=3
         <xsl:param>chunk.section.depth=1
@@ -44,31 +42,34 @@ explicit proposal-standalone ;
 
 install proposal-standalone-images
     : [ glob $(BOOST_ROOT)/doc/src/images/*.png ]
-    : <location>html/images ;
+    : <location>standalone/images ;
 explicit proposal-standalone-images ;
 
 install proposal-standalone-callouts
     : [ glob $(BOOST_ROOT)/doc/src/images/callouts/*.png ]
-    : <location>html/images/callouts ;
+    : <location>standalone/images/callouts ;
 explicit proposal-standalone-callouts ;
 
 install proposal-standalone-css
     : [ glob $(BOOST_ROOT)/doc/src/*.css ]
-    : <location>html ;
+    : <location>standalone ;
 explicit proposal-standalone-css ;
 
 boostbook proposal-single
     :
-        proposal
+        proposal.qbk
     :
-        #<xsl:param>html.stylesheet=proposal.css
-        #<xsl:param>html.stylesheet=
+        <location>single
+        <format>onehtml
+        
+        <dependency>proposal.css.xml
+        
         <xsl:param>doc.standalone=1
         <xsl:param>nav.layout=none
         <xsl:param>navig.graphics=0
         <xsl:param>boost.root=../../..
         <xsl:param>admon.graphics=0
-        <xsl:param>toc.section.depth=100
+        <xsl:param>toc.section.depth=5
         <xsl:param>section.autolabel=1
         <xsl:param>section.autolabel.max.depth=100
         <xsl:param>chapter.autolabel=0
@@ -77,11 +78,7 @@ boostbook proposal-single
         <xsl:param>chunk.first.sections=100
         <xsl:param>generate.id.attributes=1
         <xsl:param>generate.css.header=1
-        <xsl:param>custom.css.source=$(BOOST_TREE_ROOT)/libs/tree/proposal/proposal.css.xml
+        <xsl:param>custom.css.source=../proposal.css.xml
         <xsl:param>make.clean.html=1
-        
-        <location>single
-        <format>onehtml
-        <dependency>proposal.css.xml
     ;
-	
+    

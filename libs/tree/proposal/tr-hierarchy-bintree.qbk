@@ -1,0 +1,38 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:bintree Template class =binary_tree=  [label tr.hierarchy.bintree]]
+
+
+[section:types =binary_tree= types [label tr.hierarchy.bintree.types]]
+
+[endsect] [/types]
+
+
+[section:cons =binary_tree= constructors, copy, and assignment [label tr.hierarchy.bintree.cons]]
+
+[endsect] [/cons]
+
+
+[section:cursors =binary_tree= cursors [label tr.hierarchy.bintree.cursors]]
+
+[endsect] [/cursors]
+
+
+[section:modifiers =binary_tree= modifiers [label tr.hierarchy.bintree.modifiers]]
+
+[endsect] [/modifiers]
+
+
+[section:special =binary_tree= specialized algorithms [label tr.hierarchy.bintree.special]]
+
+[endsect] [/special]
+
+
+[endsect] [/bintree]

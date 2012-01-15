@@ -1,0 +1,43 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:multiwaytree Template class =multiway_tree= [label tr.hierarchy.multiwaytree]]
+
+
+[section:types =multiway_tree= types [label tr.hierarchy.multiwaytree.types]]
+
+[endsect] [/types]
+
+
+[section:cons =multiway_tree= constructors, copy, and assignment [label tr.hierarchy.multiwaytree.cons]]
+
+[endsect] [/cons]
+
+
+[section:cursors =multiway_tree= cursors [label tr.hierarchy.multiwaytree.cursors]]
+
+[endsect] [/cursors]
+
+
+[section:capacity =multiway_tree= capacity [label tr.hierarchy.multiwaytree.capacity]]
+
+[endsect] [/capacity]
+
+
+[section:modifiers =multiway_tree= modifiers [label tr.hierarchy.multiwaytree.modifiers]]
+
+[endsect] [/modifiers]
+
+
+[section:special =multiway_tree= specialized algorithms [label tr.hierarchy.multiwaytree.special]]
+
+[endsect] [/special]
+
+
+[endsect] [/multiwaytree]

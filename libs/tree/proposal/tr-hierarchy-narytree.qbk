@@ -1,0 +1,43 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:narytree Template class =nary_tree= [label tr.hierarchy.narytree]]
+
+
+[section:types =nary_tree= types [label tr.hierarchy.narytree.types]]
+
+[endsect] [/types]
+
+
+[section:cons =nary_tree= constructors, copy, and assignment [label tr.hierarchy.narytree.cons]]
+
+[endsect] [/cons]
+
+
+[section:cursors =nary_tree= cursors [label tr.hierarchy.narytree.cursors]]
+
+[endsect] [/cursors]
+
+
+[section:capacity =nary_tree= capacity [label tr.hierarchy.narytree.capacity]]
+
+[endsect] [/capacity]
+
+
+[section:modifiers =nary_tree= modifiers [label tr.hierarchy.narytree.modifiers]]
+
+[endsect] [/modifiers]
+
+
+[section:special =nary_tree= specialized algorithms [label tr.hierarchy.narytree.special]]
+
+[endsect] [/special]
+
+
+[endsect] [/narytree]

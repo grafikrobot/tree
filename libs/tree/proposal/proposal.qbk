@@ -1,5 +1,6 @@
 [/
- /  Copyright (c) 2006-2009, Bernhard Reiter and René Rivera
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,336 +14,36 @@
 
 [/ TODO: The generated docs should contain boostinspect:nolicense ]
 
-[library Hierarchical Data Structures and Related Concepts for the C++ Standard Library
-    [quickbook 1.6]
+[article Hierarchical Data Structures and Related Concepts for the C++ Standard Library
+    [quickbook 1.7]
     [authors [Reiter, Bernhard], [Rivera, René]]
-    [copyright 2006-2009 Bernhard Reiter and René Rivera]
+    [copyright 2006-2009 Bernhard Reiter]
+    [copyright 2006-2012 René Rivera]
     [purpose Hierarchical Data Structures and Related Concepts for the C++ Standard Library]
     [license
-        
         Distributed under the Boost Software License, Version 1.0.
         (See accompanying file LICENSE_1_0.txt or copy at
         [@http://www.boost.org/LICENSE_1_0.txt])
-        
     ]
     [id tree]
 ]
 
 [def (tm) '''&#8482;''']
 [def __code_rep__ [@http://svn.boost.org/svn/boost/sandbox/tree]]
-[template tr[id] \[tr.[id]\]]
-
-[section:preamble Hierarchical Data Structures and Related Concepts for the
-C++ Standard Library]
-
-[*Bernhard Reiter and René Rivera]
-
-[variablelist
-[[Document No.] [WG21/N2101=J16/06-0171]]
-[[Date]         [2006-11-05]]
-[[Project]      [Programming Language C++]]
-[[Reply to]     [Bernhard Reiter <[@mailto:ockham@gmx.net ockham@gmx.net>],
-                 René Rivera <[@mailto:rrivera@acm.org rrivera@acm.org]>]]
-]
-
-
-[section Introduction]
-
-This paper proposes addition of library components covering tree structures and related
-concepts to the C++ Standard Library Technical Report 2. The proposal is based on work
-towards a Boost tree component library.
-
-The library strives to cover many of the relevant aspects within the vast field linked to
-the notion of trees in computer science.
-
-[endsect]
-
-[section Motivation and Scope]
-
-[section Why is this important?]
-
-This proposal is motivated by the wish to establish methods of dealing with hierarchical
-data structures in a manner that is similar to that of the Standard Template Library (STL)
-for linear ones. That is,
-it seeks to provide clear, straight-forward, versatile and comprehensive concepts, data
-structures and algorithms for trees and related structures that allow efficient
-implementation while not exposing implementation details.
-
-In particular, this proposal strives to unite types of hierarchical data structures that
-have historically been treated separately, although there is arguably good reason to view
-their role for algorithms as different aspects of common underlying concepts. Formally,
-this proposal's desired scope is covering all /rooted ordered connected acyclic graphs/.
-
-[endsect]
-
-[section What kinds of problems does it address, and what kinds of
-programmers is it intended to support?]
-
-Existing tree implementations as listed in the References section as well as the number
-of posts on C++ related newsgroups give an evidence of very general, high interest in
-tree and related data structures. Formalization of how to deal with hierarchical data
-structures seems to be relevant as programmers of any level of skill working in any given
-field is likely to need such a structure at one point.
-
-[endsect]
-
-[section Is it based on existing practice?]
-
-No; this proposal originates in an effort to create a generic tree container component
-for [@http://www.boost.org Boost] in the course of 
-[@http://code.google.com/soc/2006/boost/appinfo.html?csaid=E17EA7C7C537C131
-Google Summer of Code(tm) 2006], so at the time of this
-writing, implementation work is still unfinished and, however inspired by and striving to
-avoid past issues and such ones arising from current implementation efforts (see below)
-it is, it has not been used in practice yet.
-
-[endsect]
-
-[section Is there a reference implementation?]
-
-Yes; the current state is available from svn from __code_rep__.
-
-[endsect]
-
-[endsect] [/Motivation and Scope]
-
-[section Impact on the Standard]
-
-[section What does it depend on, and what depends on it?]
-
-It depends on some standard library components, such as [^std::allocator] which is used
-as the default allocator template argument at some points. Concepts like allocators or
-iterators are reused and in some cases adapted.
-
-[endsect]
-
-[section Is it a pure extension, or does it require changes to
-standard components?]
-
-Most of the proposed library is a pure extension.
-
-Some extensions [^<algorithm>] and some extensions to [^<iterator>] are proposed.
-
-Additionally, while not proposed herein, it has sometimes been suggested to add a
-template parameter to the STL associative containers [^set], [^multiset], [^map], and
-[^multimap] (and possibly an argument to their constructors) specifying a policy for
-storing elements, or, more concretely, what tree. The balancers presented in this
-proposal would lend themselves to such use. Indicating what type of balanced hierarchy to
-use for associative containers would create some amount of symmetry to TR1's [^unordered]
-containers that allow specification of a hash functor; it is however a momentous decision
-in which position to put such a parameter. The same position as for [^unordered]
-containers (before the comparison functor) would require changes in existing code; making
-it the last parameter (after the allocator) would allow existing code to remain
-unchanged, but seems somewhat irritating when compared to [^unordered] containers.
-
-[endsect]
-
-[section Can it be implemented using today's compilers, or does it
-require language features that will only be available as part of C++11]
-
-It can be, and partly has been, implemented with today's compilers.
-
-Note that it might be worthwhile to investigate if the present Container concept should
-be modified so that it only covers the requirements as of paragraph 2 of section
-[@#tr.hierarchy.req [tr.hierarchy.req]] of this proposal, which correspond to the current
-Container concept with the exception of any expressions that implicitly assume linear
-internal structure and outsource those to a "Linear Container" concept as similarly
-formalized in the [@http://boost.org/libs/range/doc/range.html Boost Range concept]
-([@http://boost.org/libs/range/doc/range.html]) externally to the Standard.
-
-[endsect]
-
-[endsect] [/Impact on the Standard]
-
-[section Important Design Decisions]
-
-[section Why did you choose the specific design that you did?]
-
-One of the most important assets of the present design is the cursor concept as a
-hierarchical continuation to the STL's iterator concept, and the externally defined range
-concept. Among their benefits, cursors allow to handle both client data access, by
-dereference, and subtree access while hiding the normally underlying node structure and
-providing a uniform interface to algorithms that are thus enabled to deal with a number
-of different kinds of trees. On the other hand, this abstraction achieves independence of
-implementation details, such as nodes for storage in many cases, allowing the underlying
-concepts to be applicable to other possible implementations as well.
-
-[endsect]
-
-[section What alternatives did you consider, and what are the
-tradeoffs?]
-
-[heading Trees of trees]
-
-Trees, being recursively defined data structures, seem to somewhat lend themselves to
-recursive implementation, i.e. declaring them in a way so they consist of a client value
-part and a certain number of trees in turn (as e.g. in case of [link haas \[haas\]]). Such
-an approach would allow for uniform treatment of the subtrees, but would duplicate
-allocators and imply structure that need not be present. The tree, like existing STL
-containers, should be responsible for data representation and storage.
-
-[heading Augmentors/balancers as policies]
-
-Inspired by [link austern \[austern\]] and [link dreizin \[dreizin\]], the original
-approach undertaken when working on the reference implementation was to pass policy
-template arguments to template class [^binary_tree]. While reproducing the (otherwise
-unbalanced) tree/cursor interface seemed logical at first, it turned out that this was
-conceptually not entirely clean, as e.g. it preferred one type of linear order, namely
-inorder, over the others by putting such strong focus on inorder-invariant balancing and
-its possible applications; also, balancing and augmenting metadata would inevitably have
-been much more visible. It seemed more appropriate to have different balancing adaptors
-and augmenting adaptors that would replicate the interface to do that work.
-
-[endsect]
-
-[section What are the consequences of your choices, for users and
-implementors?]
-
-As focus was put on versatility and comprehensiveness, we hope users will find this a
-powerful framework that covers most important aspects of dealing with hierarchical data
-structures in a rather intuitive way, once they have adapted to the notion of cursors
-which, although being the interface relevant portion of the well-known node
-implementation of trees, partly diverge in their usage from plain node objects.
-
-Wherever reasonably possible, strong time complexity guarantees are given, which mostly,
-while trying not to require much space overhead, demand implementations that make use of
-any time and space saving techniques available (e.g. using arrays for both children of a
-binary tree node, see e.g. [link austern \[austern\]]), which may partly restrict
-implementors to one "proper" way of doing things.
-
-[endsect]
-
-[section What decisions are left up to implementors?]
-
-Most of the requirements for the library components presented in this proposal are rather
-tightly formulated in order to allow for them being both efficient and general enough. It
-is however hoped that the conceptual abstraction of hierarchies and cursors may be of
-general use, also allowing for more specific implementations where required (although
-probably not as part of the library; ideally comparable to the role of containers and
-iterators in modern C++ code).
-
-[endsect]
-
-[section If there are any similar libraries in use, how do their
-design decisions compare to yours?]
-
-Trees, having attracted much attention in the C++ community, are found in various
-implementations and as subjects of a number of papers. Contrary to the present proposal,
-practically all of them deal either with trees as used for sorted associative containers
-(with logarithmic time complexity for more relevant operations, achieved by some sort of
-balancing; examples are [link dreizin \[dreizin\]], [link ekman \[ekman\]] and 
-[link karas \[karas\]]; plus, most current STL implementations use a red-black tree as their
-associative containers' base) or with what we call "external" hierarchies in the
-following (whose structure is dictated e.g. by a file system directory tree, an XML file
-or an AST; see e.g. [link gottschlich \[gottschlich\]], [link haas \[haas\]], 
-[link parent \[parent\]] and [link peeters \[peeters\]]), but rarely both fields of application.
-
-Approaches as found in [link austern \[austern\]] or [link mirwaisi \[mirwaisi\]] go some
-steps further and have provided valuable inspiration for this project, but still do not
-formalize anything similar as the cursor-based interface in this proposal for dealing
-with a tree's contents.
-
-The [@http://www.boost.org/libs/graph/ BGL], finally, deals with graphs that are even
-more general than hierarchical ones, which does not allow them to profit from specific
-hierarchy properties as much as the ones presented in this proposal. Making cursors
-logical extensions of iterators would probably also have been more difficult with a
-BGL-based approach.
-
-[endsect]
-
-[endsect] [/Important Design Decisions]
-
-[section Future Directions]
-
-While it is hoped that the current proposal somewhat reunites balanced binary trees,
-B-trees and "external" hierarchies, which should also facilitate work with some
-higher-level structures (e.g. n-ary trees to implement tries), some of those higher-level
-components might be an interesting feature to add to the library, such as patricia tries
-or ternary search tries.
-
-[endsect] [/Future Directions]
-
-[endsect] [/Title]
+[def __tech_report_x__ Technical Report 2]
+[def __trx__ tr2]
+[template label[id] [role tr_section_label \[[id]\]]]
+[def __nbsp__ '''&nbsp;''']
+
+[include preamble.qbk]
 
 [section:proposal Proposed Text for Technical Report 2]
 
 [note Notes that are not part of the proposed text appear in gray boxes.]
 
-[section:tr_containers Containers library [tr containers]]
+[include tr-containers.qbk]
 
-[section:tr_hierarchy Hierarchy containers [tr hierarchy]]
-
-[section:tr_hierarchy_req Hierarchy container requirements [tr hierarchy.req]]
-
-# A hierarchy is an object that stores a finite set of objects, all of the same type,
-  in a hierarchical manner. Hierarchies introduce a cursor concept for navigation
-  instead of iterators. The library provides two kinds of native hierarchies:
-  =binary_tree=, and =nary_tree=, along with hierarchy-yielding hierarchy adaptors
-  =forest_tree=, and =multiway_tree=.
-
-# Hierarchy containers conform to the requirements of Containers (\[lib.container.requirements\]),
-  except that the expressions in Table 1 are not required to be valid, where =a= and =b=
-  denote values of a type =X=, and =X= is a hierarchy container class:
-  
-  [table Container requirements that are not required for hierarchy containers
-    [[ unsupported expression ]]
-    [[ [^X::iterator] ]]
-    [[ [^X::const_iterator] ]]
-    [[ [^X::reverse_iterator] ]]
-    [[ [^X::const_reverse_iterator] ]]
-    [[ [^a.begin()] ]]
-    [[ [^a.end()] ]]
-    [[ [^a.rbegin()] ]]
-    [[ [^a.rend()] ]]
-    [[ [^a < b] ]]
-    [[ [^a > b] ]]
-    [[ [^a <= b] ]]
-    [[ [^a >= b] ]]
-  ]
-
-# Non-constant complexity requirements in this clause are stated in one of a
-  number of possible different ways: unless specified otherwise, they are
-  expressed in terms of the number of operations =n=, which stands for the
-  total number of elements in the hierarchy; in some cases, however, they
-  are stated in terms of another value.
-
-# In Table 2 =X= denotes a hierarchy class containing objects of type =T= and =a= denotes a value of type =X=.
-
-  [table Hierarchy requirements (in addition to container)
-    [[ expression ][ return type ][ assertion/note[br]pre/post-condition ][ complexity ]]
-    [   [ [^X::cursor] ]
-        [ cursor type pointing to =T= ]
-        [ any cursor category ]
-        [ compile time ]]
-    [   [ X::const_cursor ]
-        [ cursor type pointing to =const T= ]
-        [ any cursor category ]
-        [ compile time ]]
-    [   [ [^a.root()] ]
-        [ =iterator= for mutable =a=;[br]
-          =const_iterator= for constant =a= ]
-        []
-        [ constant ]]
-    [   [ [^a.croot()] ]
-        [ =const_iterator= ]
-        []
-        [ constant ]]
-    [   [ [^typename X::template rebind<U>::other] ]
-        [ =Y= ]
-        [ For all =U= (including =T=), [^Y::template rebind<T>::other] is =X=. ]
-        [ compile time ]]
-  ]
-  
-  Notes: Those entries marked "(Note A)" should have at worst linear complexity.
-  See the individual hierarchy containers for specific complexity.
-
-[endsect] [/tr_hierarchy_req]
-
-[endsect] [/tr_hierarchy]
-
-[endsect] [/Containers library]
-
-[endsect] [/TR2]
+[endsect] [/proposal]
 
 [section:references References]
 
