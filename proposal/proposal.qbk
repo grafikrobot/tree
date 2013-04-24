@@ -34,6 +34,12 @@
 [def __trx__ tr2]
 [template label[id] [role tr_section_label \[[id]\]]]
 [def __nbsp__ '''&nbsp;''']
+[def __implementation_defined__ [~implementation defined]]
+[template tr_definition[code]
+[block [role tr_definition
+[code]
+]]
+]
 
 [include preamble.qbk]
 

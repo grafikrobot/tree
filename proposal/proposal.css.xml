@@ -486,8 +486,27 @@ div div.legalnotice p {
   border-bottom: 1px solid #888888;
 }
 
+.tree_proposal .section {
+  counter-reset: section-paragraph;
+}
+
+.tree_proposal .section>p:before {
+  content: counter(section-paragraph) ". ";
+  counter-increment: section-paragraph;
+  display: block;
+  width: 3em;
+  position: absolute;
+  left: 1em;
+  text-align: right;
+}
+
 .tree_proposal .tr_section_label {
   float: right;
+}
+
+.tree_proposal .tr_definition {
+  display: block;
+  margin-left: 2em;
 }
 
 .tree_proposal ol {
@@ -498,6 +517,7 @@ div div.legalnotice p {
 .tree_proposal ol li {
   margin: 0em 0em 1em 0em;
   padding: 0em 0em 0em 0em;
+  clear: both;
 }
 
 .tree_proposal table {

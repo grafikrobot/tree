@@ -1,0 +1,279 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:bintree Template class =binary_tree=  [label tr.hierarchy.bintree]]
+
+[ordered_list
+
+[
+A =binary_tree= is a kind of hierarchy that satisfies multiway hierarchy
+requirements. Additionally, it supports (inorder-invariant) cursor rotation.
+Descriptions are provided here only for operations on =binary_tree= that are
+not described in one of these tables or for operations where there is
+additional semantic information.
+
+``
+namespace std {
+namespace tr2 {
+  template <class T, class Alloc = std::allocator<T> >
+  class binary_tree
+  {
+  public:
+    // types:
+    typedef T                                             value_type;
+    typedef Alloc                                         allocator_type;
+
+    typedef implementation defined                        cursor;
+    typedef implementation defined                        const_cursor;
+
+    typedef typename allocator_type::pointer              pointer;
+    typedef typename allocator_type::const_pointer        const_pointer;
+    typedef typename allocator_type::reference            reference;
+    typedef typename allocator_type::const_reference      const_reference;
+    typedef typename allocator_type::size_type            size_type;
+    typedef typename allocator_type::difference_type      difference_type;
+
+    template <class U> struct rebind {
+      typedef binary_tree< U, typename allocator_type::template rebind<U>::other >
+        other;
+    };
+
+    // construct/copy/destroy:
+    explicit binary_tree (allocator_type const& = allocator_type());
+    template <class InputCursor>
+      binary_tree (InputCursor subtree,
+        allocator_type const& = allocator_type());
+    binary_tree (binary_tree<T, Alloc> const& x);
+    ~binary_tree();
+    binary_tree<T, Alloc>& operator=(
+      binary_tree<T, Alloc> const& x);
+    template <class InputCursor>
+      void assign(InputCursor subtree);
+    allocator_type get_allocator() const;
+
+    // cursors:
+    cursor        root();
+    const_cursor  croot() const;
+    cursor        shoot();
+    const_cursor  cshoot() const;
+    cursor        inorder_first();
+    const_cursor  inorder_cfirst const();
+
+    // capacity:
+    bool      empty() const;
+    size_type size() const;
+    size_type max_size() const;
+
+    // modifiers:
+    cursor    insert(cursor position, value_type const& x = value_type());
+    template <class InputCursor>
+      cursor  insert(cursor position, InputCursor subtree);
+    void      rotate(cursor position);
+    void      swap(binary_tree<T, Alloc>&);
+    void      clear(cursor position);
+    void      clear();
+  };
+
+  template <class T, class Alloc>
+    bool operator==(  binary_tree<T, Alloc> const& x,
+                      binary_tree<T, Alloc> const& y);
+  template <class T, class Alloc>
+    bool operator!=(  binary_tree<T, Alloc> const& x,
+                      binary_tree<T, Alloc> const& y);
+
+  // specialized algorithms:
+  template <class T, class Alloc>
+    void swap(  binary_tree<T, Alloc>& x,
+                binary_tree<T, Alloc>& y);
+              
+  namespace inorder {
+  template <class T, class Alloc>
+    inorder::iterator<binary_tree<T, Alloc>::cursor>
+      begin(binary_tree<T, Alloc>& h);
+  template <class T, class Alloc>
+    inorder::iterator<binary_tree<T, Alloc>::const_cursor>
+      cbegin(binary_tree<T, Alloc> const& h);
+  } // namespace inorder
+  
+} // namespace tr2
+} // namespace std
+``
+]
+
+]
+
+[section:types =binary_tree= types [label tr.hierarchy.bintree.types]]
+
+``
+typedef __implementation_defined__ cursor;
+typedef __implementation_defined__ const_cursor;
+``
+
+[ordered_list
+
+[Both =cursor= and =const_cursor= have to fulfill the multiway cursor
+(\[tr.cursor.flavors\]) and ascending random access cursor
+(\[tr.ascending.random.access.cursors\]) requirements.]
+
+[Additionally, for any instance a of either type =cursor= or
+=const_cursor=, =a.max_size() == 1=.]
+
+]
+
+[endsect] [/types]
+
+
+[section:cons =binary_tree= constructors, copy, and assignment [label tr.hierarchy.bintree.cons]]
+
+``
+explicit binary_tree (allocator_type const& = allocator_type());
+template <class InputCursor>
+  binary_tree (InputCursor subtree,
+    allocator_type const& = allocator_type());
+binary_tree (binary_tree<T, Alloc> const& x);
+``
+
+[ordered_list
+
+[*Complexity:* The constructor
+`template <class InputCursor> vector(InputCursor subtree)` makes only
+=N= calls to the copy constructor of =T= (where =N= is the number of elements
+in =subtree=) and no reallocations if the cursor =subtree= is of (either
+descending or ascending) forward, bidirectional, or random access categories.
+It does at most =2N= calls to the copy constructor of =T= and =logN=
+reallocations if they are just cursors, since it is impossible to determine
+the size of =subtree= and then do copying.
+
+``
+template <class InputCursor>
+  void assign(InputCursor subtree);
+``
+]
+
+[*Effects:*
+
+``
+clear(); 
+for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
+  insert(root.end(), *i);
+``
+]
+
+]
+
+[endsect] [/cons]
+
+
+[section:cursors =binary_tree= cursors [label tr.hierarchy.bintree.cursors]]
+
+[tr_definition ``
+	cursor        shoot();
+	const_cursor  cshoot() const;
+``]
+
+[*Complexity:] constant
+
+[tr_definition ``
+	cursor        inorder_first();
+	const_cursor  inorder_cfirst() const;
+``]
+
+[*Returns:] A cursor to the =binary_tree='s first element in inorder
+(see \[tr.order.iterators\], §4).
+
+[*Complexity:] constant.
+
+[endsect] [/cursors]
+
+
+[section:modifiers =binary_tree= modifiers [label tr.hierarchy.bintree.modifiers]]
+
+[tr_definition ``
+	cursor insert(cursor position, value_type const& x = value_type());
+``]
+
+[*Notes:] Does not affect the validity of cursors and references.
+
+[*Effects:] Let =b be =a='s parent;
+if `b.size() < b.max_size()`, insert a copy of =t= before =p=, as child of =b=;
+Otherwise, if `a.empty()`, insert a copy of =t= as child of =a=;
+and if `!a.empty()`, insert a copy of =t= as parent of =a='s current child,
+as new child of =a=.
+
+[*Complexity:] constant
+
+[tr_definition ``
+	template <class InputCursor>
+	  cursor insert(cursor position, InputCursor subtree);
+``]
+
+[*Notes:] Does not affect the validity of cursors and references.
+
+[*Effects:] as above, substituting =InputCursor subtree= to insert instead
+of `value_type const& x`.
+
+[*Complexity:] linear in the number of elements in subtree.
+
+[tr_definition ``
+void rotate(cursor position);
+``]
+
+[*Precondition:] position and its parent are internal and non-on-top
+
+[*Effects:] Performs a left tree rotation around the parent of position if
+`position.parity() == 0` or a right tree rotation if `position.parity() == 1`.
+
+[*Postcondition:] If `par == position.parity()` as of before the rotation,
+then, after the rotation:
+
+[itemized_list
+
+[`*position.begin()` yields the same value it yielded before the rotation]
+
+[`position.parity() == !par`]
+
+[`*(((position.begin())[par]).begin())` yields what `*(p.begin())` yielded
+before, if =p= was =position='s parent]
+
+[=position='s parent's value is what =position='s parent's parent's value
+yielded before. The ancestors of that cursor, and their structure, remain
+unchanged]
+
+[`(position.begin())[!par]`'s subtree is what `(position.begin())[!par]`'s
+was before.]
+
+[`((position.begin()[!par]).begin())\[par]`'s subtree is what
+`(p.begin())[!par]`'s was before, if =p= was =position='s parent.]
+
+[`((position.begin()[!par]).begin())[par]`'s subtree is what
+`(position.begin())[!par]`'s was before.]
+
+] [/itemized_list]
+
+[*Complexity:] constant
+
+[*Notes:] Does not affect the validity of cursors and references. Tree
+rotations are important inorder-preserving (see \[tr.order.iterators\] §4)
+operations on binary trees that are especially required by balancers.
+
+[tr_definition ``
+void clear(cursor position);
+``]
+
+[*Notes:] Invalidates only the cursors and references to the erased elements.
+
+[endsect] [/modifiers]
+
+
+[section:special =binary_tree= specialized algorithms [label tr.hierarchy.bintree.special]]
+
+[endsect] [/special]
+
+
+[endsect] [/bintree]

@@ -49,11 +49,6 @@ span.msgexplan-title {
 /********************************/
 /* start of styles in autotoc.xsl */
 
-  font-weight: bold;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
 
 /* end of styles in autotoc.xsl */
 /********************************/
@@ -105,6 +100,12 @@ div.synopsis {
 
 /* end of styles in verbatim.xsl */
 /********************************/
+
+/* footnote rule */
+hr.footnote-hr {
+  width: 100;
+}
+
 </style><style type="text/css">
 /*=============================================================================
     Copyright (c) 2004 Joel de Guzman
@@ -592,8 +593,27 @@ div div.legalnotice p {
   border-bottom: 1px solid #888888;
 }
 
+.tree_proposal .section {
+  counter-reset: section-paragraph;
+}
+
+.tree_proposal .section>p:before {
+  content: counter(section-paragraph) ". ";
+  counter-increment: section-paragraph;
+  display: block;
+  width: 3em;
+  position: absolute;
+  left: 1em;
+  text-align: right;
+}
+
 .tree_proposal .tr_section_label {
   float: right;
+}
+
+.tree_proposal .tr_definition {
+  display: block;
+  margin-left: 2em;
 }
 
 .tree_proposal ol {
@@ -604,6 +624,7 @@ div div.legalnotice p {
 .tree_proposal ol li {
   margin: 0em 0em 1em 0em;
   padding: 0em 0em 0em 0em;
+  clear: both;
 }
 
 .tree_proposal table {
@@ -715,11 +736,11 @@ div div.legalnotice p {
   margin-right: 0em !important;
   padding: 0em !important;
 }
-</style><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" title="Hierarchical Data Structures and Related Concepts for the C++ Standard Library" id="tree"><div class="titlepage"><div><div><h2 class="title">Hierarchical Data Structures and Related Concepts for the C++ Standard Library</h2></div><div><div class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Bernhard</span> <span class="surname">Reiter</span></h3></div><div class="author"><h3 class="author"><span class="firstname">René</span> <span class="surname">Rivera</span></h3></div></div></div><div><p class="copyright">Copyright © 2006-2009 Bernhard
-      Reiter</p></div><div><p class="copyright">Copyright © 2006-2012 René Rivera</p></div><div><div class="legalnotice" title="Legal Notice"><a name="tree.legal"></a><p>
+</style><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="article" id="tree"><div class="titlepage"><div><div><h2 class="title">Hierarchical Data Structures and Related Concepts for the C++ Standard Library</h2></div><div><div class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Bernhard</span> <span class="surname">Reiter</span></h3></div><div class="author"><h3 class="author"><span class="firstname">René</span> <span class="surname">Rivera</span></h3></div></div></div><div><p class="copyright">Copyright © 2006-2009 Bernhard
+      Reiter</p></div><div><p class="copyright">Copyright © 2006-2012 René Rivera</p></div><div><div class="legalnotice" id="tree.legal"><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
-      </p></div></div></div><hr></div><div class="toc"><div class="toc-title">Table of Contents</div><dl><dt><span class="section"><a href="#tree.preamble">1. Hierarchical Data Structures and Related
+      </p></div></div></div><hr></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="section"><a href="#tree.preamble">1. Hierarchical Data Structures and Related
     Concepts for the C++ Standard Library</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.introduction">1.1. Introduction</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope">1.2. Motivation and Scope</a></span></dt><dd><dl><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.why_is_this_important">1.2.1. Why
         is this important?</a></span></dt><dt><span class="section"><a href="#tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a">1.2.2. What
         kinds of problems does it address, and what kinds of programmers is it intended
@@ -743,27 +764,27 @@ div div.legalnotice p {
           hierarchies <span class="tr_section_label">[tr.hierarchy.multiway]</span></a></span></dt><dt><span class="section"><a href="#tree.proposal.containers.hierarchy.tree">2.1.1.4. Trees <span class="tr_section_label">[tr.hierarchy.tree]</span></a></span></dt><dd><dl><dt><span class="section"><a href="#tree.proposal.containers.hierarchy.tree.bintree">2.1.1.4.1. Template
             class <code class="literal">binary_tree</code> <span class="tr_section_label">[tr.hierarchy.bintree]</span></a></span></dt><dt><span class="section"><a href="#tree.proposal.containers.hierarchy.tree.narytree">2.1.1.4.2. Template
             class <code class="literal">nary_tree</code> <span class="tr_section_label">[tr.hierarchy.narytree]</span></a></span></dt><dt><span class="section"><a href="#tree.proposal.containers.hierarchy.tree.adaptors">2.1.1.4.3. Hierarchy
-            adaptors <span class="tr_section_label">[tr.hierarchy.adaptors]</span></a></span></dt></dl></dd></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#tree.references">3. References</a></span></dt></dl></div><div class="section tree_preamble" title="1. Hierarchical Data Structures and Related Concepts for the C++ Standard Library"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.preamble">1. <a class="link" href="#tree.preamble" title="1. Hierarchical Data Structures and Related Concepts for the C++ Standard Library">Hierarchical Data Structures and Related
+            adaptors <span class="tr_section_label">[tr.hierarchy.adaptors]</span></a></span></dt></dl></dd></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="#tree.references">3. References</a></span></dt></dl></div><div class="section tree_preamble" id="tree.preamble"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1. <a class="link" href="#tree.preamble" title="1. Hierarchical Data Structures and Related Concepts for the C++ Standard Library">Hierarchical Data Structures and Related
     Concepts for the C++ Standard Library</a></h2></div></div></div><p>
       <span class="bold"><strong>Bernhard Reiter and René Rivera</strong></span>
-    </p><div class="variablelist"><div class="variablelist-title"></div><dl><dt><span class="term">Document No.</span></dt><dd><p>
+    </p><div class="variablelist"><div class="variablelist-title"></div><dl class="variablelist"><dt><span class="term">Document No.</span></dt><dd><p>
             WG21/N????=J16/??-????
           </p></dd><dt><span class="term">Supercedes</span></dt><dd><p>
             WG21/N2101=J16/06-0171
           </p></dd><dt><span class="term">Date</span></dt><dd><p>
-            2012-Jan-15
+            2013-Apr-23
           </p></dd><dt><span class="term">Project</span></dt><dd><p>
             Programming Language C++
           </p></dd><dt><span class="term">Reply to</span></dt><dd><p>
             René Rivera &lt;<a href="mailto:rrivera@acm.org" target="_top">rrivera@acm.org</a>&gt;
-          </p></dd></dl></div><div class="section tree_preamble_introduction" title="1.1. Introduction"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.introduction">1.1. <a class="link" href="#tree.preamble.introduction" title="1.1. Introduction">Introduction</a></h3></div></div></div><p>
+          </p></dd></dl></div><div class="section tree_preamble_introduction" id="tree.preamble.introduction"><div class="titlepage"><div><div><h3 class="title">1.1. <a class="link" href="#tree.preamble.introduction" title="1.1. Introduction">Introduction</a></h3></div></div></div><p>
         This paper proposes addition of library components covering tree structures
         and related concepts to the C++ Standard Library Technical Report 2. The
         proposal is based on work towards a Boost tree component library.
       </p><p>
         The library strives to cover many of the relevant aspects within the vast
         field linked to the notion of trees in computer science.
-      </p></div><div class="section tree_preamble_motivation_and_scope" title="1.2. Motivation and Scope"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.motivation_and_scope">1.2. <a class="link" href="#tree.preamble.motivation_and_scope" title="1.2. Motivation and Scope">Motivation and Scope</a></h3></div></div></div><div class="section tree_preamble_motivation_and_scope_why_is_this_important" title="1.2.1. Why is this important?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.why_is_this_important">1.2.1. <a class="link" href="#tree.preamble.motivation_and_scope.why_is_this_important" title="1.2.1. Why is this important?">Why
+      </p></div><div class="section tree_preamble_motivation_and_scope" id="tree.preamble.motivation_and_scope"><div class="titlepage"><div><div><h3 class="title">1.2. <a class="link" href="#tree.preamble.motivation_and_scope" title="1.2. Motivation and Scope">Motivation and Scope</a></h3></div></div></div><div class="section tree_preamble_motivation_and_scope_why_is_this_important" id="tree.preamble.motivation_and_scope.why_is_this_important"><div class="titlepage"><div><div><h4 class="title">1.2.1. <a class="link" href="#tree.preamble.motivation_and_scope.why_is_this_important" title="1.2.1. Why is this important?">Why
         is this important?</a></h4></div></div></div><p>
           This proposal is motivated by the wish to establish methods of dealing
           with hierarchical data structures in a manner that is similar to that of
@@ -777,7 +798,7 @@ div div.legalnotice p {
           is arguably good reason to view their role for algorithms as different
           aspects of common underlying concepts. Formally, this proposal's desired
           scope is covering all <span class="emphasis"><em>rooted ordered connected acyclic graphs</em></span>.
-        </p></div><div class="section tree_preamble_motivation_and_scope_what_kinds_of_problems_does_it_a" title="1.2.2. What kinds of problems does it address, and what kinds of programmers is it intended to support?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a">1.2.2. <a class="link" href="#tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a" title="1.2.2. What kinds of problems does it address, and what kinds of programmers is it intended to support?">What
+        </p></div><div class="section tree_preamble_motivation_and_scope_what_kinds_of_problems_does_it_a" id="tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a"><div class="titlepage"><div><div><h4 class="title">1.2.2. <a class="link" href="#tree.preamble.motivation_and_scope.what_kinds_of_problems_does_it_a" title="1.2.2. What kinds of problems does it address, and what kinds of programmers is it intended to support?">What
         kinds of problems does it address, and what kinds of programmers is it intended
         to support?</a></h4></div></div></div><p>
           Existing tree implementations as listed in the References section as well
@@ -786,7 +807,7 @@ div div.legalnotice p {
           of how to deal with hierarchical data structures seems to be relevant as
           programmers of any level of skill working in any given field is likely
           to need such a structure at one point.
-        </p></div><div class="section tree_preamble_motivation_and_scope_is_it_based_on_existing_practice" title="1.2.3. Is it based on existing practice?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.is_it_based_on_existing_practice">1.2.3. <a class="link" href="#tree.preamble.motivation_and_scope.is_it_based_on_existing_practice" title="1.2.3. Is it based on existing practice?">Is
+        </p></div><div class="section tree_preamble_motivation_and_scope_is_it_based_on_existing_practice" id="tree.preamble.motivation_and_scope.is_it_based_on_existing_practice"><div class="titlepage"><div><div><h4 class="title">1.2.3. <a class="link" href="#tree.preamble.motivation_and_scope.is_it_based_on_existing_practice" title="1.2.3. Is it based on existing practice?">Is
         it based on existing practice?</a></h4></div></div></div><p>
           No; this proposal originates in an effort to create a generic tree container
           component for <a href="http://www.boost.org" target="_top">Boost</a> in the course
@@ -795,15 +816,15 @@ div div.legalnotice p {
           work is still unfinished and, however inspired by and striving to avoid
           past issues and such ones arising from current implementation efforts (see
           below) it is, it has not been used in practice yet.
-        </p></div><div class="section tree_preamble_motivation_and_scope_is_there_a_reference_implementat" title="1.2.4. Is there a reference implementation?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.motivation_and_scope.is_there_a_reference_implementat">1.2.4. <a class="link" href="#tree.preamble.motivation_and_scope.is_there_a_reference_implementat" title="1.2.4. Is there a reference implementation?">Is
+        </p></div><div class="section tree_preamble_motivation_and_scope_is_there_a_reference_implementat" id="tree.preamble.motivation_and_scope.is_there_a_reference_implementat"><div class="titlepage"><div><div><h4 class="title">1.2.4. <a class="link" href="#tree.preamble.motivation_and_scope.is_there_a_reference_implementat" title="1.2.4. Is there a reference implementation?">Is
         there a reference implementation?</a></h4></div></div></div><p>
           Yes; the current state is available from svn from <a href="http://svn.boost.org/svn/boost/sandbox/tree" target="_top">http://svn.boost.org/svn/boost/sandbox/tree</a>.
-        </p></div></div><div class="section tree_preamble_impact_on_the_standard" title="1.3. Impact on the Standard"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.impact_on_the_standard">1.3. <a class="link" href="#tree.preamble.impact_on_the_standard" title="1.3. Impact on the Standard">Impact on the Standard</a></h3></div></div></div><div class="section tree_preamble_impact_on_the_standard_what_does_it_depend_on_and_what_" title="1.3.1. What does it depend on, and what depends on it?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_">1.3.1. <a class="link" href="#tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_" title="1.3.1. What does it depend on, and what depends on it?">What
+        </p></div></div><div class="section tree_preamble_impact_on_the_standard" id="tree.preamble.impact_on_the_standard"><div class="titlepage"><div><div><h3 class="title">1.3. <a class="link" href="#tree.preamble.impact_on_the_standard" title="1.3. Impact on the Standard">Impact on the Standard</a></h3></div></div></div><div class="section tree_preamble_impact_on_the_standard_what_does_it_depend_on_and_what_" id="tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_"><div class="titlepage"><div><div><h4 class="title">1.3.1. <a class="link" href="#tree.preamble.impact_on_the_standard.what_does_it_depend_on_and_what_" title="1.3.1. What does it depend on, and what depends on it?">What
         does it depend on, and what depends on it?</a></h4></div></div></div><p>
           It depends on some standard library components, such as <code class="literal">std::allocator</code>
           which is used as the default allocator template argument at some points.
           Concepts like allocators or iterators are reused and in some cases adapted.
-        </p></div><div class="section tree_preamble_impact_on_the_standard_is_it_a_pure_extension_or_does_i" title="1.3.2. Is it a pure extension, or does it require changes to standard components?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i">1.3.2. <a class="link" href="#tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i" title="1.3.2. Is it a pure extension, or does it require changes to standard components?">Is
+        </p></div><div class="section tree_preamble_impact_on_the_standard_is_it_a_pure_extension_or_does_i" id="tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i"><div class="titlepage"><div><div><h4 class="title">1.3.2. <a class="link" href="#tree.preamble.impact_on_the_standard.is_it_a_pure_extension_or_does_i" title="1.3.2. Is it a pure extension, or does it require changes to standard components?">Is
         it a pure extension, or does it require changes to standard components?</a></h4></div></div></div><p>
           Most of the proposed library is a pure extension.
         </p><p>
@@ -824,7 +845,7 @@ div div.legalnotice p {
           code; making it the last parameter (after the allocator) would allow existing
           code to remain unchanged, but seems somewhat irritating when compared to
           <code class="literal">unordered</code> containers.
-        </p></div><div class="section tree_preamble_impact_on_the_standard_can_it_be_implemented_using_toda" title="1.3.3. Can it be implemented using today's compilers, or does it require language features that will only be available as part of C++11"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda">1.3.3. <a class="link" href="#tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda" title="1.3.3. Can it be implemented using today's compilers, or does it require language features that will only be available as part of C++11">Can
+        </p></div><div class="section tree_preamble_impact_on_the_standard_can_it_be_implemented_using_toda" id="tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda"><div class="titlepage"><div><div><h4 class="title">1.3.3. <a class="link" href="#tree.preamble.impact_on_the_standard.can_it_be_implemented_using_toda" title="1.3.3. Can it be implemented using today's compilers, or does it require language features that will only be available as part of C++11">Can
         it be implemented using today's compilers, or does it require language features
         that will only be available as part of C++11</a></h4></div></div></div><p>
           It can be, and partly has been, implemented with today's compilers.
@@ -838,8 +859,8 @@ div div.legalnotice p {
           as similarly formalized in the <a href="http://boost.org/libs/range/doc/range.html" target="_top">Boost
           Range concept</a> (<a href="http://boost.org/libs/range/doc/range.html" target="_top">http://boost.org/libs/range/doc/range.html</a>)
           externally to the Standard.
-        </p></div></div><div class="section tree_preamble_important_design_decisions" title="1.4. Important Design Decisions"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.important_design_decisions">1.4. <a class="link" href="#tree.preamble.important_design_decisions" title="1.4. Important Design Decisions">Important Design
-      Decisions</a></h3></div></div></div><div class="section tree_preamble_important_design_decisions_why_did_you_choose_the_specific_" title="1.4.1. Why did you choose the specific design that you did?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.why_did_you_choose_the_specific_">1.4.1. <a class="link" href="#tree.preamble.important_design_decisions.why_did_you_choose_the_specific_" title="1.4.1. Why did you choose the specific design that you did?">Why
+        </p></div></div><div class="section tree_preamble_important_design_decisions" id="tree.preamble.important_design_decisions"><div class="titlepage"><div><div><h3 class="title">1.4. <a class="link" href="#tree.preamble.important_design_decisions" title="1.4. Important Design Decisions">Important Design
+      Decisions</a></h3></div></div></div><div class="section tree_preamble_important_design_decisions_why_did_you_choose_the_specific_" id="tree.preamble.important_design_decisions.why_did_you_choose_the_specific_"><div class="titlepage"><div><div><h4 class="title">1.4.1. <a class="link" href="#tree.preamble.important_design_decisions.why_did_you_choose_the_specific_" title="1.4.1. Why did you choose the specific design that you did?">Why
         did you choose the specific design that you did?</a></h4></div></div></div><p>
           One of the most important assets of the present design is the cursor concept
           as a hierarchical continuation to the STL's iterator concept, and the externally
@@ -851,9 +872,9 @@ div div.legalnotice p {
           implementation details, such as nodes for storage in many cases, allowing
           the underlying concepts to be applicable to other possible implementations
           as well.
-        </p></div><div class="section tree_preamble_important_design_decisions_what_alternatives_did_you_consid" title="1.4.2. What alternatives did you consider, and what are the tradeoffs?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid">1.4.2. <a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid" title="1.4.2. What alternatives did you consider, and what are the tradeoffs?">What
-        alternatives did you consider, and what are the tradeoffs?</a></h4></div></div></div><h6><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h0"></a>
-          <span><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees"></a></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees">Trees
+        </p></div><div class="section tree_preamble_important_design_decisions_what_alternatives_did_you_consid" id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid"><div class="titlepage"><div><div><h4 class="title">1.4.2. <a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid" title="1.4.2. What alternatives did you consider, and what are the tradeoffs?">What
+        alternatives did you consider, and what are the tradeoffs?</a></h4></div></div></div><h6 id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h0">
+          <span id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees" class="phrase"></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.trees_of_trees">Trees
           of trees</a>
         </h6><p>
           Trees, being recursively defined data structures, seem to somewhat lend
@@ -864,8 +885,8 @@ div div.legalnotice p {
           allocators and imply structure that need not be present. The tree, like
           existing STL containers, should be responsible for data representation
           and storage.
-        </p><h6><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h1"></a>
-          <span><a name="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies"></a></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies">Augmentors/balancers
+        </p><h6 id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.h1">
+          <span id="tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies" class="phrase"></span><a class="link" href="#tree.preamble.important_design_decisions.what_alternatives_did_you_consid.augmentors_balancers_as_policies">Augmentors/balancers
           as policies</a>
         </h6><p>
           Inspired by <a class="link" href="#">[austern]</a> and <a class="link" href="#">[dreizin]</a>,
@@ -879,7 +900,7 @@ div div.legalnotice p {
           would inevitably have been much more visible. It seemed more appropriate
           to have different balancing adaptors and augmenting adaptors that would
           replicate the interface to do that work.
-        </p></div><div class="section tree_preamble_important_design_decisions_what_are_the_consequences_of_you" title="1.4.3. What are the consequences of your choices, for users and implementors?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_are_the_consequences_of_you">1.4.3. <a class="link" href="#tree.preamble.important_design_decisions.what_are_the_consequences_of_you" title="1.4.3. What are the consequences of your choices, for users and implementors?">What
+        </p></div><div class="section tree_preamble_important_design_decisions_what_are_the_consequences_of_you" id="tree.preamble.important_design_decisions.what_are_the_consequences_of_you"><div class="titlepage"><div><div><h4 class="title">1.4.3. <a class="link" href="#tree.preamble.important_design_decisions.what_are_the_consequences_of_you" title="1.4.3. What are the consequences of your choices, for users and implementors?">What
         are the consequences of your choices, for users and implementors?</a></h4></div></div></div><p>
           As focus was put on versatility and comprehensiveness, we hope users will
           find this a powerful framework that covers most important aspects of dealing
@@ -894,7 +915,7 @@ div div.legalnotice p {
           arrays for both children of a binary tree node, see e.g. <a class="link" href="#">[austern]</a>),
           which may partly restrict implementors to one "proper" way of
           doing things.
-        </p></div><div class="section tree_preamble_important_design_decisions_what_decisions_are_left_up_to_im" title="1.4.4. What decisions are left up to implementors?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im">1.4.4. <a class="link" href="#tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im" title="1.4.4. What decisions are left up to implementors?">What
+        </p></div><div class="section tree_preamble_important_design_decisions_what_decisions_are_left_up_to_im" id="tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im"><div class="titlepage"><div><div><h4 class="title">1.4.4. <a class="link" href="#tree.preamble.important_design_decisions.what_decisions_are_left_up_to_im" title="1.4.4. What decisions are left up to implementors?">What
         decisions are left up to implementors?</a></h4></div></div></div><p>
           Most of the requirements for the library components presented in this proposal
           are rather tightly formulated in order to allow for them being both efficient
@@ -903,7 +924,7 @@ div div.legalnotice p {
           specific implementations where required (although probably not as part
           of the library; ideally comparable to the role of containers and iterators
           in modern C++ code).
-        </p></div><div class="section tree_preamble_important_design_decisions_if_there_are_any_similar_librari" title="1.4.5. If there are any similar libraries in use, how do their design decisions compare to yours?"><div class="titlepage"><div><div><h4 class="title" id="tree.preamble.important_design_decisions.if_there_are_any_similar_librari">1.4.5. <a class="link" href="#tree.preamble.important_design_decisions.if_there_are_any_similar_librari" title="1.4.5. If there are any similar libraries in use, how do their design decisions compare to yours?">If
+        </p></div><div class="section tree_preamble_important_design_decisions_if_there_are_any_similar_librari" id="tree.preamble.important_design_decisions.if_there_are_any_similar_librari"><div class="titlepage"><div><div><h4 class="title">1.4.5. <a class="link" href="#tree.preamble.important_design_decisions.if_there_are_any_similar_librari" title="1.4.5. If there are any similar libraries in use, how do their design decisions compare to yours?">If
         there are any similar libraries in use, how do their design decisions compare
         to yours?</a></h4></div></div></div><p>
           Trees, having attracted much attention in the C++ community, are found
@@ -931,16 +952,16 @@ div div.legalnotice p {
           as the ones presented in this proposal. Making cursors logical extensions
           of iterators would probably also have been more difficult with a BGL-based
           approach.
-        </p></div></div><div class="section tree_preamble_future_directions" title="1.5. Future Directions"><div class="titlepage"><div><div><h3 class="title" id="tree.preamble.future_directions">1.5. <a class="link" href="#tree.preamble.future_directions" title="1.5. Future Directions">Future Directions</a></h3></div></div></div><p>
+        </p></div></div><div class="section tree_preamble_future_directions" id="tree.preamble.future_directions"><div class="titlepage"><div><div><h3 class="title">1.5. <a class="link" href="#tree.preamble.future_directions" title="1.5. Future Directions">Future Directions</a></h3></div></div></div><p>
         While it is hoped that the current proposal somewhat reunites balanced binary
         trees, B-trees and "external" hierarchies, which should also facilitate
         work with some higher-level structures (e.g. n-ary trees to implement tries),
         some of those higher-level components might be an interesting feature to
         add to the library, such as patricia tries or ternary search tries.
-      </p></div></div><div class="section tree_proposal" title="2. Proposed Text for Technical Report 2"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.proposal">2. <a class="link" href="#tree.proposal" title="2. Proposed Text for Technical Report 2">Proposed Text for Technical Report 2</a></h2></div></div></div><div class="note" title="Note"><h3 class="title">Note</h3><p>
+      </p></div></div><div class="section tree_proposal" id="tree.proposal"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. <a class="link" href="#tree.proposal" title="2. Proposed Text for Technical Report 2">Proposed Text for Technical Report 2</a></h2></div></div></div><div class="note"><h3 class="title">Note</h3><p>
         Notes that are not part of the proposed text appear in gray boxes.
-      </p></div><div class="section tree_proposal_containers" title="2.1. Containers library [tr.containers]"><div class="titlepage"><div><div><h3 class="title" id="tree.proposal.containers">2.1. <a class="link" href="#tree.proposal.containers" title="2.1. Containers library [tr.containers]">Containers library <span class="tr_section_label">[tr.containers]</span></a></h3></div></div></div><div class="section tree_proposal_containers_hierarchy" title="2.1.1. Hierarchy containers [tr.hierarchy]"><div class="titlepage"><div><div><h4 class="title" id="tree.proposal.containers.hierarchy">2.1.1. <a class="link" href="#tree.proposal.containers.hierarchy" title="2.1.1. Hierarchy containers [tr.hierarchy]">Hierarchy containers
-        <span class="tr_section_label">[tr.hierarchy]</span></a></h4></div></div></div><div class="section tree_proposal_containers_hierarchy_req" title="2.1.1.1. Hierarchy containers requirements [tr.hierarchy.req]"><div class="titlepage"><div><div><h5 class="title" id="tree.proposal.containers.hierarchy.req">2.1.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.req" title="2.1.1.1. Hierarchy containers requirements [tr.hierarchy.req]">Hierarchy
+      </p></div><div class="section tree_proposal_containers" id="tree.proposal.containers"><div class="titlepage"><div><div><h3 class="title">2.1. <a class="link" href="#tree.proposal.containers" title="2.1. Containers library [tr.containers]">Containers library <span class="tr_section_label">[tr.containers]</span></a></h3></div></div></div><div class="section tree_proposal_containers_hierarchy" id="tree.proposal.containers.hierarchy"><div class="titlepage"><div><div><h4 class="title">2.1.1. <a class="link" href="#tree.proposal.containers.hierarchy" title="2.1.1. Hierarchy containers [tr.hierarchy]">Hierarchy containers
+        <span class="tr_section_label">[tr.hierarchy]</span></a></h4></div></div></div><div class="section tree_proposal_containers_hierarchy_req" id="tree.proposal.containers.hierarchy.req"><div class="titlepage"><div><div><h5 class="title">2.1.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.req" title="2.1.1.1. Hierarchy containers requirements [tr.hierarchy.req]">Hierarchy
           containers requirements <span class="tr_section_label">[tr.hierarchy.req]</span></a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
                 A hierarchy is an object that stores a finite set of objects, all
                 of the same type, in a hierarchical manner. Hierarchies introduce
@@ -953,7 +974,7 @@ div div.legalnotice p {
                 except that the expressions in Table 1 are not required to be valid,
                 where a and b denote values of a type X, and X is a hierarchy container
                 class:
-              </p><div class="table"><a name="tree.proposal.containers.hierarchy.req.table1"></a><div class="table-title">Table 1. Container requirements that are not required for hierarchy
+              </p><div class="table" id="tree.proposal.containers.hierarchy.req.table1"><div class="table-title">Table 1. Container requirements that are not required for hierarchy
                 containers</div><div class="table-contents"><table class="table" summary="Container requirements that are not required for hierarchy
                 containers"><colgroup><col></colgroup><thead><tr><th>
                         <p>
@@ -1017,7 +1038,7 @@ div div.legalnotice p {
                 In Table 2: <code class="literal">X</code> denotes a hierarchy class containing
                 objects of type <code class="literal">T</code> and <code class="literal">a</code> denotes
                 a value of type <code class="literal">X</code>.
-              </p><div class="table"><a name="tree.proposal.containers.hierarchy.req.table2"></a><div class="table-title">Table 2. Hierarchy requirements (in addition to container)</div><div class="table-contents"><table class="table" summary="Hierarchy requirements (in addition to container)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+              </p><div class="table" id="tree.proposal.containers.hierarchy.req.table2"><div class="table-title">Table 2. Hierarchy requirements (in addition to container)</div><div class="table-contents"><table class="table" summary="Hierarchy requirements (in addition to container)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                         <p>
                           expression
                         </p>
@@ -1189,7 +1210,7 @@ div div.legalnotice p {
                 denotes a valid, non-on-top cursor to <code class="literal">a</code>, <code class="literal">q</code>
                 denotes a valid, dereferenceable cursor to <code class="literal">a</code>,
                 and <code class="literal">t</code> denotes a value of <code class="literal">X::value_type</code>.
-              </p><div class="table"><a name="tree.proposal.containers.hierarchy.req.table3"></a><div class="table-title">Table 3. Mutable hierarchy requirements</div><div class="table-contents"><table class="table" summary="Mutable hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+              </p><div class="table" id="tree.proposal.containers.hierarchy.req.table3"><div class="table-title">Table 3. Mutable hierarchy requirements</div><div class="table-contents"><table class="table" summary="Mutable hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                         <p>
                           expression
                         </p>
@@ -1266,7 +1287,7 @@ div div.legalnotice p {
                 The cursor returned from <code class="literal">a.insert(p,t)</code> points
                 to the copy of <code class="literal">t</code> inserted into <code class="literal">a</code>.
                 Its parent cursor is the same as that of <code class="literal">p</code>.
-              </p></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_plain" title="2.1.1.2. Plain hierarchies [tr.hierarchy.plain]"><div class="titlepage"><div><div><h5 class="title" id="tree.proposal.containers.hierarchy.plain">2.1.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.plain" title="2.1.1.2. Plain hierarchies [tr.hierarchy.plain]">Plain hierarchies
+              </p></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_plain" id="tree.proposal.containers.hierarchy.plain"><div class="titlepage"><div><div><h5 class="title">2.1.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.plain" title="2.1.1.2. Plain hierarchies [tr.hierarchy.plain]">Plain hierarchies
           <span class="tr_section_label">[tr.hierarchy.plain]</span></a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
                 A hierarchy is called plain hierarchy if its cursor and const_cursor
                 types satisfy the requirements of a plain cursor.
@@ -1276,7 +1297,7 @@ div div.legalnotice p {
               </p></li><li class="listitem"><p>
                 For a mutable plain hierarchy, the following expressions as shown
                 in Table 4, is additionally required to be valid:
-              </p><div class="table"><a name="tree.proposal.containers.hierarchy.plain.table4"></a><div class="table-title">Table 4. Plain hierarchy requirements</div><div class="table-contents"><table class="table" summary="Plain hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+              </p><div class="table" id="tree.proposal.containers.hierarchy.plain.table4"><div class="table-title">Table 4. Plain hierarchy requirements</div><div class="table-contents"><table class="table" summary="Plain hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                         <p>
                           expression
                         </p>
@@ -1335,7 +1356,7 @@ div div.legalnotice p {
                 to the copy of the element that <code class="literal">c</code> points to, inserted
                 into <code class="literal">a</code>. Its parent cursor is the same as that
                 of <code class="literal">p</code>.
-              </p></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_multiway" title="2.1.1.3. Multiway hierarchies [tr.hierarchy.multiway]"><div class="titlepage"><div><div><h5 class="title" id="tree.proposal.containers.hierarchy.multiway">2.1.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.multiway" title="2.1.1.3. Multiway hierarchies [tr.hierarchy.multiway]">Multiway
+              </p></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_multiway" id="tree.proposal.containers.hierarchy.multiway"><div class="titlepage"><div><div><h5 class="title">2.1.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.multiway" title="2.1.1.3. Multiway hierarchies [tr.hierarchy.multiway]">Multiway
           hierarchies <span class="tr_section_label">[tr.hierarchy.multiway]</span></a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
                 A hierarchy is called multiway hierarchy if its <code class="literal">cursor</code>
                 and <code class="literal">const_cursor</code> types satisfy the requirements
@@ -1347,7 +1368,7 @@ div div.legalnotice p {
               </p></li><li class="listitem"><p>
                 For a mutable multiway hierarchy, the semantics of some expressions
                 from Table 3 are modified as shown in Table 5.
-              </p><div class="table"><a name="tree.proposal.containers.hierarchy.multiway.table5"></a><div class="table-title">Table 5. Multiway hierarchy requirements</div><div class="table-contents"><table class="table" summary="Multiway hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+              </p><div class="table" id="tree.proposal.containers.hierarchy.multiway.table5"><div class="table-title">Table 5. Multiway hierarchy requirements</div><div class="table-contents"><table class="table" summary="Multiway hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                         <p>
                           expression
                         </p>
@@ -1390,13 +1411,13 @@ div div.legalnotice p {
                           in the subtree of <code class="literal">c</code> plus the distance
                           to <code class="literal">p</code>'s parent's <code class="literal">end()</code>.
                         </p>
-                      </td></tr></tbody></table></div></div><br class="table-break"></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_tree" title="2.1.1.4. Trees [tr.hierarchy.tree]"><div class="titlepage"><div><div><h5 class="title" id="tree.proposal.containers.hierarchy.tree">2.1.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree" title="2.1.1.4. Trees [tr.hierarchy.tree]">Trees <span class="tr_section_label">[tr.hierarchy.tree]</span></a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                      </td></tr></tbody></table></div></div><br class="table-break"></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_tree" id="tree.proposal.containers.hierarchy.tree"><div class="titlepage"><div><div><h5 class="title">2.1.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree" title="2.1.1.4. Trees [tr.hierarchy.tree]">Trees <span class="tr_section_label">[tr.hierarchy.tree]</span></a></h5></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
                 Headers <code class="literal">&lt;binary_tree&gt;</code>, <code class="literal">&lt;nary_tree&gt;</code>,
                 <code class="literal">&lt;forest_tree&gt;</code>, and <code class="literal">&lt;multiway_tree&gt;</code>.
               </p><p>
                 <span class="bold"><strong>Header <code class="literal">&lt;binary_tree&gt;</code>
                 synopsis</strong></span>
-              </p><div class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+              </p><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">tr2</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span>
     <span class="keyword">class</span> <span class="identifier">binary_tree</span><span class="special">;</span>
@@ -1421,10 +1442,10 @@ div div.legalnotice p {
 
 <span class="special">}</span> <span class="comment">// namespace tr2</span>
 <span class="special">}</span> <span class="comment">// namespace std</span>
-</div><p>
+</pre><p>
                 <span class="bold"><strong>Header <code class="literal">&lt;nary_tree&gt;</code>
                 synopsis</strong></span>
-              </p><div class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+              </p><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">tr2</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span>
     <span class="keyword">class</span> <span class="identifier">nary_tree</span><span class="special">;</span>
@@ -1448,10 +1469,10 @@ div div.legalnotice p {
   <span class="special">}</span> <span class="comment">// namespace inorder</span>
 <span class="special">}</span> <span class="comment">// namespace tr2</span>
 <span class="special">}</span> <span class="comment">// namespace std</span>
-</div><p>
+</pre><p>
                 <span class="bold"><strong>Header <code class="literal">&lt;forest_tree&gt;</code>
                 synopsis</strong></span>
-              </p><div class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+              </p><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">tr2</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span> <span class="special">=</span> <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span>
     <span class="keyword">class</span> <span class="identifier">forest_tree</span><span class="special">;</span>
@@ -1475,10 +1496,10 @@ div div.legalnotice p {
   <span class="special">}</span> <span class="comment">// namespace inorder</span>
 <span class="special">}</span> <span class="comment">// namespace tr2</span>
 <span class="special">}</span> <span class="comment">// namespace std</span>
-</div><p>
+</pre><p>
                 <span class="bold"><strong>Header <code class="literal">&lt;multiway_tree&gt;</code>
                 synopsis</strong></span>
-              </p><div class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+              </p><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">tr2</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span> <span class="special">=</span> <span class="identifier">nary_tree</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
     <span class="keyword">class</span> <span class="identifier">multiway_tree</span><span class="special">;</span>
@@ -1502,41 +1523,261 @@ div div.legalnotice p {
   <span class="special">}</span> <span class="comment">// namespace inorder</span>
 <span class="special">}</span> <span class="comment">// namespace tr2</span>
 <span class="special">}</span> <span class="comment">// namespace std</span>
-</div></li></ol></div><div class="section tree_proposal_containers_hierarchy_tree_bintree" title="2.1.1.4.1. Template class binary_tree [tr.hierarchy.bintree]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree">2.1.1.4.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree" title="2.1.1.4.1. Template class binary_tree [tr.hierarchy.bintree]">Template
-            class <code class="literal">binary_tree</code> <span class="tr_section_label">[tr.hierarchy.bintree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_types" title="2.1.1.4.1.1. binary_tree types [tr.hierarchy.bintree.types]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree.types">2.1.1.4.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.types" title="2.1.1.4.1.1. binary_tree types [tr.hierarchy.bintree.types]"><code class="literal">binary_tree</code>
-              types <span class="tr_section_label">[tr.hierarchy.bintree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_cons" title="2.1.1.4.1.2. binary_tree constructors, copy, and assignment [tr.hierarchy.bintree.cons]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree.cons">2.1.1.4.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.cons" title="2.1.1.4.1.2. binary_tree constructors, copy, and assignment [tr.hierarchy.bintree.cons]"><code class="literal">binary_tree</code>
-              constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.bintree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_cursors" title="2.1.1.4.1.3. binary_tree cursors [tr.hierarchy.bintree.cursors]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree.cursors">2.1.1.4.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.cursors" title="2.1.1.4.1.3. binary_tree cursors [tr.hierarchy.bintree.cursors]"><code class="literal">binary_tree</code>
-              cursors <span class="tr_section_label">[tr.hierarchy.bintree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_modifiers" title="2.1.1.4.1.4. binary_tree modifiers [tr.hierarchy.bintree.modifiers]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree.modifiers">2.1.1.4.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.modifiers" title="2.1.1.4.1.4. binary_tree modifiers [tr.hierarchy.bintree.modifiers]"><code class="literal">binary_tree</code>
-              modifiers <span class="tr_section_label">[tr.hierarchy.bintree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_special" title="2.1.1.4.1.5. binary_tree specialized algorithms [tr.hierarchy.bintree.special]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.bintree.special">2.1.1.4.1.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.special" title="2.1.1.4.1.5. binary_tree specialized algorithms [tr.hierarchy.bintree.special]"><code class="literal">binary_tree</code>
-              specialized algorithms <span class="tr_section_label">[tr.hierarchy.bintree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree" title="2.1.1.4.2. Template class nary_tree [tr.hierarchy.narytree]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree">2.1.1.4.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree" title="2.1.1.4.2. Template class nary_tree [tr.hierarchy.narytree]">Template
-            class <code class="literal">nary_tree</code> <span class="tr_section_label">[tr.hierarchy.narytree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_types" title="2.1.1.4.2.1. nary_tree types [tr.hierarchy.narytree.types]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.types">2.1.1.4.2.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.types" title="2.1.1.4.2.1. nary_tree types [tr.hierarchy.narytree.types]"><code class="literal">nary_tree</code>
-              types <span class="tr_section_label">[tr.hierarchy.narytree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_cons" title="2.1.1.4.2.2. nary_tree constructors, copy, and assignment [tr.hierarchy.narytree.cons]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.cons">2.1.1.4.2.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.cons" title="2.1.1.4.2.2. nary_tree constructors, copy, and assignment [tr.hierarchy.narytree.cons]"><code class="literal">nary_tree</code>
-              constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.narytree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_cursors" title="2.1.1.4.2.3. nary_tree cursors [tr.hierarchy.narytree.cursors]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.cursors">2.1.1.4.2.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.cursors" title="2.1.1.4.2.3. nary_tree cursors [tr.hierarchy.narytree.cursors]"><code class="literal">nary_tree</code>
-              cursors <span class="tr_section_label">[tr.hierarchy.narytree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_capacity" title="2.1.1.4.2.4. nary_tree capacity [tr.hierarchy.narytree.capacity]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.capacity">2.1.1.4.2.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.capacity" title="2.1.1.4.2.4. nary_tree capacity [tr.hierarchy.narytree.capacity]"><code class="literal">nary_tree</code>
-              capacity <span class="tr_section_label">[tr.hierarchy.narytree.capacity]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_modifiers" title="2.1.1.4.2.5. nary_tree modifiers [tr.hierarchy.narytree.modifiers]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.modifiers">2.1.1.4.2.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.modifiers" title="2.1.1.4.2.5. nary_tree modifiers [tr.hierarchy.narytree.modifiers]"><code class="literal">nary_tree</code>
-              modifiers <span class="tr_section_label">[tr.hierarchy.narytree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_special" title="2.1.1.4.2.6. nary_tree specialized algorithms [tr.hierarchy.narytree.special]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.narytree.special">2.1.1.4.2.6. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.special" title="2.1.1.4.2.6. nary_tree specialized algorithms [tr.hierarchy.narytree.special]"><code class="literal">nary_tree</code>
-              specialized algorithms <span class="tr_section_label">[tr.hierarchy.narytree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors" title="2.1.1.4.3. Hierarchy adaptors [tr.hierarchy.adaptors]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors">2.1.1.4.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors" title="2.1.1.4.3. Hierarchy adaptors [tr.hierarchy.adaptors]">Hierarchy
-            adaptors <span class="tr_section_label">[tr.hierarchy.adaptors]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree" title="2.1.1.4.3.1. Template class forest_tree [tr.hierarchy.foresttree]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree">2.1.1.4.3.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree" title="2.1.1.4.3.1. Template class forest_tree [tr.hierarchy.foresttree]">Template
-              class <code class="literal">forest_tree</code> <span class="tr_section_label">[tr.hierarchy.foresttree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_types" title="2.1.1.4.3.1.1. forest_tree types [tr.hierarchy.foresttree.types]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.types">2.1.1.4.3.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.types" title="2.1.1.4.3.1.1. forest_tree types [tr.hierarchy.foresttree.types]"><code class="literal">forest_tree</code>
-                types <span class="tr_section_label">[tr.hierarchy.foresttree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_cons" title="2.1.1.4.3.1.2. forest_tree constructors, copy, and assignment [tr.hierarchy.foresttree.cons]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cons">2.1.1.4.3.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cons" title="2.1.1.4.3.1.2. forest_tree constructors, copy, and assignment [tr.hierarchy.foresttree.cons]"><code class="literal">forest_tree</code>
-                constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.foresttree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_cursors" title="2.1.1.4.3.1.3. forest_tree cursors [tr.hierarchy.foresttree.cursors]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cursors">2.1.1.4.3.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cursors" title="2.1.1.4.3.1.3. forest_tree cursors [tr.hierarchy.foresttree.cursors]"><code class="literal">forest_tree</code>
-                cursors <span class="tr_section_label">[tr.hierarchy.foresttree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_modifiers" title="2.1.1.4.3.1.4. forest_tree modifiers [tr.hierarchy.foresttree.modifiers]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.modifiers">2.1.1.4.3.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.modifiers" title="2.1.1.4.3.1.4. forest_tree modifiers [tr.hierarchy.foresttree.modifiers]"><code class="literal">forest_tree</code>
-                modifiers <span class="tr_section_label">[tr.hierarchy.foresttree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_special" title="2.1.1.4.3.1.5. forest_tree specialized algorithms [tr.hierarchy.foresttree.special]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.special">2.1.1.4.3.1.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.special" title="2.1.1.4.3.1.5. forest_tree specialized algorithms [tr.hierarchy.foresttree.special]"><code class="literal">forest_tree</code>
-                specialized algorithms <span class="tr_section_label">[tr.hierarchy.foresttree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree" title="2.1.1.4.3.2. Template class multiway_tree [tr.hierarchy.multiwaytree]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree">2.1.1.4.3.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree" title="2.1.1.4.3.2. Template class multiway_tree [tr.hierarchy.multiwaytree]">Template
-              class <code class="literal">multiway_tree</code> <span class="tr_section_label">[tr.hierarchy.multiwaytree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_types" title="2.1.1.4.3.2.1. multiway_tree types [tr.hierarchy.multiwaytree.types]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.types">2.1.1.4.3.2.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.types" title="2.1.1.4.3.2.1. multiway_tree types [tr.hierarchy.multiwaytree.types]"><code class="literal">multiway_tree</code>
-                types <span class="tr_section_label">[tr.hierarchy.multiwaytree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_cons" title="2.1.1.4.3.2.2. multiway_tree constructors, copy, and assignment [tr.hierarchy.multiwaytree.cons]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cons">2.1.1.4.3.2.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cons" title="2.1.1.4.3.2.2. multiway_tree constructors, copy, and assignment [tr.hierarchy.multiwaytree.cons]"><code class="literal">multiway_tree</code>
-                constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.multiwaytree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_cursors" title="2.1.1.4.3.2.3. multiway_tree cursors [tr.hierarchy.multiwaytree.cursors]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cursors">2.1.1.4.3.2.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cursors" title="2.1.1.4.3.2.3. multiway_tree cursors [tr.hierarchy.multiwaytree.cursors]"><code class="literal">multiway_tree</code>
-                cursors <span class="tr_section_label">[tr.hierarchy.multiwaytree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_capacity" title="2.1.1.4.3.2.4. multiway_tree capacity [tr.hierarchy.multiwaytree.capacity]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.capacity">2.1.1.4.3.2.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.capacity" title="2.1.1.4.3.2.4. multiway_tree capacity [tr.hierarchy.multiwaytree.capacity]"><code class="literal">multiway_tree</code>
-                capacity <span class="tr_section_label">[tr.hierarchy.multiwaytree.capacity]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_modifiers" title="2.1.1.4.3.2.5. multiway_tree modifiers [tr.hierarchy.multiwaytree.modifiers]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.modifiers">2.1.1.4.3.2.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.modifiers" title="2.1.1.4.3.2.5. multiway_tree modifiers [tr.hierarchy.multiwaytree.modifiers]"><code class="literal">multiway_tree</code>
-                modifiers <span class="tr_section_label">[tr.hierarchy.multiwaytree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_special" title="2.1.1.4.3.2.6. multiway_tree specialized algorithms [tr.hierarchy.multiwaytree.special]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.special">2.1.1.4.3.2.6. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.special" title="2.1.1.4.3.2.6. multiway_tree specialized algorithms [tr.hierarchy.multiwaytree.special]"><code class="literal">multiway_tree</code>
-                specialized algorithms <span class="tr_section_label">[tr.hierarchy.multiwaytree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_augment" title="2.1.1.4.3.3. Augmenting hierarchy adaptors [tr.hierarchy.augment]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.augment">2.1.1.4.3.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.augment" title="2.1.1.4.3.3. Augmenting hierarchy adaptors [tr.hierarchy.augment]">Augmenting
-              hierarchy adaptors <span class="tr_section_label">[tr.hierarchy.augment]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_augment_ranktree" title="2.1.1.4.3.3.1. Template class rank_tree [tr.hierarchy.ranktree]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.augment.ranktree">2.1.1.4.3.3.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.augment.ranktree" title="2.1.1.4.3.3.1. Template class rank_tree [tr.hierarchy.ranktree]">Template
-                class <code class="literal">rank_tree</code> <span class="tr_section_label">[tr.hierarchy.ranktree]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance" title="2.1.1.4.3.4. Balancing hierarchy adaptors [tr.hierarchy.balance]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.balance">2.1.1.4.3.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance" title="2.1.1.4.3.4. Balancing hierarchy adaptors [tr.hierarchy.balance]">Balancing
-              hierarchy adaptors <span class="tr_section_label">[tr.hierarchy.balance]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_cons" title="2.1.1.4.3.4.1. Balancing adaptor constructors, copy, and assigment [tr.hierarchy.balance.cons]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.cons">2.1.1.4.3.4.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.cons" title="2.1.1.4.3.4.1. Balancing adaptor constructors, copy, and assigment [tr.hierarchy.balance.cons]">Balancing
-                adaptor constructors, copy, and assigment <span class="tr_section_label">[tr.hierarchy.balance.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_map" title="2.1.1.4.3.4.2. Balancing adaptor map operations [tr.hierarchy.balance.map]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.map">2.1.1.4.3.4.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.map" title="2.1.1.4.3.4.2. Balancing adaptor map operations [tr.hierarchy.balance.map]">Balancing
-                adaptor map operations <span class="tr_section_label">[tr.hierarchy.balance.map]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_modifiers" title="2.1.1.4.3.4.3. Balancing adaptor modifiers [tr.hierarchy.balance.modifiers]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.modifiers">2.1.1.4.3.4.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.modifiers" title="2.1.1.4.3.4.3. Balancing adaptor modifiers [tr.hierarchy.balance.modifiers]">Balancing
-                adaptor modifiers <span class="tr_section_label">[tr.hierarchy.balance.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_special" title="2.1.1.4.3.4.4. Balancing adaptor specialized algorithms [tr.hierarchy.balance.special]"><div class="titlepage"><div><div><h6 class="title" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.special">2.1.1.4.3.4.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.special" title="2.1.1.4.3.4.4. Balancing adaptor specialized algorithms [tr.hierarchy.balance.special]">Balancing
-                adaptor specialized algorithms <span class="tr_section_label">[tr.hierarchy.balance.special]</span></a></h6></div></div></div></div></div></div></div></div></div></div><div class="section tree_references" title="3. References"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="tree.references">3. <a class="link" href="#tree.references" title="3. References">References</a></h2></div></div></div><div class="variablelist" title="References"><div class="variablelist-title">References</div><dl><dt><span class="term">austern</span></dt><dd><p>
+</pre></li></ol></div><div class="section tree_proposal_containers_hierarchy_tree_bintree" id="tree.proposal.containers.hierarchy.tree.bintree"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree" title="2.1.1.4.1. Template class binary_tree [tr.hierarchy.bintree]">Template
+            class <code class="literal">binary_tree</code> <span class="tr_section_label">[tr.hierarchy.bintree]</span></a></h6></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                  A <code class="literal">binary_tree</code> is a kind of hierarchy that satisfies
+                  multiway hierarchy requirements. Additionally, it supports (inorder-invariant)
+                  cursor rotation. Descriptions are provided here only for operations
+                  on <code class="literal">binary_tree</code> that are not described in one
+                  of these tables or for operations where there is additional semantic
+                  information.
+                </p><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tr2</span> <span class="special">{</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+  <span class="keyword">class</span> <span class="identifier">binary_tree</span>
+  <span class="special">{</span>
+  <span class="keyword">public</span><span class="special">:</span>
+    <span class="comment">// types:</span>
+    <span class="keyword">typedef</span> <span class="identifier">T</span>                                             <span class="identifier">value_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">Alloc</span>                                         <span class="identifier">allocator_type</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">cursor</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">const_cursor</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">pointer</span>              <span class="identifier">pointer</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">const_pointer</span>        <span class="identifier">const_pointer</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">reference</span>            <span class="identifier">reference</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">const_reference</span>      <span class="identifier">const_reference</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">size_type</span>            <span class="identifier">size_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="identifier">difference_type</span>      <span class="identifier">difference_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">rebind</span> <span class="special">{</span>
+      <span class="keyword">typedef</span> <span class="identifier">binary_tree</span><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">allocator_type</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">rebind</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;::</span><span class="identifier">other</span> <span class="special">&gt;</span>
+        <span class="identifier">other</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="comment">// construct/copy/destroy:</span>
+    <span class="keyword">explicit</span> <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">,</span>
+        <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+    <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+    <span class="special">~</span><span class="identifier">binary_tree</span><span class="special">();</span>
+    <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="keyword">operator</span><span class="special">=(</span>
+      <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+    <span class="identifier">allocator_type</span> <span class="identifier">get_allocator</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// cursors:</span>
+    <span class="identifier">cursor</span>        <span class="identifier">root</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">croot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span> <span class="keyword">const</span><span class="special">();</span>
+
+    <span class="comment">// capacity:</span>
+    <span class="keyword">bool</span>      <span class="identifier">empty</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <span class="identifier">size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <span class="identifier">max_size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// modifiers:</span>
+    <span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="identifier">cursor</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">rotate</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">swap</span><span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;);</span>
+    <span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">();</span>
+  <span class="special">};</span>
+
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span>  <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                      <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">!=(</span>  <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                      <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+  <span class="comment">// specialized algorithms:</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+    <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+  <span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+    <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
+      <span class="identifier">begin</span><span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">h</span><span class="special">);</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+    <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
+      <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
+  <span class="special">}</span> <span class="comment">// namespace inorder</span>
+
+<span class="special">}</span> <span class="comment">// namespace tr2</span>
+<span class="special">}</span> <span class="comment">// namespace std</span>
+</pre></li></ol></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_types" id="tree.proposal.containers.hierarchy.tree.bintree.types"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.types" title="2.1.1.4.1.1. binary_tree types [tr.hierarchy.bintree.types]"><code class="literal">binary_tree</code>
+              types <span class="tr_section_label">[tr.hierarchy.bintree.types]</span></a></h6></div></div></div><pre class="programlisting"><span class="keyword">typedef</span> <em class="replaceable"><code>implementation defined</code></em> <span class="identifier">cursor</span><span class="special">;</span>
+<span class="keyword">typedef</span> <em class="replaceable"><code>implementation defined</code></em> <span class="identifier">const_cursor</span><span class="special">;</span>
+</pre><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                    Both <code class="literal">cursor</code> and <code class="literal">const_cursor</code>
+                    have to fulfill the multiway cursor ([tr.cursor.flavors]) and
+                    ascending random access cursor ([tr.ascending.random.access.cursors])
+                    requirements.
+                  </p></li><li class="listitem"><p>
+                    Additionally, for any instance a of either type <code class="literal">cursor</code>
+                    or <code class="literal">const_cursor</code>, <code class="literal">a.max_size() ==
+                    1</code>.
+                  </p></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_cons" id="tree.proposal.containers.hierarchy.tree.bintree.cons"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.cons" title="2.1.1.4.1.2. binary_tree constructors, copy, and assignment [tr.hierarchy.bintree.cons]"><code class="literal">binary_tree</code>
+              constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.bintree.cons]</span></a></h6></div></div></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+  <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">,</span>
+    <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+<span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+</pre><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                    <span class="bold"><strong>Complexity:</strong></span> The constructor
+                    <code class="computeroutput"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span> <span class="identifier">vector</span><span class="special">(</span><span class="identifier">InputCursor</span>
+                    <span class="identifier">subtree</span><span class="special">)</span></code>
+                    makes only <code class="literal">N</code> calls to the copy constructor
+                    of <code class="literal">T</code> (where <code class="literal">N</code> is the number
+                    of elements in <code class="literal">subtree</code>) and no reallocations
+                    if the cursor <code class="literal">subtree</code> is of (either descending
+                    or ascending) forward, bidirectional, or random access categories.
+                    It does at most <code class="literal">2N</code> calls to the copy constructor
+                    of <code class="literal">T</code> and <code class="literal">logN</code> reallocations
+                    if they are just cursors, since it is impossible to determine
+                    the size of <code class="literal">subtree</code> and then do copying.
+                  </p><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+  <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+</pre></li><li class="listitem"><p>
+                    <span class="bold"><strong>Effects:</strong></span>
+                  </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
+<span class="keyword">for</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">root</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">i</span><span class="special">);</span>
+</pre></li></ol></div></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_cursors" id="tree.proposal.containers.hierarchy.tree.bintree.cursors"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.cursors" title="2.1.1.4.1.3. binary_tree cursors [tr.hierarchy.bintree.cursors]"><code class="literal">binary_tree</code>
+              cursors <span class="tr_section_label">[tr.hierarchy.bintree.cursors]</span></a></h6></div></div></div><span class="tr_definition">
+<pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+<span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Complexity:</strong></span> constant
+              </p><span class="tr_definition">
+<pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+<span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Returns:</strong></span> A cursor to the <code class="literal">binary_tree</code>'s
+                first element in inorder (see [tr.order.iterators], §4).
+              </p><p>
+                <span class="bold"><strong>Complexity:</strong></span> constant.
+              </p></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_modifiers" id="tree.proposal.containers.hierarchy.tree.bintree.modifiers"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.modifiers" title="2.1.1.4.1.4. binary_tree modifiers [tr.hierarchy.bintree.modifiers]"><code class="literal">binary_tree</code>
+              modifiers <span class="tr_section_label">[tr.hierarchy.bintree.modifiers]</span></a></h6></div></div></div><span class="tr_definition">
+<pre class="programlisting"><span class="identifier">cursor</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Notes:</strong></span> Does not affect the validity
+                of cursors and references.
+              </p><p>
+                <span class="bold"><strong>Effects:</strong></span> Let <code class="literal">b be =a</code>'s
+                parent; if <code class="computeroutput"><span class="identifier">b</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span>
+                <span class="special">&lt;</span> <span class="identifier">b</span><span class="special">.</span><span class="identifier">max_size</span><span class="special">()</span></code>, insert a copy of <code class="literal">t</code>
+                before <code class="literal">p</code>, as child of <code class="literal">b</code>; Otherwise,
+                if <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">empty</span><span class="special">()</span></code>,
+                insert a copy of <code class="literal">t</code> as child of <code class="literal">a</code>;
+                and if <code class="computeroutput"><span class="special">!</span><span class="identifier">a</span><span class="special">.</span><span class="identifier">empty</span><span class="special">()</span></code>, insert a copy of <code class="literal">t</code>
+                as parent of <code class="literal">a</code>'s current child, as new child of
+                <code class="literal">a</code>.
+              </p><p>
+                <span class="bold"><strong>Complexity:</strong></span> constant
+              </p><span class="tr_definition">
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+  <span class="identifier">cursor</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Notes:</strong></span> Does not affect the validity
+                of cursors and references.
+              </p><p>
+                <span class="bold"><strong>Effects:</strong></span> as above, substituting
+                <code class="literal">InputCursor subtree</code> to insert instead of <code class="computeroutput"><span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span></code>.
+              </p><p>
+                <span class="bold"><strong>Complexity:</strong></span> linear in the number
+                of elements in subtree.
+              </p><span class="tr_definition">
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">rotate</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Precondition:</strong></span> position and its parent
+                are internal and non-on-top
+              </p><p>
+                <span class="bold"><strong>Effects:</strong></span> Performs a left tree rotation
+                around the parent of position if <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span> <span class="special">==</span> <span class="number">0</span></code> or a right tree rotation if <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span>
+                <span class="special">==</span> <span class="number">1</span></code>.
+              </p><p>
+                <span class="bold"><strong>Postcondition:</strong></span> If <code class="computeroutput"><span class="identifier">par</span> <span class="special">==</span>
+                <span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span></code>
+                as of before the rotation, then, after the rotation:
+              </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+                    <code class="computeroutput"><span class="special">*</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span></code> yields the same value it yielded
+                    before the rotation
+                  </p></li><li class="listitem"><p>
+                    <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span>
+                    <span class="special">==</span> <span class="special">!</span><span class="identifier">par</span></code>
+                  </p></li><li class="listitem"><p>
+                    <code class="computeroutput"><span class="special">*(((</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[</span><span class="identifier">par</span><span class="special">]).</span><span class="identifier">begin</span><span class="special">())</span></code> yields what <code class="computeroutput"><span class="special">*(</span><span class="identifier">p</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span></code> yielded before, if <code class="literal">p</code>
+                    was <code class="literal">position</code>'s parent
+                  </p></li><li class="listitem"><p>
+                    <code class="literal">position</code>'s parent's value is what <code class="literal">position</code>'s
+                    parent's parent's value yielded before. The ancestors of that
+                    cursor, and their structure, remain unchanged
+                  </p></li><li class="listitem"><p>
+                    <code class="computeroutput"><span class="special">(</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[!</span><span class="identifier">par</span><span class="special">]</span></code>'s subtree is what <code class="computeroutput"><span class="special">(</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[!</span><span class="identifier">par</span><span class="special">]</span></code>'s was before.
+                  </p></li><li class="listitem"><p>
+                    <code class="computeroutput"><span class="special">((</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()[!</span><span class="identifier">par</span><span class="special">]).</span><span class="identifier">begin</span><span class="special">())\[</span><span class="identifier">par</span><span class="special">]</span></code>'s subtree is what <code class="computeroutput"><span class="special">(</span><span class="identifier">p</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[!</span><span class="identifier">par</span><span class="special">]</span></code>'s was before, if <code class="literal">p</code>
+                    was <code class="literal">position</code>'s parent.
+                  </p></li><li class="listitem"><p>
+                    <code class="computeroutput"><span class="special">((</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()[!</span><span class="identifier">par</span><span class="special">]).</span><span class="identifier">begin</span><span class="special">())[</span><span class="identifier">par</span><span class="special">]</span></code>'s subtree is what <code class="computeroutput"><span class="special">(</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[!</span><span class="identifier">par</span><span class="special">]</span></code>'s was before.
+                  </p></li></ul></div><p>
+                <span class="bold"><strong>Complexity:</strong></span> constant
+              </p><p>
+                <span class="bold"><strong>Notes:</strong></span> Does not affect the validity
+                of cursors and references. Tree rotations are important inorder-preserving
+                (see [tr.order.iterators] §4) operations on binary trees that are
+                especially required by balancers.
+              </p><span class="tr_definition">
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre>
+              </span><p>
+                <span class="bold"><strong>Notes:</strong></span> Invalidates only the cursors
+                and references to the erased elements.
+              </p></div><div class="section tree_proposal_containers_hierarchy_tree_bintree_special" id="tree.proposal.containers.hierarchy.tree.bintree.special"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.1.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.bintree.special" title="2.1.1.4.1.5. binary_tree specialized algorithms [tr.hierarchy.bintree.special]"><code class="literal">binary_tree</code>
+              specialized algorithms <span class="tr_section_label">[tr.hierarchy.bintree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree" id="tree.proposal.containers.hierarchy.tree.narytree"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree" title="2.1.1.4.2. Template class nary_tree [tr.hierarchy.narytree]">Template
+            class <code class="literal">nary_tree</code> <span class="tr_section_label">[tr.hierarchy.narytree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_types" id="tree.proposal.containers.hierarchy.tree.narytree.types"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.types" title="2.1.1.4.2.1. nary_tree types [tr.hierarchy.narytree.types]"><code class="literal">nary_tree</code>
+              types <span class="tr_section_label">[tr.hierarchy.narytree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_cons" id="tree.proposal.containers.hierarchy.tree.narytree.cons"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.cons" title="2.1.1.4.2.2. nary_tree constructors, copy, and assignment [tr.hierarchy.narytree.cons]"><code class="literal">nary_tree</code>
+              constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.narytree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_cursors" id="tree.proposal.containers.hierarchy.tree.narytree.cursors"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.cursors" title="2.1.1.4.2.3. nary_tree cursors [tr.hierarchy.narytree.cursors]"><code class="literal">nary_tree</code>
+              cursors <span class="tr_section_label">[tr.hierarchy.narytree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_capacity" id="tree.proposal.containers.hierarchy.tree.narytree.capacity"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.capacity" title="2.1.1.4.2.4. nary_tree capacity [tr.hierarchy.narytree.capacity]"><code class="literal">nary_tree</code>
+              capacity <span class="tr_section_label">[tr.hierarchy.narytree.capacity]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_modifiers" id="tree.proposal.containers.hierarchy.tree.narytree.modifiers"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.modifiers" title="2.1.1.4.2.5. nary_tree modifiers [tr.hierarchy.narytree.modifiers]"><code class="literal">nary_tree</code>
+              modifiers <span class="tr_section_label">[tr.hierarchy.narytree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_narytree_special" id="tree.proposal.containers.hierarchy.tree.narytree.special"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.2.6. <a class="link" href="#tree.proposal.containers.hierarchy.tree.narytree.special" title="2.1.1.4.2.6. nary_tree specialized algorithms [tr.hierarchy.narytree.special]"><code class="literal">nary_tree</code>
+              specialized algorithms <span class="tr_section_label">[tr.hierarchy.narytree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors" id="tree.proposal.containers.hierarchy.tree.adaptors"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors" title="2.1.1.4.3. Hierarchy adaptors [tr.hierarchy.adaptors]">Hierarchy
+            adaptors <span class="tr_section_label">[tr.hierarchy.adaptors]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree" title="2.1.1.4.3.1. Template class forest_tree [tr.hierarchy.foresttree]">Template
+              class <code class="literal">forest_tree</code> <span class="tr_section_label">[tr.hierarchy.foresttree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_types" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.types"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.types" title="2.1.1.4.3.1.1. forest_tree types [tr.hierarchy.foresttree.types]"><code class="literal">forest_tree</code>
+                types <span class="tr_section_label">[tr.hierarchy.foresttree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_cons" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cons"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cons" title="2.1.1.4.3.1.2. forest_tree constructors, copy, and assignment [tr.hierarchy.foresttree.cons]"><code class="literal">forest_tree</code>
+                constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.foresttree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_cursors" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cursors"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.cursors" title="2.1.1.4.3.1.3. forest_tree cursors [tr.hierarchy.foresttree.cursors]"><code class="literal">forest_tree</code>
+                cursors <span class="tr_section_label">[tr.hierarchy.foresttree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_modifiers" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.modifiers"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.modifiers" title="2.1.1.4.3.1.4. forest_tree modifiers [tr.hierarchy.foresttree.modifiers]"><code class="literal">forest_tree</code>
+                modifiers <span class="tr_section_label">[tr.hierarchy.foresttree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_foresttree_special" id="tree.proposal.containers.hierarchy.tree.adaptors.foresttree.special"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.1.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.foresttree.special" title="2.1.1.4.3.1.5. forest_tree specialized algorithms [tr.hierarchy.foresttree.special]"><code class="literal">forest_tree</code>
+                specialized algorithms <span class="tr_section_label">[tr.hierarchy.foresttree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree" title="2.1.1.4.3.2. Template class multiway_tree [tr.hierarchy.multiwaytree]">Template
+              class <code class="literal">multiway_tree</code> <span class="tr_section_label">[tr.hierarchy.multiwaytree]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_types" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.types"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.types" title="2.1.1.4.3.2.1. multiway_tree types [tr.hierarchy.multiwaytree.types]"><code class="literal">multiway_tree</code>
+                types <span class="tr_section_label">[tr.hierarchy.multiwaytree.types]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_cons" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cons"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cons" title="2.1.1.4.3.2.2. multiway_tree constructors, copy, and assignment [tr.hierarchy.multiwaytree.cons]"><code class="literal">multiway_tree</code>
+                constructors, copy, and assignment <span class="tr_section_label">[tr.hierarchy.multiwaytree.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_cursors" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cursors"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.cursors" title="2.1.1.4.3.2.3. multiway_tree cursors [tr.hierarchy.multiwaytree.cursors]"><code class="literal">multiway_tree</code>
+                cursors <span class="tr_section_label">[tr.hierarchy.multiwaytree.cursors]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_capacity" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.capacity"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.capacity" title="2.1.1.4.3.2.4. multiway_tree capacity [tr.hierarchy.multiwaytree.capacity]"><code class="literal">multiway_tree</code>
+                capacity <span class="tr_section_label">[tr.hierarchy.multiwaytree.capacity]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_modifiers" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.modifiers"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.5. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.modifiers" title="2.1.1.4.3.2.5. multiway_tree modifiers [tr.hierarchy.multiwaytree.modifiers]"><code class="literal">multiway_tree</code>
+                modifiers <span class="tr_section_label">[tr.hierarchy.multiwaytree.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_multiwaytree_special" id="tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.special"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.2.6. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.multiwaytree.special" title="2.1.1.4.3.2.6. multiway_tree specialized algorithms [tr.hierarchy.multiwaytree.special]"><code class="literal">multiway_tree</code>
+                specialized algorithms <span class="tr_section_label">[tr.hierarchy.multiwaytree.special]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_augment" id="tree.proposal.containers.hierarchy.tree.adaptors.augment"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.augment" title="2.1.1.4.3.3. Augmenting hierarchy adaptors [tr.hierarchy.augment]">Augmenting
+              hierarchy adaptors <span class="tr_section_label">[tr.hierarchy.augment]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_augment_ranktree" id="tree.proposal.containers.hierarchy.tree.adaptors.augment.ranktree"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.3.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.augment.ranktree" title="2.1.1.4.3.3.1. Template class rank_tree [tr.hierarchy.ranktree]">Template
+                class <code class="literal">rank_tree</code> <span class="tr_section_label">[tr.hierarchy.ranktree]</span></a></h6></div></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance" id="tree.proposal.containers.hierarchy.tree.adaptors.balance"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance" title="2.1.1.4.3.4. Balancing hierarchy adaptors [tr.hierarchy.balance]">Balancing
+              hierarchy adaptors <span class="tr_section_label">[tr.hierarchy.balance]</span></a></h6></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_cons" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.cons"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.4.1. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.cons" title="2.1.1.4.3.4.1. Balancing adaptor constructors, copy, and assigment [tr.hierarchy.balance.cons]">Balancing
+                adaptor constructors, copy, and assigment <span class="tr_section_label">[tr.hierarchy.balance.cons]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_map" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.map"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.4.2. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.map" title="2.1.1.4.3.4.2. Balancing adaptor map operations [tr.hierarchy.balance.map]">Balancing
+                adaptor map operations <span class="tr_section_label">[tr.hierarchy.balance.map]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_modifiers" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.modifiers"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.4.3. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.modifiers" title="2.1.1.4.3.4.3. Balancing adaptor modifiers [tr.hierarchy.balance.modifiers]">Balancing
+                adaptor modifiers <span class="tr_section_label">[tr.hierarchy.balance.modifiers]</span></a></h6></div></div></div></div><div class="section tree_proposal_containers_hierarchy_tree_adaptors_balance_special" id="tree.proposal.containers.hierarchy.tree.adaptors.balance.special"><div class="titlepage"><div><div><h6 class="title">2.1.1.4.3.4.4. <a class="link" href="#tree.proposal.containers.hierarchy.tree.adaptors.balance.special" title="2.1.1.4.3.4.4. Balancing adaptor specialized algorithms [tr.hierarchy.balance.special]">Balancing
+                adaptor specialized algorithms <span class="tr_section_label">[tr.hierarchy.balance.special]</span></a></h6></div></div></div></div></div></div></div></div></div></div><div class="section tree_references" id="tree.references"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. <a class="link" href="#tree.references" title="3. References">References</a></h2></div></div></div><div class="variablelist"><div class="variablelist-title">References</div><dl class="variablelist"><dt><span class="term">austern</span></dt><dd><p>
             Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
             John. <span class="emphasis"><em>Untangling the Balancing and Searching of Balanced Binary
             Search Trees</em></span>, Software: Practice and Experience 33(13): 1273-1298
