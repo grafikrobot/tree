@@ -22,7 +22,7 @@ body {
 =============================================================================*/
 p {
   text-align: left;
-  font-size: 10pt;
+  /* font-size: 10pt; */
   line-height: 1.15;
 }
 
@@ -52,6 +52,10 @@ pre.synopsis {
 td .programlisting,td .screen {
   margin: 0pc 0pc 0pc 0pc;
   padding: 0pc 0pc 0pc 0pc;
+}
+
+tt, code, kbd, samp {
+  font-size: 115%;
 }
 
 /*=============================================================================
@@ -88,8 +92,14 @@ h6 {
 }
 
 /* Top page titles */
-title,h1.title,h2.title
-    h3.title,h4.title,h5.title,h6.title,.refentrytitle {
+title,
+h1.title,
+h2.title,
+h3.title,
+h4.title,
+h5.title,
+h6.title,
+.refentrytitle {
   font-weight: bold;
   margin-bottom: 1pc;
 }
@@ -179,7 +189,7 @@ h3.author {
     Lists
 =============================================================================*/
 li {
-  font-size: 10pt;
+  /* font-size: 10pt; */
   line-height: 1.3;
 }
 
@@ -258,7 +268,7 @@ div.informaltable table,div.table table {
 div.informaltable table tr td,div.table table tr td {
   padding: 0.5em;
   text-align: left;
-  font-size: 9pt;
+  /* font-size: 9pt; */
 }
 
 div.informaltable table tr th,div.table table tr th {
@@ -271,7 +281,7 @@ div.informaltable table tr th,div.table table tr th {
     Blurbs
 =============================================================================*/
 div.note,div.tip,div.important,div.caution,div.warning,p.blurb {
-  font-size: 9pt; /* A little bit smaller than the main text */
+  /* font-size: 9pt; */ /* A little bit smaller than the main text */
   line-height: 1.2;
   display: block;
   margin: 1pc 4% 0pc 4%;
@@ -289,14 +299,14 @@ p.blurb img {
 /* Make the terms in definition lists bold */
 div.variablelist dl dt,span.term {
   font-weight: bold;
-  font-size: 10pt;
+  /* font-size: 10pt; */
 }
 
 div.variablelist table tbody tr td {
   text-align: left;
   vertical-align: top;
   padding: 0em 2em 0em 0em;
-  font-size: 10pt;
+  /* font-size: 10pt; */
   margin: 0em 0em 0.5em 0em;
   line-height: 1;
 }
@@ -307,7 +317,7 @@ div.variablelist dl dt {
 
 div.variablelist dl dd {
   margin: 0em 0em 0.5em 2em;
-  font-size: 10pt;
+  /* font-size: 10pt; */
 }
 
 div.variablelist table tbody tr td p,div.variablelist dl dd p {
@@ -371,6 +381,7 @@ div div.legalnotice p {
   }
   .comment {
     color: #800000;
+    font-style: italic;
   }
   .string {
     color: teal;
@@ -475,52 +486,63 @@ div div.legalnotice p {
   }
 }
 
-.tree_proposal>.section {
-  font-family: serif;
+.std_proposal > .section {
+  font-family: Didot, Times, serif;
 }
 
-.tree_proposal>.section {
+.std_proposal > .section {
   margin: 1em;
   padding: 1em 0em 1em 1.5em;
   border-top: 1px solid #888888;
   border-bottom: 1px solid #888888;
 }
 
-.tree_proposal .section {
+.std_proposal .section {
   counter-reset: section-paragraph;
 }
 
-.tree_proposal .section>p:before {
-  content: counter(section-paragraph) ". ";
+.std_proposal .section > p:before,
+.std_proposal div.std_requisite > *:first-child:before,
+.std_proposal div.std_specification > *:first-child:before
+{
+  content: counter(section-paragraph);
   counter-increment: section-paragraph;
   display: block;
-  width: 3em;
+  width: 4em;
   position: absolute;
-  left: 1em;
+  left: 0em;
   text-align: right;
+  font-size: 70%;
+  padding-top: 0.2em;
 }
 
-.tree_proposal .tr_section_label {
+.std_proposal .std_section_label {
   float: right;
 }
 
-.tree_proposal .tr_definition {
-  display: block;
-  margin-left: 2em;
+.std_proporal .std_requisite {
 }
 
-.tree_proposal ol {
+.std_proposal .std_definition {
+}
+
+.std_proposal .std_specification {
+  display: block;
+  margin-left: 3em;
+}
+
+.std_proposal ol {
   margin: 0em;
   padding: 0em;
 }
 
-.tree_proposal ol li {
+.std_proposal ol li {
   margin: 0em 0em 1em 0em;
   padding: 0em 0em 0em 0em;
   clear: both;
 }
 
-.tree_proposal table {
+.std_proposal table {
   border: 1px solid;
   margin: 0em auto 0em auto;
   border-spacing: 0em;
@@ -529,25 +551,25 @@ div div.legalnotice p {
   border-collapse: separate;
 }
 
-.tree_proposal .table .title,
-.tree_proposal .table-title {
+.std_proposal .table .title,
+.std_proposal .table-title {
   font-weight: bold;
   margin: 1em auto 1em auto;
   text-align: center;
   caption-side: top;
 }
 
-.tree_proposal table th {
+.std_proposal table th {
   border: none !important;
   border-bottom: 1px solid !important;
   padding: 0.25em 0.5em 0em 0.5em !important;
   background: transparent !important;
 }
-.tree_proposal table th p {
+.std_proposal table th p {
   text-align: center !important;
 }
 
-.tree_proposal table td {
+.std_proposal table td {
   border: none !important;
   border-top: 1px solid !important;
   vertical-align: top !important;
@@ -555,75 +577,75 @@ div div.legalnotice p {
   background: transparent !important;
 }
 
-.tree_proposal .docref {
+.std_proposal .docref {
   float: right;
 }
 
-.tree_proposal .docref dt {
+.std_proposal .docref dt {
   float: left;
   font-style: italic;
 }
 
-.tree_proposal .docref dd {
+.std_proposal .docref dd {
   margin-left: 8em;
 }
 
-.tree_proposal h1,
-.tree_proposal h2,
-.tree_proposal h3,
-.tree_proposal h4,
-.tree_proposal h5,
-.tree_proposal h6 {
+.std_proposal h1,
+.std_proposal h2,
+.std_proposal h3,
+.std_proposal h4,
+.std_proposal h5,
+.std_proposal h6 {
   clear: both;
   font-style: normal;
 }
 
-.tree_proposal .byline {
+.std_proposal .byline {
   text-align: center;
 }
 
-.tree_proposal .note {
+.std_proposal .note {
   background: #EEEEEE;
   border: 1px solid #AAAAAA;
   padding: 0.25em;
 }
-.tree_proposal .note .title {
+.std_proposal .note .title {
   display: none;
 }
-.tree_proposal .note p {
+.std_proposal .note p {
   margin: 0.25em 0em 0.25em 0em;
 }
-.tree_proposal .note table {
+.std_proposal .note table {
   border: none;
   margin: 0em;
   padding: 0em;
 }
-.tree_proposal .note table td,
+.std_proposal .note table td,
 .tree_proposal .note table th {
   border: none !important;
 }
 
-.tree_proposal .add {
+.std_proposal .add {
   text-decoration: overline;
 }
 
-.tree_proposal h2 {
+.std_proposal h2 {
   font-size: 150%
 }
 
-.tree_proposal h3,
-.tree_proposal h4,
-.tree_proposal h5,
-.tree_proposal h6 {
+.std_proposal h3,
+.std_proposal h4,
+.std_proposal h5,
+.std_proposal h6 {
   font-size: 100%;
 }
 
-.tree_proposal .section-id {
+.std_proposal .section-id {
   float: right;
   position: relative;
   top: -1.25em;
 }
-.tree_proposal .programlisting {
+.std_proposal .programlisting {
   border: none !important;
   margin-left: 0em !important;
   margin-right: 0em !important;

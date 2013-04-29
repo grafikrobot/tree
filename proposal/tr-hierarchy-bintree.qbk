@@ -1,17 +1,16 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
  /  http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section:bintree Template class =binary_tree=  [label tr.hierarchy.bintree]]
+[section:bintree Class template =binary_tree=  [label hierarchy.bintree]]
 
-[ordered_list
+[section:overview Class template =binary_tree= overview [label hiearchy.bintree.overview]]
 
-[
 A =binary_tree= is a kind of hierarchy that satisfies multiway hierarchy
 requirements. Additionally, it supports (inorder-invariant) cursor rotation.
 Descriptions are provided here only for operations on =binary_tree= that are
@@ -20,7 +19,6 @@ additional semantic information.
 
 ``
 namespace std {
-namespace tr2 {
   template <class T, class Alloc = std::allocator<T> >
   class binary_tree
   {
@@ -29,8 +27,8 @@ namespace tr2 {
     typedef T                                             value_type;
     typedef Alloc                                         allocator_type;
 
-    typedef implementation defined                        cursor;
-    typedef implementation defined                        const_cursor;
+    typedef implementation_defined                        cursor;
+    typedef implementation_defined                        const_cursor;
 
     typedef typename allocator_type::pointer              pointer;
     typedef typename allocator_type::const_pointer        const_pointer;
@@ -101,47 +99,50 @@ namespace tr2 {
       cbegin(binary_tree<T, Alloc> const& h);
   } // namespace inorder
   
-} // namespace tr2
 } // namespace std
 ``
-]
 
-]
+[endsect] [/overview]
 
-[section:types =binary_tree= types [label tr.hierarchy.bintree.types]]
+[section:types =binary_tree= types [label hierarchy.bintree.types]]
+
+[std_def]
 
 ``
-typedef __implementation_defined__ cursor;
-typedef __implementation_defined__ const_cursor;
+	typedef implementation_defined cursor;
+	typedef implementation_defined const_cursor;
 ``
 
-[ordered_list
+[std_end]
 
-[Both =cursor= and =const_cursor= have to fulfill the multiway cursor
-(\[tr.cursor.flavors\]) and ascending random access cursor
-(\[tr.ascending.random.access.cursors\]) requirements.]
+[std_req]
+Both =cursor= and =const_cursor= have to fulfill the multiway cursor
+(\[cursor.flavors\]) and ascending random access cursor
+(\[ascending.random.access.cursors\]) requirements.
+[std_end]
 
-[Additionally, for any instance a of either type =cursor= or
-=const_cursor=, =a.max_size() == 1=.]
-
-]
+[std_req]
+Additionally, for any instance a of either type =cursor= or
+=const_cursor=, =a.max_size() == 1=.
+[std_end]
 
 [endsect] [/types]
 
 
 [section:cons =binary_tree= constructors, copy, and assignment [label tr.hierarchy.bintree.cons]]
 
+[std_def]
 ``
-explicit binary_tree (allocator_type const& = allocator_type());
-template <class InputCursor>
-  binary_tree (InputCursor subtree,
-    allocator_type const& = allocator_type());
-binary_tree (binary_tree<T, Alloc> const& x);
+	explicit binary_tree (allocator_type const& = allocator_type());
+	template <class InputCursor>
+	  binary_tree (InputCursor subtree,
+	    allocator_type const& = allocator_type());
+	binary_tree (binary_tree<T, Alloc> const& x);
 ``
+[std_end]
 
-[ordered_list
-
-[*Complexity:* The constructor
+[std_spec]
+['Complexity:] The constructor
 `template <class InputCursor> vector(InputCursor subtree)` makes only
 =N= calls to the copy constructor of =T= (where =N= is the number of elements
 in =subtree=) and no reallocations if the cursor =subtree= is of (either
@@ -149,124 +150,159 @@ descending or ascending) forward, bidirectional, or random access categories.
 It does at most =2N= calls to the copy constructor of =T= and =logN=
 reallocations if they are just cursors, since it is impossible to determine
 the size of =subtree= and then do copying.
+[std_end]
 
+[std_def]
 ``
 template <class InputCursor>
   void assign(InputCursor subtree);
 ``
-]
+[std_end]
 
-[*Effects:*
-
+[std_spec]
+['Effects:]
 ``
-clear(); 
-for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
-  insert(root.end(), *i);
+	clear(); 
+	for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
+	  insert(root.end(), *i);
 ``
-]
-
-]
+[std_end]
 
 [endsect] [/cons]
 
 
 [section:cursors =binary_tree= cursors [label tr.hierarchy.bintree.cursors]]
 
-[tr_definition ``
+[std_def]
+``
 	cursor        shoot();
 	const_cursor  cshoot() const;
-``]
+``
+[std_end]
 
-[*Complexity:] constant
+[std_spec]
+Complexity: constant
+[std_end]
 
-[tr_definition ``
+[std_def]
+``
 	cursor        inorder_first();
 	const_cursor  inorder_cfirst() const;
-``]
+``
+[std_end]
 
-[*Returns:] A cursor to the =binary_tree='s first element in inorder
+[std_spec]
+Returns: A cursor to the =binary_tree='s first element in inorder
 (see \[tr.order.iterators\], §4).
+[std_end]
 
-[*Complexity:] constant.
+[std_spec]
+Complexity: constant.
+[std_end]
 
 [endsect] [/cursors]
 
 
 [section:modifiers =binary_tree= modifiers [label tr.hierarchy.bintree.modifiers]]
 
-[tr_definition ``
+[std_def]
+``
 	cursor insert(cursor position, value_type const& x = value_type());
-``]
+``
+[std_end]
 
-[*Notes:] Does not affect the validity of cursors and references.
+[std_spec]
+Notes: Does not affect the validity of cursors and references.
+[std_end]
 
-[*Effects:] Let =b be =a='s parent;
+[std_spec]
+Effect: Let =b be =a='s parent;
 if `b.size() < b.max_size()`, insert a copy of =t= before =p=, as child of =b=;
 Otherwise, if `a.empty()`, insert a copy of =t= as child of =a=;
 and if `!a.empty()`, insert a copy of =t= as parent of =a='s current child,
 as new child of =a=.
+[std_end]
 
-[*Complexity:] constant
+[std_spec]
+Complexity: constant
+[std_end]
 
-[tr_definition ``
+[std_def]
+``
 	template <class InputCursor>
 	  cursor insert(cursor position, InputCursor subtree);
-``]
+``
+[std_end]
 
-[*Notes:] Does not affect the validity of cursors and references.
+[std_spec]
+Notes: Does not affect the validity of cursors and references.
+[std_end]
 
-[*Effects:] as above, substituting =InputCursor subtree= to insert instead
+[std_spec]
+Effects: as above, substituting =InputCursor subtree= to insert instead
 of `value_type const& x`.
+[std_end]
 
-[*Complexity:] linear in the number of elements in subtree.
+[std_spec]
+Complexity: linear in the number of elements in subtree.
+[std_end]
 
-[tr_definition ``
-void rotate(cursor position);
-``]
 
-[*Precondition:] position and its parent are internal and non-on-top
+[std_def]
+``
+	void rotate(cursor position);
+``
+[std_end]
 
-[*Effects:] Performs a left tree rotation around the parent of position if
+[std_spec]
+Precondition: position and its parent are internal and non-on-top
+[std_end]
+
+[std_spec]
+Effects: Performs a left tree rotation around the parent of position if
 `position.parity() == 0` or a right tree rotation if `position.parity() == 1`.
+[std_end]
 
-[*Postcondition:] If `par == position.parity()` as of before the rotation,
+[std_spec]
+Postcondition: If `par == position.parity()` as of before the rotation,
 then, after the rotation:
 
 [itemized_list
-
-[`*position.begin()` yields the same value it yielded before the rotation]
-
-[`position.parity() == !par`]
-
-[`*(((position.begin())[par]).begin())` yields what `*(p.begin())` yielded
+	[`*position.begin()` yields the same value it yielded before the rotation]
+	[`position.parity() == !par`]
+	[`*(((position.begin())[par]).begin())` yields what `*(p.begin())` yielded
 before, if =p= was =position='s parent]
-
-[=position='s parent's value is what =position='s parent's parent's value
+	[=position='s parent's value is what =position='s parent's parent's value
 yielded before. The ancestors of that cursor, and their structure, remain
 unchanged]
-
-[`(position.begin())[!par]`'s subtree is what `(position.begin())[!par]`'s
+	[`(position.begin())[!par]`'s subtree is what `(position.begin())[!par]`'s
 was before.]
-
-[`((position.begin()[!par]).begin())\[par]`'s subtree is what
+	[`((position.begin()[!par]).begin())\[par]`'s subtree is what
 `(p.begin())[!par]`'s was before, if =p= was =position='s parent.]
-
-[`((position.begin()[!par]).begin())[par]`'s subtree is what
+	[`((position.begin()[!par]).begin())[par]`'s subtree is what
 `(position.begin())[!par]`'s was before.]
+]
+[std_end]
 
-] [/itemized_list]
+[std_spec]
+Complexity: constant
+[std_end]
 
-[*Complexity:] constant
-
-[*Notes:] Does not affect the validity of cursors and references. Tree
+[std_spec]
+Notes: Does not affect the validity of cursors and references. Tree
 rotations are important inorder-preserving (see \[tr.order.iterators\] §4)
 operations on binary trees that are especially required by balancers.
+[std_end]
 
-[tr_definition ``
+[std_def]
+``
 void clear(cursor position);
-``]
+``
+[std_end]
 
-[*Notes:] Invalidates only the cursors and references to the erased elements.
+[std_spec]
+Notes: Invalidates only the cursors and references to the erased elements.
+[std_end]
 
 [endsect] [/modifiers]
 

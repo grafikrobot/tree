@@ -30,26 +30,83 @@
 
 [def (tm) '''&#8482;''']
 [def __code_rep__ [@http://svn.boost.org/svn/boost/sandbox/tree]]
-[def __tech_report_x__ Technical Report 2]
-[def __trx__ tr2]
-[template label[id] [role tr_section_label \[[id]\]]]
+[template label[id] [role std_section_label \[[id]\]]]
 [def __nbsp__ '''&nbsp;''']
-[def __implementation_defined__ [~implementation defined]]
-[template tr_definition[code]
-[block [role tr_definition
-[code]
-]]
-]
+[def implementation_defined ['implementation-defined]]
+[def i[text] ['[text]]]
+
+[/ Custom top level proposal group to allow for styling within the proposal chunk only. /]
+
+[template std_proposal[id title]
+[block '''
+<section role="std_proposal" id="'''[id]'''">
+<title><link linkend="'''[id]'''">'''[title]'''</link></title>
+''']]
+
+[template std_endproposal[]
+[block '''
+</section><!-- std_proposal -->
+''']]
+
+[/ Designate a section as a chapter level clause. /]
+
+[template std_clause[id number title]
+[block '''
+<section role="std_section" id="'''[id]'''" label="'''[number]'''" label-style="no-parent">
+<title><link linkend="'''[id]'''">'''[title]'''</link></title>
+''']]
+
+[template std_endclause[id]
+[block '''
+</section><!-- '''[id]''' -->
+''']]
+
+[/ Custom section wrapper to allow setting the label/number of sections. /]
+
+[template std_section[id number title]
+[block '''
+<section role="std_section" id="'''[id]'''" label="'''[number]'''">
+<title><link linkend="'''[id]'''">'''[title]'''</link></title>
+''']]
+
+[template std_endsect[id]
+[block '''
+</section><!-- '''[id]''' -->
+''']]
+
+[/ Groupings in sections to make it possible to style based on role. /]
+
+[template std_end[]
+[block '''
+</simplesect>
+''']]
+
+[template std_req[]
+[block '''
+<simplesect role="std_requisite">
+''']]
+
+[template std_def[]
+[block '''
+<simplesect role="std_definition">
+''']]
+
+[template std_spec[]
+[block '''
+<simplesect role="std_specification">
+''']]
+
+[/ The content.. /]
 
 [include preamble.qbk]
 
-[section:proposal Proposed Text for Technical Report 2]
+[std_proposal tree.proposal..Proposed Text]
 
 [note Notes that are not part of the proposed text appear in gray boxes.]
 
 [include tr-containers.qbk]
 
-[endsect] [/proposal]
+[std_endproposal] [/proposal]
 
 [section:references References]
 

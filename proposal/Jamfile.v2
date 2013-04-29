@@ -80,5 +80,6 @@ boostbook proposal-single
         <xsl:param>generate.css.header=1
         <xsl:param>custom.css.source=../proposal.css.xml
         <xsl:param>make.clean.html=1
+        <xsl:param>label.from.part=1
+        <xsl:param>section.label.includes.component.label=0
     ;
-    
