@@ -792,7 +792,7 @@ div div.legalnotice p {
           </p></dd><dt><span class="term">Supercedes</span></dt><dd><p>
             WG21/N2101=J16/06-0171
           </p></dd><dt><span class="term">Date</span></dt><dd><p>
-            2013-May-02
+            2013-May-03
           </p></dd><dt><span class="term">Project</span></dt><dd><p>
             Programming Language C++
           </p></dd><dt><span class="term">Reply to</span></dt><dd><p>
@@ -2398,9 +2398,126 @@ div div.legalnotice p {
             <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_cfirst</span><span class="special">())</span></code>.
           </p></div><div class="simplesect std_specification" id="idp7282992"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> constant
-          </p></div></div></div><div class="section  tree_tree_adaptors_augment" id="tree.tree.adaptors.augment"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.4. <a class="link" href="#tree.tree.adaptors.augment" title="23.7.4.3.4. Augmenting hierarchy adaptors [tr.hierarchy.augment]">Augmenting hierarchy adaptors
-        <span class="std_section_label">[tr.hierarchy.augment]</span></a></h6></div></div></div><div class="section  tree_tree_adaptors_augment_ranktree" id="tree.tree.adaptors.augment.ranktree"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.4.1. <a class="link" href="#tree.tree.adaptors.augment.ranktree" title="23.7.4.3.4.1. Template class rank_tree [tr.hierarchy.ranktree]">Template class
-          <code class="literal">rank_tree</code> <span class="std_section_label">[tr.hierarchy.ranktree]</span></a></h6></div></div></div></div></div><div class="section  tree_tree_adaptors_balance" id="tree.tree.adaptors.balance"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5. <a class="link" href="#tree.tree.adaptors.balance" title="23.7.4.3.5. Balancing hierarchy adaptors [tr.hierarchy.balance]">Balancing hierarchy adaptors
+          </p></div></div></div><div class="section  tree_tree_adaptors_augment" id="tree.tree.adaptors.augment"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.4. <a class="link" href="#tree.tree.adaptors.augment" title="23.7.4.3.4. Augmenting hierarchy adaptors [hierarchy.augment]">Augmenting hierarchy adaptors
+        <span class="std_section_label">[hierarchy.augment]</span></a></h6></div></div></div><p>
+          An augmenting hierarchy "augments" a mutable multiway hierarchy
+          which it is given as a template parameter by associating additional information
+          with its elements and modeling a mutable multiway hierarchy in turn. This
+          additional information is not directly exposed, but only readable via certain
+          member functions of the augmentor; it is updated internally in order to
+          adapt to structural or content-wise changes in the hierarchy. The library
+          provides one augmenting hierarchy adaptor template class: <code class="literal">rank_tree</code>,
+          found in header <code class="literal">&lt;augment&gt;</code>.
+        </p><div class="section  tree_tree_adaptors_augment_ranktree" id="tree.tree.adaptors.augment.ranktree"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.4.1. <a class="link" href="#tree.tree.adaptors.augment.ranktree" title="23.7.4.3.4.1. Class template rank_tree [ranktree]">Class template
+          <code class="literal">rank_tree</code> <span class="std_section_label">[ranktree]</span></a></h6></div></div></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span> <span class="special">=</span> <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+  <span class="keyword">class</span> <span class="identifier">rank_tree</span>
+  <span class="special">{</span>
+  <span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">typedef</span> <span class="identifier">Hierarchy</span>                                     <span class="identifier">hierarchy_type</span><span class="special">;</span>
+
+  <span class="keyword">protected</span><span class="special">:</span>
+    <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">rebind</span><span class="special">&lt;</span> <span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">other</span> <span class="identifier">h</span><span class="special">;</span>
+
+  <span class="keyword">public</span><span class="special">:</span>
+    <span class="comment">// types:</span>
+    <span class="keyword">typedef</span> <span class="identifier">T</span>                                             <span class="identifier">value_type</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">cursor</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">const_cursor</span><span class="special">;</span>
+
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">pointer</span>              <span class="identifier">pointer</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">const_pointer</span>        <span class="identifier">const_pointer</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">reference</span>            <span class="identifier">reference</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">const_reference</span>      <span class="identifier">const_reference</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">size_type</span>            <span class="identifier">size_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">difference_type</span>      <span class="identifier">difference_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">rebind</span> <span class="special">{</span>
+      <span class="keyword">typedef</span> <span class="identifier">rank_tree</span><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">rebind</span><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;::</span><span class="identifier">other</span> <span class="special">&gt;</span>
+        <span class="identifier">other</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="comment">// construct/copy/destroy:</span>
+    <span class="keyword">explicit</span> <span class="identifier">rank_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="identifier">rank_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+    <span class="identifier">rank_tree</span> <span class="special">(</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+    <span class="special">~</span><span class="identifier">rank_tree</span><span class="special">();</span>
+    <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="keyword">operator</span><span class="special">=(</span>
+      <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+
+    <span class="comment">// cursors:</span>
+    <span class="identifier">cursor</span>        <span class="identifier">root</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">croot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span> <span class="keyword">const</span><span class="special">();</span>
+
+    <span class="identifier">cursor</span>        <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+    <span class="identifier">const_cursor</span>  <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+
+    <span class="comment">// capacity:</span>
+    <span class="keyword">bool</span>      <span class="identifier">empty</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <span class="identifier">size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <span class="identifier">max_size</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <span class="identifier">capacity</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">void</span>      <span class="identifier">reserve</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+
+    <span class="comment">// modifiers:</span>
+    <span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+      <span class="identifier">cursor</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">rotate</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">swap</span><span class="special">(</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;);</span>
+    <span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+    <span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">();</span>
+  <span class="special">};</span>
+
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span>  <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                      <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hier</span><span class="special">&gt;</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">!=(</span>  <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                      <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+  <span class="comment">// specialized algorithms:</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+    <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+                <span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+  <span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+    <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
+      <span class="identifier">begin</span><span class="special">(</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">h</span><span class="special">);</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+    <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
+      <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">rank_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
+  <span class="special">}</span> <span class="comment">// namespace inorder</span>
+
+<span class="special">}</span> <span class="comment">// namespace std</span>
+</pre><p>
+            Each function listed in the public interface of <code class="literal">rank_tree</code>
+            as above calls a function of the same name for its adaptee object <code class="literal">h</code>,
+            plus possibly other operations with guaranteed logarithmic time complexity
+            in total. This means that operational semantics and time complexities
+            are as specified by the <code class="literal">hierarchy_type</code>; and that a
+            function can only be called if a function of the same name is present
+            in the public interface of <code class="literal">hierarchy_type</code>. (The only
+            exception to the above stated are the functions <code class="literal">rank()</code>,
+            which are newly introduced.)
+          </p><div class="simplesect std_definition" id="idp7569632"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+<span class="identifier">const_cursor</span>  <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp7578800"><div class="titlepage"></div><p>
+            <span class="emphasis"><em>Returns:</em></span> A cursor (or <code class="literal">const_cursor</code>)
+            to the <code class="literal">n=th element of the hierarchy in inorder, counting from
+            =inorder_first()</code>.
+          </p></div><div class="simplesect std_specification" id="idp7581520"><div class="titlepage"></div><p>
+            <span class="emphasis"><em>Complexity:</em></span> logarithmic in <code class="literal">size()</code>.
+          </p></div></div></div><div class="section  tree_tree_adaptors_balance" id="tree.tree.adaptors.balance"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5. <a class="link" href="#tree.tree.adaptors.balance" title="23.7.4.3.5. Balancing hierarchy adaptors [tr.hierarchy.balance]">Balancing hierarchy adaptors
         <span class="std_section_label">[tr.hierarchy.balance]</span></a></h6></div></div></div><div class="section  tree_tree_adaptors_balance_cons" id="tree.tree.adaptors.balance.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.1. <a class="link" href="#tree.tree.adaptors.balance.cons" title="23.7.4.3.5.1. Balancing adaptor constructors, copy, and assigment [tr.hierarchy.balance.cons]">Balancing adaptor
           constructors, copy, and assigment <span class="std_section_label">[tr.hierarchy.balance.cons]</span></a></h6></div></div></div></div><div class="section  tree_tree_adaptors_balance_map" id="tree.tree.adaptors.balance.map"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.2. <a class="link" href="#tree.tree.adaptors.balance.map" title="23.7.4.3.5.2. Balancing adaptor map operations [tr.hierarchy.balance.map]">Balancing adaptor
           map operations <span class="std_section_label">[tr.hierarchy.balance.map]</span></a></h6></div></div></div></div><div class="section  tree_tree_adaptors_balance_modifiers" id="tree.tree.adaptors.balance.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.3. <a class="link" href="#tree.tree.adaptors.balance.modifiers" title="23.7.4.3.5.3. Balancing adaptor modifiers [tr.hierarchy.balance.modifiers]">Balancing adaptor
