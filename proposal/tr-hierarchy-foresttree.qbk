@@ -7,30 +7,235 @@
  /  http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section:foresttree Template class =forest_tree= [label tr.hierarchy.foresttree]]
+[section:foresttree Template class =forest_tree= [label foresttree]]
 
+[std_def]
+A =forest_tree= is a kind of mutable plain hierarchy that is instantiated
+with a mutable multiway hierarchy that has insertion semantics as a
+=binary_tree= ([bintree.modifiers], §1)), and whose cursor
+types =cursor= and =const_cursor= satisfy a =binary_tree='s =cursor= and
+=const_cursor= type requirements ([bintree.types], §1-2)).
 
-[section:types =forest_tree= types [label tr.hierarchy.foresttree.types]]
+``
+namespace std {
+  template <class T, class Hierarchy = binary_tree<T> >
+  class forest_tree {
+  public:
+    typedef Hierarchy                                     hierarchy_type;
+
+  protected:
+    hierarchy_type h;
+    
+  public:
+    // types:
+    typedef T                                             value_type;
+
+    typedef implementation defined                        cursor;
+    typedef implementation defined                        const_cursor;
+
+    typedef typename hierarchy_type::pointer              pointer;
+    typedef typename hierarchy_type::const_pointer        const_pointer;
+    typedef typename hierarchy_type::reference            reference;
+    typedef typename hierarchy_type::const_reference      const_reference;
+    typedef typename hierarchy_type::size_type            size_type;
+    typedef typename hierarchy_type::difference_type      difference_type;
+
+    template <class U> struct rebind {
+      typedef forest_tree< U, typename hierarchy_type::template rebind<U>::other >
+        other;
+    };
+
+    // construct/copy/destroy:
+    explicit forest_tree (hierarchy_type const& = hierarchy_type());
+    template <class InputCursor>
+      forest_tree (InputCursor subtree);
+    forest_tree (forest_tree<T, Hierarchy> const& x);
+    forest_tree<T, Hierarchy>& operator=(
+      forest_tree<T, Hierarchy> const& x);
+    template <class InputCursor>
+      void assign(InputCursor subtree);
+
+    // cursors:
+    cursor        root()    { return h.root(); }
+    const_cursor  croot()   { return h.croot(); }
+    cursor        shoot();
+    const_cursor  cshoot() const;
+
+    // capacity:
+    bool      empty() const { return h.empty(); }
+    size_type size() const  { return h.size(); }
+    size_type max_size() const;
+
+    // modifiers:
+    cursor    insert(cursor position, value_type const& x = value_type());
+    template <class InputCursor>
+      cursor  insert(cursor position, InputCursor subtree);
+    cursor    insert_above(cursor position, value_type const& x = value_type());
+    void      swap(forest_tree<Tp, Hierarchy>&);
+    void      clear(cursor position);
+    void      clear();
+  };
+
+  template <class T, class Hierarchy>
+    bool operator==(  forest_tree<T, Hierarchy> const& x,
+                      forest_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator!=(  forest_tree<T, Hierarchy> const& x,
+                      forest_tree<T, Hierarchy> const& y);
+
+  // specialized algorithms:
+  template <class T, class Hierarchy>
+    void swap(  forest_tree<T, Hierarchy>& x,
+                forest_tree<T, Hierarchy>& y);
+
+  namespace inorder {
+  template <class T, class Hierarchy>
+    inorder::iterator<forest_tree<T, Hierarchy>::cursor>
+      begin(forest_tree<T, Hierarchy>& h);
+  template <class T, class Hierarchy>
+    inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
+      cbegin(forest_tree<T, Hierarchy> const& h);
+  } // namespace inorder
+
+} // namespace std
+``
+[std_end]
+
+[section:types =forest_tree= types [label foresttree.types]]
+
+[std_def]
+``
+typedef implementation_defined                        cursor;
+typedef implementation_defined                        const_cursor;
+``
+[std_end]
+
+[std_spec]
+/Notes:/ If (the adaptee) =Hierarchy='s cursor types are at least ascending
+bidirectional cursors, both =cursor= and =const_cursor= are ascending
+bidirectional cursors. Otherwise, they are descending forward cursors. The
+adaptee binary tree is "tilted" to yield an n-ary tree, meaning that the
+operational semantics of the adaptor cursor are as follows in terms of the
+adaptee cursor (only valid if present in the adaptor cursor's category; only
+given for mutable versions of expressions, const ones as according;
+expressions missing from the list mean operational semantics and complexity
+are for =b= as they are for =f=):
+
+[table:table6 forest_tree/binary tree cursor operational semantics correspondences
+	[	[adaptor cursor =f=]
+		[adaptee cursor =b=]
+		[complexity]]
+	
+	[	[ `f = f.end()` ]
+		[ `while (!b.empty()) b = b.end();` ]
+		[ linear ]]
+	
+	[	[ `++f` ]
+		[ `b = (++b).begin();` ]
+		[ constant ]]
+	
+	[	[ `--f` ]
+		[ `b = --b.parent();` ]
+		[ as `b.parent()` ]]
+	
+	[	[ `!f` ]
+		[ `while ((!b).parity() == 1); b = (!b).begin();` ]
+		[ linear ]]
+]
+
+[std_end]
 
 [endsect] [/types]
 
 
-[section:cons =forest_tree= constructors, copy, and assignment [label tr.hierarchy.foresttree.cons]]
+[section:cons =forest_tree= constructors, copy, and assignment [label foresttree.cons]]
+
+[std_def]
+``
+	explicit forest_tree (hierarchy_type const& = hierarchy_type());
+	template <class InputCursor>
+	  forest_tree (InputCursor subtree);
+	forest_tree (forest_tree<T, Hierarchy> const&);
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ The constructor `template <class InputCursor> vector(InputCursor subtree)`
+makes only =N= calls to the copy constructor of =T= (where =N= is the number
+of elements in =subtree=) and no reallocations if the cursor =subtree= is of
+(either descending or ascending) forward, bidirectional, or random access
+categories. It does at most =2N= calls to the copy constructor of =T= and
+=logN= reallocations if they are just cursors, since it is impossible to
+determine the size of =subtree= and then do copying.
+[std_end]
+
+[std_def]
+``
+	template <class InputCursor>
+	  void assign(InputCursor subtree);
+``
+[std_end]
+
+[std_spec]
+/Effects:/
+
+``
+clear();
+for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
+  insert(root.end(), *i);
+``
+[std_end]
 
 [endsect] [/cons]
 
 
-[section:cursors =forest_tree= cursors [label tr.hierarchy.foresttree.cursors]]
+[section:cursors =forest_tree= cursors [label foresttree.cursors]]
 
 [endsect] [/cursors]
 
 
-[section:modifiers =forest_tree= modifiers [label tr.hierarchy.foresttree.modifiers]]
+[section:modifiers =forest_tree= modifiers [label foresttree.modifiers]]
+
+[std_def]
+``
+	cursor    insert(cursor position, value_type const& x = value_type());
+	template <class InputCursor>
+	  cursor  insert(cursor position, InputCursor subtree);
+	cursor    insert_above(cursor position, value_type const& x = value_type());
+``
+[std_end]
+
+[std_spec]
+/Notes:/ Does not affect the validity of cursors and references.
+[std_end]
+
+[std_def]
+``
+	void      clear(cursor position);
+``
+[std_end]
+
+[std_spec]
+/Notes:/ Invalidates only the cursors and references to the erased elements.
+[std_end]
 
 [endsect] [/modifiers]
 
 
-[section:special =forest_tree= specialized algorithms [label tr.hierarchy.foresttree.special]]
+[section:special =forest_tree= specialized algorithms [label foresttree.special]]
+
+[std_def]
+``
+	template <class T, class Hierarchy>
+	void swap(  forest_tree<T, Hierarchy>& x,
+	            forest_tree<T, Hierarchy>& y);
+``
+[std_end]
+
+
+[std_spec]
+/Effects:/ `x.swap(y);`
+[std_end]
 
 [endsect] [/special]
 

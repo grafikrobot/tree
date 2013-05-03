@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,7 +18,7 @@
     [quickbook 1.7]
     [authors [Reiter, Bernhard], [Rivera, René]]
     [copyright 2006-2009 Bernhard Reiter]
-    [copyright 2006-2012 René Rivera]
+    [copyright 2006-2013 René Rivera]
     [purpose Hierarchical Data Structures and Related Concepts for the C++ Standard Library]
     [license
         Distributed under the Boost Software License, Version 1.0.
@@ -33,7 +33,6 @@
 [template label[id] [role std_section_label \[[id]\]]]
 [def __nbsp__ '''&nbsp;''']
 [def implementation_defined ['implementation-defined]]
-[def i[text] ['[text]]]
 
 [/ Custom top level proposal group to allow for styling within the proposal chunk only. /]
 
@@ -105,6 +104,8 @@
 [note Notes that are not part of the proposed text appear in gray boxes.]
 
 [include tr-containers.qbk]
+[include tr-iterators.qbk]
+[include tr-algorithms.qbk]
 
 [std_endproposal] [/proposal]
 
