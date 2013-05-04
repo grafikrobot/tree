@@ -103,9 +103,9 @@
 
 [note Notes that are not part of the proposed text appear in gray boxes.]
 
-[include tr-containers.qbk]
-[include tr-iterators.qbk]
-[include tr-algorithms.qbk]
+[include std-containers.qbk]
+[include std-iterators.qbk]
+[include std-algorithms.qbk]
 
 [std_endproposal] [/proposal]
 

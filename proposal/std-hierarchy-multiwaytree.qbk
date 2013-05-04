@@ -28,8 +28,8 @@ namespace std {
     // types:
     typedef T                                             value_type;
 
-    typedef implementation defined                        cursor;
-    typedef implementation defined                        const_cursor;
+    typedef implementation_defined                        cursor;
+    typedef implementation_defined                        const_cursor;
 
     typedef typename hierarchy_type::pointer              pointer;
     typedef typename hierarchy_type::const_pointer        const_pointer;

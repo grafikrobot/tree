@@ -358,8 +358,8 @@ namespace std {
 ``
 [std_end]
 
-[include tr-hierarchy-bintree.qbk]
-[include tr-hierarchy-narytree.qbk]
+[include std-hierarchy-bintree.qbk]
+[include std-hierarchy-narytree.qbk]
 
 [section:adaptors Hierarchy adaptors [label hierarchy.adaptors]]
 
@@ -377,10 +377,10 @@ allocation related, and some other exceptions).
 
 [endsect] [/general]
 
-[include tr-hierarchy-foresttree.qbk]
-[include tr-hierarchy-multiwaytree.qbk]
-[include tr-hierarchy-augment.qbk]
-[include tr-hierarchy-balance.qbk]
+[include std-hierarchy-foresttree.qbk]
+[include std-hierarchy-multiwaytree.qbk]
+[include std-hierarchy-augment.qbk]
+[include std-hierarchy-balance.qbk]
 
 [endsect] [/adaptors]
 

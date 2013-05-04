@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/03 13:29:16 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/04 03:56:41 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -2036,8 +2036,8 @@
     <phrase role="comment">// types:</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="identifier">T</phrase>                                             <phrase role="identifier">value_type</phrase><phrase role="special">;</phrase>
 
-    <phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
-    <phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">pointer</phrase>              <phrase role="identifier">pointer</phrase><phrase role="special">;</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_pointer</phrase>        <phrase role="identifier">const_pointer</phrase><phrase role="special">;</phrase>
@@ -2476,22 +2476,332 @@
       </section>
       <section id="tree.tree.adaptors.balance">
         <title><link linkend="tree.tree.adaptors.balance">Balancing hierarchy adaptors
-        <phrase role="std_section_label">[tr.hierarchy.balance]</phrase></link></title>
+        <phrase role="std_section_label">[hierarchy.balance]</phrase></link></title>
+        <note>
+          <para>
+            These do not model AssociativeContainer yet but Sequence as they permit
+            insertion in arbitrary positions. (This way, they are not required to
+            take care of extracting, sorting and searching.)
+          </para>
+        </note>
+        <para>
+          A balancing hierarchy adaptor uses some kind of balancing method in order
+          to guarantee logarithmic time complexity for many important operations
+          while keeping the inorder of the adaptee hierarchy as its invariant.
+        </para>
+        <para>
+          A balancing hierarchy adaptor satisfies all of the requirements of a container
+          ([lib.container.requirements]), of a sequence ([lib.sequence.reqmts]),
+          with the exception that its <literal moreinfo="none">erase()</literal> member functions
+          return <literal moreinfo="none">void</literal>, and most of the optional sequence requirements,
+          except for the =operator[]= and <literal moreinfo="none">at</literal> member functions,
+          which are not provided. If the adaptee hierarchy supports at least descending
+          bidirectional cursors, it also satisfies the requirements of a reversible
+          container. Descriptions are provided here only for operations on balancing
+          hierarchy adaptors that are not described in one of these tables or for
+          operations where there is additional semantic information.
+        </para>
+        <para>
+          The library provides four balancing hierarchy adaptor template classes
+          which take a mutable multiway template parameter that provides a <literal moreinfo="none">rotate()</literal>
+          operation and whose <literal moreinfo="none">cursor</literal> and <literal moreinfo="none">const_cursor</literal>
+          types satisfy the requirements of a binary tree cursor ([bintree.types],
+          §1 and §2): <literal moreinfo="none">avl_tree</literal>, <literal moreinfo="none">red_black_tree</literal>,
+          <literal moreinfo="none">splay_tree</literal>, and <literal moreinfo="none">treap</literal>. Furthermore,
+          two balancing hierarchy adaptor template classes that take a mutable multiway
+          tree template parameter are provided: <literal moreinfo="none">b_tree</literal> and <literal moreinfo="none">b_star_tree</literal>.
+          All balancing adaptors and corresponding free functions are found in header
+          <literal moreinfo="none">&lt;balance&gt;</literal>.
+        </para>
+        <para>
+          In the following, only the template class <literal moreinfo="none">avl_tree</literal> and
+          related operators are shown. Note that also <literal moreinfo="none">red_black_tree</literal>,
+          <literal moreinfo="none">splay_tree</literal>, and <literal moreinfo="none">treap</literal> must be present
+          and have identical interfaces (with all occurrences of <literal moreinfo="none">avl_tree</literal>
+          replaced accordingly). The same holds true for <literal moreinfo="none">b_tree</literal>
+          and <literal moreinfo="none">b_star_tree</literal>, as well, except that the standard value
+          for the template parameter reads <literal moreinfo="none">multiway_tree&lt;T&gt;</literal>
+          (instead of <literal moreinfo="none">binary_tree&lt;T&gt;</literal>) in their case.
+        </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase> <phrase role="special">=</phrase> <phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">&gt;</phrase> <phrase role="special">&gt;</phrase>
+  <phrase role="keyword">class</phrase> <phrase role="identifier">avl_tree</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">public</phrase><phrase role="special">:</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Hierarchy</phrase>                                     <phrase role="identifier">hierarchy_type</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">protected</phrase><phrase role="special">:</phrase>
+    <phrase role="identifier">hierarchy_type</phrase> <phrase role="identifier">h</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">public</phrase><phrase role="special">:</phrase>
+    <phrase role="comment">// types:</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">value_type</phrase>           <phrase role="identifier">value_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">pointer</phrase>              <phrase role="identifier">pointer</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_pointer</phrase>        <phrase role="identifier">const_pointer</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">reference</phrase>            <phrase role="identifier">reference</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_reference</phrase>      <phrase role="identifier">const_reference</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">size_type</phrase>            <phrase role="identifier">size_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">difference_type</phrase>      <phrase role="identifier">difference_type</phrase><phrase role="special">;</phrase>
+
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_iterator</phrase><phrase role="special">;</phrase>
+
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">std</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&gt;</phrase>               <phrase role="identifier">reverse_iterator</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">std</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>         <phrase role="identifier">const_reverse_iterator</phrase><phrase role="special">;</phrase>
+
+    <phrase role="comment">// construct/copy/destroy:</phrase>
+    <phrase role="keyword">explicit</phrase> <phrase role="identifier">avl_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+    <phrase role="keyword">explicit</phrase> <phrase role="identifier">avl_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">value</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">(),</phrase>
+      <phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">,</phrase>
+        <phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+    <phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="special">~</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">=(</phrase>
+      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Size</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">Size</phrase> <phrase role="identifier">n</phrase><phrase role="special">,</phrase> <phrase role="identifier">T</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">t</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">());</phrase>
+
+    <phrase role="comment">// iterators:</phrase>
+    <phrase role="identifier">iterator</phrase>                <phrase role="identifier">begin</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">const_iterator</phrase>          <phrase role="identifier">cbegin</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">iterator</phrase>                <phrase role="identifier">end</phrase><phrase role="special">()</phrase>             <phrase role="special">{</phrase> <phrase role="keyword">return</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">shoot</phrase><phrase role="special">());</phrase> <phrase role="special">}</phrase>
+    <phrase role="identifier">const_iterator</phrase>          <phrase role="identifier">cend</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase>      <phrase role="special">{</phrase> <phrase role="keyword">return</phrase> <phrase role="identifier">const_iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">cshoot</phrase><phrase role="special">());</phrase> <phrase role="special">}</phrase>
+    <phrase role="identifier">reverse_iterator</phrase>        <phrase role="identifier">rbegin</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">const_reverse_iterator</phrase>  <phrase role="identifier">crbegin</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">reverse_iterator</phrase>        <phrase role="identifier">rend</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">const_reverse_iterator</phrase>  <phrase role="identifier">crend</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="comment">// capacity:</phrase>
+    <phrase role="keyword">bool</phrase>      <phrase role="identifier">empty</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase> <phrase role="special">{</phrase> <phrase role="keyword">return</phrase> <phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">empty</phrase><phrase role="special">();</phrase> <phrase role="special">}</phrase>
+    <phrase role="identifier">size_type</phrase> <phrase role="identifier">size</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase>  <phrase role="special">{</phrase> <phrase role="keyword">return</phrase> <phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">();</phrase> <phrase role="special">}</phrase>
+    <phrase role="identifier">size_type</phrase> <phrase role="identifier">max_size</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">resize</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">sz</phrase><phrase role="special">,</phrase> <phrase role="identifier">T</phrase> <phrase role="identifier">c</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">());</phrase>
+
+    <phrase role="comment">// element access:</phrase>
+    <phrase role="identifier">reference</phrase>       <phrase role="identifier">front</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">const_reference</phrase> <phrase role="identifier">front</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">reference</phrase>       <phrase role="identifier">back</phrase><phrase role="special">();</phrase>
+    <phrase role="identifier">const_reference</phrase> <phrase role="identifier">back</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="comment">// map operations:</phrase>
+    <phrase role="identifier">iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+      <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+        <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="identifier">size_type</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">size_type</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="identifier">iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="identifier">iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&gt;</phrase> <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&gt;</phrase>
+        <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>
+        <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="comment">// modifiers:</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">push_front</phrase><phrase role="special">(</phrase><phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">push_back</phrase><phrase role="special">(</phrase><phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">iterator</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+      <phrase role="keyword">void</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">pop_front</phrase><phrase role="special">();</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">pop_back</phrase><phrase role="special">();</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">iterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Tp</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">()</phrase> <phrase role="special">{</phrase> <phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">clear</phrase><phrase role="special">();</phrase> <phrase role="special">}</phrase>
+  <phrase role="special">};</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">&lt;</phrase> <phrase role="special">(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">&gt;</phrase> <phrase role="special">(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">&gt;=(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">&lt;=(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                      <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+  <phrase role="comment">// specialized algorithms:</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+                <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
         <section id="tree.tree.adaptors.balance.cons">
           <title><link linkend="tree.tree.adaptors.balance.cons">Balancing adaptor
-          constructors, copy, and assigment <phrase role="std_section_label">[tr.hierarchy.balance.cons]</phrase></link></title>
+          constructors, copy, and assigment <phrase role="std_section_label">[balance.cons]</phrase></link></title>
+          <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">,</phrase>
+    <phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+<phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Effects:</emphasis> constructs a balanced tree equal to the
+            range [<literal moreinfo="none">first</literal>, <literal moreinfo="none">last</literal>).
+          </para>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> Linear.
+          </para>
+          </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Effects:</emphasis>
+          </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
+<phrase role="keyword">while</phrase><phrase role="special">(</phrase><phrase role="identifier">first</phrase><phrase role="special">++</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">last</phrase><phrase role="special">)</phrase>
+  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">end</phrase><phrase role="special">(),</phrase> <phrase role="special">*</phrase><phrase role="identifier">first</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect>
         </section>
         <section id="tree.tree.adaptors.balance.map">
           <title><link linkend="tree.tree.adaptors.balance.map">Balancing adaptor
-          map operations <phrase role="std_section_label">[tr.hierarchy.balance.map]</phrase></link></title>
+          map operations <phrase role="std_section_label">[balance.map]</phrase></link></title>
+          <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">const_iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">const_iterator</phrase> <phrase role="identifier">find</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+<phrase role="identifier">size_type</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">size_type</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+<phrase role="identifier">iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">const_iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">lower_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+<phrase role="identifier">iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">const_iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">const_iterator</phrase> <phrase role="identifier">upper_bound</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+<phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&gt;</phrase> <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">);</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cmp</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Notes:</emphasis> The <literal moreinfo="none">find</literal>, <literal moreinfo="none">lower_bound</literal>,
+            <literal moreinfo="none">upper_bound</literal> and <literal moreinfo="none">equal_range</literal> member
+            functions each have four versions, differing in whether they return an
+            <literal moreinfo="none">iterator</literal> or a <literal moreinfo="none">const_iterator</literal>, and
+            if they take a <literal moreinfo="none">cmp</literal> function object argument or not
+            (<literal moreinfo="none">count</literal> comes only in the latter two variants, as it
+            returns a <literal moreinfo="none">size_type</literal>, not an iterator). In each case
+            the behavior of the four (two) functions is in principle identical.
+          </para>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> logarithmic (with the exception of
+            <literal moreinfo="none">count</literal>, which is <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">log</phrase><phrase role="special">(</phrase><phrase role="identifier">size</phrase><phrase role="special">())</phrase> <phrase role="special">+</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="identifier">x</phrase><phrase role="special">)</phrase></computeroutput>
+          </para>
+          </simplesect>
         </section>
         <section id="tree.tree.adaptors.balance.modifiers">
           <title><link linkend="tree.tree.adaptors.balance.modifiers">Balancing adaptor
-          modifiers <phrase role="std_section_label">[tr.hierarchy.balance.modifiers]</phrase></link></title>
+          modifiers <phrase role="std_section_label">[balance.modifiers]</phrase></link></title>
+          <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">push_front</phrase><phrase role="special">(</phrase><phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="keyword">void</phrase>      <phrase role="identifier">push_back</phrase><phrase role="special">(</phrase><phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">iterator</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> amortized constant
+          </para>
+          </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">void</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> linear in the number of elements to
+            insert
+          </para>
+          </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">pop_front</phrase><phrase role="special">();</phrase>
+<phrase role="keyword">void</phrase>      <phrase role="identifier">pop_back</phrase><phrase role="special">();</phrase>
+<phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> amortized constant
+          </para>
+          </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">iterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal> where
+            <literal moreinfo="none">N</literal> is the distance from <literal moreinfo="none">first</literal> to
+            <literal moreinfo="none">last</literal>
+          </para>
+          </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal>
+          </para>
+          </simplesect>
         </section>
         <section id="tree.tree.adaptors.balance.special">
           <title><link linkend="tree.tree.adaptors.balance.special">Balancing adaptor
-          specialized algorithms <phrase role="std_section_label">[tr.hierarchy.balance.special]</phrase></link></title>
+          specialized algorithms <phrase role="std_section_label">[balance.special]</phrase></link></title>
+          <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+              <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+</programlisting>
+          </simplesect> <simplesect role="std_specification"><para>
+            <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
+          </para>
+          </simplesect>
         </section>
       </section>
     </section>

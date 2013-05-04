@@ -1,0 +1,363 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2012, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[section:balance Balancing hierarchy adaptors [label hierarchy.balance]]
+
+[note These do not model AssociativeContainer yet but Sequence as they
+permit insertion in arbitrary positions. (This way, they are not required to
+take care of extracting, sorting and searching.)]
+
+A balancing hierarchy adaptor uses some kind of balancing method in order to
+guarantee logarithmic time complexity for many important operations while
+keeping the inorder of the adaptee hierarchy as its invariant.
+
+A balancing hierarchy adaptor satisfies all of the requirements of a
+container ([lib.container.requirements]), of a sequence
+([lib.sequence.reqmts]), with the exception that its =erase()= member
+functions return =void=, and most of the optional sequence requirements,
+except for the =operator[]= and =at= member functions, which are not provided.
+If the adaptee hierarchy supports at least descending bidirectional cursors,
+it also satisfies the requirements of a reversible container. Descriptions are
+provided here only for operations on balancing hierarchy adaptors that are not
+described in one of these tables or for operations where there is additional
+semantic information.
+
+The library provides four balancing hierarchy adaptor template classes which
+take a mutable multiway template parameter that provides a =rotate()= operation
+and whose =cursor= and =const_cursor= types satisfy the requirements of a
+binary tree cursor ([bintree.types], §1 and §2): =avl_tree=, =red_black_tree=,
+=splay_tree=, and =treap=. Furthermore, two balancing hierarchy adaptor
+template classes that take a mutable multiway tree template parameter are
+provided: =b_tree= and =b_star_tree=. All balancing adaptors and corresponding
+free functions are found in header =<balance>=.
+
+In the following, only the template class =avl_tree= and related operators
+are shown. Note that also =red_black_tree=, =splay_tree=, and =treap= must
+be present and have identical interfaces (with all occurrences of =avl_tree=
+replaced accordingly). The same holds true for =b_tree= and =b_star_tree=, as
+well, except that the standard value for the template parameter reads
+=multiway_tree<T>= (instead of =binary_tree<T>=) in their case.
+
+``
+namespace std {
+  template <class T, class Hierarchy = binary_tree<T> >
+  class avl_tree {
+  public:
+    typedef Hierarchy                                     hierarchy_type;
+
+  protected:
+    hierarchy_type h;
+    
+  public:
+    // types:
+    typedef typename hierarchy_type::value_type           value_type;
+    typedef typename hierarchy_type::pointer              pointer;
+    typedef typename hierarchy_type::const_pointer        const_pointer;
+    typedef typename hierarchy_type::reference            reference;
+    typedef typename hierarchy_type::const_reference      const_reference;
+    typedef typename hierarchy_type::size_type            size_type;
+    typedef typename hierarchy_type::difference_type      difference_type;
+
+    typedef implementation_defined                        iterator;
+    typedef implementation_defined                        const_iterator;
+
+    typedef std::reverse_iterator<iterator>               reverse_iterator;
+    typedef std::reverse_iterator<const_iterator>         const_reverse_iterator;
+
+    // construct/copy/destroy:
+    explicit avl_tree(hierarchy_type const& = hierarchy_type());
+    explicit avl_tree(size_type n, value_type const& value = value_type(),
+      hierarchy_type const& = hierarchy_type());
+    template <class InputIterator>
+      avl_tree (InputIterator first, InputIterator last,
+        hierarchy_type const& = hierarchy_type());
+    avl_tree (avl_tree<T, Hierarchy> const& x);
+    ~avl_tree();
+    avl_tree<T, Hierarchy>& operator=(
+      avl_tree<T, Hierarchy> const& x);
+    template <class InputIterator>
+      void assign(InputIterator first, InputIterator last);
+    template <class Size, class T>
+      void assign(Size n, T const& t = T());
+
+    // iterators:
+    iterator                begin();
+    const_iterator          cbegin() const;
+    iterator                end()             { return iterator(h.shoot()); }
+    const_iterator          cend() const      { return const_iterator(h.cshoot()); }
+    reverse_iterator        rbegin();
+    const_reverse_iterator  crbegin() const;
+    reverse_iterator        rend();
+    const_reverse_iterator  crend() const;
+    
+    // capacity:
+    bool      empty() const { return h.empty(); }
+    size_type size() const  { return h.size(); }
+    size_type max_size() const;
+    void      resize(size_type sz, T c = T());
+
+    // element access:
+    reference       front();
+    const_reference front() const;
+    reference       back();
+    const_reference back() const;
+    
+    // map operations:
+    iterator find(const value_type& x);
+      const_iterator find(const value_type& x) const;
+    template <class Cmp>
+      iterator find(const value_type& x, Cmp cmp);
+        const_iterator find(const value_type& x) const;
+
+    size_type count(const value_type& x) const;
+    template <class Cmp>
+      size_type count(const value_type& x, Cmp cmp) const;
+
+    iterator lower_bound(const value_type& x);
+    const_iterator lower_bound(const value_type& x) const;
+    template <class Cmp>
+      iterator lower_bound(const value_type& x, Cmp cmp);
+    template <class Cmp>
+      const_iterator lower_bound(const value_type& x, Cmp cmp) const;
+
+    iterator upper_bound(const value_type& x);
+    const_iterator upper_bound(const value_type& x) const;
+    template <class Cmp>
+      iterator upper_bound(const value_type& x, Cmp cmp);
+    template <class Cmp>
+      const_iterator upper_bound(const value_type& x, Cmp cmp) const;
+
+    pair<iterator,iterator> equal_range(const value_type& x);
+    pair<const_iterator,const_iterator>
+      equal_range(const value_type& x) const;
+    template <class Cmp>
+      pair<iterator,iterator>
+        equal_range(const value_type& x, Cmp cmp);
+    template <class Cmp>
+      pair<const_iterator,const_iterator>
+        equal_range(const value_type& x, Cmp cmp) const;
+
+    // modifiers:
+    void      push_front(value_type const& x);
+    void      push_back(value_type const& x);
+    iterator  insert(iterator position, value_type const& x = value_type());
+    void      insert(iterator position, size_type n, value_type const& x);
+    template <class InputIterator>
+      void    insert(iterator position, InputIterator first, InputIterator last);
+    void      pop_front();
+    void      pop_back();
+    void      erase(iterator position);
+    void      erase(iterator first, iterator last);
+    void      swap(avl_tree<Tp, Hierarchy>&);
+    void      clear() { h.clear(); }
+  };
+  
+  template <class T, class Hierarchy>
+    bool operator==(  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator< (  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator!=(  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator> (  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator>=(  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+  template <class T, class Hierarchy>
+    bool operator<=(  avl_tree<T, Hierarchy> const& x,
+                      avl_tree<T, Hierarchy> const& y);
+
+  // specialized algorithms:
+  template <class T, class Hierarchy>
+    void swap(  avl_tree<T, Hierarchy>& x,
+                avl_tree<T, Hierarchy>& y);
+
+} // namespace std
+``
+
+[section:cons Balancing adaptor constructors, copy, and assigment [label balance.cons]]
+
+[std_def]
+``
+	explicit avl_tree (hierarchy_type const& = hierarchy_type());
+	template <class InputIterator>
+	  avl_tree (InputIterator first, InputIterator last,
+	    hierarchy_type const& = hierarchy_type());
+	avl_tree (avl_tree<T, Hierarchy> const& x);
+``
+[std_end]
+
+[std_spec]
+/Effects:/ constructs a balanced tree equal to the range \[=first=, =last=).
+[std_end]
+
+[std_spec]
+/Complexity:/ Linear.
+[std_end]
+
+[std_def]
+``
+	template <class InputIterator>
+	  void assign(InputIterator first, InputIterator last);
+``
+[std_end]
+
+[std_spec]
+/Effects:/
+
+``
+clear(); 
+while(first++ != last)
+  insert(end(), *first);
+``
+[std_end]
+
+[endsect] [/cons]
+
+
+[section:map Balancing adaptor map operations [label balance.map]]
+
+[std_def]
+``
+	iterator find(const value_type& x);
+	const_iterator find(const value_type& x) const;
+	template <class Cmp>
+	  iterator find(const value_type& x, Cmp cmp);
+	const_iterator find(const value_type& x) const;
+	
+	size_type count(const value_type& x) const;
+	template <class Cmp>
+	  size_type count(const value_type& x, Cmp cmp) const;
+	
+	iterator lower_bound(const value_type& x);
+	const_iterator lower_bound(const value_type& x) const;
+	template <class Cmp>
+	  iterator lower_bound(const value_type& x, Cmp cmp);
+	template <class Cmp>
+	  const_iterator lower_bound(const value_type& x, Cmp cmp) const;
+	
+	iterator upper_bound(const value_type& x);
+	const_iterator upper_bound(const value_type& x) const;
+	template <class Cmp>
+	  iterator upper_bound(const value_type& x, Cmp cmp);
+	template <class Cmp>
+	  const_iterator upper_bound(const value_type& x, Cmp cmp) const;
+	
+	pair<iterator,iterator> equal_range(const value_type& x);
+	pair<const_iterator,const_iterator>
+	  equal_range(const value_type& x) const;
+	template <class Cmp>
+	  pair<iterator,iterator>
+	    equal_range(const value_type& x, Cmp cmp);
+	template <class Cmp>
+	  pair<const_iterator,const_iterator>
+	    equal_range(const value_type& x, Cmp cmp) const;
+``
+[std_end]
+
+[std_spec]
+/Notes:/ The =find=, =lower_bound=, =upper_bound= and =equal_range= member
+functions each have four versions, differing in whether they return an
+=iterator= or a =const_iterator=, and if they take a =cmp= function object
+argument or not (=count= comes only in the latter two variants, as it returns
+a =size_type=, not an iterator). In each case the behavior of the four (two)
+functions is in principle identical.
+[std_end]
+
+[std_spec]
+/Complexity:/ logarithmic (with the exception of =count=, which is
+`log(size()) + count(x)`
+[std_end]
+
+[endsect] [/map]
+
+
+[section:modifiers Balancing adaptor modifiers [label balance.modifiers]]
+
+[std_def]
+``
+	void      push_front(value_type const& x);
+	void      push_back(value_type const& x);
+	iterator  insert(iterator position, value_type const& x = value_type());
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ amortized constant
+[std_end]
+
+[std_def]
+``
+	void      insert(iterator position, size_type n, value_type const& x);
+	template <class InputIterator>
+	  void    insert(iterator position, InputIterator first, InputIterator last);    
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ linear in the number of elements to insert
+[std_end]
+
+[std_def]
+``
+	void      pop_front();
+	void      pop_back();
+	void      erase(iterator position);
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ amortized constant
+[std_end]
+
+[std_def]
+``
+	void      erase(iterator first, iterator last);
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ =log(size())+N= where =N= is the distance from =first= to =last=
+[std_end]
+
+[std_def]
+``
+	void      clear();
+``
+[std_end]
+
+[std_spec]
+/Complexity:/ =log(size())+N=
+[std_end]
+
+[endsect] [/modifiers]
+
+
+[section:special Balancing adaptor specialized algorithms [label balance.special]]
+
+[std_def]
+``
+	template <class T, class Hierarchy>
+	  void swap(  avl_tree<T, Hierarchy>& x,
+	              avl_tree<T, Hierarchy>& y);
+``
+[std_end]
+
+[std_spec]
+/Effects:/ `x.swap(y);`
+[std_end]
+
+[endsect] [/special]
+
+
+[endsect] [/balance]
