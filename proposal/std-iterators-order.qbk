@@ -147,7 +147,7 @@ Cursor ([ascending.bidirectional.cursors]) if the member =operator--=
 
 [endsect] [/order_iter_op_star]
 
-[section:order_iter_op_star =operator->= [label order.iter.op.ref]]
+[section:order_iter_op_ref =operator->= [label order.iter.op.ref]]
 
 [std_def]
 ``
@@ -159,7 +159,7 @@ Cursor ([ascending.bidirectional.cursors]) if the member =operator--=
 /Returns:/ `&(operator*())`
 [std_end]
 
-[endsect] [/order_iter_op_star]
+[endsect] [/order_iter_op_ref]
 
 [section:order_iter_op_inc =operator++= [label order.iter.op.inc]]
 

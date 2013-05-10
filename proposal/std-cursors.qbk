@@ -108,15 +108,104 @@ a value of type =T=.
 
 [section:cursor_primitives Cursor primitives [label cursor.primitives]]
 
+To simplify the task of defining cursors, the library provides several
+classes and functions:
+
 [section:cursor_traits Cursor traits [label cursor.traits]]
+
+The following classes are required to be defined appropriately for a cursor of
+type =Cursor=:
+
+``
+template <class Cursor> struct cursor_value {
+  typedef typename Cursor::value_type type;
+};
+
+template <class Cursor> struct cursor_reference {
+  typedef typename Cursor::reference type;
+};
+
+template <class Cursor> struct cursor_const_reference {
+  typedef typename Cursor::const_reference type;
+};
+
+template <class Cursor> struct cursor_pointer {
+  typedef typename Cursor::pointer type;
+};
+
+template <class Cursor> struct cursor_difference {
+  typedef typename Cursor::difference_type type;
+};
+
+template <class Cursor> struct cursor_size {
+  typedef typename Cursor::size_type type;
+};
+
+template <class Cursor> struct cursor_category {
+  typedef typename Cursor::cursor_category type;
+};
+``
 
 [endsect] [/cursor_traits]
 
 [section:cursor_basic Basic cursor [label cursor.basic]]
 
+The =cursor= template may be used as a base class to ease the definition of
+required types for new cursors.
+
+``
+namespace std {
+  template <class Category, class T, class Distance = ptrdiff_t,
+            class Size = size_t, class Pointer = T*,
+            class Reference = T&>
+  struct cursor {
+    typedef Category  cursor_category;
+    typedef T         value_type;
+    typedef Distance  difference_type;
+    typedef Size      size_type;
+    typedef Pointer   pointer;
+    typedef Reference reference;
+  };
+} // namespace std
+``
+
 [endsect] [/cursor_basic]
 
 [section:cursor_tags Standard cursor tags [label cursor.tags]]
+
+Cursor tags pick up the notion of iterator tags (\[lib.std.iterator.tags\]) and
+extend them by adding information about a given cursor class' descending or
+ascending traversal capabilities (\[cursor.requirements\]). This yields the
+cursor tags =cursor_tag=, =descending_cursor_tag=,
+=descending_forward_cursor_tag=, =descending_bidirectional_cursor_tag=,
+=descending_random_access_cursor_tag=, =ascending_cursor_tag=,
+=ascending_forward_cursor_tag=, =ascending_bidirectional_cursor_tag= and
+=ascending_random_access_cursor_tag=. For every cursor of type =Cursor=,
+=cursor_category<Cursor>::type= must be defined to be the most specific
+category tag that describes the cursor's behavior.
+
+``
+namespace std {
+  struct cursor_tag 
+    : public input_iterator_tag, public output_iterator_tag {};
+  struct descending_cursor_tag
+    : public cursor_tag {};
+  struct descending_forward_cursor_tag
+    : public descending_cursor_tag, public forward_iterator_tag {};
+  struct descending_bidirectional_cursor_tag
+    : public descending_cursor_tag, public bidirectional_iterator_tag {};
+  struct descending_random_access_cursor_tag
+    : public descending_cursor_tag, public random_access_iterator_tag {};
+  struct ascending_cursor_tag
+        : public descending_cursor_tag {};
+  struct ascending_forward_cursor_tag
+    : public descending_forward_cursor_tag {};
+  struct ascending_bidirectional_cursor_tag
+    : public descending_bidirectional_cursor_tag {};
+  struct ascending_random_access_cursor_tag
+    : public descending_random_access_cursor_tag {};
+} // namespace std
+``
 
 [endsect] [/cursor_tags]
 

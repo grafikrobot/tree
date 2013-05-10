@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 13:45:46 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:04:29 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -2987,16 +2987,104 @@
   </section>
   <section id="tree.cursor_primitives">
     <title><link linkend="tree.cursor_primitives">Cursor primitives <phrase role="std_section_label">[cursor.primitives]</phrase></link></title>
+    <para>
+      To simplify the task of defining cursors, the library provides several classes
+      and functions:
+    </para>
     <section id="tree.cursor_primitives.cursor_traits">
       <title><link linkend="tree.cursor_primitives.cursor_traits">Cursor traits
       <phrase role="std_section_label">[cursor.traits]</phrase></link></title>
+      <para>
+        The following classes are required to be defined appropriately for a cursor
+        of type <literal moreinfo="none">Cursor</literal>:
+      </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_value</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">value_type</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_reference</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">reference</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_const_reference</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">const_reference</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_pointer</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">pointer</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_difference</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">difference_type</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_size</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_category</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor_category</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
+<phrase role="special">};</phrase>
+</programlisting>
     </section>
     <section id="tree.cursor_primitives.cursor_basic">
       <title><link linkend="tree.cursor_primitives.cursor_basic">Basic cursor <phrase role="std_section_label">[cursor.basic]</phrase></link></title>
+      <para>
+        The <literal moreinfo="none">cursor</literal> template may be used as a base class to ease
+        the definition of required types for new cursors.
+      </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Category</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Distance</phrase> <phrase role="special">=</phrase> <phrase role="identifier">ptrdiff_t</phrase><phrase role="special">,</phrase>
+            <phrase role="keyword">class</phrase> <phrase role="identifier">Size</phrase> <phrase role="special">=</phrase> <phrase role="identifier">size_t</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Pointer</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">*,</phrase>
+            <phrase role="keyword">class</phrase> <phrase role="identifier">Reference</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">&amp;&gt;</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor</phrase> <phrase role="special">{</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Category</phrase>  <phrase role="identifier">cursor_category</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">T</phrase>         <phrase role="identifier">value_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Distance</phrase>  <phrase role="identifier">difference_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Size</phrase>      <phrase role="identifier">size_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Pointer</phrase>   <phrase role="identifier">pointer</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Reference</phrase> <phrase role="identifier">reference</phrase><phrase role="special">;</phrase>
+  <phrase role="special">};</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
     </section>
     <section id="tree.cursor_primitives.cursor_tags">
       <title><link linkend="tree.cursor_primitives.cursor_tags">Standard cursor tags
       <phrase role="std_section_label">[cursor.tags]</phrase></link></title>
+      <para>
+        Cursor tags pick up the notion of iterator tags ([lib.std.iterator.tags])
+        and extend them by adding information about a given cursor class' descending
+        or ascending traversal capabilities ([cursor.requirements]). This yields
+        the cursor tags <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">descending_cursor_tag</literal>,
+        <literal moreinfo="none">descending_forward_cursor_tag</literal>, <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>,
+        <literal moreinfo="none">descending_random_access_cursor_tag</literal>, <literal moreinfo="none">ascending_cursor_tag</literal>,
+        <literal moreinfo="none">ascending_forward_cursor_tag</literal>, <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
+        and <literal moreinfo="none">ascending_random_access_cursor_tag</literal>. For every cursor
+        of type <literal moreinfo="none">Cursor</literal>, <literal moreinfo="none">cursor_category&lt;Cursor&gt;::type</literal>
+        must be defined to be the most specific category tag that describes the cursor's
+        behavior.
+      </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">input_iterator_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">output_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_forward_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">forward_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_bidirectional_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">bidirectional_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">random_access_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_cursor_tag</phrase>
+        <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_forward_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_forward_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_bidirectional_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_bidirectional_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_random_access_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase> <phrase role="special">{};</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
     </section>
   </section>
   </section> <section role="std_section" id="order.iterators" label="24.7" label-style="no-parent">
@@ -3134,8 +3222,8 @@
       </para>
       </simplesect>
     </section>
-    <section id="tree.order_iter_ops.order_iter_op_star0">
-      <title><link linkend="tree.order_iter_ops.order_iter_op_star0"><literal moreinfo="none">operator-&gt;</literal>
+    <section id="tree.order_iter_ops.order_iter_op_ref">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_ref"><literal moreinfo="none">operator-&gt;</literal>
       <phrase role="std_section_label">[order.iter.op.ref]</phrase></link></title>
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Pointer</phrase> <phrase role="keyword">operator</phrase><phrase role="special">-&gt;()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
