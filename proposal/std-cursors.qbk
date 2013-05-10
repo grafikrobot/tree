@@ -100,9 +100,52 @@ a value of type =T=.
 
 [section:cursor_flavors Cursor flavors [label cursor.flavors]]
 
+A cursor that satisfies at least the descending cursor requirements
+([descending.cursors]) can be either a /plain cursor/ or a /multiway cursor/.
+If the expressions =a.begin()=, =a.cbegin()=, =a.end()= and =a.cend()= are
+valid for any internal cursor =a= of type =X=, except for past-the-end ones,
+=X= satisfies the /plain cursor/ requirements. If those expressions are valid
+for any internal cursor /including/ past-the-end ones, =X= satisfies the
+/multiway cursor/ requirements.
+
 [endsect] [/cursor_flavors]
 
 [section:cursor_synopsis Header =<cursor>= synopsis [label cursor.synopsis]]
+
+``
+namespace std {
+  template <class Cursor> struct cursor_value;
+  template <class Cursor> struct cursor_reference;
+  template <class Cursor> struct cursor_const_reference;
+  template <class Cursor> struct cursor_pointer;
+  template <class Cursor> struct cursor_difference;
+  template <class Cursor> struct cursor_size;
+  template <class Cursor> struct cursor_category;
+
+  template <class Category, class T, class Distance = ptrdiff_t,
+            class Size = size_t, class Pointer = T*,
+            class Reference = T&> struct cursor;
+
+  struct cursor_tag 
+    : public input_iterator_tag, public output_iterator_tag {};
+  struct descending_cursor_tag
+    : public cursor_tag {};
+  struct descending_forward_cursor_tag
+    : public descending_cursor_tag, public forward_iterator_tag {};
+  struct descending_bidirectional_cursor_tag
+    : public descending_cursor_tag, public bidirectional_iterator_tag {};
+  struct descending_random_access_cursor_tag
+    : public descending_cursor_tag, public random_access_iterator_tag {};
+  struct ascending_cursor_tag
+        : public descending_cursor_tag {};
+  struct ascending_forward_cursor_tag
+    : public descending_forward_cursor_tag {};
+  struct ascending_bidirectional_cursor_tag
+    : public descending_bidirectional_cursor_tag {};
+  struct ascending_random_access_cursor_tag
+    : public descending_random_access_cursor_tag {};
+} // namespace std
+``
 
 [endsect] [/cursor_synopsis]
 

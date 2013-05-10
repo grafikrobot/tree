@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:04:29 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:10:07 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -2980,10 +2980,54 @@
   </section>
   <section id="tree.cursor_flavors">
     <title><link linkend="tree.cursor_flavors">Cursor flavors <phrase role="std_section_label">[cursor.flavors]</phrase></link></title>
+    <para>
+      A cursor that satisfies at least the descending cursor requirements ([descending.cursors])
+      can be either a <emphasis>plain cursor</emphasis> or a <emphasis>multiway cursor</emphasis>.
+      If the expressions <literal moreinfo="none">a.begin()</literal>, <literal moreinfo="none">a.cbegin()</literal>,
+      <literal moreinfo="none">a.end()</literal> and <literal moreinfo="none">a.cend()</literal> are valid for any
+      internal cursor <literal moreinfo="none">a</literal> of type <literal moreinfo="none">X</literal>, except for
+      past-the-end ones, <literal moreinfo="none">X</literal> satisfies the <emphasis>plain cursor</emphasis>
+      requirements. If those expressions are valid for any internal cursor <emphasis>including</emphasis>
+      past-the-end ones, <literal moreinfo="none">X</literal> satisfies the <emphasis>multiway cursor</emphasis>
+      requirements.
+    </para>
   </section>
   <section id="tree.cursor_synopsis">
     <title><link linkend="tree.cursor_synopsis">Header <literal moreinfo="none">&lt;cursor&gt;</literal>
     synopsis <phrase role="std_section_label">[cursor.synopsis]</phrase></link></title>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_value</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_reference</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_const_reference</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_pointer</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_difference</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_size</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_category</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Category</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Distance</phrase> <phrase role="special">=</phrase> <phrase role="identifier">ptrdiff_t</phrase><phrase role="special">,</phrase>
+            <phrase role="keyword">class</phrase> <phrase role="identifier">Size</phrase> <phrase role="special">=</phrase> <phrase role="identifier">size_t</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Pointer</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">*,</phrase>
+            <phrase role="keyword">class</phrase> <phrase role="identifier">Reference</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">&amp;&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">input_iterator_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">output_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_forward_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">forward_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_bidirectional_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">bidirectional_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">random_access_iterator_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_cursor_tag</phrase>
+        <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_forward_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_forward_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_bidirectional_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_bidirectional_cursor_tag</phrase> <phrase role="special">{};</phrase>
+  <phrase role="keyword">struct</phrase> <phrase role="identifier">ascending_random_access_cursor_tag</phrase>
+    <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase> <phrase role="special">{};</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
   </section>
   <section id="tree.cursor_primitives">
     <title><link linkend="tree.cursor_primitives">Cursor primitives <phrase role="std_section_label">[cursor.primitives]</phrase></link></title>
