@@ -1,0 +1,268 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2013, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[std_clause order.iterators..24.7..Linear order traversal iterators [label order.iterators]]
+
+For linear traversal of hierarchies, the library offers a number of useful
+predefined iterators, namely for =preorder=, =postorder= and =inorder=
+traversal in namespaces named accordingly.
+
+/Preorder traversal/ means that after a given element, first the subtree to
+its left, then the one to its right will be visited.
+
+/Postorder traversal/ means that before a given element, first the subtree to
+its left, then the one to its right will be visited.
+
+/Inorder traversal/ means that a given element will be visited after the
+subtree to its left and before the one to its right will be visited.
+
+For each of the above kinds of traversal order, the library offers a kind of
+order traversal iterator adaptor template class whose template parameter is a
+bidirectional or random access (either ascending or descending) cursor class.
+Increment and decrement operations for these iterator adaptor classes are
+implemented to allow stepwise iteration according to the respective
+requirements.
+
+[section:order_iterator Class template =iterator= [label order.iterator]]
+
+[std_def]
+In the following, the template class =iterator= and related operators only as
+in =namespace= =preorder= are shown. Note that template classes and operators
+of same name and interface must also be present in =namespace= =postorder= as
+well as in =namespace= =inorder=.
+
+``
+namespace std {
+
+namespace preorder {
+  template <class Cursor>
+  class iterator :
+    public iterator< /* see Note A */, 
+                    typename iterator_traits<Cursor>::value_type,
+                    typename iterator_traits<Cursor>::difference_type,
+                    typename iterator_traits<Cursor>::pointer,
+                    typename iterator_traits<Cursor>::reference> {
+  protected:
+    Cursor current;
+  public:
+    typedef Cursor cursor_type;
+    iterator();
+    explicit iterator(Cursor x);
+    
+    Cursor base() const;         // explicit
+    Reference operator*() const;
+    Pointer   operator->() const;
+    
+    iterator& operator++();
+    iterator  operator++(int);
+    iterator& operator--();
+    iterator  operator--(int);
+  };
+
+template <class Cursor>
+  bool operator==(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+
+template <class Cursor>
+  bool operator!=(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+
+} // namespace preorder
+
+} // namespace std
+``
+
+/Note A:/ If `typename iterator_traits<Cursor>::iterator_category` is
+equivalent to =random_access_iterator_tag=, put in
+=bidirectional_iterator_tag=; otherwise put in
+`typename iterator_traits<Cursor>::iterator_category`.
+[std_end]
+
+[endsect] [/order_iterator]
+
+[section:order_iter_requirements Linear order =iterator= requirements [label order.iter.requirements]]
+
+The template parameter =Cursor= shall meet all the requirements of an
+Ascending Forward Cursor ([ascending.forward.cursors]). Additionally, for the
+template class and operators in =namespace= =inorder=, the template parameter
+=Cursor= must be a Multiway Cursor ([cursor.flavors]).
+
+Additionally, =Cursor= shall meet the requirements of a Ascending Bidirectional
+Cursor ([ascending.bidirectional.cursors]) if the member =operator--=
+([order.iter.op.eq]) is referenced in a way that requires instantiation
+(14.7.1).
+
+[endsect] [/order_iter_requirements]
+
+
+[section:order_iter_ops =inorder::iterator= operations [label order.iter.ops]]
+
+[section:order_iter_cons =inorder::iterator= constructor [label order.iter.cons]]
+
+[std_def]
+``
+	explicit iterator(Cursor x);
+``
+[std_end]
+
+[std_spec]
+/Effects:/ Initializes =current= with =x=.
+[std_end]
+
+[endsect] [/order_iter_cons]
+
+[section:order_iter_conv Conversion [label order.iter.conv]]
+
+[std_def]
+``
+	Iterator base() const; // explicit
+``
+[std_end]
+
+[std_spec]
+/Returns:/ `current`
+[std_end]
+
+[endsect] [/order_iter_conv]
+
+[section:order_iter_op_star =operator*= [label order.iter.op.star]]
+
+[std_def]
+``
+	Reference operator*() const;
+``
+[std_end]
+
+[std_spec]
+/Returns:/ `*current`
+[std_end]
+
+[endsect] [/order_iter_op_star]
+
+[section:order_iter_op_star =operator->= [label order.iter.op.ref]]
+
+[std_def]
+``
+	Pointer operator->() const;
+``
+[std_end]
+
+[std_spec]
+/Returns:/ `&(operator*())`
+[std_end]
+
+[endsect] [/order_iter_op_star]
+
+[section:order_iter_op_inc =operator++= [label order.iter.op.inc]]
+
+[std_def]
+``
+	iterator& operator++() const;
+``
+[std_end]
+
+[std_spec]
+/Effects:/ Sets =current= to the next cursor in the given order.
+[std_end]
+
+[std_spec]
+/Returns:/ `*this`
+[std_end]
+
+[std_def]
+``
+	iterator operator++(int) const;
+``
+[std_end]
+
+[std_spec]
+/Effects:/
+
+``
+iterator tmp = *this;
+this->operator++();
+return tmp;
+``
+[std_end]
+
+[endsect] [/order_iter_op_inc]
+
+[section:order_iter_op_dec =operator--= [label order.iter.op.dec]]
+
+[std_def]
+``
+	iterator& operator--() const;
+``
+[std_end]
+
+[std_spec]
+/Effects:/ Sets =current= to the previous cursor in the given order.
+[std_end]
+
+[std_spec]
+/Returns:/ `*this`
+[std_end]
+
+[std_def]
+``
+	iterator operator--(int) const;
+``
+[std_end]
+
+[std_spec]
+/Effects:/
+
+``
+iterator tmp = *this;
+this->operator--();
+return tmp;
+``
+[std_end]
+
+[endsect] [/order_iter_op_dec]
+
+[section:order_iter_op_eq [^operator==] [label order.iter.op.eq]]
+
+[std_def]
+``
+	template <class Cursor>
+	  bool operator==(
+	    const iterator<Cursor>& x,
+	    const iterator<Cursor>& y);
+``
+[std_end]
+
+[std_spec]
+/Returns:/ `x.current == y.current`
+[std_end]
+
+[endsect] [/order_iter_op_eq]
+
+[section:order_iter_op_ne [^operator!=] [label order.iter.op.ne]]
+
+[std_def]
+``
+	template <class Cursor>
+	  bool operator!=(
+	    const iterator<Cursor>& x,
+	    const iterator<Cursor>& y);
+``
+[std_end]
+
+[std_spec]
+/Returns:/ `x.current != y.current`
+[std_end]
+
+[endsect] [/order_iter_op_ne]
+
+[endsect] [/order_iter_ops]
+
+[std_endclause order.iterators]

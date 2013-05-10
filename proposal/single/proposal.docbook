@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/04 03:56:41 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 13:45:46 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -57,7 +57,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-May-03
+            2013-May-10
           </para>
         </listitem>
       </varlistentry>
@@ -2808,7 +2808,423 @@
   </section>
   </section> </section> <section role="std_section" id="tree.proposal.iterators" label="24" label-style="no-parent">
 <title><link linkend="tree.proposal.iterators">Iterators library
-  <phrase role="std_section_label">[iterators]</phrase></link></title> </section> <section role="std_section" id="tree.proposal.algorithms" label="25" label-style="no-parent">
+  <phrase role="std_section_label">[iterators]</phrase></link></title> <section role="std_section" id="lib.iterator.synopsis" label="24.3" label-style="no-parent">
+<title><link linkend="lib.iterator.synopsis">Headers
+  <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[lib.iterator.synopsis]</phrase></link></title>
+  <note>
+    <para>
+      Append to section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.5, predefined
+      iterators:</phrase></computeroutput>
+    </para>
+  </note>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+
+<phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
+      <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+      <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+    <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
+      <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+      <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace preorder   </phrase>
+
+<phrase role="keyword">namespace</phrase> <phrase role="identifier">postorder</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace postorder   </phrase>
+
+<phrase role="keyword">namespace</phrase> <phrase role="identifier">inorder</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+<phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
+
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
+  </section> <section role="std_section" id="cursors" label="24.5" label-style="no-parent">
+<title><link linkend="cursors">Cursors <phrase role="std_section_label">[cursors]</phrase></link></title>
+  <note>
+    <para>
+      Add before subclause 24.5, <emphasis>Iterator adaptors</emphasis> ([predef.iterators]):
+    </para>
+  </note>
+  <para>
+    Cursors provide a uniform way of applying algorithms to hierarchical data structures.
+    In order to also allow for algorithms relevant when dealing with linear data
+    structures, any cursor class is actually a refinement of a corresponding iterator
+    class.
+  </para>
+  <para>
+    If exactly one application of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase>
+    <phrase role="special">=</phrase> <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput>,
+    followed by a finite sequence of applications of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">j</phrase></computeroutput> makes
+    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
+    <phrase role="identifier">j</phrase></computeroutput>, <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>
+    is a <emphasis>child</emphasis> (or <emphasis>immediate descendant</emphasis>)
+    of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>, and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
+    is the <emphasis>parent</emphasis> (or the <emphasis>immediate ancestor</emphasis>)
+    of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>. A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> is another cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>'s
+    descendant if there is a finite sequential combination of applications of either
+    of the expressions <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">i</phrase></computeroutput>
+    and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">=</phrase>
+    <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput> that
+    makes <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
+    <phrase role="identifier">j</phrase></computeroutput>; <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
+    is then called <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>'s ancestor.
+    If two cursors <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput> and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> share at least one common ancestor, they
+    refer to the same container. The descending traversal capabilities of a class
+    relate to the range of children of a given instance of that class.
+  </para>
+  <para>
+    In addition to a cursor's descending traversal tags, two of them are reused to
+    indicate a cursor's ascending traversal abilities, namely <emphasis>forward</emphasis>
+    and <emphasis>bidirectional</emphasis> traversal in order to indicate whether
+    a given cursor provides traversal to the parent.
+  </para>
+  <para>
+    Apart from cursors that are <emphasis>past-the-end</emphasis> (like their iterator
+    counterparts can be), the notion of a cursor <emphasis>on-top</emphasis> is introduced,
+    denoting a cursor that is ancestor to all other cursors within a hierarchy is
+    introduced; and just as for past-the-end ones, the library generally does not
+    assume on-top cursors be dereferenceable.
+  </para>
+  <para>
+    A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase></computeroutput> for which <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase><phrase role="special">.</phrase><phrase role="identifier">emtpy</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="keyword">true</phrase></computeroutput>
+    is called <emphasis>leaf cursor</emphasis>. A leaf cursor's children are never
+    assumed to be dereferenceable. A cursor which is either on-top or a descendant
+    of an on-top cursor, but in either case not a leaf cursor, nor a descendant of
+    a leaf cursor, is called an <emphasis>internal cursor</emphasis>.
+  </para>
+  <para>
+    A cursor, like an iterator, can have a singular value that is not associated
+    with any hierarchy, meaning that most expressions are undefined for it, with
+    the exception of assignment of a non-singular value to a cursor that holds a
+    singular value. The children of a leaf cursor's child are never assumed to be
+    non-singular; nor is the parent of an on-top node.
+  </para>
+  <para>
+    Like for iterators, the Standard defines a number of categories of cursors according
+    to the operations defined on them: <emphasis>cursor</emphasis>, <emphasis>descending
+    cursor</emphasis>, <emphasis>descending forward cursor</emphasis>, <emphasis>descending
+    bidirectional cursor</emphasis>, <emphasis>descending random access cursor</emphasis>,
+    <emphasis>ascending cursor</emphasis>, <emphasis>ascending forward cursor</emphasis>,
+    <emphasis>ascending bidirectional</emphasis> , and <emphasis>ascending random
+    access cursor</emphasis>. The cursors of any <emphasis>ascending</emphasis> category
+    generally support all the operations of their <emphasis>descending</emphasis>
+    counterpart, plus a method to obtain their parent; relations between the <emphasis>forward</emphasis>,
+    <emphasis>bidirectional</emphasis> and <emphasis>random access</emphasis> parts
+    are as for iterators of those categories.
+  </para>
+  <para>
+    In the following sections <literal moreinfo="none">X</literal> denotes a cursor over values of
+    type <literal moreinfo="none">T</literal>, <literal moreinfo="none">a</literal> and <literal moreinfo="none">b</literal> denotes
+    an identifier, <literal moreinfo="none">r</literal> denotes a value of <literal moreinfo="none">T&amp;</literal>
+    and <literal moreinfo="none">t</literal> denotes a value of type <literal moreinfo="none">T</literal>.
+  </para>
+  <section id="tree.cursor_requirements">
+    <title><link linkend="tree.cursor_requirements">Cursor requirements <phrase role="std_section_label">[cursor.requirements]</phrase></link></title>
+    <section id="tree.cursor_requirements.descending">
+      <title><link linkend="tree.cursor_requirements.descending">Descending Cursor
+      <phrase role="std_section_label">[descending.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.descending_forward">
+      <title><link linkend="tree.cursor_requirements.descending_forward">Descending
+      Forward Cursor <phrase role="std_section_label">[descending.forward.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.descending_bidirectional">
+      <title><link linkend="tree.cursor_requirements.descending_bidirectional">Descending
+      Bidirectional Cursor <phrase role="std_section_label">[descending.bidirectional.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.descending_random_access">
+      <title><link linkend="tree.cursor_requirements.descending_random_access">Descending
+      Random Access Cursor <phrase role="std_section_label">[descending.random.access.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.ascending">
+      <title><link linkend="tree.cursor_requirements.ascending">Ascending Cursor
+      <phrase role="std_section_label">[ascending.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.ascending_forward">
+      <title><link linkend="tree.cursor_requirements.ascending_forward">Ascending
+      Forward Cursor <phrase role="std_section_label">[ascending.forward.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.ascending_bidirectional">
+      <title><link linkend="tree.cursor_requirements.ascending_bidirectional">Ascending
+      Bidirectional Cursor <phrase role="std_section_label">[ascending.bidirectional.cursors]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_requirements.ascending_random_access">
+      <title><link linkend="tree.cursor_requirements.ascending_random_access">Ascending
+      Random Access Cursor <phrase role="std_section_label">[ascending.random.access.cursors]</phrase></link></title>
+    </section>
+  </section>
+  <section id="tree.cursor_flavors">
+    <title><link linkend="tree.cursor_flavors">Cursor flavors <phrase role="std_section_label">[cursor.flavors]</phrase></link></title>
+  </section>
+  <section id="tree.cursor_synopsis">
+    <title><link linkend="tree.cursor_synopsis">Header <literal moreinfo="none">&lt;cursor&gt;</literal>
+    synopsis <phrase role="std_section_label">[cursor.synopsis]</phrase></link></title>
+  </section>
+  <section id="tree.cursor_primitives">
+    <title><link linkend="tree.cursor_primitives">Cursor primitives <phrase role="std_section_label">[cursor.primitives]</phrase></link></title>
+    <section id="tree.cursor_primitives.cursor_traits">
+      <title><link linkend="tree.cursor_primitives.cursor_traits">Cursor traits
+      <phrase role="std_section_label">[cursor.traits]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_primitives.cursor_basic">
+      <title><link linkend="tree.cursor_primitives.cursor_basic">Basic cursor <phrase role="std_section_label">[cursor.basic]</phrase></link></title>
+    </section>
+    <section id="tree.cursor_primitives.cursor_tags">
+      <title><link linkend="tree.cursor_primitives.cursor_tags">Standard cursor tags
+      <phrase role="std_section_label">[cursor.tags]</phrase></link></title>
+    </section>
+  </section>
+  </section> <section role="std_section" id="order.iterators" label="24.7" label-style="no-parent">
+<title><link linkend="order.iterators">Linear order traversal iterators <phrase role="std_section_label">[order.iterators]</phrase></link></title>
+  <para>
+    For linear traversal of hierarchies, the library offers a number of useful predefined
+    iterators, namely for <literal moreinfo="none">preorder</literal>, <literal moreinfo="none">postorder</literal>
+    and <literal moreinfo="none">inorder</literal> traversal in namespaces named accordingly.
+  </para>
+  <para>
+    <emphasis>Preorder traversal</emphasis> means that after a given element, first
+    the subtree to its left, then the one to its right will be visited.
+  </para>
+  <para>
+    <emphasis>Postorder traversal</emphasis> means that before a given element, first
+    the subtree to its left, then the one to its right will be visited.
+  </para>
+  <para>
+    <emphasis>Inorder traversal</emphasis> means that a given element will be visited
+    after the subtree to its left and before the one to its right will be visited.
+  </para>
+  <para>
+    For each of the above kinds of traversal order, the library offers a kind of
+    order traversal iterator adaptor template class whose template parameter is a
+    bidirectional or random access (either ascending or descending) cursor class.
+    Increment and decrement operations for these iterator adaptor classes are implemented
+    to allow stepwise iteration according to the respective requirements.
+  </para>
+  <section id="tree.order_iterator">
+    <title><link linkend="tree.order_iterator">Class template <literal moreinfo="none">iterator</literal>
+    <phrase role="std_section_label">[order.iterator]</phrase></link></title> <simplesect role="std_definition">
+    <para>
+      In the following, the template class <literal moreinfo="none">iterator</literal> and related
+      operators only as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">preorder</literal>
+      are shown. Note that template classes and operators of same name and interface
+      must also be present in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">postorder</literal>
+      as well as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>.
+    </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+
+<phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase> <phrase role="special">:</phrase>
+    <phrase role="keyword">public</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase> <phrase role="comment">/* see Note A */</phrase><phrase role="special">,</phrase>
+                    <phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase>
+                    <phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">difference_type</phrase><phrase role="special">,</phrase>
+                    <phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">pointer</phrase><phrase role="special">,</phrase>
+                    <phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">reference</phrase><phrase role="special">&gt;</phrase> <phrase role="special">{</phrase>
+  <phrase role="keyword">protected</phrase><phrase role="special">:</phrase>
+    <phrase role="identifier">Cursor</phrase> <phrase role="identifier">current</phrase><phrase role="special">;</phrase>
+  <phrase role="keyword">public</phrase><phrase role="special">:</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">Cursor</phrase> <phrase role="identifier">cursor_type</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">iterator</phrase><phrase role="special">();</phrase>
+    <phrase role="keyword">explicit</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">Cursor</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+
+    <phrase role="identifier">Cursor</phrase> <phrase role="identifier">base</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>         <phrase role="comment">// explicit</phrase>
+    <phrase role="identifier">Reference</phrase> <phrase role="keyword">operator</phrase><phrase role="special">*()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">Pointer</phrase>   <phrase role="keyword">operator</phrase><phrase role="special">-&gt;()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+
+    <phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++();</phrase>
+    <phrase role="identifier">iterator</phrase>  <phrase role="keyword">operator</phrase><phrase role="special">++(</phrase><phrase role="keyword">int</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--();</phrase>
+    <phrase role="identifier">iterator</phrase>  <phrase role="keyword">operator</phrase><phrase role="special">--(</phrase><phrase role="keyword">int</phrase><phrase role="special">);</phrase>
+  <phrase role="special">};</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+<phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+
+<phrase role="special">}</phrase> <phrase role="comment">// namespace preorder</phrase>
+
+<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
+</programlisting>
+    <para>
+      <emphasis>Note A:</emphasis> If <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase>
+      <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput> is equivalent to <literal moreinfo="none">random_access_iterator_tag</literal>,
+      put in <literal moreinfo="none">bidirectional_iterator_tag</literal>; otherwise put in <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput>.
+    </para>
+    </simplesect>
+  </section>
+  <section id="tree.order_iter_requirements">
+    <title><link linkend="tree.order_iter_requirements">Linear order <literal moreinfo="none">iterator</literal>
+    requirements <phrase role="std_section_label">[order.iter.requirements]</phrase></link></title>
+    <para>
+      The template parameter <literal moreinfo="none">Cursor</literal> shall meet all the requirements
+      of an Ascending Forward Cursor ([ascending.forward.cursors]). Additionally,
+      for the template class and operators in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>,
+      the template parameter <literal moreinfo="none">Cursor</literal> must be a Multiway Cursor
+      ([cursor.flavors]).
+    </para>
+    <para>
+      Additionally, <literal moreinfo="none">Cursor</literal> shall meet the requirements of a Ascending
+      Bidirectional Cursor ([ascending.bidirectional.cursors]) if the member <literal moreinfo="none">operator--</literal>
+      ([order.iter.op.eq]) is referenced in a way that requires instantiation (14.7.1).
+    </para>
+  </section>
+  <section id="tree.order_iter_ops">
+    <title><link linkend="tree.order_iter_ops"><literal moreinfo="none">inorder::iterator</literal>
+    operations <phrase role="std_section_label">[order.iter.ops]</phrase></link></title>
+    <section id="tree.order_iter_ops.order_iter_cons">
+      <title><link linkend="tree.order_iter_ops.order_iter_cons"><literal moreinfo="none">inorder::iterator</literal>
+      constructor <phrase role="std_section_label">[order.iter.cons]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">Cursor</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Effects:</emphasis> Initializes <literal moreinfo="none">current</literal> with
+        <literal moreinfo="none">x</literal>.
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_conv">
+      <title><link linkend="tree.order_iter_ops.order_iter_conv">Conversion <phrase role="std_section_label">[order.iter.conv]</phrase></link></title> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Iterator</phrase> <phrase role="identifier">base</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase> <phrase role="comment">// explicit</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_star">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_star"><literal moreinfo="none">operator*</literal>
+      <phrase role="std_section_label">[order.iter.op.star]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Reference</phrase> <phrase role="keyword">operator</phrase><phrase role="special">*()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_star0">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_star0"><literal moreinfo="none">operator-&gt;</literal>
+      <phrase role="std_section_label">[order.iter.op.ref]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Pointer</phrase> <phrase role="keyword">operator</phrase><phrase role="special">-&gt;()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;(</phrase><phrase role="keyword">operator</phrase><phrase role="special">*())</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_inc">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_inc"><literal moreinfo="none">operator++</literal>
+      <phrase role="std_section_label">[order.iter.op.inc]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the next
+        cursor in the given order.
+      </para>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
+      </para>
+      </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Effects:</emphasis>
+      </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">this</phrase><phrase role="special">-&gt;</phrase><phrase role="keyword">operator</phrase><phrase role="special">++();</phrase>
+<phrase role="keyword">return</phrase> <phrase role="identifier">tmp</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_dec">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_dec"><literal moreinfo="none">operator--</literal>
+      <phrase role="std_section_label">[order.iter.op.dec]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the previous
+        cursor in the given order.
+      </para>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
+      </para>
+      </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Effects:</emphasis>
+      </para>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">this</phrase><phrase role="special">-&gt;</phrase><phrase role="keyword">operator</phrase><phrase role="special">--();</phrase>
+<phrase role="keyword">return</phrase> <phrase role="identifier">tmp</phrase><phrase role="special">;</phrase>
+</programlisting>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_eq">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_eq"><literal moreinfo="none">operator==</literal>
+      <phrase role="std_section_label">[order.iter.op.eq]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">==</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_ne">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_ne"><literal moreinfo="none">operator!=</literal>
+      <phrase role="std_section_label">[order.iter.op.ne]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
+  <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
+    <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification"><para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+  </section>
+  </section> </section> <section role="std_section" id="tree.proposal.algorithms" label="25" label-style="no-parent">
 <title><link linkend="tree.proposal.algorithms">Algorithms
   library <phrase role="std_section_label">[algorithms]</phrase></link></title> </section> </section>
 

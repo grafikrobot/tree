@@ -9,4 +9,62 @@
 
 [std_clause tree.proposal.iterators..24..Iterators library [label iterators]]
 
+[std_clause lib.iterator.synopsis..24.3..Headers =<iterator>= synopsis [label lib.iterator.synopsis]]
+
+[note Append to section introduced with `// 24.5, predefined iterators:`]
+
+``
+namespace std {
+
+namespace preorder {
+  template <class Cursor> class iterator;
+
+  template <class Cursor>
+    bool operator==(
+      const iterator<Cursor>& x,
+      const iterator<Cursor>& y);
+
+  template <class Cursor>
+    bool operator!=(
+      const iterator<Cursor>& x,
+      const iterator<Cursor>& y);
+} // namespace preorder   
+
+namespace postorder {
+  template <class Cursor> class iterator;
+
+  template <class Cursor>
+  bool operator==(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+
+  template <class Cursor>
+  bool operator!=(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+} // namespace postorder   
+
+namespace inorder {
+  template <class Cursor> class iterator;
+
+  template <class Cursor>
+  bool operator==(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+
+  template <class Cursor>
+  bool operator!=(
+    const iterator<Cursor>& x,
+    const iterator<Cursor>& y);
+} // namespace inorder
+
+} // namespace std
+``
+
+[std_endclause lib.iterator.synopsis]
+
+[include std-cursors.qbk]
+
+[include std-iterators-order.qbk]
+
 [std_endclause tree.proposal.iterators]

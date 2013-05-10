@@ -1,0 +1,125 @@
+[/
+ /  Copyright (c) 2006-2009, Bernhard Reiter
+ /  Copyright (c) 2006-2013, René Rivera
+ /
+ /  Distributed under the Boost Software License, Version 1.0.
+ /  (See accompanying file LICENSE_1_0.txt or copy at
+ /  http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[std_clause cursors..24.5..Cursors [label cursors]]
+
+[note Add before subclause 24.5, /Iterator adaptors/ ([predef.iterators]):]
+
+Cursors provide a uniform way of applying algorithms to hierarchical data
+structures. In order to also allow for algorithms relevant when dealing with
+linear data structures, any cursor class is actually a refinement of a
+corresponding iterator class.
+
+If exactly one application of the expression `i = i.begin()`, followed by a
+finite sequence of applications of the expression `++j` makes `i == j`, `j` is
+a /child/ (or /immediate descendant/) of `i`, and `i` is the /parent/ (or the
+/immediate ancestor/) of `j`. A cursor `j` is another cursor `i`'s descendant
+if there is a finite sequential combination of applications of either of the
+expressions `++i` and `i = i.begin()` that makes `i == j`; `i` is then called
+`j`'s ancestor. If two cursors `i` and `j` share at least one common ancestor,
+they refer to the same container. The descending traversal capabilities of a
+class relate to the range of children of a given instance of that class.
+
+In addition to a cursor's descending traversal tags, two of them are reused
+to indicate a cursor's ascending traversal abilities, namely /forward/ and
+/bidirectional/ traversal in order to indicate whether a given cursor provides
+traversal to the parent.
+
+Apart from cursors that are /past-the-end/ (like their iterator counterparts
+can be), the notion of a cursor /on-top/ is introduced, denoting a cursor that
+is ancestor to all other cursors within a hierarchy is introduced; and just as
+for past-the-end ones, the library generally does not assume on-top cursors be
+dereferenceable.
+
+A cursor `c` for which `c.emtpy() == true` is called /leaf cursor/. A leaf
+cursor's children are never assumed to be dereferenceable. A cursor which is
+either on-top or a descendant of an on-top cursor, but in either case not a
+leaf cursor, nor a descendant of a leaf cursor, is called an /internal cursor/.
+
+A cursor, like an iterator, can have a singular value that is not associated
+with any hierarchy, meaning that most expressions are undefined for it, with
+the exception of assignment of a non-singular value to a cursor that holds a
+singular value. The children of a leaf cursor's child are never assumed to be
+non-singular; nor is the parent of an on-top node.
+
+Like for iterators, the Standard defines a number of categories of cursors
+according to the operations defined on them: /cursor/, /descending cursor/,
+/descending forward cursor/, /descending bidirectional cursor/, /descending
+random access cursor/, /ascending cursor/, /ascending forward cursor/,
+/ascending bidirectional/ , and /ascending random access cursor/. The cursors
+of any /ascending/ category generally support all the operations of their
+/descending/ counterpart, plus a method to obtain their parent; relations
+between the /forward/, /bidirectional/ and /random access/ parts are as for
+iterators of those categories.
+
+In the following sections =X= denotes a cursor over values of type =T=,
+=a= and =b= denotes an identifier, =r= denotes a value of =T&= and =t= denotes
+a value of type =T=.
+
+[section:cursor_requirements Cursor requirements [label cursor.requirements]]
+
+[section:descending Descending Cursor [label descending.cursors]]
+
+[endsect] [/descending]
+
+[section:descending_forward Descending Forward Cursor [label descending.forward.cursors]]
+
+[endsect] [/descending_forward]
+
+[section:descending_bidirectional Descending Bidirectional Cursor [label descending.bidirectional.cursors]]
+
+[endsect] [/descending_bidirectional]
+
+[section:descending_random_access Descending Random Access Cursor [label descending.random.access.cursors]]
+
+[endsect] [/descending_random_access]
+
+[section:ascending Ascending Cursor [label ascending.cursors]]
+
+[endsect] [/ascending]
+
+[section:ascending_forward Ascending Forward Cursor [label ascending.forward.cursors]]
+
+[endsect] [/dascending_forward]
+
+[section:ascending_bidirectional Ascending Bidirectional Cursor [label ascending.bidirectional.cursors]]
+
+[endsect] [/ascending_bidirectional]
+
+[section:ascending_random_access Ascending Random Access Cursor [label ascending.random.access.cursors]]
+
+[endsect] [/ascending_random_access]
+
+[endsect] [/cursor_requirements]
+
+[section:cursor_flavors Cursor flavors [label cursor.flavors]]
+
+[endsect] [/cursor_flavors]
+
+[section:cursor_synopsis Header =<cursor>= synopsis [label cursor.synopsis]]
+
+[endsect] [/cursor_synopsis]
+
+[section:cursor_primitives Cursor primitives [label cursor.primitives]]
+
+[section:cursor_traits Cursor traits [label cursor.traits]]
+
+[endsect] [/cursor_traits]
+
+[section:cursor_basic Basic cursor [label cursor.basic]]
+
+[endsect] [/cursor_basic]
+
+[section:cursor_tags Standard cursor tags [label cursor.tags]]
+
+[endsect] [/cursor_tags]
+
+[endsect] [/cursor_primitives]
+
+[std_endclause cursors]
