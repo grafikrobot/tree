@@ -94,6 +94,24 @@ a value of type =T=.
 
 [section:ascending_random_access Ascending Random Access Cursor [label ascending.random.access.cursors]]
 
+A class type =X= satisfies the requirements of an ascending random access
+cursor if the following expressions are valid, as shown in Table 17, in
+addition to satisfying the requirements for ascending bidirectional cursors
+([ascending.bidirectional.cursors]) and descending random access cursors
+([descending.random.access.cursors]):
+
+[table:table17 Table 17: Ascending random access cursor requirements (in addition to ascending bidirectional cursors and descending random access cursors)
+	[[ expression ]
+	 [ return type ]
+	 [ operational semantics ]
+	 [ assertion/note[br]pre/post-condition ]]
+	
+	[[ =X::type= ]
+	 [ Convertible to =ascending_random_access_cursor_tag= ]
+	 [  ]
+	 [ compile time ]]
+]
+
 [endsect] [/ascending_random_access]
 
 [endsect] [/cursor_requirements]

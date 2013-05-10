@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:10:07 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:16:43 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -2976,6 +2976,64 @@
     <section id="tree.cursor_requirements.ascending_random_access">
       <title><link linkend="tree.cursor_requirements.ascending_random_access">Ascending
       Random Access Cursor <phrase role="std_section_label">[ascending.random.access.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        random access cursor if the following expressions are valid, as shown in
+        Table 17, in addition to satisfying the requirements for ascending bidirectional
+        cursors ([ascending.bidirectional.cursors]) and descending random access
+        cursors ([descending.random.access.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_random_access.table17">
+        <title>Table 17: Ascending random access cursor requirements (in addition
+        to ascending bidirectional cursors and descending random access cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_random_access_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
   </section>
   <section id="tree.cursor_flavors">
