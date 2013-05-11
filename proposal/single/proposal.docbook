@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/10 22:16:43 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/11 18:45:28 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -57,7 +57,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-May-10
+            2013-May-11
           </para>
         </listitem>
       </varlistentry>
@@ -2964,14 +2964,241 @@
     <section id="tree.cursor_requirements.ascending">
       <title><link linkend="tree.cursor_requirements.ascending">Ascending Cursor
       <phrase role="std_section_label">[ascending.cursors]</phrase></link></title>
+      <simplesect role="std_requisite"><para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        cursor if the following expressions are valid, as shown in Table 14, in addition
+        to satisfying the requirements for descending cursors ([descending.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending.table14">
+        <title> Table 14: Ascending cursor requirements (in addition to descending
+        cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal>; <literal moreinfo="none">const_cursor</literal> for
+                  a constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">&amp;</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">=</phrase>
+                  <phrase role="identifier">r</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">();</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">r</literal> is an internal, non-on-top cursor. <sbr/>
+                  post: <literal moreinfo="none">r</literal> is internal. <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase>
+                  <phrase role="special">==</phrase> <phrase role="identifier">s</phrase></computeroutput>
+                  and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase></computeroutput> is internal
+                  and non-on-top implies <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase> <phrase role="special">==</phrase>
+                  <phrase role="special">!</phrase><phrase role="identifier">s</phrase></computeroutput>.
+                  <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;</phrase><phrase role="identifier">r</phrase>
+                  <phrase role="special">==</phrase> <phrase role="special">&amp;!</phrase><phrase role="identifier">r</phrase></computeroutput> <sbr/> (Note A)
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para>
+        <emphasis>Notes:</emphasis> Those entries marked "(Note A)" should
+        have at worst linear complexity. See the individual hierarchy containers
+        for specific complexity.
+      </para>
+      </simplesect>
     </section>
     <section id="tree.cursor_requirements.ascending_forward">
       <title><link linkend="tree.cursor_requirements.ascending_forward">Ascending
       Forward Cursor <phrase role="std_section_label">[ascending.forward.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        forward cursor if the following expressions are valid, as shown in Table
+        15, in addition to satisfying the requirements for ascending cursors ([ascending.cursors])
+        and descending forward cursors ([descending.forward.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_forward.table15">
+        <title> Table 15: Ascending forward cursor requirements (in addition to ascending
+        cursors and descending forward cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_forward_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
     <section id="tree.cursor_requirements.ascending_bidirectional">
       <title><link linkend="tree.cursor_requirements.ascending_bidirectional">Ascending
       Bidirectional Cursor <phrase role="std_section_label">[ascending.bidirectional.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        bidirectional cursor if the following expressions are valid, as shown in
+        Table 16, in addition to satisfying the requirements of ascending forward
+        cursors ([ascending.forward.cursors]) and descending bidirectional cursors
+        ([descending.bidirectional.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_bidirectional.table16">
+        <title> Table 16: Ascending bidirectional cursor requirements (in addition
+        to ascending forward cursors and descending bidirectional cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </section>
     <section id="tree.cursor_requirements.ascending_random_access">
       <title><link linkend="tree.cursor_requirements.ascending_random_access">Ascending

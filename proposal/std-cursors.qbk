@@ -82,13 +82,106 @@ a value of type =T=.
 
 [section:ascending Ascending Cursor [label ascending.cursors]]
 
+[std_req]
+A class type =X= satisfies the requirements of an ascending cursor if the
+following expressions are valid, as shown in Table 14, in addition to
+satisfying the requirements for descending cursors ([descending.cursors]):
+
+[table:table14
+	Table 14: Ascending cursor requirements (in addition to descending cursors)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note[br]pre/post-condition ]
+	]
+	
+	[
+	[ `X::type` ]
+	[ Convertible to =ascending_cursor_tag= ]
+	[  ]
+	[ compile time ]
+	]
+	
+	[
+	[ `a.parent()` ]
+	[ =cursor=; =const_cursor= for a constant =a= ]
+	[  ]
+	[ (Note A) ]
+	]
+	
+	[
+	[ `!r` ]
+	[ `X&` ]
+	[ `r = r.parent();` ]
+	[ pre: =r= is an internal, non-on-top cursor. [br]
+		post: =r= is internal. [br]
+		`r == s` and `r` is internal and non-on-top implies `!r == !s`. [br]
+		`&r == &!r` [br]
+		(Note A) ]
+	]
+]
+
+/Notes:/ Those entries marked "(Note A)" should have at worst linear complexity.
+See the individual hierarchy containers for specific complexity.
+[std_end]
+
 [endsect] [/ascending]
 
 [section:ascending_forward Ascending Forward Cursor [label ascending.forward.cursors]]
 
-[endsect] [/dascending_forward]
+A class type =X= satisfies the requirements of an ascending forward cursor if
+the following expressions are valid, as shown in Table 15, in addition to
+satisfying the requirements for ascending cursors ([ascending.cursors]) and
+descending forward cursors ([descending.forward.cursors]):
+
+[table:table15
+	Table 15: Ascending forward cursor requirements (in addition to ascending
+	cursors and descending forward cursors)
+	
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note[br]pre/post-condition ]
+	]
+	
+	[
+	[ =X::type= ]
+	[ Convertible to =ascending_forward_cursor_tag= ]
+	[  ]
+	[ compile time ]
+	]
+]
+
+[endsect] [/ascending_forward]
 
 [section:ascending_bidirectional Ascending Bidirectional Cursor [label ascending.bidirectional.cursors]]
+
+A class type =X= satisfies the requirements of an ascending bidirectional
+cursor if the following expressions are valid, as shown in Table 16, in
+addition to satisfying the requirements of ascending forward cursors
+([ascending.forward.cursors]) and descending bidirectional cursors
+([descending.bidirectional.cursors]):
+
+[table:table16
+	Table 16: Ascending bidirectional cursor requirements (in addition to
+	ascending forward cursors and descending bidirectional cursors)
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note[br]pre/post-condition ]
+	]
+	
+	[
+	[ =X::type= ]
+	[ Convertible to =ascending_bidirectional_cursor_tag= ]
+	[  ]
+	[ compile time ]
+	]
+]
 
 [endsect] [/ascending_bidirectional]
 
@@ -101,15 +194,19 @@ addition to satisfying the requirements for ascending bidirectional cursors
 ([descending.random.access.cursors]):
 
 [table:table17 Table 17: Ascending random access cursor requirements (in addition to ascending bidirectional cursors and descending random access cursors)
-	[[ expression ]
-	 [ return type ]
-	 [ operational semantics ]
-	 [ assertion/note[br]pre/post-condition ]]
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note[br]pre/post-condition ]
+	]
 	
-	[[ =X::type= ]
-	 [ Convertible to =ascending_random_access_cursor_tag= ]
-	 [  ]
-	 [ compile time ]]
+	[
+	[ =X::type= ]
+	[ Convertible to =ascending_random_access_cursor_tag= ]
+	[  ]
+	[ compile time ]
+	]
 ]
 
 [endsect] [/ascending_random_access]
