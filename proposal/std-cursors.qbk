@@ -64,19 +64,242 @@ a value of type =T=.
 
 [section:cursor_requirements Cursor requirements [label cursor.requirements]]
 
+[std_req]
+A class =X= satisfies the requirements of a cursor if the following
+expressions are valid, as shown in Table 8, in addition to satisfying the
+requirements of input iterators (\[lib.input.iterators\]) and output
+iterators (\[lib.output.iterators\]):
+
+[table:table8
+	Table 8: Cursor requirements (in addition to input and output iterators)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note [br] pre/post-condition ]
+	]
+	
+	[
+	[ =X::value_type= ]
+	[ =T= ]
+	[ Any non-reference, non-cv-qualified type ]
+	[ compile time ]
+	]
+	
+	[
+	[ =X::type= ]
+	[ Convertible to =cursor_tag=, =input_iterator_tag=, and =output_iterator_tag= ]
+	[  ]
+	[ compile time ]
+	]
+	
+	[
+	[ =X::cursor= ]
+	[ Convertible to =X= ]
+	[  ]
+	[ compile time ]
+	]
+	
+	[
+	[ =X::const_cursor= ]
+	[ Convertible to =const X= ]
+	[  ]
+	[ compile time ]
+	]
+]
+[std_end]
+
 [section:descending Descending Cursor [label descending.cursors]]
+
+[std_req]
+A class =X= satisfies the requirements of a descending cursor if, in
+addition to satisfying the requirements for cursors (\[cursor.requirements\])
+it also conforms to the container requirements (\[lib.container.requirements\])
+with the exception of the following expressions:
+
+[table:table9
+	Table 9: Container requirements that are not supported
+	[ [ unsupported expression ] ]
+	[ [ `X::iterator` ] ]
+	[ [ `X::const_iterator` ] ]
+	[ [ `X::reverse_iterator` ] ]
+	[ [ `X::reverse_const_iterator` ] ]
+	[ [ `(&a)->~X();` ] ]
+	[ [ `X(a);` ] ]
+	[ [ `X u(a);` ] ]
+	[ [ `X u = a;` ] ]
+	[ [ `a.begin()` ] ]
+	[ [ `a.end()` ] ]
+	[ [ `a.rbegin()` ] ]
+	[ [ `a.rend()` ] ]
+	[ [ `a == b` ] ]
+	[ [ `a != b` ] ]
+	[ [ `a.swap(b)` ] ]
+	[ [ `r = a` ] ]
+	[ [ `a < b` ] ]
+	[ [ `a > b` ] ]
+	[ [ `a <= b` ] ]
+	[ [ `a >= b` ] ]
+]
+
+Notes: The expressions a.begin() and a.end() are, as shown in Table 9, replaced with equivalent expressions for cursors.
+[std_end]
+
+[std_req]
+Additionally, for a descending cursor, the following expression are valid, as
+shown in Table 10:
+
+[table:table10
+	Table 10: Descending cursor requirements (in addition to cursor)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note [br] pre/post-condition ]
+	]
+	
+	[
+	[ =X::type= ]
+	[ Convertible to =descending_cursor_tag= ]
+	[  ]
+	[ compile time ]
+	]
+	
+	[
+	[ =a.begin()= ]
+	[ =cursor= or =const_cursor= for constant =a= ]
+	[ pre: =a= is non-leaf. ]
+	[ constant ]
+	]
+	
+	[
+	[ =a.end()= ]
+	[ =cursor= or =const_cursor= for constant =a= ]
+	[ pre: =a= is non-leaf. ]
+	[ constant ]
+	]
+	
+	[
+	[ =a.cbegin()= ]
+	[ =const_cursor= ]
+	[ pre: =a= is non-leaf. ]
+	[ constant ]
+	]
+	
+	[
+	[ =a.cend()= ]
+	[ =const_cursor= ]
+	[ pre: =a= is non-leaf. ]
+	[ constant ]
+	]
+	
+	[
+	[ =a.parity()= ]
+	[ =size_type= ]
+	[ =std::distance(b.begin(), a)= if =b= is =a='s parent.
+		[br] pre: =a= is non-on-top. ]
+	[ Linear in =b.size()= ]
+	]
+]
+[std_end]
 
 [endsect] [/descending]
 
 [section:descending_forward Descending Forward Cursor [label descending.forward.cursors]]
 
+A class type =X= satisfies the requirements of a descending forward cursor if
+the following expressions are valid, as shown in Table 11, in addition to the
+requirements of descending cursors (\[descending.cursors\]) and forward
+iterators (\[lib.forward.iterators\]):
+
+[table:table11
+	Table 11: Descending forward cursor requirements (in addition to
+	descending cursors and forward iterators)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note [br] pre/post-condition ]
+	]
+	
+	[
+	[ =X::type= ]
+	[ Convertible to =descending_forward_cursor_tag= and
+	=forward_iterator_tag= ]
+	[  ]
+	[ compile time ]
+	]
+]
+
 [endsect] [/descending_forward]
 
 [section:descending_bidirectional Descending Bidirectional Cursor [label descending.bidirectional.cursors]]
 
+A class type =X= satisfies the requirements of a descending bidirectional
+cursor if the following expressions are valid, as shown in Table 12, in
+addition to satisfying the requirements for descending forward cursors
+(\[descending.forward.cursors\]) and bidirectional iterators
+(\[lib.bidirectional.iterators\]):
+
+[table:table12
+	Table 12: Descending bidirectional cursor requirements (in addition to
+	forward descending cursors and bidirectional iterators)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note [br] pre/post-condition ]
+	]
+	
+	[
+	[ `X::type` ]
+	[ Convertible to =descending_bidirectional_cursor_tag= and
+	=bidirectional_iterator_tag= ]
+	[  ]
+	[ compile time ]
+	]
+]
+
+[note
+	rbegin() and rend() do not seem very useful for multiway trees, as they
+	hide end() and its possible children. Are different semantics or maybe
+	having rend() stand in for end() sensible solutions? Or just ignore this
+	aspect?
+]
+
 [endsect] [/descending_bidirectional]
 
 [section:descending_random_access Descending Random Access Cursor [label descending.random.access.cursors]]
+
+A class type =X= satisfies the requirements of a descending random access
+cursor if the following expressions are valid, as shown in Table 13, in
+addition to satisfying the requirements for descending bidirectional cursors
+(\[descending.bidirectional.cursors\]) and random access iterators
+(\[lib.random.access.iterators\]):
+
+[table:table13
+	Table 13: Descending random access cursor requirements (in addition to
+	descending bidirectional cursors and random access iterators)
+
+	[
+	[ expression ]
+	[ return type ]
+	[ operational semantics ]
+	[ assertion/note [br] pre/post-condition ]
+	]
+	
+	[
+	[ `X::type` ]
+	[ Convertible to =descending_random_access_cursor_tag= and
+	=random_access_iterator_tag= ]
+	[  ]
+	[ compile time ]
+	]
+]
 
 [endsect] [/descending_random_access]
 
