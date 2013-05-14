@@ -9,4 +9,271 @@
 
 [std_clause tree.proposal.algorithms..25..Algorithms library [label algorithms]]
 
+[note
+Append to paragraph 2, [~Header [^<iterator>] synopsis], after
+`// subclause 25.1, non-modifying sequence operations`.
+]
+
+``
+// subclause 2.X, non-modifying hierarchy operations
+namespace std {
+
+namespace preorder {
+  template <class Hierarchy>
+    iterator<typename Hierarchy::cursor>
+      begin(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      cbegin(Hierarchy const& h);
+  
+  template <class Hierarchy>
+    iterator<typename Hierarchy::cursor>
+      end(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      cend(Hierarchy const& h);
+} // namespace preorder
+
+namespace postorder {
+  template <class Hierarchy>
+    iterator<typename Hierarchy::cursor>
+      begin(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      cbegin(Hierarchy const& h);
+  
+  template <class Hierarchy>
+    iterator<typename Hierarchy::cursor>
+      end(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      cend(Hierarchy const& h);
+} // namespace postorder
+
+namespace inorder {
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::cursor>
+      begin(MultiwayHierarchy& m);
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::const_cursor>
+      cbegin(MultiwayHierarchy const& m);
+  
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::cursor>
+      end(MultiwayHierarchy& m);
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::const_cursor>
+      cend(MultiwayHierarchy const& m);
+} // namespace inorder
+
+} // namespace std
+``
+
+[note
+[^\[c\]rbegin(...)] and [^\[c\]rend(..)] are not provided as they can be
+achieved via [^reverse_iterator({\[c\]begin(...)|\[c\]end(...)})] (which also
+defines requirements when this is possible)
+]
+
+[note
+Change paragraph 3 to read:
+]
+
+All of the algorithms are separated from the particular implementations of
+data structures and are parameterized by iterator or hierarchy types.
+Because of this, they can work with program defined data structures, as long
+as these data structures have iterator or cursor types satisfying the
+assumptions on the algorithms.
+
+[note
+Append to paragraph 4:
+]
+
+If an algorithm's template parameter is =Hierarchy=, the actual template
+argument shall satisfy the requirements of a hierarchy (\[hierarchy.req\]).
+If an algorithm's template parameter is =MultiwayHierarchy=, the actual
+template argument shall satisfy the requirements of a multiway hierarchy
+(\[hierarchy.multiway\]).
+
+[std_section alg.hierarchy..6..Non-modifying hierarchy algorithms [label alg.hierarchy]]
+
+[section:alg_hier_preorder Non-modifying hierarchy preorder range algorithms [label alg.hier.preorder]]
+
+[section:alg_hier_pre_begin Preorder begin [label alg.hier.pre.begin]]
+
+[std_def]
+``
+	namespace std {
+	namespace preorder {
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::cursor>
+	      begin(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      cbegin(Hierarchy const& h);
+	} // namespace preorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing to the first element of =h= in preorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ constant
+[std_end]
+
+[endsect] [/alg_hier_pre_begin]
+
+[section:alg_hier_pre_end Preorder end [label alg.hier.pre.end]]
+
+[std_def]
+``
+	namespace std {
+	namespace preorder { 
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::cursor>
+	      end(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      cend(Hierarchy const& h);
+	} // namespace preorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing one position past the last element of =h=
+in preorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ linear
+[std_end]
+
+[endsect] [/alg_hier_pre_end]
+
+[endsect] [/alg_hier_preorder]
+
+[section:alg_hier_postorder Non-modifying hierarchy postorder range algorithms [label alg.hier.postorder]]
+
+[section:alg_hier_post_begin Postorder begin [label alg.hier.post.begin]]
+
+[std_def]
+``
+	namespace std {
+	namespace postorder {
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::cursor>
+	      begin(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      cbegin(Hierarchy const& h);
+	} // namespace postorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing to the first element of =h= in postorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ linear
+[std_end]
+
+[endsect] [/alg_hier_post_begin]
+
+[section:alg_hier_post_end Postorder end [label alg.hier.post.end]]
+
+[std_def]
+``
+	namespace std {
+	namespace postorder { 
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::cursor>
+	      end(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      cend(Hierarchy const& h);
+	} // namespace postorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing one position past the last element of =h= in
+postorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ constant
+[std_end]
+
+[endsect] [/alg_hier_post_end]
+
+[endsect] [/alg_hier_postorder]
+
+[section:alg_hier_inorder Non-modifying hierarchy inorder range algorithms [label alg.hier.inorder]]
+
+[section:alg_hier_in_begin Inorder begin [label alg.hier.in.begin]]
+
+[std_def]
+``
+	namespace std {
+	namespace inorder {
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::cursor>
+	      begin(MultiwayHierarchy& m);
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::const_cursor>
+	      cbegin(MultiwayHierarchy const& m);
+	} // namespace inorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing to the first element of =h= in inorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ linear
+[std_end]
+
+[endsect] [/alg_hier_in_begin]
+
+[section:alg_hier_in_end Inorder end [label alg.hier.in.end]]
+
+[std_def]
+``
+	namespace std {
+	namespace inorder { 
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::cursor>
+	      end(MultiwayHierarchy& m);
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::const_cursor>
+	      cend(MultiwayHierarchy const& m);
+	} // namespace inorder
+	} // namespace std
+``
+[std_end]
+
+[std_spec]
+/Returns:/ An iterator pointing one position past the last element of =h=
+in inorder.
+[std_end]
+
+[std_spec]
+/Complexity:/ linear
+[std_end]
+
+[endsect] [/alg_hier_in_end]
+
+[endsect] [/alg_hier_inorder]
+
+[std_endsect alg.hierarchy]
+
 [std_endclause tree.proposal.algorithms]
