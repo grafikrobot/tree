@@ -11,13 +11,11 @@
 
 [note
 Append to paragraph 2, [~Header [^<iterator>] synopsis], after
-`// subclause 25.1, non-modifying sequence operations`.
+`// subclause 25.2, non-modifying sequence operations`.
 ]
 
 ``
-// subclause 2.X, non-modifying hierarchy operations
-namespace std {
-
+// subclause 25.3, non-modifying hierarchy operations
 namespace preorder {
   template <class Hierarchy>
     iterator<typename Hierarchy::cursor>
@@ -65,8 +63,6 @@ namespace inorder {
     iterator<typename MultiwayHierarchy::const_cursor>
       cend(MultiwayHierarchy const& m);
 } // namespace inorder
-
-} // namespace std
 ``
 
 [note
@@ -81,12 +77,12 @@ Change paragraph 3 to read:
 
 All of the algorithms are separated from the particular implementations of
 data structures and are parameterized by iterator or hierarchy types.
-Because of this, they can work with program defined data structures, as long
+Because of this, they can work with program-defined data structures, as long
 as these data structures have iterator or cursor types satisfying the
 assumptions on the algorithms.
 
 [note
-Append to paragraph 4:
+Append to paragraph 5:
 ]
 
 If an algorithm's template parameter is =Hierarchy=, the actual template
@@ -95,7 +91,11 @@ If an algorithm's template parameter is =MultiwayHierarchy=, the actual
 template argument shall satisfy the requirements of a multiway hierarchy
 (\[hierarchy.multiway\]).
 
-[std_section alg.hierarchy..6..Non-modifying hierarchy algorithms [label alg.hierarchy]]
+[note
+Insert after section 25.2 Non-modifying sequence operations \[alg.nonmodifying\]
+]
+
+[std_section alg.hierarchy..3..Non-modifying hierarchy algorithms [label alg.hierarchy]]
 
 [section:alg_hier_preorder Non-modifying hierarchy preorder range algorithms [label alg.hier.preorder]]
 
@@ -103,7 +103,6 @@ template argument shall satisfy the requirements of a multiway hierarchy
 
 [std_def]
 ``
-	namespace std {
 	namespace preorder {
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
@@ -112,7 +111,6 @@ template argument shall satisfy the requirements of a multiway hierarchy
 	    iterator<typename Hierarchy::const_cursor>
 	      cbegin(Hierarchy const& h);
 	} // namespace preorder
-	} // namespace std
 ``
 [std_end]
 
@@ -130,7 +128,6 @@ template argument shall satisfy the requirements of a multiway hierarchy
 
 [std_def]
 ``
-	namespace std {
 	namespace preorder { 
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
@@ -139,7 +136,6 @@ template argument shall satisfy the requirements of a multiway hierarchy
 	    iterator<typename Hierarchy::const_cursor>
 	      cend(Hierarchy const& h);
 	} // namespace preorder
-	} // namespace std
 ``
 [std_end]
 
@@ -162,7 +158,6 @@ in preorder.
 
 [std_def]
 ``
-	namespace std {
 	namespace postorder {
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
@@ -171,7 +166,6 @@ in preorder.
 	    iterator<typename Hierarchy::const_cursor>
 	      cbegin(Hierarchy const& h);
 	} // namespace postorder
-	} // namespace std
 ``
 [std_end]
 
@@ -189,7 +183,6 @@ in preorder.
 
 [std_def]
 ``
-	namespace std {
 	namespace postorder { 
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
@@ -198,7 +191,6 @@ in preorder.
 	    iterator<typename Hierarchy::const_cursor>
 	      cend(Hierarchy const& h);
 	} // namespace postorder
-	} // namespace std
 ``
 [std_end]
 
@@ -221,7 +213,6 @@ postorder.
 
 [std_def]
 ``
-	namespace std {
 	namespace inorder {
 	  template <class MultiwayHierarchy>
 	    iterator<typename MultiwayHierarchy::cursor>
@@ -230,7 +221,6 @@ postorder.
 	    iterator<typename MultiwayHierarchy::const_cursor>
 	      cbegin(MultiwayHierarchy const& m);
 	} // namespace inorder
-	} // namespace std
 ``
 [std_end]
 
@@ -248,7 +238,6 @@ postorder.
 
 [std_def]
 ``
-	namespace std {
 	namespace inorder { 
 	  template <class MultiwayHierarchy>
 	    iterator<typename MultiwayHierarchy::cursor>
@@ -257,7 +246,6 @@ postorder.
 	    iterator<typename MultiwayHierarchy::const_cursor>
 	      cend(MultiwayHierarchy const& m);
 	} // namespace inorder
-	} // namespace std
 ``
 [std_end]
 
