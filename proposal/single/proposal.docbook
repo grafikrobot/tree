@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/16 03:04:42 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/20 22:15:19 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -57,7 +57,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-May-15
+            2013-May-20
           </para>
         </listitem>
       </varlistentry>
@@ -2813,12 +2813,11 @@
   <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[lib.iterator.synopsis]</phrase></link></title>
   <note>
     <para>
-      Append to section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.5, predefined
-      iterators:</phrase></computeroutput>
+      Insert after section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.6.5,
+      range access:</phrase></computeroutput>
     </para>
   </note>
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
-
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.7, linear order traversal iterators</phrase>
 <phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
 
@@ -2860,14 +2859,12 @@
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
-
-<phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-  </section> <section role="std_section" id="cursors" label="24.5" label-style="no-parent">
+  </section> <section role="std_section" id="cursors" label="24.7" label-style="no-parent">
 <title><link linkend="cursors">Cursors <phrase role="std_section_label">[cursors]</phrase></link></title>
   <note>
     <para>
-      Add before subclause 24.5, <emphasis>Iterator adaptors</emphasis> ([predef.iterators]):
+      Add after subclause 24.7, Stream iterators ([stream.iterators]):
     </para>
   </note>
   <para>
@@ -2906,13 +2903,13 @@
   <para>
     Apart from cursors that are <emphasis>past-the-end</emphasis> (like their iterator
     counterparts can be), the notion of a cursor <emphasis>on-top</emphasis> is introduced,
-    denoting a cursor that is ancestor to all other cursors within a hierarchy is
-    introduced; and just as for past-the-end ones, the library generally does not
-    assume on-top cursors be dereferenceable.
+    denoting a cursor that is ancestor to all other cursors within a hierarchy; and
+    just as for past-the-end ones, the library generally does not assume on-top cursors
+    be dereferenceable.
   </para>
   <para>
     A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase></computeroutput> for which <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase><phrase role="special">.</phrase><phrase role="identifier">emtpy</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="keyword">true</phrase></computeroutput>
-    is called <emphasis>leaf cursor</emphasis>. A leaf cursor's children are never
+    is called a <emphasis>leaf cursor</emphasis>. A leaf cursor's children are never
     assumed to be dereferenceable. A cursor which is either on-top or a descendant
     of an on-top cursor, but in either case not a leaf cursor, nor a descendant of
     a leaf cursor, is called an <emphasis>internal cursor</emphasis>.
@@ -2948,11 +2945,11 @@
     <simplesect role="std_requisite"><para>
       A class <literal moreinfo="none">X</literal> satisfies the requirements of a cursor if the
       following expressions are valid, as shown in Table 8, in addition to satisfying
-      the requirements of input iterators ([lib.input.iterators]) and output iterators
-      ([lib.output.iterators]):
+      the requirements of input iterators ([input.iterators]) and output iterators
+      ([output.iterators]):
     </para>
     <table frame="all" id="tree.cursor_requirements.table8">
-      <title> Table 8: Cursor requirements (in addition to input and output iterators)</title>
+      <title> Cursor requirements (in addition to input and output iterators)</title>
       <tgroup cols="4">
         <thead>
           <row>
@@ -3069,11 +3066,11 @@
       <simplesect role="std_requisite"><para>
         A class <literal moreinfo="none">X</literal> satisfies the requirements of a descending cursor
         if, in addition to satisfying the requirements for cursors ([cursor.requirements])
-        it also conforms to the container requirements ([lib.container.requirements])
+        it also conforms to the container requirements ([container.requirements])
         with the exception of the following expressions:
       </para>
       <table frame="all" id="tree.cursor_requirements.descending.table9">
-        <title> Table 9: Container requirements that are not supported</title>
+        <title> Container requirements that are not supported</title>
         <tgroup cols="1">
           <thead>
             <row>
@@ -3237,15 +3234,15 @@
         </tgroup>
       </table>
       <para>
-        Notes: The expressions a.begin() and a.end() are, as shown in Table 9, replaced
-        with equivalent expressions for cursors.
+        Notes: The expressions <literal moreinfo="none">a.begin()</literal> and <literal moreinfo="none">a.end()</literal>
+        are, as shown in Table 9, replaced with equivalent expressions for cursors.
       </para>
       </simplesect> <simplesect role="std_requisite"><para>
         Additionally, for a descending cursor, the following expression are valid,
         as shown in Table 10:
       </para>
       <table frame="all" id="tree.cursor_requirements.descending.table10">
-        <title> Table 10: Descending cursor requirements (in addition to cursor)</title>
+        <title> Descending cursor requirements (in addition to cursor)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3417,11 +3414,11 @@
         A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
         forward cursor if the following expressions are valid, as shown in Table
         11, in addition to the requirements of descending cursors ([descending.cursors])
-        and forward iterators ([lib.forward.iterators]):
+        and forward iterators ([forward.iterators]):
       </para>
       <table frame="all" id="tree.cursor_requirements.descending_forward.table11">
-        <title> Table 11: Descending forward cursor requirements (in addition to
-        descending cursors and forward iterators)</title>
+        <title> Descending forward cursor requirements (in addition to descending
+        cursors and forward iterators)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3479,11 +3476,11 @@
         A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
         bidirectional cursor if the following expressions are valid, as shown in
         Table 12, in addition to satisfying the requirements for descending forward
-        cursors ([descending.forward.cursors]) and bidirectional iterators ([lib.bidirectional.iterators]):
+        cursors ([descending.forward.cursors]) and bidirectional iterators ([bidirectional.iterators]):
       </para>
       <table frame="all" id="tree.cursor_requirements.descending_bidirectional.table12">
-        <title> Table 12: Descending bidirectional cursor requirements (in addition
-        to forward descending cursors and bidirectional iterators)</title>
+        <title> Descending bidirectional cursor requirements (in addition to forward
+        descending cursors and bidirectional iterators)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3550,11 +3547,11 @@
         random access cursor if the following expressions are valid, as shown in
         Table 13, in addition to satisfying the requirements for descending bidirectional
         cursors ([descending.bidirectional.cursors]) and random access iterators
-        ([lib.random.access.iterators]):
+        ([random.access.iterators]):
       </para>
       <table frame="all" id="tree.cursor_requirements.descending_random_access.table13">
-        <title> Table 13: Descending random access cursor requirements (in addition
-        to descending bidirectional cursors and random access iterators)</title>
+        <title> Descending random access cursor requirements (in addition to descending
+        bidirectional cursors and random access iterators)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3614,8 +3611,7 @@
         to satisfying the requirements for descending cursors ([descending.cursors]):
       </para>
       <table frame="all" id="tree.cursor_requirements.ascending.table14">
-        <title> Table 14: Ascending cursor requirements (in addition to descending
-        cursors)</title>
+        <title> Ascending cursor requirements (in addition to descending cursors)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3731,8 +3727,8 @@
         and descending forward cursors ([descending.forward.cursors]):
       </para>
       <table frame="all" id="tree.cursor_requirements.ascending_forward.table15">
-        <title> Table 15: Ascending forward cursor requirements (in addition to ascending
-        cursors and descending forward cursors)</title>
+        <title> Ascending forward cursor requirements (in addition to ascending cursors
+        and descending forward cursors)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3793,8 +3789,8 @@
         ([descending.bidirectional.cursors]):
       </para>
       <table frame="all" id="tree.cursor_requirements.ascending_bidirectional.table16">
-        <title> Table 16: Ascending bidirectional cursor requirements (in addition
-        to ascending forward cursors and descending bidirectional cursors)</title>
+        <title> Ascending bidirectional cursor requirements (in addition to ascending
+        forward cursors and descending bidirectional cursors)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3855,8 +3851,8 @@
         cursors ([descending.random.access.cursors]):
       </para>
       <table frame="all" id="tree.cursor_requirements.ascending_random_access.table17">
-        <title>Table 17: Ascending random access cursor requirements (in addition
-        to ascending bidirectional cursors and descending random access cursors)</title>
+        <title> Ascending random access cursor requirements (in addition to ascending
+        bidirectional cursors and descending random access cursors)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3925,6 +3921,7 @@
     <title><link linkend="tree.cursor_synopsis">Header <literal moreinfo="none">&lt;cursor&gt;</literal>
     synopsis <phrase role="std_section_label">[cursor.synopsis]</phrase></link></title>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
+  <phrase role="comment">// 24.7.4, cursor primitives</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_value</phrase><phrase role="special">;</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_reference</phrase><phrase role="special">;</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_const_reference</phrase><phrase role="special">;</phrase>
@@ -4025,8 +4022,8 @@
       <title><link linkend="tree.cursor_primitives.cursor_tags">Standard cursor tags
       <phrase role="std_section_label">[cursor.tags]</phrase></link></title>
       <para>
-        Cursor tags pick up the notion of iterator tags ([lib.std.iterator.tags])
-        and extend them by adding information about a given cursor class' descending
+        Cursor tags pick up the notion of iterator tags ([std.iterator.tags]) and
+        extend them by adding information about a given cursor class' descending
         or ascending traversal capabilities ([cursor.requirements]). This yields
         the cursor tags <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">descending_cursor_tag</literal>,
         <literal moreinfo="none">descending_forward_cursor_tag</literal>, <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>,
@@ -4060,7 +4057,7 @@
 </programlisting>
     </section>
   </section>
-  </section> <section role="std_section" id="order.iterators" label="24.7" label-style="no-parent">
+  </section> <section role="std_section" id="order.iterators" label="24.8" label-style="no-parent">
 <title><link linkend="order.iterators">Linear order traversal iterators <phrase role="std_section_label">[order.iterators]</phrase></link></title>
   <para>
     For linear traversal of hierarchies, the library offers a number of useful predefined

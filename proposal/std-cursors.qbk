@@ -7,9 +7,9 @@
  /  http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[std_clause cursors..24.5..Cursors [label cursors]]
+[std_clause cursors..24.7..Cursors [label cursors]]
 
-[note Add before subclause 24.5, /Iterator adaptors/ ([predef.iterators]):]
+[note Add after subclause 24.7, Stream iterators ([stream.iterators]):]
 
 Cursors provide a uniform way of applying algorithms to hierarchical data
 structures. In order to also allow for algorithms relevant when dealing with
@@ -33,11 +33,11 @@ traversal to the parent.
 
 Apart from cursors that are /past-the-end/ (like their iterator counterparts
 can be), the notion of a cursor /on-top/ is introduced, denoting a cursor that
-is ancestor to all other cursors within a hierarchy is introduced; and just as
+is ancestor to all other cursors within a hierarchy; and just as
 for past-the-end ones, the library generally does not assume on-top cursors be
 dereferenceable.
 
-A cursor `c` for which `c.emtpy() == true` is called /leaf cursor/. A leaf
+A cursor `c` for which `c.emtpy() == true` is called a /leaf cursor/. A leaf
 cursor's children are never assumed to be dereferenceable. A cursor which is
 either on-top or a descendant of an on-top cursor, but in either case not a
 leaf cursor, nor a descendant of a leaf cursor, is called an /internal cursor/.
@@ -67,11 +67,11 @@ a value of type =T=.
 [std_req]
 A class =X= satisfies the requirements of a cursor if the following
 expressions are valid, as shown in Table 8, in addition to satisfying the
-requirements of input iterators (\[lib.input.iterators\]) and output
-iterators (\[lib.output.iterators\]):
+requirements of input iterators (\[input.iterators\]) and output
+iterators (\[output.iterators\]):
 
 [table:table8
-	Table 8: Cursor requirements (in addition to input and output iterators)
+	Cursor requirements (in addition to input and output iterators)
 
 	[
 	[ expression ]
@@ -115,11 +115,11 @@ iterators (\[lib.output.iterators\]):
 [std_req]
 A class =X= satisfies the requirements of a descending cursor if, in
 addition to satisfying the requirements for cursors (\[cursor.requirements\])
-it also conforms to the container requirements (\[lib.container.requirements\])
+it also conforms to the container requirements (\[container.requirements\])
 with the exception of the following expressions:
 
 [table:table9
-	Table 9: Container requirements that are not supported
+	Container requirements that are not supported
 	[ [ unsupported expression ] ]
 	[ [ `X::iterator` ] ]
 	[ [ `X::const_iterator` ] ]
@@ -143,7 +143,8 @@ with the exception of the following expressions:
 	[ [ `a >= b` ] ]
 ]
 
-Notes: The expressions a.begin() and a.end() are, as shown in Table 9, replaced with equivalent expressions for cursors.
+Notes: The expressions =a.begin()= and =a.end()= are, as shown in Table 9,
+replaced with equivalent expressions for cursors.
 [std_end]
 
 [std_req]
@@ -151,7 +152,7 @@ Additionally, for a descending cursor, the following expression are valid, as
 shown in Table 10:
 
 [table:table10
-	Table 10: Descending cursor requirements (in addition to cursor)
+	Descending cursor requirements (in addition to cursor)
 
 	[
 	[ expression ]
@@ -212,10 +213,10 @@ shown in Table 10:
 A class type =X= satisfies the requirements of a descending forward cursor if
 the following expressions are valid, as shown in Table 11, in addition to the
 requirements of descending cursors (\[descending.cursors\]) and forward
-iterators (\[lib.forward.iterators\]):
+iterators (\[forward.iterators\]):
 
 [table:table11
-	Table 11: Descending forward cursor requirements (in addition to
+	Descending forward cursor requirements (in addition to
 	descending cursors and forward iterators)
 
 	[
@@ -242,10 +243,10 @@ A class type =X= satisfies the requirements of a descending bidirectional
 cursor if the following expressions are valid, as shown in Table 12, in
 addition to satisfying the requirements for descending forward cursors
 (\[descending.forward.cursors\]) and bidirectional iterators
-(\[lib.bidirectional.iterators\]):
+(\[bidirectional.iterators\]):
 
 [table:table12
-	Table 12: Descending bidirectional cursor requirements (in addition to
+	Descending bidirectional cursor requirements (in addition to
 	forward descending cursors and bidirectional iterators)
 
 	[
@@ -279,10 +280,10 @@ A class type =X= satisfies the requirements of a descending random access
 cursor if the following expressions are valid, as shown in Table 13, in
 addition to satisfying the requirements for descending bidirectional cursors
 (\[descending.bidirectional.cursors\]) and random access iterators
-(\[lib.random.access.iterators\]):
+(\[random.access.iterators\]):
 
 [table:table13
-	Table 13: Descending random access cursor requirements (in addition to
+	Descending random access cursor requirements (in addition to
 	descending bidirectional cursors and random access iterators)
 
 	[
@@ -311,7 +312,7 @@ following expressions are valid, as shown in Table 14, in addition to
 satisfying the requirements for descending cursors ([descending.cursors]):
 
 [table:table14
-	Table 14: Ascending cursor requirements (in addition to descending cursors)
+	Ascending cursor requirements (in addition to descending cursors)
 
 	[
 	[ expression ]
@@ -360,7 +361,7 @@ satisfying the requirements for ascending cursors ([ascending.cursors]) and
 descending forward cursors ([descending.forward.cursors]):
 
 [table:table15
-	Table 15: Ascending forward cursor requirements (in addition to ascending
+	Ascending forward cursor requirements (in addition to ascending
 	cursors and descending forward cursors)
 	
 	[
@@ -389,7 +390,7 @@ addition to satisfying the requirements of ascending forward cursors
 ([descending.bidirectional.cursors]):
 
 [table:table16
-	Table 16: Ascending bidirectional cursor requirements (in addition to
+	Ascending bidirectional cursor requirements (in addition to
 	ascending forward cursors and descending bidirectional cursors)
 	[
 	[ expression ]
@@ -416,7 +417,8 @@ addition to satisfying the requirements for ascending bidirectional cursors
 ([ascending.bidirectional.cursors]) and descending random access cursors
 ([descending.random.access.cursors]):
 
-[table:table17 Table 17: Ascending random access cursor requirements (in addition to ascending bidirectional cursors and descending random access cursors)
+[table:table17
+	Ascending random access cursor requirements (in addition to ascending bidirectional cursors and descending random access cursors)
 	[
 	[ expression ]
 	[ return type ]
@@ -452,6 +454,7 @@ for any internal cursor /including/ past-the-end ones, =X= satisfies the
 
 ``
 namespace std {
+  // 24.7.4, cursor primitives
   template <class Cursor> struct cursor_value;
   template <class Cursor> struct cursor_reference;
   template <class Cursor> struct cursor_const_reference;
@@ -554,7 +557,7 @@ namespace std {
 
 [section:cursor_tags Standard cursor tags [label cursor.tags]]
 
-Cursor tags pick up the notion of iterator tags (\[lib.std.iterator.tags\]) and
+Cursor tags pick up the notion of iterator tags (\[std.iterator.tags\]) and
 extend them by adding information about a given cursor class' descending or
 ascending traversal capabilities (\[cursor.requirements\]). This yields the
 cursor tags =cursor_tag=, =descending_cursor_tag=,

@@ -33,6 +33,7 @@
 [template label[id] [role std_section_label \[[id]\]]]
 [def __nbsp__ '''&nbsp;''']
 [def implementation_defined ['implementation-defined]]
+[def __emdash__ '''&emdash;''']
 
 [/ Custom top level proposal group to allow for styling within the proposal chunk only. /]
 

@@ -7,7 +7,7 @@
  /  http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[std_clause order.iterators..24.7..Linear order traversal iterators [label order.iterators]]
+[std_clause order.iterators..24.8..Linear order traversal iterators [label order.iterators]]
 
 For linear traversal of hierarchies, the library offers a number of useful
 predefined iterators, namely for =preorder=, =postorder= and =inorder=

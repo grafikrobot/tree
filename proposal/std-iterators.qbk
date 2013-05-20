@@ -11,11 +11,10 @@
 
 [std_clause lib.iterator.synopsis..24.3..Headers =<iterator>= synopsis [label lib.iterator.synopsis]]
 
-[note Append to section introduced with `// 24.5, predefined iterators:`]
+[note Insert after section introduced with `// 24.6.5, range access:`]
 
 ``
-namespace std {
-
+// 24.7, linear order traversal iterators
 namespace preorder {
   template <class Cursor> class iterator;
 
@@ -57,8 +56,6 @@ namespace inorder {
     const iterator<Cursor>& x,
     const iterator<Cursor>& y);
 } // namespace inorder
-
-} // namespace std
 ``
 
 [std_endclause lib.iterator.synopsis]
