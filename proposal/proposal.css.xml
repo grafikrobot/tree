@@ -93,6 +93,7 @@ h6 {
 
 /* Top page titles */
 title,
+.toc-title,
 h1.title,
 h2.title,
 h3.title,
@@ -108,6 +109,7 @@ h1.title {
   font-size: 140%
 }
 
+.toc-title,
 h2.title {
   font-size: 140%
 }
@@ -233,16 +235,23 @@ a:hover {
 /*=============================================================================
     Table of contents
 =============================================================================*/
-.toc {
+div.toc {
+  /*
   margin: 1pc 4% 0pc 4%;
   padding: 0.1pc 1pc 0.1pc 1pc;
   font-size: 80%;
   line-height: 1.15;
+  */
 }
 
 .boost-toc {
   float: right;
   padding: 0.5pc;
+}
+
+dl.toc dl {
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
 
 /*=============================================================================
@@ -422,9 +431,11 @@ div div.legalnotice p {
   }
 
   /* Table of contents */
-  .toc {
+  /*
+  div.toc {
     border: 1px solid #DCDCDC;
   }
+  */
 
   /* Tables */
   div.informaltable table tr td,div.table table tr td {
@@ -464,9 +475,11 @@ div div.legalnotice p {
   }
 
   /* Table of contents */
-  .toc {
+  /*
+  div.toc {
     border: 1px solid gray;
   }
+  */
   .informaltable table,.table table {
     border: 1px solid gray;
     border-collapse: collapse;
