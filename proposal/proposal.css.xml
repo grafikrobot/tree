@@ -499,6 +499,27 @@ div div.legalnotice p {
   }
 }
 
+.section {
+  clear: both;
+}
+
+.std_doc_info {
+  float: right;
+}
+
+.std_doc_info .variablelist dl dt {
+  float: left;
+}
+
+.std_doc_info .variablelist dl dt .term {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.std_doc_info .variablelist dl dd {
+  margin-left: 8em;
+}
+
 .std_proposal > .section {
   font-family: Didot, Times, serif;
 }

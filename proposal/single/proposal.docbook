@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/20 22:44:26 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/21 03:48:50 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -35,6 +35,7 @@
     <para>
       <emphasis role="bold">Bernhard Reiter and René Rivera</emphasis>
     </para>
+    <simplesect role="std_doc_info">
     <variablelist>
       <title/>
       <varlistentry>
@@ -78,12 +79,13 @@
         </listitem>
       </varlistentry>
     </variablelist>
-    <section id="tree.preamble.introduction">
+    </simplesect>
+<section id="tree.preamble.introduction">
       <title><link linkend="tree.preamble.introduction">Introduction</link></title>
       <para>
         This paper proposes addition of library components covering tree structures
-        and related concepts to the C++ Standard Library Technical Report 2. The
-        proposal is based on work towards a Boost tree component library.
+        and related concepts to Programming Languages -- C++. The proposal is based
+        on work towards a Boost Tree component library.
       </para>
       <para>
         The library strives to cover many of the relevant aspects within the vast
@@ -130,7 +132,7 @@
         <para>
           No; this proposal originates in an effort to create a generic tree container
           component for <ulink url="http://www.boost.org">Boost</ulink> in the course
-          of <ulink url="http://code.google.com/soc/2006/boost/appinfo.html?csaid=E17EA7C7C537C131">Google
+          of <ulink url="https://developers.google.com/open-source/soc/2006/#boost">Google
           Summer of Code™ 2006</ulink>, so at the time of this writing, implementation
           work is still unfinished and, however inspired by and striving to avoid
           past issues and such ones arising from current implementation efforts (see
@@ -141,7 +143,7 @@
         <title><link linkend="tree.preamble.motivation_and_scope.is_there_a_reference_implementat">Is
         there a reference implementation?</link></title>
         <para>
-          Yes; the current state is available from svn from <ulink url="http://svn.boost.org/svn/boost/sandbox/tree">http://svn.boost.org/svn/boost/sandbox/tree</ulink>.
+          Yes; the current state is available from <ulink url="https://github.com/grafikrobot/boost-tree">https://github.com/grafikrobot/boost-tree</ulink>.
         </para>
       </section>
     </section>
@@ -163,8 +165,8 @@
           Most of the proposed library is a pure extension.
         </para>
         <para>
-          Some extensions <literal moreinfo="none">&lt;algorithm&gt;</literal> and some extensions
-          to <literal moreinfo="none">&lt;iterator&gt;</literal> are proposed.
+          Some extensions to <literal moreinfo="none">&lt;algorithm&gt;</literal> and to <literal moreinfo="none">&lt;iterator&gt;</literal>
+          are proposed.
         </para>
         <para>
           Additionally, while not proposed herein, it has sometimes been suggested
@@ -174,9 +176,9 @@
           storing elements, or, more concretely, what tree. The balancers presented
           in this proposal would lend themselves to such use. Indicating what type
           of balanced hierarchy to use for associative containers would create some
-          amount of symmetry to TR1's <literal moreinfo="none">unordered</literal> containers that
-          allow specification of a hash functor; it is however a momentous decision
-          in which position to put such a parameter. The same position as for <literal moreinfo="none">unordered</literal>
+          amount of symmetry to <literal moreinfo="none">unordered</literal> containers that allow
+          specification of a hash functor; it is however a momentous decision in
+          which position to put such a parameter. The same position as for <literal moreinfo="none">unordered</literal>
           containers (before the comparison functor) would require changes in existing
           code; making it the last parameter (after the allocator) would allow existing
           code to remain unchanged, but seems somewhat irritating when compared to
@@ -193,7 +195,7 @@
         <para>
           Note that it might be worthwhile to investigate if the present Container
           concept should be modified so that it only covers the requirements as of
-          paragraph 2 of section <ulink url="#tr.hierarchy.req">[tr.hierarchy.req]</ulink>
+          paragraph 2 of section <ulink url="#hierarchy.req">[hierarchy.req]</ulink>
           of this proposal, which correspond to the current Container concept with
           the exception of any expressions that implicitly assume linear internal
           structure and outsource those to a "Linear Container" concept
@@ -350,7 +352,8 @@
 
   <section id="tree.req">
     <title><link linkend="tree.req">Hierarchy containers requirements <phrase role="std_section_label">[hierarchy.req]</phrase></link></title>
-    <simplesect role="std_requisite"><para>
+    <simplesect role="std_requisite">
+    <para>
       A hierarchy is an object that stores a finite set of objects, all of the same
       type, in a hierarchical manner. Hierarchies introduce a cursor concept for
       navigation instead of iterators. The library provides two kinds of native hierarchies:
@@ -358,7 +361,8 @@
       hierarchy-yielding hierarchy adaptors <literal moreinfo="none">forest_tree</literal>, and
       <literal moreinfo="none">multiway_tree</literal>.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       Hierarchy containers conform to the requirements of Containers ([lib.container.requirements]),
       except that the expressions in Table 1 are not required to be valid, where
       a and b denote values of a type X, and X is a hierarchy container class:
@@ -470,7 +474,8 @@
       the total number of elements in the hierarchy; in some cases, however, they
       are stated in terms of another value.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       In Table 2: <literal moreinfo="none">X</literal> denotes a hierarchy class containing objects
       of type <literal moreinfo="none">T</literal> and <literal moreinfo="none">a</literal> denotes a value of type
       <literal moreinfo="none">X</literal>.
@@ -667,14 +672,16 @@
       Notes: Those entries marked "(Note A)" should have at worst linear
       complexity. See the individual hierarchy containers for specific complexity.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       <literal moreinfo="none">root()</literal> and <literal moreinfo="none">croot()</literal> return a cursor which
       is the on-top value for the hierarchy. <literal moreinfo="none">shoot()</literal> and <literal moreinfo="none">cshoot()</literal>
       return a cursor which is the past-the-end value that is found one past the
       hierarchy's rightmost element. If the hierarchy is empty, then <literal moreinfo="none">root()
       == shoot();</literal>
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       Copy constructors for all hierarchy types defined in this clause copy the allocator
       argument from their respective first parameters. All other constructors for
       these hierarchy types take an <literal moreinfo="none">Allocator&amp;</literal> argument (20.1.5).
@@ -683,7 +690,8 @@
       object. In all hierarchy types defined in this clause, the member <literal moreinfo="none">get_allocator()</literal>
       returns a copy of the Allocator object used to construct the hierarchy.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       The member class template <literal moreinfo="none">rebind</literal> in the table above is effectively
       a typedef template: if the name <literal moreinfo="none">Hierarchy</literal> is bound to <literal moreinfo="none">SomeHierarchy&lt;T&gt;</literal>,
       then <literal moreinfo="none">Hierarchy::rebind&lt;U&gt;::other</literal> is the same type
@@ -696,7 +704,8 @@
       through <literal moreinfo="none">Rn</literal>, respectively, when <literal moreinfo="none">U</literal> is the
       same type as <literal moreinfo="none">T</literal>.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       A hierarchy satisfying the requirements shown in Table 3 is called a <emphasis>mutable
       hierarchy</emphasis>. In Table 3, <literal moreinfo="none">X</literal> denotes a hierarchy
       class, <literal moreinfo="none">a</literal> denotes a value of <literal moreinfo="none">X</literal>, <literal moreinfo="none">c</literal>
@@ -810,7 +819,8 @@
       Notes: Those entries marked "(Note A)" should have at worst linear
       complexity. See the individual hierarchy containers for specific complexity.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       The cursor returned from <literal moreinfo="none">a.insert(p,t)</literal> points to the copy
       of <literal moreinfo="none">t</literal> inserted into <literal moreinfo="none">a</literal>. Its parent cursor
       is the same as that of <literal moreinfo="none">p</literal>.
@@ -819,15 +829,18 @@
   </section>
   <section id="tree.plain">
     <title><link linkend="tree.plain">Plain hierarchies <phrase role="std_section_label">[hierarchy.plain]</phrase></link></title>
-    <simplesect role="std_requisite"><para>
+    <simplesect role="std_requisite">
+    <para>
       A hierarchy is called plain hierarchy if its cursor and const_cursor types
       satisfy the requirements of a plain cursor.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       The library provides one native kind of plain hierarchy, nary_tree, and a hierarchy
       adaptor that in turn yields a plain hierarchy, forest_tree.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       For a mutable plain hierarchy, the following expressions as shown in Table
       4, are additionally required to be valid:
     </para>
@@ -911,7 +924,8 @@
         </tbody>
       </tgroup>
     </table>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       The cursor returned from <literal moreinfo="none">a.insert(p,c)</literal> points to the copy
       of the element that <literal moreinfo="none">c</literal> points to, inserted into <literal moreinfo="none">a</literal>.
       Its parent cursor is the same as that of <literal moreinfo="none">p</literal>.
@@ -920,16 +934,19 @@
   </section>
   <section id="tree.multiway">
     <title><link linkend="tree.multiway">Multiway hierarchies <phrase role="std_section_label">[hierarchy.multiway]</phrase></link></title>
-    <simplesect role="std_requisite"><para>
+    <simplesect role="std_requisite">
+    <para>
       A hierarchy is called multiway hierarchy if its <literal moreinfo="none">cursor</literal> and
       <literal moreinfo="none">const_cursor</literal> types satisfy the requirements of a multiway
       cursor.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       The library provides one native kind of multiway hierarchy, <literal moreinfo="none">binary_tree</literal>,
       and a hierarchy adaptor that in turn yields a multiway hierarchy, <literal moreinfo="none">multiway_tree</literal>.
     </para>
-    </simplesect> <simplesect role="std_requisite"><para>
+    </simplesect> <simplesect role="std_requisite">
+    <para>
       For a mutable multiway hierarchy, the semantics of some expressions from Table
       3 are modified as shown in Table 5.
     </para>
@@ -999,7 +1016,8 @@
   </section>
   <section id="tree.tree">
     <title><link linkend="tree.tree">Trees <phrase role="std_section_label">[hierarchy.tree]</phrase></link></title>
-    <simplesect role="std_requisite"><para>
+    <simplesect role="std_requisite">
+    <para>
       Headers <literal moreinfo="none">&lt;binary_tree&gt;</literal>, <literal moreinfo="none">&lt;nary_tree&gt;</literal>,
       <literal moreinfo="none">&lt;forest_tree&gt;</literal>, and <literal moreinfo="none">&lt;multiway_tree&gt;</literal>.
     </para>
@@ -1213,12 +1231,14 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis> <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis> <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_requisite"><para>
+        </simplesect> <simplesect role="std_requisite">
+        <para>
           Both <literal moreinfo="none">cursor</literal> and <literal moreinfo="none">const_cursor</literal> have
           to fulfill the multiway cursor ([cursor.flavors]) and ascending random
           access cursor ([ascending.random.access.cursors]) requirements.
         </para>
-        </simplesect> <simplesect role="std_requisite"><para>
+        </simplesect> <simplesect role="std_requisite">
+        <para>
           Additionally, for any instance a of either type <literal moreinfo="none">cursor</literal>
           or <literal moreinfo="none">const_cursor</literal>, <literal moreinfo="none">a.max_size() == 1</literal>.
         </para>
@@ -1234,7 +1254,8 @@
     <phrase role="identifier">allocator_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">allocator_type</phrase><phrase role="special">());</phrase>
 <phrase role="identifier">binary_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> The constructor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase>
           <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase>
           <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
@@ -1251,7 +1272,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis>
         </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
@@ -1267,18 +1289,21 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">shoot</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">cshoot</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">inorder_first</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">inorder_cfirst</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> A cursor to the <literal moreinfo="none">binary_tree</literal>'s
           first element in inorder (see [tr.order.iterators], §4).
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant.
         </para>
         </simplesect>
@@ -1289,11 +1314,13 @@
         <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase> <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
           references.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effect:</emphasis> Let <literal moreinfo="none">b be =a</literal>'s parent; if
           <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">b</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">()</phrase> <phrase role="special">&lt;</phrase> <phrase role="identifier">b</phrase><phrase role="special">.</phrase><phrase role="identifier">max_size</phrase><phrase role="special">()</phrase></computeroutput>, insert a copy of <literal moreinfo="none">t</literal>
           before <literal moreinfo="none">p</literal>, as child of <literal moreinfo="none">b</literal>; Otherwise,
@@ -1302,39 +1329,46 @@
           and if <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">empty</phrase><phrase role="special">()</phrase></computeroutput>, insert a copy of <literal moreinfo="none">t</literal>
           as parent of <literal moreinfo="none">a</literal>'s current child, as new child of <literal moreinfo="none">a</literal>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           Complexity: constant
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="identifier">cursor</phrase> <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
           references.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis> as above, substituting <literal moreinfo="none">InputCursor
           subtree</literal> to insert instead of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">value_type</phrase>
           <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase>
           <phrase role="identifier">x</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> linear in the number of elements in subtree.
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase> <phrase role="identifier">rotate</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Precondition:</emphasis> position and its parent are internal
           and non-on-top
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis> Performs a left tree rotation around the
           parent of position if <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">position</phrase><phrase role="special">.</phrase><phrase role="identifier">parity</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="number">0</phrase></computeroutput>
           or a right tree rotation if <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">position</phrase><phrase role="special">.</phrase><phrase role="identifier">parity</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="number">1</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Postcondition:</emphasis> If <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">par</phrase>
           <phrase role="special">==</phrase> <phrase role="identifier">position</phrase><phrase role="special">.</phrase><phrase role="identifier">parity</phrase><phrase role="special">()</phrase></computeroutput> as of before the rotation, then, after
           the rotation:
@@ -1386,10 +1420,12 @@
             </para>
           </listitem>
         </itemizedlist>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
           references. Tree rotations are important inorder-preserving (see [tr.order.iterators]
           §4) operations on binary trees that are especially required by balancers.
@@ -1397,7 +1433,8 @@
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase> <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Invalidates only the cursors and references
           to the erased elements.
         </para>
@@ -1411,7 +1448,8 @@
   <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
               <phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">)</phrase></computeroutput>;
         </para>
         </simplesect> <simplesect role="std_definition">
@@ -1421,10 +1459,12 @@
       <phrase role="identifier">begin</phrase><phrase role="special">(</phrase><phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_first</phrase><phrase role="special">())</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
         </simplesect> <simplesect role="std_definition">
@@ -1434,10 +1474,12 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">binary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">const_cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_cfirst</phrase><phrase role="special">())</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
         </simplesect>
@@ -1541,7 +1583,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           Both <literal moreinfo="none">cursor</literal> and <literal moreinfo="none">const_cursor</literal> have
           to fulfill the plain cursor ([cursor.flavors]) and ascending random access
           cursor ([ascending.random.access.cursors]) requirements.
@@ -1558,7 +1601,8 @@
     <phrase role="identifier">allocator_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">allocator_type</phrase><phrase role="special">());</phrase>
 <phrase role="identifier">nary_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> The constructor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase>
           <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase>
           <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
@@ -1575,7 +1619,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis>
         </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
@@ -1591,18 +1636,21 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">shoot</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">cshoot</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">inorder_first</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">inorder_cfirst</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> A cursor to the nary_tree's first element
           in inorder (see [order.iterators], §4).
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant.
         </para>
         </simplesect>
@@ -1613,14 +1661,16 @@
         <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">size_type</phrase> <phrase role="identifier">capacity</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> The total number of child elements that the
           cursor <literal moreinfo="none">position</literal> can hold without requiring reallocation.
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase> <phrase role="identifier">reserve</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis> A directive that informs an <literal moreinfo="none">nary_tree</literal>
           of a planned change in a given cursor's size, so that it can manage the
           storage allocation accordingly. After <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">reserve</phrase><phrase role="special">(</phrase><phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase></computeroutput>,
@@ -1632,11 +1682,13 @@
           capacity is less than the <literal moreinfo="none">size_type</literal> argument <literal moreinfo="none">n</literal>
           of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">reserve</phrase><phrase role="special">()</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> It does not change the size of the <literal moreinfo="none">nary_tree</literal>
           and takes at most linear time in <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">position</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">()</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Reallocation invalidates all the references,
           pointers, and cursors referring to the child elements of <literal moreinfo="none">position</literal>.
           It is guaranteed that no reallocation takes place during insertions to
@@ -1655,14 +1707,16 @@
   <phrase role="identifier">cursor</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert_above</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
           references.
         </para>
         </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Notes:</emphasis> Invalidates only the cursors and references
           to the erased elements.
         </para>
@@ -1676,7 +1730,8 @@
   <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
               <phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
         </para>
         </simplesect> <simplesect role="std_definition">
@@ -1686,10 +1741,12 @@
       <phrase role="identifier">begin</phrase><phrase role="special">(</phrase><phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_first</phrase><phrase role="special">())</phrase></computeroutput>.
         </para>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Complexity:</emphasis> constant
         </para>
         </simplesect> <simplesect role="std_definition">
@@ -1699,7 +1756,8 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification"><para>
+        </simplesect> <simplesect role="std_specification">
+        <para>
           <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">const_cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_cfirst</phrase><phrase role="special">())</phrase></computeroutput>.
         </para>
         </simplesect>
@@ -1822,7 +1880,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> If (the adaptee) <literal moreinfo="none">Hierarchy</literal>'s
             cursor types are at least ascending bidirectional cursors, both <literal moreinfo="none">cursor</literal>
             and <literal moreinfo="none">const_cursor</literal> are ascending bidirectional cursors.
@@ -1946,7 +2005,8 @@
   <phrase role="identifier">forest_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">forest_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> The constructor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase>
             <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase>
             <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
@@ -1964,7 +2024,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis>
           </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
@@ -1986,14 +2047,16 @@
   <phrase role="identifier">cursor</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert_above</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
             references.
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> Invalidates only the cursors and references
             to the erased elements.
           </para>
@@ -2007,7 +2070,8 @@
 <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
             <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
           </para>
           </simplesect>
@@ -2123,7 +2187,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             Both <literal moreinfo="none">cursor</literal> and <literal moreinfo="none">const_cursor</literal> have
             to fulfill the plain cursor requirements ([cursor.flavors]). If <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase></computeroutput>
             is an ascending random access cursor, <literal moreinfo="none">cursor</literal> and
@@ -2131,7 +2196,8 @@
             ([ascending.random.access.cursors]); otherwise, they are descending random
             access cursor ([descending.random.access.cursors]).
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> The operational semantics of the adaptor
             cursor are as follows in terms of the adaptee cursor (only valid if present
             in the adaptor cursor's category; only given for mutable versions of
@@ -2193,7 +2259,8 @@
   <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> The constructor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase>
             <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase>
             <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
@@ -2211,7 +2278,8 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis>
           </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
@@ -2227,18 +2295,21 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">shoot</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">cshoot</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> constant
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">inorder_first</phrase><phrase role="special">();</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">inorder_cfirst</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Returns:</emphasis> A cursor to the <literal moreinfo="none">multiway_tree</literal>'s
             first element in inorder (see [order.iterators], §4).
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> constant.
           </para>
           </simplesect>
@@ -2249,14 +2320,16 @@
           <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">size_type</phrase> <phrase role="identifier">capacity</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Returns:</emphasis> The total number of child elements that
             the cursor <literal moreinfo="none">position</literal> can hold without requiring reallocation.
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase> <phrase role="identifier">reserve</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis> A directive that informs an <literal moreinfo="none">multiway_tree</literal>
             of a planned change in a given cursor's size, so that it can manage the
             storage allocation accordingly. After <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">reserve</phrase><phrase role="special">(</phrase><phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase></computeroutput>, <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">capacity</phrase><phrase role="special">(</phrase><phrase role="identifier">position</phrase><phrase role="special">)</phrase></computeroutput> is greater or equal to the <literal moreinfo="none">size_type</literal>
@@ -2265,11 +2338,13 @@
             point if and only if the current capacity is less than the <literal moreinfo="none">size_type</literal>
             argument <literal moreinfo="none">n</literal> of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">reserve</phrase><phrase role="special">()</phrase></computeroutput>.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> It does not change the size of the
             <literal moreinfo="none">multiway_tree</literal> and takes at most linear time in <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">position</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">()</phrase></computeroutput>.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> Reallocation invalidates all the references,
             pointers, and cursors referring to the child elements of <literal moreinfo="none">position</literal>.
             It is guaranteed that no reallocation takes place during insertions to
@@ -2288,14 +2363,16 @@
   <phrase role="identifier">cursor</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert_above</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> Does not affect the validity of cursors and
             references.
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> Invalidates only the cursors and references
             to the erased elements.
           </para>
@@ -2309,7 +2386,8 @@
   <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
               <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
           </para>
           </simplesect> <simplesect role="std_definition">
@@ -2319,10 +2397,12 @@
       <phrase role="identifier">begin</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_first</phrase><phrase role="special">())</phrase></computeroutput>.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> constant
           </para>
           </simplesect> <simplesect role="std_definition">
@@ -2332,10 +2412,12 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Tp</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">inorder</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Tp</phrase><phrase role="special">,</phrase> <phrase role="identifier">Alloc</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">const_cursor</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">h</phrase><phrase role="special">.</phrase><phrase role="identifier">inorder_cfirst</phrase><phrase role="special">())</phrase></computeroutput>.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> constant
           </para>
           </simplesect>
@@ -2463,12 +2545,14 @@
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Returns:</emphasis> A cursor (or <literal moreinfo="none">const_cursor</literal>)
             to the <literal moreinfo="none">n=th element of the hierarchy in inorder, counting from
             =inorder_first()</literal>.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> logarithmic in <literal moreinfo="none">size()</literal>.
           </para>
           </simplesect>
@@ -2672,18 +2756,21 @@
     <phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
 <phrase role="identifier">avl_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis> constructs a balanced tree equal to the
             range [<literal moreinfo="none">first</literal>, <literal moreinfo="none">last</literal>).
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> Linear.
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis>
           </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
@@ -2730,7 +2817,8 @@
   <phrase role="identifier">pair</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">,</phrase><phrase role="identifier">const_iterator</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">equal_range</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase> <phrase role="identifier">Cmp</phrase> <phrase role="identifier">cmp</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Notes:</emphasis> The <literal moreinfo="none">find</literal>, <literal moreinfo="none">lower_bound</literal>,
             <literal moreinfo="none">upper_bound</literal> and <literal moreinfo="none">equal_range</literal> member
             functions each have four versions, differing in whether they return an
@@ -2740,7 +2828,8 @@
             returns a <literal moreinfo="none">size_type</literal>, not an iterator). In each case
             the behavior of the four (two) functions is in principle identical.
           </para>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> logarithmic (with the exception of
             <literal moreinfo="none">count</literal>, which is <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">log</phrase><phrase role="special">(</phrase><phrase role="identifier">size</phrase><phrase role="special">())</phrase> <phrase role="special">+</phrase> <phrase role="identifier">count</phrase><phrase role="special">(</phrase><phrase role="identifier">x</phrase><phrase role="special">)</phrase></computeroutput>
           </para>
@@ -2754,7 +2843,8 @@
 <phrase role="keyword">void</phrase>      <phrase role="identifier">push_back</phrase><phrase role="special">(</phrase><phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">iterator</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> amortized constant
           </para>
           </simplesect> <simplesect role="std_definition">
@@ -2762,7 +2852,8 @@
 <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> linear in the number of elements to
             insert
           </para>
@@ -2771,13 +2862,15 @@
 <phrase role="keyword">void</phrase>      <phrase role="identifier">pop_back</phrase><phrase role="special">();</phrase>
 <phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> amortized constant
           </para>
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">iterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal> where
             <literal moreinfo="none">N</literal> is the distance from <literal moreinfo="none">first</literal> to
             <literal moreinfo="none">last</literal>
@@ -2785,7 +2878,8 @@
           </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal>
           </para>
           </simplesect>
@@ -2798,7 +2892,8 @@
   <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase>  <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
               <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-          </simplesect> <simplesect role="std_specification"><para>
+          </simplesect> <simplesect role="std_specification">
+          <para>
             <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
           </para>
           </simplesect>
@@ -2942,7 +3037,8 @@
   </para>
   <section id="tree.cursor_requirements">
     <title><link linkend="tree.cursor_requirements">Cursor requirements <phrase role="std_section_label">[cursor.requirements]</phrase></link></title>
-    <simplesect role="std_requisite"><para>
+    <simplesect role="std_requisite">
+    <para>
       A class <literal moreinfo="none">X</literal> satisfies the requirements of a cursor if the
       following expressions are valid, as shown in Table 8, in addition to satisfying
       the requirements of input iterators ([input.iterators]) and output iterators
@@ -3063,7 +3159,8 @@
 <section id="tree.cursor_requirements.descending">
       <title><link linkend="tree.cursor_requirements.descending">Descending Cursor
       <phrase role="std_section_label">[descending.cursors]</phrase></link></title>
-      <simplesect role="std_requisite"><para>
+      <simplesect role="std_requisite">
+      <para>
         A class <literal moreinfo="none">X</literal> satisfies the requirements of a descending cursor
         if, in addition to satisfying the requirements for cursors ([cursor.requirements])
         it also conforms to the container requirements ([container.requirements])
@@ -3237,7 +3334,8 @@
         Notes: The expressions <literal moreinfo="none">a.begin()</literal> and <literal moreinfo="none">a.end()</literal>
         are, as shown in Table 9, replaced with equivalent expressions for cursors.
       </para>
-      </simplesect> <simplesect role="std_requisite"><para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
         Additionally, for a descending cursor, the following expression are valid,
         as shown in Table 10:
       </para>
@@ -3605,7 +3703,8 @@
     <section id="tree.cursor_requirements.ascending">
       <title><link linkend="tree.cursor_requirements.ascending">Ascending Cursor
       <phrase role="std_section_label">[ascending.cursors]</phrase></link></title>
-      <simplesect role="std_requisite"><para>
+      <simplesect role="std_requisite">
+      <para>
         A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
         cursor if the following expressions are valid, as shown in Table 14, in addition
         to satisfying the requirements for descending cursors ([descending.cursors]):
@@ -4166,7 +4265,8 @@
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">Cursor</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Effects:</emphasis> Initializes <literal moreinfo="none">current</literal> with
         <literal moreinfo="none">x</literal>.
       </para>
@@ -4176,7 +4276,8 @@
       <title><link linkend="tree.order_iter_ops.order_iter_conv">Conversion <phrase role="std_section_label">[order.iter.conv]</phrase></link></title> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Iterator</phrase> <phrase role="identifier">base</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase> <phrase role="comment">// explicit</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">current</phrase></computeroutput>
       </para>
       </simplesect>
@@ -4187,7 +4288,8 @@
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Reference</phrase> <phrase role="keyword">operator</phrase><phrase role="special">*()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="identifier">current</phrase></computeroutput>
       </para>
       </simplesect>
@@ -4198,7 +4300,8 @@
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Pointer</phrase> <phrase role="keyword">operator</phrase><phrase role="special">-&gt;()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;(</phrase><phrase role="keyword">operator</phrase><phrase role="special">*())</phrase></computeroutput>
       </para>
       </simplesect>
@@ -4209,17 +4312,20 @@
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the next
         cursor in the given order.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
       </para>
       </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Effects:</emphasis>
       </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
@@ -4234,17 +4340,20 @@
       <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the previous
         cursor in the given order.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
       </para>
       </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Effects:</emphasis>
       </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
@@ -4262,7 +4371,8 @@
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">==</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
       </para>
       </simplesect>
@@ -4276,7 +4386,8 @@
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
       </para>
       </simplesect>
@@ -4395,11 +4506,13 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace preorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing to the first element of
         <literal moreinfo="none">h</literal> in preorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> constant
       </para>
       </simplesect>
@@ -4417,11 +4530,13 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace preorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing one position past the
         last element of <literal moreinfo="none">h</literal> in preorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> linear
       </para>
       </simplesect>
@@ -4443,11 +4558,13 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace postorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing to the first element of
         <literal moreinfo="none">h</literal> in postorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> linear
       </para>
       </simplesect>
@@ -4465,11 +4582,13 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace postorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing one position past the
         last element of <literal moreinfo="none">h</literal> in postorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> constant
       </para>
       </simplesect>
@@ -4491,11 +4610,13 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">MultiwayHierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">m</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing to the first element of
         <literal moreinfo="none">h</literal> in inorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> linear
       </para>
       </simplesect>
@@ -4511,11 +4632,13 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">MultiwayHierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">m</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Returns:</emphasis> An iterator pointing one position past the
         last element of <literal moreinfo="none">h</literal> in inorder.
       </para>
-      </simplesect> <simplesect role="std_specification"><para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
         <emphasis>Complexity:</emphasis> linear
       </para>
       </simplesect>

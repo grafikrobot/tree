@@ -29,7 +29,7 @@
 ]
 
 [def (tm) '''&#8482;''']
-[def __code_rep__ [@http://svn.boost.org/svn/boost/sandbox/tree]]
+[def __code_rep__ [@https://github.com/grafikrobot/boost-tree]]
 [template label[id] [role std_section_label \[[id]\]]]
 [def __nbsp__ '''&nbsp;''']
 [def implementation_defined ['implementation-defined]]
@@ -76,25 +76,20 @@
 
 [/ Groupings in sections to make it possible to style based on role. /]
 
+[template std_begin[role]
+[block '''
+<simplesect role="'''[role]'''">
+''']]
+
 [template std_end[]
 [block '''
 </simplesect>
 ''']]
 
-[template std_req[]
-[block '''
-<simplesect role="std_requisite">
-''']]
-
-[template std_def[]
-[block '''
-<simplesect role="std_definition">
-''']]
-
-[template std_spec[]
-[block '''
-<simplesect role="std_specification">
-''']]
+[template std_req[] [std_begin std_requisite]]
+[template std_def[] [std_begin std_definition]]
+[template std_spec[] [std_begin std_specification]]
+[template std_doc[] [std_begin std_doc_info]]
 
 [/ The content.. /]
 

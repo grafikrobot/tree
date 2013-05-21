@@ -12,20 +12,22 @@ C++ Standard Library]
 
 [*Bernhard Reiter and René Rivera]
 
-[variablelist
-[[Document No.] [WG21/N????=J16/??-????]]
-[[Supercedes]   [WG21/N2101=J16/06-0171]]
-[[Date]         [__DATE__]]
-[[Project]      [Programming Language C++]]
-[[Reply to]     [René Rivera <[@mailto:rrivera@acm.org rrivera@acm.org]>]]
-]
+[std_doc]
+	[variablelist
+		[[Document No.] [WG21/N????=J16/??-????]]
+		[[Supercedes]   [WG21/N2101=J16/06-0171]]
+		[[Date]         [__DATE__]]
+		[[Project]      [Programming Language C++]]
+		[[Reply to]     [René Rivera <[@mailto:rrivera@acm.org rrivera@acm.org]>]]
+	]
+[std_end]
 
 
 [section Introduction]
 
 This paper proposes addition of library components covering tree structures and related
-concepts to the C++ Standard Library Technical Report 2. The proposal is based on work
-towards a Boost tree component library.
+concepts to Programming Languages -- C++. The proposal is based on work
+towards a Boost Tree component library.
 
 The library strives to cover many of the relevant aspects within the vast field linked to
 the notion of trees in computer science.
@@ -65,7 +67,7 @@ field is likely to need such a structure at one point.
 
 No; this proposal originates in an effort to create a generic tree container component
 for [@http://www.boost.org Boost] in the course of 
-[@http://code.google.com/soc/2006/boost/appinfo.html?csaid=E17EA7C7C537C131
+[@https://developers.google.com/open-source/soc/2006/#boost
 Google Summer of Code(tm) 2006], so at the time of this
 writing, implementation work is still unfinished and, however inspired by and striving to
 avoid past issues and such ones arising from current implementation efforts (see below)
@@ -75,7 +77,7 @@ it is, it has not been used in practice yet.
 
 [section Is there a reference implementation?]
 
-Yes; the current state is available from svn from __code_rep__.
+Yes; the current state is available from __code_rep__.
 
 [endsect]
 
@@ -96,14 +98,14 @@ standard components?]
 
 Most of the proposed library is a pure extension.
 
-Some extensions [^<algorithm>] and some extensions to [^<iterator>] are proposed.
+Some extensions to [^<algorithm>] and to [^<iterator>] are proposed.
 
 Additionally, while not proposed herein, it has sometimes been suggested to add a
 template parameter to the STL associative containers [^set], [^multiset], [^map], and
 [^multimap] (and possibly an argument to their constructors) specifying a policy for
 storing elements, or, more concretely, what tree. The balancers presented in this
 proposal would lend themselves to such use. Indicating what type of balanced hierarchy to
-use for associative containers would create some amount of symmetry to TR1's [^unordered]
+use for associative containers would create some amount of symmetry to [^unordered]
 containers that allow specification of a hash functor; it is however a momentous decision
 in which position to put such a parameter. The same position as for [^unordered]
 containers (before the comparison functor) would require changes in existing code; making
@@ -119,7 +121,7 @@ It can be, and partly has been, implemented with today's compilers.
 
 Note that it might be worthwhile to investigate if the present Container concept should
 be modified so that it only covers the requirements as of paragraph 2 of section
-[@#tr.hierarchy.req [tr.hierarchy.req]] of this proposal, which correspond to the current
+[@#hierarchy.req [hierarchy.req]] of this proposal, which correspond to the current
 Container concept with the exception of any expressions that implicitly assume linear
 internal structure and outsource those to a "Linear Container" concept as similarly
 formalized in the [@http://boost.org/libs/range/doc/range.html Boost Range concept]
