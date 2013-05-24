@@ -9,7 +9,7 @@
 
 [std_clause tree.proposal.iterators..24..Iterators library [label iterators]]
 
-[std_clause lib.iterator.synopsis..24.3..Headers =<iterator>= synopsis [label lib.iterator.synopsis]]
+[std_clause iterator.synopsis..24.3..Headers =<iterator>= synopsis [label iterator.synopsis]]
 
 [note Insert after section introduced with `// 24.6.5, range access:`]
 

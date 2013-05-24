@@ -13,82 +13,110 @@
 
 [section:req Hierarchy containers requirements [label hierarchy.req]]
 
+[section:general General hierarchy requirements [label hier.req.general]]
+
+[note
+Need better definitions for hierachy, plain hierarchy, and multiway hierarchy.
+]
+
 [std_req]
 A hierarchy is an object that stores a finite set of objects, all of the same
-type, in a hierarchical manner. Hierarchies introduce a cursor concept for
-navigation instead of iterators. The library provides two kinds of native
-hierarchies: =binary_tree=, and =nary_tree=, along with hierarchy-yielding
-hierarchy adaptors =forest_tree=, and =multiway_tree=.
+type, in a hierarchical manner, i.e. as a rooted ordered connected acyclic graph.
+Hierarchies introduce a cursor concept for navigation instead of iterators. The
+library provides two kinds of native hierarchies: =binary_tree=, and =nary_tree=,
+along with hierarchy-yielding hierarchy adaptors =forest_tree=, and =multiway_tree=.
 [std_end]
 
 [std_req]
 Hierarchy containers conform to the requirements of Containers
-(\[lib.container.requirements\]), except that the expressions in Table 1 are
-not required to be valid, where a and b denote values of a type X, and X is a
+(\[container.requirements\]), except that the expressions in Table 1 are
+not required to be valid, where =a= and =b= denote values of a type =X=, and =X= is a
 hierarchy container class:
 
 [table:table1 Container requirements that are not required for hierarchy containers
 	[[unsupported expression]]
 	[[[^X::iterator]]]
 	[[[^X::const_iterator]]]
-	[[[^X::reverse_iterator]]]
-	[[[^X::const_reverse_iterator]]]
+	[[[^X::difference_type]]]
 	[[[^a.begin()]]]
 	[[[^a.end()]]]
+	[[[^a.cbegin()]]]
+	[[[^a.cend()]]]
+	[[[^a == b]]]
+	[[[^a != b]]]
+	
+	[[[^X::reverse_iterator]]]
+	[[[^X::const_reverse_iterator]]]
 	[[[^a.rbegin()]]]
 	[[[^a.rend()]]]
+	[[[^a.crbegin()]]]
+	[[[^a.crend()]]]
+	
 	[[[^a < b]]]
 	[[[^a > b]]]
 	[[[^a <= b]]]
 	[[[^a >= b]]]
 	]
+[std_end]
 
 Non-constant complexity requirements in this clause are stated in one of a number of
 possible different ways: unless specified otherwise, they are expressed in terms of
 the number of operations =n=, which stands for the total number of elements in the
 hierarchy; in some cases, however, they are stated in terms of another value.
-[std_end]
 
 [std_req]
 In Table 2: =X= denotes a hierarchy class containing objects of type =T= and =a=
 denotes a value of type =X=.
 
 [table:table2 Hierarchy requirements (in addition to container)
-	[[expression]
-	 [return type]
-	 [assertion/note[br]
-		pre/post-condition]
-	 [complexity]]
-	[[[^X::cursor]]
-	 [cursor type pointing to =T=]
-	 [any cursor category]
-	 [compile time]]
-	[[[^X::const_cursor]]
-	 [cursor type pointing to =const T=]
-	 [any cursor category]
-	 [compile time]]
-	[[[^a.root()]]
-	 [=iterator= for mutable =a=;[br]
-		=const_iterator= for constant =a=]
-	 [__nbsp__]
-	 [constant]]
-	[[[^a.croot()]]
-	 [=const_iterator=]
-	 [__nbsp__]
-	 [constant]]
-	[[[^a.shoot()]]
-	 [=iterator= for mutable =a=;[br]
-		=const_iterator= for constant =a=]
-	 [__nbsp__]
-	 [(Note A)]]
-	[[[^a.cshoot()]]
-	 [=const_iterator=]
-	 [__nbsp__]
-	 [(Note A)]]
-	[[[^typename X::template rebind<U>::other]]
-	 [=Y=]
-	 [For all =U= (including =T=), =Y::template rebind<T>::other= is =X=.]
-	 [compile time]]
+	[
+	[expression]
+	[return type]
+	[assertion/note[br]pre/post-condition]
+	[complexity]
+	]
+	[
+	[[^X::cursor]]
+	[cursor type pointing to =T=]
+	[any cursor category]
+	[compile time]
+	]
+	[
+	[[^X::const_cursor]]
+	[cursor type pointing to =const T=]
+	[any cursor category]
+	[compile time]
+	]
+	[
+	[[^a.root()]]
+	[=iterator= for mutable =a=; [br] =const_iterator= for constant =a=]
+	[__nbsp__]
+	[constant]
+	]
+	[
+	[[^a.croot()]]
+	[=const_iterator=]
+	[__nbsp__]
+	[constant]
+	]
+	[
+	[[^a.shoot()]]
+	[=iterator= for mutable =a=; [br] =const_iterator= for constant =a=]
+	[__nbsp__]
+	[(Note A)]
+	]
+	[
+	[[^a.cshoot()]]
+	[=const_iterator=]
+	[__nbsp__]
+	[(Note A)]
+	]
+	[
+	[[^typename X::template rebind<U>::other]]
+	[=Y=]
+	[For all =U= (including =T=), =Y::template rebind<T>::other= is =X=.]
+	[compile time]
+	]
 ]
 
 Notes: Those entries marked "(Note A)" should have at worst linear complexity.
@@ -105,10 +133,10 @@ found one past the hierarchy's rightmost element. If the hierarchy is empty, the
 [std_req]
 Copy constructors for all hierarchy types defined in this clause copy the allocator
 argument from their respective first parameters. All other constructors for these
-hierarchy types take an =Allocator&= argument (20.1.5). A copy of this argument is
+hierarchy types take an =Allocator&= argument (20.6.9). A copy of this argument is
 used for any memory allocation performed, by these constructors and by all member
 functions, during the lifetime of each hierarchy object. In all hierarchy types
-defined in this clause, the member =get_allocator()= returns a copy of the Allocator
+defined in this clause, the member =get_allocator()= returns a copy of the =Allocator=
 object used to construct the hierarchy.
 [std_end]
 
@@ -126,30 +154,58 @@ respectively, when =U= is the same type as =T=.
 [std_req]
 A hierarchy satisfying the requirements shown in Table 3 is called a /mutable
 hierarchy/. In Table 3, =X= denotes a hierarchy class, =a= denotes a value of
-=X=, =c= denotes a valid, non-on-top cursor satisfying input cursor requirements,
-=p= denotes a valid, non-on-top cursor to =a=, =q= denotes a valid,
-dereferenceable cursor to =a=, and =t= denotes a value of =X::value_type=.
+=X= containing elements of type =T=, =c= denotes a valid, non-on-top cursor
+satisfying input cursor requirements, =p= denotes a valid, non-on-top cursor to =a=,
+=q= denotes a valid, dereferenceable cursor to =a=, =t= denotes an lvalue or a
+const rvalue of =X::value_type=, and =rv= denotes a non-const rvalue of
+=X::value_type=. =Args= denotes a template parameter pack; =args= denotes a function
+parameter pack with the pattern =Args&&=.
 
 [table:table3 Mutable hierarchy requirements
-	[[expression]
-	 [return type]
-	 [assertion/note[br]
-		pre/post-condition]
-	 [complexity]]
-	[[[^a.insert(p,t)]]
-	 [=cursor=]
-	 [inserts a copy of =t= before =p=]
-	 [(Note A)]]
-	[[[^a.clear(q)]]
-	 [=void=]
-	 [deletes the subtree of =q= and the element =q= points to.[br]
-		pre: =q= is dereferenceable.]
-	 [Should be at worst linear in the the number of elements in the subtree of =q= plus the distance to =q='s parent's =end()=.]]
-	[[[^a.clear()]]
-	 [=void=]
-	 [=while (a.size()) clear(a.begin());=[br]
-		post: [^a.size() == 0]]
-	 [(Note A)]]
+	[
+	[expression]
+	[return type]
+	[assertion/note [br] pre/post-condition]
+	[complexity]
+	]
+	[
+	[ `a.emplace(p, args);` ]
+	[ =cursor= ]
+	[ /Requires:/ =T= is =EmplaceConstructable= into X from =args=,
+		T is also =MoveInsertable= into =X= and =MoveAssignable=. [br]
+		/Effects:/ Inserts an object of type =T= constructed with
+		`std::forward<Args>(args)...` before =p=.]
+	[ (Note A) ]
+	]
+	[
+	[ `a.insert(p,t)` ]
+	[ =cursor= ]
+	[ /Requires:/ =T= shal be =CopyInsertable= into =X=.
+		/Effects:/ Inserts a copy of =t= before =p=. ]
+	[ (Note A) ]
+	]
+	[
+	[ `a.insert(p,rv)` ]
+	[ =cursor= ]
+	[ /Requires:/ =T= shal be =MoveInsertable= into =X=.
+		/Effects:/ Inserts a copy of =rv= before =p=. ]
+	[ (Note A) ]
+	]
+	[
+	[ `a.clear(q)` ]
+	[ =void= ]
+	[ Deletes the subtree of =q= and the element =q= points to. [br]
+		pre: =q= is dereferenceable. ]
+	[ Should be at worst linear in the the number of elements in the subtree
+		of =q= plus the distance to =q='s parent's =end()=. ]
+	]
+	[
+	[ `a.clear()` ]
+	[ =void= ]
+	[ `while (a.size()) clear(a.begin());` [br]
+		post: `a.size() == 0` ]
+	[ (Note A) ]
+	]
 ]
 
 Notes: Those entries marked "(Note A)" should have at worst linear complexity. See
@@ -157,9 +213,21 @@ the individual hierarchy containers for specific complexity.
 [std_end]
 
 [std_req]
-The cursor returned from =a.insert(p,t)= points to the copy of =t= inserted into =a=.
+The cursor returned from `a.insert(p, t)` points to the copy of =t= inserted into =a=.
 Its parent cursor is the same as that of =p=.
 [std_end]
+
+[std_req]
+The cursor returned from `a.insert(p, rv)` points to the copy of =rv= inserted into =a=.
+Its parent cursor is the same as that of =p=.
+[std_end]
+
+[std_req]
+The cursor returnd from `a.emplace(p, args)` points to the new element constructed
+from =args= into =a=. Its parent cursor is the same as that of =p=.
+[std_end]
+
+[endsect] [/general]
 
 [endsect] [/req]
 
@@ -167,13 +235,13 @@ Its parent cursor is the same as that of =p=.
 [section:plain Plain hierarchies [label hierarchy.plain]]
 
 [std_req]
-A hierarchy is called plain hierarchy if its cursor and const_cursor types satisfy
+A hierarchy is called plain hierarchy if its =cursor= and =const_cursor= types satisfy
 the requirements of a plain cursor.
 [std_end]
 
 [std_req]
-The library provides one native kind of plain hierarchy, nary_tree, and a
-hierarchy adaptor that in turn yields a plain hierarchy, forest_tree.
+The library provides one native kind of plain hierarchy, =nary_tree=, and a
+hierarchy adaptor that in turn yields a plain hierarchy, =forest_tree=.
 [std_end]
 
 [std_req]
@@ -181,21 +249,30 @@ For a mutable plain hierarchy, the following expressions as shown in Table 4, ar
 additionally required to be valid:
 
 [table:table4 Plain hierarchy requirements
-	[[expression]
-	 [return type]
-	 [assertion/note[br]
-		pre/post-condition]
-	 [complexity]]
-	[[[^a.insert(p,c)]]
-	 [=cursor=]
-	 [inserts a copy of the subtree of =c= before =p=.[br]
-		pre: =c= is dereferenceable.]
-	 [Should be at worst linear in the the number of elements in the subtree of =c= plus the distance to =p='s parent's =end()=.]]
-	[[[^a.insert_above(p,t)]]
-	 [=cursor=]
-	 [inserts a copy of =t= as child of =p='s parent and new parent of =p= and its siblings.[br]
-		pre: =c= is dereferenceable.]
-	 [Linear in the the number =p='s siblings.]]
+	[
+	[expression]
+	[return type]
+	[assertion/note [br] pre/post-condition]
+	[complexity]
+	]
+	
+	[
+	[ `a.insert(p,c)` ]
+	[ =cursor= ]
+	[ inserts a copy of the subtree of =c= before =p=.[br]
+		pre: =c= is dereferenceable. ]
+	[ Should be at worst linear in the the number of elements in the subtree of
+		=c= plus the distance to =p='s parent's =end()=.]
+	]
+	
+	[
+	[ `a.insert_above(p,t)` ]
+	[ =cursor= ]
+	[ inserts a copy of =t= as child of =p='s parent and new parent of =p= and its
+		siblings.[br]
+		pre: =c= is dereferenceable. ]
+	[ Linear in the the number =p='s siblings. ]
+	]
 ]
 [std_end]
 

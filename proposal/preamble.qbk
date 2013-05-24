@@ -14,7 +14,7 @@ C++ Standard Library]
 
 [std_doc]
 	[variablelist
-		[[Document No.] [WG21/N????=J16/??-????]]
+		[[Document No.] [WG21/D????=J16/??-????]]
 		[[Supercedes]   [WG21/N2101=J16/06-0171]]
 		[[Date]         [__DATE__]]
 		[[Project]      [Programming Language C++]]
@@ -25,8 +25,8 @@ C++ Standard Library]
 
 [section Introduction]
 
-This paper proposes addition of library components covering tree structures and related
-concepts to Programming Languages -- C++. The proposal is based on work
+This paper proposes the addition of library components covering tree structures and
+related concepts to Programming Languages -- C++. The proposal is based on work
 towards a Boost Tree component library.
 
 The library strives to cover many of the relevant aspects within the vast field linked to

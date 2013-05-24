@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/21 03:48:50 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/24 05:04:55 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -42,7 +42,7 @@
         <term>Document No.</term>
         <listitem>
           <para>
-            WG21/N????=J16/??-????
+            WG21/D????=J16/??-????
           </para>
         </listitem>
       </varlistentry>
@@ -58,7 +58,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-May-20
+            2013-May-24
           </para>
         </listitem>
       </varlistentry>
@@ -83,7 +83,7 @@
 <section id="tree.preamble.introduction">
       <title><link linkend="tree.preamble.introduction">Introduction</link></title>
       <para>
-        This paper proposes addition of library components covering tree structures
+        This paper proposes the addition of library components covering tree structures
         and related concepts to Programming Languages -- C++. The proposal is based
         on work towards a Boost Tree component library.
       </para>
@@ -352,492 +352,625 @@
 
   <section id="tree.req">
     <title><link linkend="tree.req">Hierarchy containers requirements <phrase role="std_section_label">[hierarchy.req]</phrase></link></title>
-    <simplesect role="std_requisite">
-    <para>
-      A hierarchy is an object that stores a finite set of objects, all of the same
-      type, in a hierarchical manner. Hierarchies introduce a cursor concept for
-      navigation instead of iterators. The library provides two kinds of native hierarchies:
-      <literal moreinfo="none">binary_tree</literal>, and <literal moreinfo="none">nary_tree</literal>, along with
-      hierarchy-yielding hierarchy adaptors <literal moreinfo="none">forest_tree</literal>, and
-      <literal moreinfo="none">multiway_tree</literal>.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      Hierarchy containers conform to the requirements of Containers ([lib.container.requirements]),
-      except that the expressions in Table 1 are not required to be valid, where
-      a and b denote values of a type X, and X is a hierarchy container class:
-    </para>
-    <table frame="all" id="tree.req.table1">
-      <title>Container requirements that are not required for hierarchy containers</title>
-      <tgroup cols="1">
-        <thead>
-          <row>
-            <entry>
-              <para>
-                unsupported expression
-              </para>
-            </entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::iterator</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::const_iterator</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::reverse_iterator</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::const_reverse_iterator</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.begin()</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.end()</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.rbegin()</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.rend()</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a &lt; b</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a &gt; b</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a &lt;= b</literal>
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a &gt;= b</literal>
-              </para>
-            </entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-    <para>
-      Non-constant complexity requirements in this clause are stated in one of a
-      number of possible different ways: unless specified otherwise, they are expressed
-      in terms of the number of operations <literal moreinfo="none">n</literal>, which stands for
-      the total number of elements in the hierarchy; in some cases, however, they
-      are stated in terms of another value.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      In Table 2: <literal moreinfo="none">X</literal> denotes a hierarchy class containing objects
-      of type <literal moreinfo="none">T</literal> and <literal moreinfo="none">a</literal> denotes a value of type
-      <literal moreinfo="none">X</literal>.
-    </para>
-    <table frame="all" id="tree.req.table2">
-      <title>Hierarchy requirements (in addition to container)</title>
-      <tgroup cols="4">
-        <thead>
-          <row>
-            <entry>
-              <para>
-                expression
-              </para>
-            </entry>
-            <entry>
-              <para>
-                return type
-              </para>
-            </entry>
-            <entry>
-              <para>
-                assertion/note<sbr/> pre/post-condition
-              </para>
-            </entry>
-            <entry>
-              <para>
-                complexity
-              </para>
-            </entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::cursor</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                cursor type pointing to <literal moreinfo="none">T</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                any cursor category
-              </para>
-            </entry>
-            <entry>
-              <para>
-                compile time
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">X::const_cursor</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                cursor type pointing to <literal moreinfo="none">const T</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                any cursor category
-              </para>
-            </entry>
-            <entry>
-              <para>
-                compile time
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.root()</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">iterator</literal> for mutable <literal moreinfo="none">a</literal>;<sbr/>
-                <literal moreinfo="none">const_iterator</literal> for constant <literal moreinfo="none">a</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                 
-              </para>
-            </entry>
-            <entry>
-              <para>
-                constant
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.croot()</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">const_iterator</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                 
-              </para>
-            </entry>
-            <entry>
-              <para>
-                constant
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.shoot()</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">iterator</literal> for mutable <literal moreinfo="none">a</literal>;<sbr/>
-                <literal moreinfo="none">const_iterator</literal> for constant <literal moreinfo="none">a</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                 
-              </para>
-            </entry>
-            <entry>
-              <para>
-                (Note A)
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.cshoot()</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">const_iterator</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                 
-              </para>
-            </entry>
-            <entry>
-              <para>
-                (Note A)
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">typename X::template rebind&lt;U&gt;::other</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">Y</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                For all <literal moreinfo="none">U</literal> (including <literal moreinfo="none">T</literal>), <literal moreinfo="none">Y::template
-                rebind&lt;T&gt;::other</literal> is <literal moreinfo="none">X</literal>.
-              </para>
-            </entry>
-            <entry>
-              <para>
-                compile time
-              </para>
-            </entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-    <para>
-      Notes: Those entries marked "(Note A)" should have at worst linear
-      complexity. See the individual hierarchy containers for specific complexity.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      <literal moreinfo="none">root()</literal> and <literal moreinfo="none">croot()</literal> return a cursor which
-      is the on-top value for the hierarchy. <literal moreinfo="none">shoot()</literal> and <literal moreinfo="none">cshoot()</literal>
-      return a cursor which is the past-the-end value that is found one past the
-      hierarchy's rightmost element. If the hierarchy is empty, then <literal moreinfo="none">root()
-      == shoot();</literal>
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      Copy constructors for all hierarchy types defined in this clause copy the allocator
-      argument from their respective first parameters. All other constructors for
-      these hierarchy types take an <literal moreinfo="none">Allocator&amp;</literal> argument (20.1.5).
-      A copy of this argument is used for any memory allocation performed, by these
-      constructors and by all member functions, during the lifetime of each hierarchy
-      object. In all hierarchy types defined in this clause, the member <literal moreinfo="none">get_allocator()</literal>
-      returns a copy of the Allocator object used to construct the hierarchy.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      The member class template <literal moreinfo="none">rebind</literal> in the table above is effectively
-      a typedef template: if the name <literal moreinfo="none">Hierarchy</literal> is bound to <literal moreinfo="none">SomeHierarchy&lt;T&gt;</literal>,
-      then <literal moreinfo="none">Hierarchy::rebind&lt;U&gt;::other</literal> is the same type
-      as <literal moreinfo="none">SomeHierarchy&lt;U&gt;</literal>. Additionally, because of the
-      related assertion, given <literal moreinfo="none">SomeHierarchy&lt;T,R0,...,Rn&gt;</literal>
-      for all template arguments present is bound to the name <literal moreinfo="none">Hierarchy</literal>,
-      then <literal moreinfo="none">Hierarchy::rebind&lt;U&gt;::other</literal> is the same type
-      as <literal moreinfo="none">SomeHierarchy&lt;U,S0,...,Sn&gt;</literal> such that the types
-      <literal moreinfo="none">S0</literal> through <literal moreinfo="none">Sn</literal> are the same as <literal moreinfo="none">R0</literal>
-      through <literal moreinfo="none">Rn</literal>, respectively, when <literal moreinfo="none">U</literal> is the
-      same type as <literal moreinfo="none">T</literal>.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      A hierarchy satisfying the requirements shown in Table 3 is called a <emphasis>mutable
-      hierarchy</emphasis>. In Table 3, <literal moreinfo="none">X</literal> denotes a hierarchy
-      class, <literal moreinfo="none">a</literal> denotes a value of <literal moreinfo="none">X</literal>, <literal moreinfo="none">c</literal>
-      denotes a valid, non-on-top cursor satisfying input cursor requirements, <literal moreinfo="none">p</literal>
-      denotes a valid, non-on-top cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">q</literal>
-      denotes a valid, dereferenceable cursor to <literal moreinfo="none">a</literal>, and <literal moreinfo="none">t</literal>
-      denotes a value of <literal moreinfo="none">X::value_type</literal>.
-    </para>
-    <table frame="all" id="tree.req.table3">
-      <title>Mutable hierarchy requirements</title>
-      <tgroup cols="4">
-        <thead>
-          <row>
-            <entry>
-              <para>
-                expression
-              </para>
-            </entry>
-            <entry>
-              <para>
-                return type
-              </para>
-            </entry>
-            <entry>
-              <para>
-                assertion/note<sbr/> pre/post-condition
-              </para>
-            </entry>
-            <entry>
-              <para>
-                complexity
-              </para>
-            </entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.insert(p,t)</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">cursor</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                inserts a copy of <literal moreinfo="none">t</literal> before <literal moreinfo="none">p</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                (Note A)
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.clear(q)</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">void</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                deletes the subtree of <literal moreinfo="none">q</literal> and the element <literal moreinfo="none">q</literal>
-                points to.<sbr/> pre: <literal moreinfo="none">q</literal> is dereferenceable.
-              </para>
-            </entry>
-            <entry>
-              <para>
-                Should be at worst linear in the the number of elements in the subtree
-                of <literal moreinfo="none">q</literal> plus the distance to <literal moreinfo="none">q</literal>'s
-                parent's <literal moreinfo="none">end()</literal>.
-              </para>
-            </entry>
-          </row>
-          <row>
-            <entry>
-              <para>
-                <literal moreinfo="none">a.clear()</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">void</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                <literal moreinfo="none">while (a.size()) clear(a.begin());</literal><sbr/> post:
-                <literal moreinfo="none">a.size() == 0</literal>
-              </para>
-            </entry>
-            <entry>
-              <para>
-                (Note A)
-              </para>
-            </entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-    <para>
-      Notes: Those entries marked "(Note A)" should have at worst linear
-      complexity. See the individual hierarchy containers for specific complexity.
-    </para>
-    </simplesect> <simplesect role="std_requisite">
-    <para>
-      The cursor returned from <literal moreinfo="none">a.insert(p,t)</literal> points to the copy
-      of <literal moreinfo="none">t</literal> inserted into <literal moreinfo="none">a</literal>. Its parent cursor
-      is the same as that of <literal moreinfo="none">p</literal>.
-    </para>
-    </simplesect>
+    <section id="tree.req.general">
+      <title><link linkend="tree.req.general">General hierarchy requirements <phrase role="std_section_label">[hier.req.general]</phrase></link></title>
+      <note>
+        <para>
+          Need better definitions for hierachy, plain hierarchy, and multiway hierarchy.
+        </para>
+      </note>
+      <simplesect role="std_requisite">
+      <para>
+        A hierarchy is an object that stores a finite set of objects, all of the
+        same type, in a hierarchical manner, i.e. as a rooted ordered connected acyclic
+        graph. Hierarchies introduce a cursor concept for navigation instead of iterators.
+        The library provides two kinds of native hierarchies: <literal moreinfo="none">binary_tree</literal>,
+        and <literal moreinfo="none">nary_tree</literal>, along with hierarchy-yielding hierarchy
+        adaptors <literal moreinfo="none">forest_tree</literal>, and <literal moreinfo="none">multiway_tree</literal>.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        Hierarchy containers conform to the requirements of Containers ([container.requirements]),
+        except that the expressions in Table 1 are not required to be valid, where
+        <literal moreinfo="none">a</literal> and <literal moreinfo="none">b</literal> denote values of a type <literal moreinfo="none">X</literal>,
+        and <literal moreinfo="none">X</literal> is a hierarchy container class:
+      </para>
+      <table frame="all" id="tree.req.general.table1">
+        <title>Container requirements that are not required for hierarchy containers</title>
+        <tgroup cols="1">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  unsupported expression
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::iterator</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::const_iterator</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::difference_type</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.begin()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.end()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.cbegin()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.cend()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a == b</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a != b</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::reverse_iterator</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::const_reverse_iterator</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.rbegin()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.rend()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.crbegin()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.crend()</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a &lt; b</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a &gt; b</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a &lt;= b</literal>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a &gt;= b</literal>
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      </simplesect><para>
+        Non-constant complexity requirements in this clause are stated in one of
+        a number of possible different ways: unless specified otherwise, they are
+        expressed in terms of the number of operations <literal moreinfo="none">n</literal>, which
+        stands for the total number of elements in the hierarchy; in some cases,
+        however, they are stated in terms of another value.
+      </para>
+      <simplesect role="std_requisite">
+      <para>
+        In Table 2: <literal moreinfo="none">X</literal> denotes a hierarchy class containing objects
+        of type <literal moreinfo="none">T</literal> and <literal moreinfo="none">a</literal> denotes a value of
+        type <literal moreinfo="none">X</literal>.
+      </para>
+      <table frame="all" id="tree.req.general.table2">
+        <title>Hierarchy requirements (in addition to container)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  complexity
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  cursor type pointing to <literal moreinfo="none">T</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  any cursor category
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::const_cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  cursor type pointing to <literal moreinfo="none">const T</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  any cursor category
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.root()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">iterator</literal> for mutable <literal moreinfo="none">a</literal>;
+                  <sbr/> <literal moreinfo="none">const_iterator</literal> for constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                   
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.croot()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">const_iterator</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                   
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.shoot()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">iterator</literal> for mutable <literal moreinfo="none">a</literal>;
+                  <sbr/> <literal moreinfo="none">const_iterator</literal> for constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                   
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.cshoot()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">const_iterator</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                   
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">typename X::template rebind&lt;U&gt;::other</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">Y</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  For all <literal moreinfo="none">U</literal> (including <literal moreinfo="none">T</literal>),
+                  <literal moreinfo="none">Y::template rebind&lt;T&gt;::other</literal> is <literal moreinfo="none">X</literal>.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para>
+        Notes: Those entries marked "(Note A)" should have at worst linear
+        complexity. See the individual hierarchy containers for specific complexity.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        <literal moreinfo="none">root()</literal> and <literal moreinfo="none">croot()</literal> return a cursor
+        which is the on-top value for the hierarchy. <literal moreinfo="none">shoot()</literal> and
+        <literal moreinfo="none">cshoot()</literal> return a cursor which is the past-the-end value
+        that is found one past the hierarchy's rightmost element. If the hierarchy
+        is empty, then <literal moreinfo="none">root() == shoot();</literal>
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        Copy constructors for all hierarchy types defined in this clause copy the
+        allocator argument from their respective first parameters. All other constructors
+        for these hierarchy types take an <literal moreinfo="none">Allocator&amp;</literal> argument
+        (20.6.9). A copy of this argument is used for any memory allocation performed,
+        by these constructors and by all member functions, during the lifetime of
+        each hierarchy object. In all hierarchy types defined in this clause, the
+        member <literal moreinfo="none">get_allocator()</literal> returns a copy of the <literal moreinfo="none">Allocator</literal>
+        object used to construct the hierarchy.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        The member class template <literal moreinfo="none">rebind</literal> in the table above is
+        effectively a typedef template: if the name <literal moreinfo="none">Hierarchy</literal>
+        is bound to <literal moreinfo="none">SomeHierarchy&lt;T&gt;</literal>, then <literal moreinfo="none">Hierarchy::rebind&lt;U&gt;::other</literal>
+        is the same type as <literal moreinfo="none">SomeHierarchy&lt;U&gt;</literal>. Additionally,
+        because of the related assertion, given <literal moreinfo="none">SomeHierarchy&lt;T,R0,...,Rn&gt;</literal>
+        for all template arguments present is bound to the name <literal moreinfo="none">Hierarchy</literal>,
+        then <literal moreinfo="none">Hierarchy::rebind&lt;U&gt;::other</literal> is the same type
+        as <literal moreinfo="none">SomeHierarchy&lt;U,S0,...,Sn&gt;</literal> such that the types
+        <literal moreinfo="none">S0</literal> through <literal moreinfo="none">Sn</literal> are the same as <literal moreinfo="none">R0</literal>
+        through <literal moreinfo="none">Rn</literal>, respectively, when <literal moreinfo="none">U</literal> is
+        the same type as <literal moreinfo="none">T</literal>.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        A hierarchy satisfying the requirements shown in Table 3 is called a <emphasis>mutable
+        hierarchy</emphasis>. In Table 3, <literal moreinfo="none">X</literal> denotes a hierarchy
+        class, <literal moreinfo="none">a</literal> denotes a value of <literal moreinfo="none">X</literal> containing
+        elements of type <literal moreinfo="none">T</literal>, <literal moreinfo="none">c</literal> denotes a valid,
+        non-on-top cursor satisfying input cursor requirements, <literal moreinfo="none">p</literal>
+        denotes a valid, non-on-top cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">q</literal>
+        denotes a valid, dereferenceable cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">t</literal>
+        denotes an lvalue or a const rvalue of <literal moreinfo="none">X::value_type</literal>,
+        and <literal moreinfo="none">rv</literal> denotes a non-const rvalue of <literal moreinfo="none">X::value_type</literal>.
+        <literal moreinfo="none">Args</literal> denotes a template parameter pack; <literal moreinfo="none">args</literal>
+        denotes a function parameter pack with the pattern <literal moreinfo="none">Args&amp;&amp;</literal>.
+      </para>
+      <table frame="all" id="tree.req.general.table3">
+        <title>Mutable hierarchy requirements</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note <sbr/> pre/post-condition
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  complexity
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">emplace</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase>
+                  <phrase role="identifier">args</phrase><phrase role="special">);</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <emphasis>Requires:</emphasis> <literal moreinfo="none">T</literal> is <literal moreinfo="none">EmplaceConstructable</literal>
+                  into X from <literal moreinfo="none">args</literal>, T is also <literal moreinfo="none">MoveInsertable</literal>
+                  into <literal moreinfo="none">X</literal> and <literal moreinfo="none">MoveAssignable</literal>.
+                  <sbr/> <emphasis>Effects:</emphasis> Inserts an object of type
+                  <literal moreinfo="none">T</literal> constructed with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">std</phrase><phrase role="special">::</phrase><phrase role="identifier">forward</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Args</phrase><phrase role="special">&gt;(</phrase><phrase role="identifier">args</phrase><phrase role="special">)...</phrase></computeroutput> before <literal moreinfo="none">p</literal>.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase><phrase role="identifier">t</phrase><phrase role="special">)</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <emphasis>Requires:</emphasis> <literal moreinfo="none">T</literal> shal be <literal moreinfo="none">CopyInsertable</literal>
+                  into <literal moreinfo="none">X</literal>. <emphasis>Effects:</emphasis> Inserts
+                  a copy of <literal moreinfo="none">t</literal> before <literal moreinfo="none">p</literal>.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase><phrase role="identifier">rv</phrase><phrase role="special">)</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <emphasis>Requires:</emphasis> <literal moreinfo="none">T</literal> shal be <literal moreinfo="none">MoveInsertable</literal>
+                  into <literal moreinfo="none">X</literal>. <emphasis>Effects:</emphasis> Inserts
+                  a copy of <literal moreinfo="none">rv</literal> before <literal moreinfo="none">p</literal>.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">q</phrase><phrase role="special">)</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">void</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Deletes the subtree of <literal moreinfo="none">q</literal> and the element <literal moreinfo="none">q</literal>
+                  points to. <sbr/> pre: <literal moreinfo="none">q</literal> is dereferenceable.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Should be at worst linear in the the number of elements in the
+                  subtree of <literal moreinfo="none">q</literal> plus the distance to <literal moreinfo="none">q</literal>'s
+                  parent's <literal moreinfo="none">end()</literal>.
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">clear</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">void</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">while</phrase> <phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">())</phrase>
+                  <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">());</phrase></computeroutput>
+                  <sbr/> post: <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">size</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase>
+                  <phrase role="number">0</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para>
+        Notes: Those entries marked "(Note A)" should have at worst linear
+        complexity. See the individual hierarchy containers for specific complexity.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        The cursor returned from <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase>
+        <phrase role="identifier">t</phrase><phrase role="special">)</phrase></computeroutput>
+        points to the copy of <literal moreinfo="none">t</literal> inserted into <literal moreinfo="none">a</literal>.
+        Its parent cursor is the same as that of <literal moreinfo="none">p</literal>.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        The cursor returned from <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase>
+        <phrase role="identifier">rv</phrase><phrase role="special">)</phrase></computeroutput>
+        points to the copy of <literal moreinfo="none">rv</literal> inserted into <literal moreinfo="none">a</literal>.
+        Its parent cursor is the same as that of <literal moreinfo="none">p</literal>.
+      </para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        The cursor returnd from <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">emplace</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase>
+        <phrase role="identifier">args</phrase><phrase role="special">)</phrase></computeroutput>
+        points to the new element constructed from <literal moreinfo="none">args</literal> into
+        <literal moreinfo="none">a</literal>. Its parent cursor is the same as that of <literal moreinfo="none">p</literal>.
+      </para>
+      </simplesect>
+    </section>
   </section>
   <section id="tree.plain">
     <title><link linkend="tree.plain">Plain hierarchies <phrase role="std_section_label">[hierarchy.plain]</phrase></link></title>
     <simplesect role="std_requisite">
     <para>
-      A hierarchy is called plain hierarchy if its cursor and const_cursor types
-      satisfy the requirements of a plain cursor.
+      A hierarchy is called plain hierarchy if its <literal moreinfo="none">cursor</literal> and
+      <literal moreinfo="none">const_cursor</literal> types satisfy the requirements of a plain cursor.
     </para>
     </simplesect> <simplesect role="std_requisite">
     <para>
-      The library provides one native kind of plain hierarchy, nary_tree, and a hierarchy
-      adaptor that in turn yields a plain hierarchy, forest_tree.
+      The library provides one native kind of plain hierarchy, <literal moreinfo="none">nary_tree</literal>,
+      and a hierarchy adaptor that in turn yields a plain hierarchy, <literal moreinfo="none">forest_tree</literal>.
     </para>
     </simplesect> <simplesect role="std_requisite">
     <para>
@@ -861,7 +994,7 @@
             </entry>
             <entry>
               <para>
-                assertion/note<sbr/> pre/post-condition
+                assertion/note <sbr/> pre/post-condition
               </para>
             </entry>
             <entry>
@@ -875,7 +1008,7 @@
           <row>
             <entry>
               <para>
-                <literal moreinfo="none">a.insert(p,c)</literal>
+                <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase><phrase role="identifier">c</phrase><phrase role="special">)</phrase></computeroutput>
               </para>
             </entry>
             <entry>
@@ -900,7 +1033,7 @@
           <row>
             <entry>
               <para>
-                <literal moreinfo="none">a.insert_above(p,t)</literal>
+                <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">insert_above</phrase><phrase role="special">(</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase><phrase role="identifier">t</phrase><phrase role="special">)</phrase></computeroutput>
               </para>
             </entry>
             <entry>
@@ -2903,9 +3036,9 @@
   </section>
   </section> </section> <section role="std_section" id="tree.proposal.iterators" label="24" label-style="no-parent">
 <title><link linkend="tree.proposal.iterators">Iterators library
-  <phrase role="std_section_label">[iterators]</phrase></link></title> <section role="std_section" id="lib.iterator.synopsis" label="24.3" label-style="no-parent">
-<title><link linkend="lib.iterator.synopsis">Headers
-  <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[lib.iterator.synopsis]</phrase></link></title>
+  <phrase role="std_section_label">[iterators]</phrase></link></title> <section role="std_section" id="iterator.synopsis" label="24.3" label-style="no-parent">
+<title><link linkend="iterator.synopsis">Headers
+  <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[iterator.synopsis]</phrase></link></title>
   <note>
     <para>
       Insert after section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.6.5,
