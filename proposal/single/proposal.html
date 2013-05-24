@@ -1045,16 +1045,27 @@ div div.legalnotice p {
       </p></div></div><div class="section std_proposal tree_proposal" id="tree.proposal"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2. <a class="link" href="#tree.proposal" title="2. Proposed Text">Proposed Text</a></h2></div></div></div><div class="note"><h3 class="title">Note</h3><p>
       Notes that are not part of the proposed text appear in gray boxes.
     </p></div><div class="section std_section tree_proposal_containers" id="tree.proposal.containers"><div class="titlepage"><div><div><h3 class="title">23. <a class="link" href="#tree.proposal.containers" title="23. Container library [containers]">Container library <span class="std_section_label">[containers]</span></a></h3></div></div></div><div class="section std_section tree_proposal_hierarchy" id="tree.proposal.hierarchy"><div class="titlepage"><div><div><h4 class="title">23.7. <a class="link" href="#tree.proposal.hierarchy" title="23.7. Hierarchy containers [hierarchy]">Hierarchy
-  containers <span class="std_section_label">[hierarchy]</span></a></h4></div></div></div><div class="section  tree_req" id="tree.req"><div class="titlepage"><div><div><h5 class="title">23.7.1. <a class="link" href="#tree.req" title="23.7.1. Hierarchy containers requirements [hierarchy.req]">Hierarchy containers requirements <span class="std_section_label">[hierarchy.req]</span></a></h5></div></div></div><div class="section  tree_req_general" id="tree.req.general"><div class="titlepage"><div><div><h6 class="title">23.7.1.1. <a class="link" href="#tree.req.general" title="23.7.1.1. General hierarchy requirements [hier.req.general]">General hierarchy requirements <span class="std_section_label">[hier.req.general]</span></a></h6></div></div></div><div class="note"><h3 class="title">Note</h3><p>
+  containers <span class="std_section_label">[hierarchy]</span></a></h4></div></div></div><div class="section  tree_req" id="tree.req"><div class="titlepage"><div><div><h5 class="title">23.7.1. <a class="link" href="#tree.req" title="23.7.1. Hierarchy containers requirements [hierarchy.req]">Hierarchy containers requirements <span class="std_section_label">[hierarchy.req]</span></a></h5></div></div></div><p>
+      In this section's tables, <code class="literal">X</code> denotes a hierarchy class,
+      <code class="literal">a</code> denotes a value of <code class="literal">X</code> containing elements
+      of type <code class="literal">T</code>, <code class="literal">c</code> denotes a valid, non-on-top
+      cursor satisfying input cursor requirements, <code class="literal">p</code> denotes a
+      valid, non-on-top cursor to <code class="literal">a</code>, <code class="literal">q</code> denotes
+      a valid, dereferenceable cursor to <code class="literal">a</code>, <code class="literal">t</code>
+      denotes an lvalue or a const rvalue of <code class="literal">X::value_type</code>, and
+      <code class="literal">rv</code> denotes a non-const rvalue of <code class="literal">X::value_type</code>.
+      <code class="literal">Args</code> denotes a template parameter pack; <code class="literal">args</code>
+      denotes a function parameter pack with the pattern <code class="literal">Args&amp;&amp;</code>.
+    </p><div class="section  tree_req_general" id="tree.req.general"><div class="titlepage"><div><div><h6 class="title">23.7.1.1. <a class="link" href="#tree.req.general" title="23.7.1.1. General hierarchy requirements [hier.req.general]">General hierarchy requirements <span class="std_section_label">[hier.req.general]</span></a></h6></div></div></div><div class="note"><h3 class="title">Note</h3><p>
           Need better definitions for hierachy, plain hierarchy, and multiway hierarchy.
-        </p></div><div class="simplesect std_requisite" id="idp4614224"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_requisite" id="idp4624560"><div class="titlepage"></div><p>
         A hierarchy is an object that stores a finite set of objects, all of the
         same type, in a hierarchical manner, i.e. as a rooted ordered connected acyclic
         graph. Hierarchies introduce a cursor concept for navigation instead of iterators.
         The library provides two kinds of native hierarchies: <code class="literal">binary_tree</code>,
         and <code class="literal">nary_tree</code>, along with hierarchy-yielding hierarchy
         adaptors <code class="literal">forest_tree</code>, and <code class="literal">multiway_tree</code>.
-      </p></div><div class="simplesect std_requisite" id="idp4618048"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4628384"><div class="titlepage"></div><p>
         Hierarchy containers conform to the requirements of Containers ([container.requirements]),
         except that the expressions in Table 1 are not required to be valid, where
         <code class="literal">a</code> and <code class="literal">b</code> denote values of a type <code class="literal">X</code>,
@@ -1145,11 +1156,7 @@ div div.legalnotice p {
         expressed in terms of the number of operations <code class="literal">n</code>, which
         stands for the total number of elements in the hierarchy; in some cases,
         however, they are stated in terms of another value.
-      </p><div class="simplesect std_requisite" id="idp4660576"><div class="titlepage"></div><p>
-        In Table 2: <code class="literal">X</code> denotes a hierarchy class containing objects
-        of type <code class="literal">T</code> and <code class="literal">a</code> denotes a value of
-        type <code class="literal">X</code>.
-      </p><div class="table" id="tree.req.general.table2"><div class="table-title">Table 2. Hierarchy requirements (in addition to container)</div><div class="table-contents"><table class="table" summary="Hierarchy requirements (in addition to container)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
+      </p><div class="simplesect std_requisite" id="idp4670912"><div class="titlepage"></div><div class="table" id="tree.req.general.table2"><div class="table-title">Table 2. Hierarchy requirements (in addition to container)</div><div class="table-contents"><table class="table" summary="Hierarchy requirements (in addition to container)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                 <p>
                   expression
                 </p>
@@ -1283,13 +1290,13 @@ div div.legalnotice p {
               </td></tr></tbody></table></div></div><br class="table-break"><p>
         Notes: Those entries marked "(Note A)" should have at worst linear
         complexity. See the individual hierarchy containers for specific complexity.
-      </p></div><div class="simplesect std_requisite" id="idp4710928"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4718384"><div class="titlepage"></div><p>
         <code class="literal">root()</code> and <code class="literal">croot()</code> return a cursor
         which is the on-top value for the hierarchy. <code class="literal">shoot()</code> and
         <code class="literal">cshoot()</code> return a cursor which is the past-the-end value
         that is found one past the hierarchy's rightmost element. If the hierarchy
         is empty, then <code class="literal">root() == shoot();</code>
-      </p></div><div class="simplesect std_requisite" id="idp4715200"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4722656"><div class="titlepage"></div><p>
         Copy constructors for all hierarchy types defined in this clause copy the
         allocator argument from their respective first parameters. All other constructors
         for these hierarchy types take an <code class="literal">Allocator&amp;</code> argument
@@ -1298,7 +1305,7 @@ div div.legalnotice p {
         each hierarchy object. In all hierarchy types defined in this clause, the
         member <code class="literal">get_allocator()</code> returns a copy of the <code class="literal">Allocator</code>
         object used to construct the hierarchy.
-      </p></div><div class="simplesect std_requisite" id="idp4718592"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4726048"><div class="titlepage"></div><p>
         The member class template <code class="literal">rebind</code> in the table above is
         effectively a typedef template: if the name <code class="literal">Hierarchy</code>
         is bound to <code class="literal">SomeHierarchy&lt;T&gt;</code>, then <code class="literal">Hierarchy::rebind&lt;U&gt;::other</code>
@@ -1310,18 +1317,9 @@ div div.legalnotice p {
         <code class="literal">S0</code> through <code class="literal">Sn</code> are the same as <code class="literal">R0</code>
         through <code class="literal">Rn</code>, respectively, when <code class="literal">U</code> is
         the same type as <code class="literal">T</code>.
-      </p></div><div class="simplesect std_requisite" id="idp4728944"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4736400"><div class="titlepage"></div><p>
         A hierarchy satisfying the requirements shown in Table 3 is called a <span class="emphasis"><em>mutable
-        hierarchy</em></span>. In Table 3, <code class="literal">X</code> denotes a hierarchy
-        class, <code class="literal">a</code> denotes a value of <code class="literal">X</code> containing
-        elements of type <code class="literal">T</code>, <code class="literal">c</code> denotes a valid,
-        non-on-top cursor satisfying input cursor requirements, <code class="literal">p</code>
-        denotes a valid, non-on-top cursor to <code class="literal">a</code>, <code class="literal">q</code>
-        denotes a valid, dereferenceable cursor to <code class="literal">a</code>, <code class="literal">t</code>
-        denotes an lvalue or a const rvalue of <code class="literal">X::value_type</code>,
-        and <code class="literal">rv</code> denotes a non-const rvalue of <code class="literal">X::value_type</code>.
-        <code class="literal">Args</code> denotes a template parameter pack; <code class="literal">args</code>
-        denotes a function parameter pack with the pattern <code class="literal">Args&amp;&amp;</code>.
+        hierarchy</em></span>.
       </p><div class="table" id="tree.req.general.table3"><div class="table-title">Table 3. Mutable hierarchy requirements</div><div class="table-contents"><table class="table" summary="Mutable hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
                 <p>
                   expression
@@ -1436,28 +1434,28 @@ div div.legalnotice p {
               </td></tr></tbody></table></div></div><br class="table-break"><p>
         Notes: Those entries marked "(Note A)" should have at worst linear
         complexity. See the individual hierarchy containers for specific complexity.
-      </p></div><div class="simplesect std_requisite" id="idp4818656"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4816096"><div class="titlepage"></div><p>
         The cursor returned from <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">p</span><span class="special">,</span>
         <span class="identifier">t</span><span class="special">)</span></code>
         points to the copy of <code class="literal">t</code> inserted into <code class="literal">a</code>.
         Its parent cursor is the same as that of <code class="literal">p</code>.
-      </p></div><div class="simplesect std_requisite" id="idp4825984"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4823424"><div class="titlepage"></div><p>
         The cursor returned from <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">p</span><span class="special">,</span>
         <span class="identifier">rv</span><span class="special">)</span></code>
         points to the copy of <code class="literal">rv</code> inserted into <code class="literal">a</code>.
         Its parent cursor is the same as that of <code class="literal">p</code>.
-      </p></div><div class="simplesect std_requisite" id="idp4833312"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp4830752"><div class="titlepage"></div><p>
         The cursor returnd from <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">emplace</span><span class="special">(</span><span class="identifier">p</span><span class="special">,</span>
         <span class="identifier">args</span><span class="special">)</span></code>
         points to the new element constructed from <code class="literal">args</code> into
         <code class="literal">a</code>. Its parent cursor is the same as that of <code class="literal">p</code>.
-      </p></div></div></div><div class="section  tree_plain" id="tree.plain"><div class="titlepage"><div><div><h5 class="title">23.7.2. <a class="link" href="#tree.plain" title="23.7.2. Plain hierarchies [hierarchy.plain]">Plain hierarchies <span class="std_section_label">[hierarchy.plain]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4842592"><div class="titlepage"></div><p>
+      </p></div></div></div><div class="section  tree_plain" id="tree.plain"><div class="titlepage"><div><div><h5 class="title">23.7.2. <a class="link" href="#tree.plain" title="23.7.2. Plain hierarchies [hierarchy.plain]">Plain hierarchies <span class="std_section_label">[hierarchy.plain]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4840032"><div class="titlepage"></div><p>
       A hierarchy is called plain hierarchy if its <code class="literal">cursor</code> and
       <code class="literal">const_cursor</code> types satisfy the requirements of a plain cursor.
-    </p></div><div class="simplesect std_requisite" id="idp4844928"><div class="titlepage"></div><p>
+    </p></div><div class="simplesect std_requisite" id="idp4842368"><div class="titlepage"></div><p>
       The library provides one native kind of plain hierarchy, <code class="literal">nary_tree</code>,
       and a hierarchy adaptor that in turn yields a plain hierarchy, <code class="literal">forest_tree</code>.
-    </p></div><div class="simplesect std_requisite" id="idp4847296"><div class="titlepage"></div><p>
+    </p></div><div class="simplesect std_requisite" id="idp4844736"><div class="titlepage"></div><p>
       For a mutable plain hierarchy, the following expressions as shown in Table
       4, are additionally required to be valid:
     </p><div class="table" id="tree.plain.table4"><div class="table-title">Table 4. Plain hierarchy requirements</div><div class="table-contents"><table class="table" summary="Plain hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
@@ -1513,18 +1511,18 @@ div div.legalnotice p {
               <p>
                 Linear in the the number <code class="literal">p</code>'s siblings.
               </p>
-            </td></tr></tbody></table></div></div><br class="table-break"></div><div class="simplesect std_requisite" id="idp4878880"><div class="titlepage"></div><p>
+            </td></tr></tbody></table></div></div><br class="table-break"></div><div class="simplesect std_requisite" id="idp4876320"><div class="titlepage"></div><p>
       The cursor returned from <code class="literal">a.insert(p,c)</code> points to the copy
       of the element that <code class="literal">c</code> points to, inserted into <code class="literal">a</code>.
       Its parent cursor is the same as that of <code class="literal">p</code>.
-    </p></div></div><div class="section  tree_multiway" id="tree.multiway"><div class="titlepage"><div><div><h5 class="title">23.7.3. <a class="link" href="#tree.multiway" title="23.7.3. Multiway hierarchies [hierarchy.multiway]">Multiway hierarchies <span class="std_section_label">[hierarchy.multiway]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4884192"><div class="titlepage"></div><p>
+    </p></div></div><div class="section  tree_multiway" id="tree.multiway"><div class="titlepage"><div><div><h5 class="title">23.7.3. <a class="link" href="#tree.multiway" title="23.7.3. Multiway hierarchies [hierarchy.multiway]">Multiway hierarchies <span class="std_section_label">[hierarchy.multiway]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4881632"><div class="titlepage"></div><p>
       A hierarchy is called multiway hierarchy if its <code class="literal">cursor</code> and
       <code class="literal">const_cursor</code> types satisfy the requirements of a multiway
       cursor.
-    </p></div><div class="simplesect std_requisite" id="idp4886544"><div class="titlepage"></div><p>
+    </p></div><div class="simplesect std_requisite" id="idp4883984"><div class="titlepage"></div><p>
       The library provides one native kind of multiway hierarchy, <code class="literal">binary_tree</code>,
       and a hierarchy adaptor that in turn yields a multiway hierarchy, <code class="literal">multiway_tree</code>.
-    </p></div><div class="simplesect std_requisite" id="idp4888912"><div class="titlepage"></div><p>
+    </p></div><div class="simplesect std_requisite" id="idp4886352"><div class="titlepage"></div><p>
       For a mutable multiway hierarchy, the semantics of some expressions from Table
       3 are modified as shown in Table 5.
     </p><div class="table" id="tree.multiway.table5"><div class="table-title">Table 5. Multiway hierarchy requirements</div><div class="table-contents"><table class="table" summary="Multiway hierarchy requirements"><colgroup><col><col><col><col></colgroup><thead><tr><th>
@@ -1568,7 +1566,7 @@ div div.legalnotice p {
                 of <code class="literal">c</code> plus the distance to <code class="literal">p</code>'s
                 parent's <code class="literal">end()</code>.
               </p>
-            </td></tr></tbody></table></div></div><br class="table-break"></div></div><div class="section  tree_tree" id="tree.tree"><div class="titlepage"><div><div><h5 class="title">23.7.4. <a class="link" href="#tree.tree" title="23.7.4. Trees [hierarchy.tree]">Trees <span class="std_section_label">[hierarchy.tree]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4911072"><div class="titlepage"></div><p>
+            </td></tr></tbody></table></div></div><br class="table-break"></div></div><div class="section  tree_tree" id="tree.tree"><div class="titlepage"><div><div><h5 class="title">23.7.4. <a class="link" href="#tree.tree" title="23.7.4. Trees [hierarchy.tree]">Trees <span class="std_section_label">[hierarchy.tree]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp4908512"><div class="titlepage"></div><p>
       Headers <code class="literal">&lt;binary_tree&gt;</code>, <code class="literal">&lt;nary_tree&gt;</code>,
       <code class="literal">&lt;forest_tree&gt;</code>, and <code class="literal">&lt;multiway_tree&gt;</code>.
     </p><p>
@@ -1759,22 +1757,22 @@ div div.legalnotice p {
 
 <span class="special">}</span> <span class="comment">// namespace std</span>
 </pre></div><div class="section  tree_tree_bintree_types" id="tree.tree.bintree.types"><div class="titlepage"><div><div><h6 class="title">23.7.4.1.2. <a class="link" href="#tree.tree.bintree.types" title="23.7.4.1.2. binary_tree types [hierarchy.bintree.types]"><code class="literal">binary_tree</code>
-        types <span class="std_section_label">[hierarchy.bintree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5574048"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span> <span class="identifier">cursor</span><span class="special">;</span>
+        types <span class="std_section_label">[hierarchy.bintree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5571488"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span> <span class="identifier">cursor</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span> <span class="identifier">const_cursor</span><span class="special">;</span>
-</pre></div><div class="simplesect std_requisite" id="idp5579296"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_requisite" id="idp5576736"><div class="titlepage"></div><p>
           Both <code class="literal">cursor</code> and <code class="literal">const_cursor</code> have
           to fulfill the multiway cursor ([cursor.flavors]) and ascending random
           access cursor ([ascending.random.access.cursors]) requirements.
-        </p></div><div class="simplesect std_requisite" id="idp5581680"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_requisite" id="idp5579120"><div class="titlepage"></div><p>
           Additionally, for any instance a of either type <code class="literal">cursor</code>
           or <code class="literal">const_cursor</code>, <code class="literal">a.max_size() == 1</code>.
         </p></div></div><div class="section  tree_tree_bintree_cons" id="tree.tree.bintree.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.1.3. <a class="link" href="#tree.tree.bintree.cons" title="23.7.4.1.3. binary_tree constructors, copy, and assignment [hierarchy.bintree.cons]"><code class="literal">binary_tree</code>
-        constructors, copy, and assignment <span class="std_section_label">[hierarchy.bintree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5586864"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+        constructors, copy, and assignment <span class="std_section_label">[hierarchy.bintree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5584304"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">,</span>
     <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
 <span class="identifier">binary_tree</span> <span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5608400"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5605840"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> The constructor <code class="computeroutput"><span class="keyword">template</span>
           <span class="special">&lt;</span><span class="keyword">class</span>
           <span class="identifier">InputCursor</span><span class="special">&gt;</span>
@@ -1786,31 +1784,31 @@ div div.legalnotice p {
           calls to the copy constructor of <code class="literal">T</code> and <code class="literal">logN</code>
           reallocations if they are just cursors, since it is impossible to determine
           the size of <code class="literal">subtree</code> and then do copying.
-        </p></div><div class="simplesect std_definition" id="idp5621280"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+        </p></div><div class="simplesect std_definition" id="idp5618720"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5628416"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5625856"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span>
         </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
 <span class="keyword">for</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
   <span class="identifier">insert</span><span class="special">(</span><span class="identifier">root</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">i</span><span class="special">);</span>
 </pre></div></div><div class="section  tree_tree_bintree_cursors" id="tree.tree.bintree.cursors"><div class="titlepage"><div><div><h6 class="title">23.7.4.1.4. <a class="link" href="#tree.tree.bintree.cursors" title="23.7.4.1.4. binary_tree cursors [hierarchy.bintree.cursors]"><code class="literal">binary_tree</code>
-        cursors <span class="std_section_label">[hierarchy.bintree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5647904"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+        cursors <span class="std_section_label">[hierarchy.bintree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5645344"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp5653472"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5650912"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
-        </p></div><div class="simplesect std_definition" id="idp5654848"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+        </p></div><div class="simplesect std_definition" id="idp5652288"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp5660416"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5657856"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> A cursor to the <code class="literal">binary_tree</code>'s
           first element in inorder (see [tr.order.iterators], §4).
-        </p></div><div class="simplesect std_specification" id="idp5662640"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5660080"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant.
         </p></div></div><div class="section  tree_tree_bintree_modifiers" id="tree.tree.bintree.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.1.5. <a class="link" href="#tree.tree.bintree.modifiers" title="23.7.4.1.5. binary_tree modifiers [hierarchy.bintree.modifiers]"><code class="literal">binary_tree</code>
-        modifiers <span class="std_section_label">[hierarchy.bintree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5666320"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
-</pre></div><div class="simplesect std_specification" id="idp5674672"><div class="titlepage"></div><p>
+        modifiers <span class="std_section_label">[hierarchy.bintree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5663760"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+</pre></div><div class="simplesect std_specification" id="idp5672112"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
           references.
-        </p></div><div class="simplesect std_specification" id="idp5676048"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5673488"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effect:</em></span> Let <code class="literal">b be =a</code>'s parent; if
           <code class="computeroutput"><span class="identifier">b</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span> <span class="special">&lt;</span> <span class="identifier">b</span><span class="special">.</span><span class="identifier">max_size</span><span class="special">()</span></code>, insert a copy of <code class="literal">t</code>
           before <code class="literal">p</code>, as child of <code class="literal">b</code>; Otherwise,
@@ -1818,29 +1816,29 @@ div div.legalnotice p {
           insert a copy of <code class="literal">t</code> as child of <code class="literal">a</code>;
           and if <code class="computeroutput"><span class="special">!</span><span class="identifier">a</span><span class="special">.</span><span class="identifier">empty</span><span class="special">()</span></code>, insert a copy of <code class="literal">t</code>
           as parent of <code class="literal">a</code>'s current child, as new child of <code class="literal">a</code>.
-        </p></div><div class="simplesect std_specification" id="idp5693232"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5690672"><div class="titlepage"></div><p>
           Complexity: constant
-        </p></div><div class="simplesect std_definition" id="idp5694224"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+        </p></div><div class="simplesect std_definition" id="idp5691664"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">cursor</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5703056"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5700496"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
           references.
-        </p></div><div class="simplesect std_specification" id="idp5704512"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5701952"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span> as above, substituting <code class="literal">InputCursor
           subtree</code> to insert instead of <code class="computeroutput"><span class="identifier">value_type</span>
           <span class="keyword">const</span><span class="special">&amp;</span>
           <span class="identifier">x</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp5709152"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5706592"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> linear in the number of elements in subtree.
-        </p></div><div class="simplesect std_definition" id="idp5710592"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">rotate</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5714944"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_definition" id="idp5708032"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">rotate</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp5712384"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Precondition:</em></span> position and its parent are internal
           and non-on-top
-        </p></div><div class="simplesect std_specification" id="idp5716400"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5713840"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span> Performs a left tree rotation around the
           parent of position if <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span> <span class="special">==</span> <span class="number">0</span></code>
           or a right tree rotation if <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp5725088"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5722528"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Postcondition:</em></span> If <code class="computeroutput"><span class="identifier">par</span>
           <span class="special">==</span> <span class="identifier">position</span><span class="special">.</span><span class="identifier">parity</span><span class="special">()</span></code> as of before the rotation, then, after
           the rotation:
@@ -1868,39 +1866,39 @@ div div.legalnotice p {
             </p></li><li class="listitem"><p>
               <code class="computeroutput"><span class="special">((</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()[!</span><span class="identifier">par</span><span class="special">]).</span><span class="identifier">begin</span><span class="special">())[</span><span class="identifier">par</span><span class="special">]</span></code>'s subtree is what <code class="computeroutput"><span class="special">(</span><span class="identifier">position</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())[!</span><span class="identifier">par</span><span class="special">]</span></code>'s
               was before.
-            </p></li></ul></div></div><div class="simplesect std_specification" id="idp5781360"><div class="titlepage"></div><p>
+            </p></li></ul></div></div><div class="simplesect std_specification" id="idp5778800"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
-        </p></div><div class="simplesect std_specification" id="idp5782736"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5780176"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
           references. Tree rotations are important inorder-preserving (see [tr.order.iterators]
           §4) operations on binary trees that are especially required by balancers.
-        </p></div><div class="simplesect std_definition" id="idp5784752"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5788976"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_definition" id="idp5782192"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp5786416"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Invalidates only the cursors and references
           to the erased elements.
         </p></div></div><div class="section  tree_tree_bintree_special" id="tree.tree.bintree.special"><div class="titlepage"><div><div><h6 class="title">23.7.4.1.6. <a class="link" href="#tree.tree.bintree.special" title="23.7.4.1.6. binary_tree specialized algorithms [hierarchy.bintree.special]"><code class="literal">binary_tree</code>
-        specialized algorithms <span class="std_section_label">[hierarchy.bintree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5792752"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+        specialized algorithms <span class="std_section_label">[hierarchy.bintree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp5790192"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
               <span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp5808464"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5805904"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">swap</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span></code>;
-        </p></div><div class="simplesect std_definition" id="idp5813200"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+        </p></div><div class="simplesect std_definition" id="idp5810640"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp5833008"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5830448"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_first</span><span class="special">())</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp5842672"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5840112"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
-        </p></div><div class="simplesect std_definition" id="idp5844048"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+        </p></div><div class="simplesect std_definition" id="idp5841488"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp5864944"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp5862384"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">binary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_cfirst</span><span class="special">())</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp5874608"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp5872048"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
         </p></div></div></div><div class="section  tree_tree_narytree" id="tree.tree.narytree"><div class="titlepage"><div><div><h6 class="title">23.7.4.2. <a class="link" href="#tree.tree.narytree" title="23.7.4.2. Class template nary_tree [narytree]">Class template <code class="literal">nary_tree</code>
       <span class="std_section_label">[narytree]</span></a></h6></div></div></div><div class="section  tree_tree_narytree_synopsis" id="tree.tree.narytree.synopsis"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.1. <a class="link" href="#tree.tree.narytree.synopsis" title="23.7.4.2.1. nary_tree overview [narytree.overview]"><code class="literal">nary_tree</code>
@@ -1988,19 +1986,19 @@ div div.legalnotice p {
 
 <span class="special">}</span> <span class="comment">// namespace std</span>
 </pre></div><div class="section  tree_tree_narytree_types" id="tree.tree.narytree.types"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.2. <a class="link" href="#tree.tree.narytree.types" title="23.7.4.2.2. nary_tree types [narytree.types]"><code class="literal">nary_tree</code>
-        types <span class="std_section_label">[narytree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6134992"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">cursor</span><span class="special">;</span>
+        types <span class="std_section_label">[narytree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6132432"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">cursor</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">const_cursor</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp6140240"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6137680"><div class="titlepage"></div><p>
           Both <code class="literal">cursor</code> and <code class="literal">const_cursor</code> have
           to fulfill the plain cursor ([cursor.flavors]) and ascending random access
           cursor ([ascending.random.access.cursors]) requirements.
         </p></div></div><div class="section  tree_tree_narytree_cons" id="tree.tree.narytree.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.3. <a class="link" href="#tree.tree.narytree.cons" title="23.7.4.2.3. nary_tree constructors, copy, and assignment [narytree.cons]"><code class="literal">nary_tree</code>
-        constructors, copy, and assignment <span class="std_section_label">[narytree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6144928"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">nary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
+        constructors, copy, and assignment <span class="std_section_label">[narytree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6142368"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">nary_tree</span> <span class="special">(</span><span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">nary_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">,</span>
     <span class="identifier">allocator_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">());</span>
 <span class="identifier">nary_tree</span> <span class="special">(</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6166464"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6163904"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> The constructor <code class="computeroutput"><span class="keyword">template</span>
           <span class="special">&lt;</span><span class="keyword">class</span>
           <span class="identifier">InputCursor</span><span class="special">&gt;</span>
@@ -2012,32 +2010,32 @@ div div.legalnotice p {
           calls to the copy constructor of <code class="literal">T</code> and <code class="literal">logN</code>
           reallocations if they are just cursors, since it is impossible to determine
           the size of <code class="literal">subtree</code> and then do copying.
-        </p></div><div class="simplesect std_definition" id="idp6179344"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+        </p></div><div class="simplesect std_definition" id="idp6176784"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6186480"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6183920"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span>
         </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
 <span class="keyword">for</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
   <span class="identifier">insert</span><span class="special">(</span><span class="identifier">root</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">i</span><span class="special">);</span>
 </pre></div></div><div class="section  tree_tree_narytree_cursors" id="tree.tree.narytree.cursors"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.4. <a class="link" href="#tree.tree.narytree.cursors" title="23.7.4.2.4. nary_tree cursors [narytree.cursors]"><code class="literal">nary_tree</code>
-        cursors <span class="std_section_label">[narytree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6222224"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+        cursors <span class="std_section_label">[narytree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6219664"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp6227792"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6225232"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
-        </p></div><div class="simplesect std_definition" id="idp6229168"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+        </p></div><div class="simplesect std_definition" id="idp6226608"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp6234736"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6232176"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> A cursor to the nary_tree's first element
           in inorder (see [order.iterators], §4).
-        </p></div><div class="simplesect std_specification" id="idp6236416"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp6233856"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant.
         </p></div></div><div class="section  tree_tree_narytree_capacity" id="tree.tree.narytree.capacity"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.5. <a class="link" href="#tree.tree.narytree.capacity" title="23.7.4.2.5. nary_tree capacity [narytree.capacity]"><code class="literal">nary_tree</code>
-        capacity <span class="std_section_label">[narytree.capacity]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6240000"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">size_type</span> <span class="identifier">capacity</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp6245440"><div class="titlepage"></div><p>
+        capacity <span class="std_section_label">[narytree.capacity]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6237440"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">size_type</span> <span class="identifier">capacity</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp6242880"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> The total number of child elements that the
           cursor <code class="literal">position</code> can hold without requiring reallocation.
-        </p></div><div class="simplesect std_definition" id="idp6247552"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">reserve</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6253600"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_definition" id="idp6244992"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">reserve</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp6251040"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span> A directive that informs an <code class="literal">nary_tree</code>
           of a planned change in a given cursor's size, so that it can manage the
           storage allocation accordingly. After <code class="computeroutput"><span class="identifier">reserve</span><span class="special">(</span><span class="identifier">position</span><span class="special">,</span> <span class="identifier">n</span><span class="special">)</span></code>,
@@ -2048,10 +2046,10 @@ div div.legalnotice p {
           otherwise. Reallocation happens at this point if and only if the current
           capacity is less than the <code class="literal">size_type</code> argument <code class="literal">n</code>
           of <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp6268112"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp6265552"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> It does not change the size of the <code class="literal">nary_tree</code>
           and takes at most linear time in <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp6272496"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp6269936"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Reallocation invalidates all the references,
           pointers, and cursors referring to the child elements of <code class="literal">position</code>.
           It is guaranteed that no reallocation takes place during insertions to
@@ -2059,38 +2057,38 @@ div div.legalnotice p {
           make <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code>
           greater than the size specified in the most recent call to <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>.
         </p></div></div><div class="section  tree_tree_narytree_modifiers" id="tree.tree.narytree.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.6. <a class="link" href="#tree.tree.narytree.modifiers" title="23.7.4.2.6. nary_tree modifiers [narytree.modifiers]"><code class="literal">nary_tree</code>
-        modifiers <span class="std_section_label">[narytree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6283040"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+        modifiers <span class="std_section_label">[narytree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6280480"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">cursor</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
 <span class="identifier">cursor</span>    <span class="identifier">insert_above</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
-</pre></div><div class="simplesect std_specification" id="idp6306400"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6303840"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
           references.
-        </p></div><div class="simplesect std_definition" id="idp6307856"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6312208"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_definition" id="idp6305296"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp6309648"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Notes:</em></span> Invalidates only the cursors and references
           to the erased elements.
         </p></div></div><div class="section  tree_tree_narytree_special" id="tree.tree.narytree.special"><div class="titlepage"><div><div><h6 class="title">23.7.4.2.7. <a class="link" href="#tree.tree.narytree.special" title="23.7.4.2.7. nary_tree specialized algorithms [narytree.special]"><code class="literal">nary_tree</code>
-        specialized algorithms <span class="std_section_label">[narytree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6315984"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+        specialized algorithms <span class="std_section_label">[narytree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6313424"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
               <span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6331696"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6329136"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Effects:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">swap</span><span class="special">(</span><span class="identifier">y</span><span class="special">);</span></code>
-        </p></div><div class="simplesect std_definition" id="idp6336432"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+        </p></div><div class="simplesect std_definition" id="idp6333872"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp6356240"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6353680"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_first</span><span class="special">())</span></code>.
-        </p></div><div class="simplesect std_specification" id="idp6365904"><div class="titlepage"></div><p>
+        </p></div><div class="simplesect std_specification" id="idp6363344"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Complexity:</em></span> constant
-        </p></div><div class="simplesect std_definition" id="idp6367280"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+        </p></div><div class="simplesect std_definition" id="idp6364720"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp6388176"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6385616"><div class="titlepage"></div><p>
           <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">nary_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_cfirst</span><span class="special">())</span></code>.
         </p></div></div></div><div class="section  tree_tree_adaptors" id="tree.tree.adaptors"><div class="titlepage"><div><div><h6 class="title">23.7.4.3. <a class="link" href="#tree.tree.adaptors" title="23.7.4.3. Hierarchy adaptors [hierarchy.adaptors]">Hierarchy adaptors <span class="std_section_label">[hierarchy.adaptors]</span></a></h6></div></div></div><div class="section  tree_tree_adaptors_general" id="tree.tree.adaptors.general"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.1. <a class="link" href="#tree.tree.adaptors.general" title="23.7.4.3.1. In general [hiearchy.adaptors.general]">In general <span class="std_section_label">[hiearchy.adaptors.general]</span></a></h6></div></div></div><p>
           Hierarchy adaptors each take a Hierarchy template parameter, and each of
@@ -2103,7 +2101,7 @@ div div.legalnotice p {
           and most of the optional sequence requirements instead (again except for
           anything allocation related, and some other exceptions).
         </p></div><div class="section  tree_tree_adaptors_foresttree" id="tree.tree.adaptors.foresttree"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2. <a class="link" href="#tree.tree.adaptors.foresttree" title="23.7.4.3.2. Template class forest_tree [foresttree]">Template class <code class="literal">forest_tree</code>
-        <span class="std_section_label">[foresttree]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6405056"><div class="titlepage"></div><p>
+        <span class="std_section_label">[foresttree]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6401808"><div class="titlepage"></div><p>
           A <code class="literal">forest_tree</code> is a kind of mutable plain hierarchy that
           is instantiated with a mutable multiway hierarchy that has insertion semantics
           as a <code class="literal">binary_tree</code> ([bintree.modifiers], §1)), and whose
@@ -2192,9 +2190,9 @@ div div.legalnotice p {
 
 <span class="special">}</span> <span class="comment">// namespace std</span>
 </pre></div><div class="section  tree_tree_adaptors_foresttree_types" id="tree.tree.adaptors.foresttree.types"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2.1. <a class="link" href="#tree.tree.adaptors.foresttree.types" title="23.7.4.3.2.1. forest_tree types [foresttree.types]"><code class="literal">forest_tree</code>
-          types <span class="std_section_label">[foresttree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6661808"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">cursor</span><span class="special">;</span>
+          types <span class="std_section_label">[foresttree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6658560"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">cursor</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="emphasis"><em>implementation-defined</em></span>                        <span class="identifier">const_cursor</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp6667056"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6663808"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> If (the adaptee) <code class="literal">Hierarchy</code>'s
             cursor types are at least ascending bidirectional cursors, both <code class="literal">cursor</code>
             and <code class="literal">const_cursor</code> are ascending bidirectional cursors.
@@ -2273,11 +2271,11 @@ div div.legalnotice p {
                       linear
                     </p>
                   </td></tr></tbody></table></div></div><br class="table-break"></div></div><div class="section  tree_tree_adaptors_foresttree_cons" id="tree.tree.adaptors.foresttree.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2.2. <a class="link" href="#tree.tree.adaptors.foresttree.cons" title="23.7.4.3.2.2. forest_tree constructors, copy, and assignment [foresttree.cons]"><code class="literal">forest_tree</code>
-          constructors, copy, and assignment <span class="std_section_label">[foresttree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6726208"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">forest_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
+          constructors, copy, and assignment <span class="std_section_label">[foresttree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6722896"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">forest_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">forest_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
 <span class="identifier">forest_tree</span> <span class="special">(</span><span class="identifier">forest_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;);</span>
-</pre></div><div class="simplesect std_specification" id="idp6743264"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6739952"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> The constructor <code class="computeroutput"><span class="keyword">template</span>
             <span class="special">&lt;</span><span class="keyword">class</span>
             <span class="identifier">InputCursor</span><span class="special">&gt;</span>
@@ -2290,31 +2288,31 @@ div div.legalnotice p {
             and <code class="literal">logN</code> reallocations if they are just cursors, since
             it is impossible to determine the size of <code class="literal">subtree</code>
             and then do copying.
-          </p></div><div class="simplesect std_definition" id="idp6756224"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+          </p></div><div class="simplesect std_definition" id="idp6752912"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6763360"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6760048"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span>
           </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
 <span class="keyword">for</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
   <span class="identifier">insert</span><span class="special">(</span><span class="identifier">root</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">i</span><span class="special">);</span>
 </pre></div></div><div class="section  tree_tree_adaptors_foresttree_cursors" id="tree.tree.adaptors.foresttree.cursors"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2.3. <a class="link" href="#tree.tree.adaptors.foresttree.cursors" title="23.7.4.3.2.3. forest_tree cursors [foresttree.cursors]"><code class="literal">forest_tree</code>
           cursors <span class="std_section_label">[foresttree.cursors]</span></a></h6></div></div></div></div><div class="section  tree_tree_adaptors_foresttree_modifiers" id="tree.tree.adaptors.foresttree.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2.4. <a class="link" href="#tree.tree.adaptors.foresttree.modifiers" title="23.7.4.3.2.4. forest_tree modifiers [foresttree.modifiers]"><code class="literal">forest_tree</code>
-          modifiers <span class="std_section_label">[foresttree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6785152"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+          modifiers <span class="std_section_label">[foresttree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6781840"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">cursor</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
 <span class="identifier">cursor</span>    <span class="identifier">insert_above</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
-</pre></div><div class="simplesect std_specification" id="idp6808512"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6805200"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
             references.
-          </p></div><div class="simplesect std_definition" id="idp6809968"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6814320"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_definition" id="idp6806656"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp6811008"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> Invalidates only the cursors and references
             to the erased elements.
           </p></div></div><div class="section  tree_tree_adaptors_foresttree_special" id="tree.tree.adaptors.foresttree.special"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.2.5. <a class="link" href="#tree.tree.adaptors.foresttree.special" title="23.7.4.3.2.5. forest_tree specialized algorithms [foresttree.special]"><code class="literal">forest_tree</code>
-          specialized algorithms <span class="std_section_label">[foresttree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6818096"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+          specialized algorithms <span class="std_section_label">[foresttree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp6814784"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">forest_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
             <span class="identifier">forest_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp6833808"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp6830496"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">swap</span><span class="special">(</span><span class="identifier">y</span><span class="special">);</span></code>
           </p></div></div></div><div class="section  tree_tree_adaptors_multiwaytree" id="tree.tree.adaptors.multiwaytree"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3. <a class="link" href="#tree.tree.adaptors.multiwaytree" title="23.7.4.3.3. Class template multiway_tree [multiwaytree]">Class template <code class="literal">multiway_tree</code>
         <span class="std_section_label">[multiwaytree]</span></a></h6></div></div></div><p>
@@ -2415,16 +2413,16 @@ div div.legalnotice p {
           and <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span></code>
           are required to be random access cursors.
         </p><div class="section  tree_tree_adaptors_multiwaytree_types" id="tree.tree.adaptors.multiwaytree.types"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.1. <a class="link" href="#tree.tree.adaptors.multiwaytree.types" title="23.7.4.3.3.1. multiway_tree types [multiwaytree.types]"><code class="literal">multiway_tree</code>
-          types <span class="std_section_label">[multiwaytree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7099392"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">cursor</span><span class="special">;</span>
+          types <span class="std_section_label">[multiwaytree.types]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7096080"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">cursor</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">implementation</span> <span class="identifier">defined</span>                        <span class="identifier">const_cursor</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp7106304"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7102992"><div class="titlepage"></div><p>
             Both <code class="literal">cursor</code> and <code class="literal">const_cursor</code> have
             to fulfill the plain cursor requirements ([cursor.flavors]). If <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">hierarchy_type</span><span class="special">::</span><span class="identifier">cursor</span></code>
             is an ascending random access cursor, <code class="literal">cursor</code> and
             <code class="literal">const_cursor</code> are also ascending random access cursors
             ([ascending.random.access.cursors]); otherwise, they are descending random
             access cursor ([descending.random.access.cursors]).
-          </p></div><div class="simplesect std_specification" id="idp7112624"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7109312"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> The operational semantics of the adaptor
             cursor are as follows in terms of the adaptee cursor (only valid if present
             in the adaptor cursor's category; only given for mutable versions of
@@ -2456,11 +2454,11 @@ div div.legalnotice p {
                       constant
                     </p>
                   </td></tr></tbody></table></div></div><br class="table-break"></div></div><div class="section  tree_tree_adaptors_multiwaytree_cons" id="tree.tree.adaptors.multiwaytree.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.2. <a class="link" href="#tree.tree.adaptors.multiwaytree.cons" title="23.7.4.3.3.2. multiway_tree constructors, copy, and assignment [multiwaytree.cons]"><code class="literal">multiway_tree</code>
-          constructors, copy, and assignment <span class="std_section_label">[multiwaytree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7133600"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">multiway_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
+          constructors, copy, and assignment <span class="std_section_label">[multiwaytree.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7130224"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">multiway_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">multiway_tree</span> <span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
 <span class="identifier">multiway_tree</span> <span class="special">(</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp7152688"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7149296"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> The constructor <code class="computeroutput"><span class="keyword">template</span>
             <span class="special">&lt;</span><span class="keyword">class</span>
             <span class="identifier">InputCursor</span><span class="special">&gt;</span>
@@ -2473,32 +2471,32 @@ div div.legalnotice p {
             and <code class="literal">logN</code> reallocations if they are just cursors, since
             it is impossible to determine the size of <code class="literal">subtree</code>
             and then do copying.
-          </p></div><div class="simplesect std_definition" id="idp7166592"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
+          </p></div><div class="simplesect std_definition" id="idp7163200"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp7174176"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7170784"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span>
           </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
 <span class="keyword">for</span><span class="special">(</span><span class="identifier">InputCursor</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">subtree</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
   <span class="identifier">insert</span><span class="special">(</span><span class="identifier">root</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">i</span><span class="special">);</span>
 </pre></div></div><div class="section  tree_tree_adaptors_multiwaytree_cursors" id="tree.tree.adaptors.multiwaytree.cursors"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.3. <a class="link" href="#tree.tree.adaptors.multiwaytree.cursors" title="23.7.4.3.3.3. multiway_tree cursors [multiwaytree.cursors]"><code class="literal">multiway_tree</code>
-          cursors <span class="std_section_label">[multiwaytree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7194992"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
+          cursors <span class="std_section_label">[multiwaytree.cursors]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7191600"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">shoot</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">cshoot</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp7200848"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7197456"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> constant
-          </p></div><div class="simplesect std_definition" id="idp7202304"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
+          </p></div><div class="simplesect std_definition" id="idp7198912"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">inorder_first</span><span class="special">();</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">inorder_cfirst</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp7208208"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7204816"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Returns:</em></span> A cursor to the <code class="literal">multiway_tree</code>'s
             first element in inorder (see [order.iterators], §4).
-          </p></div><div class="simplesect std_specification" id="idp7210560"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7207168"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> constant.
           </p></div></div><div class="section  tree_tree_adaptors_multiwaytree_capacity" id="tree.tree.adaptors.multiwaytree.capacity"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.4. <a class="link" href="#tree.tree.adaptors.multiwaytree.capacity" title="23.7.4.3.3.4. multiway_tree capacity [multiwaytree.capacity]"><code class="literal">multiway_tree</code>
-          capacity <span class="std_section_label">[multiwaytree.capacity]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7214832"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">size_type</span> <span class="identifier">capacity</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp7220560"><div class="titlepage"></div><p>
+          capacity <span class="std_section_label">[multiwaytree.capacity]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7211440"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">size_type</span> <span class="identifier">capacity</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp7217168"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Returns:</em></span> The total number of child elements that
             the cursor <code class="literal">position</code> can hold without requiring reallocation.
-          </p></div><div class="simplesect std_definition" id="idp7222768"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">reserve</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp7229168"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_definition" id="idp7219376"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span> <span class="identifier">reserve</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp7225776"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span> A directive that informs an <code class="literal">multiway_tree</code>
             of a planned change in a given cursor's size, so that it can manage the
             storage allocation accordingly. After <code class="computeroutput"><span class="identifier">reserve</span><span class="special">(</span><span class="identifier">position</span><span class="special">,</span> <span class="identifier">n</span><span class="special">)</span></code>, <code class="computeroutput"><span class="identifier">capacity</span><span class="special">(</span><span class="identifier">position</span><span class="special">)</span></code> is greater or equal to the <code class="literal">size_type</code>
@@ -2506,10 +2504,10 @@ div div.legalnotice p {
             equal to the previous value of <code class="computeroutput"><span class="identifier">capacity</span><span class="special">(</span><span class="identifier">position</span><span class="special">)</span></code> otherwise. Reallocation happens at this
             point if and only if the current capacity is less than the <code class="literal">size_type</code>
             argument <code class="literal">n</code> of <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>.
-          </p></div><div class="simplesect std_specification" id="idp7261104"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7241440"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> It does not change the size of the
             <code class="literal">multiway_tree</code> and takes at most linear time in <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code>.
-          </p></div><div class="simplesect std_specification" id="idp7265888"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7262496"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> Reallocation invalidates all the references,
             pointers, and cursors referring to the child elements of <code class="literal">position</code>.
             It is guaranteed that no reallocation takes place during insertions to
@@ -2517,40 +2515,40 @@ div div.legalnotice p {
             until the time when an insertion would make <code class="computeroutput"><span class="identifier">position</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code> greater than the size specified in
             the most recent call to <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>.
           </p></div></div><div class="section  tree_tree_adaptors_multiwaytree_modifiers" id="tree.tree.adaptors.multiwaytree.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.5. <a class="link" href="#tree.tree.adaptors.multiwaytree.modifiers" title="23.7.4.3.3.5. multiway_tree modifiers [multiwaytree.modifiers]"><code class="literal">multiway_tree</code>
-          modifiers <span class="std_section_label">[multiwaytree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7277728"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
+          modifiers <span class="std_section_label">[multiwaytree.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7274336"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputCursor</span><span class="special">&gt;</span>
   <span class="identifier">cursor</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputCursor</span> <span class="identifier">subtree</span><span class="special">);</span>
 <span class="identifier">cursor</span>    <span class="identifier">insert_above</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
-</pre></div><div class="simplesect std_specification" id="idp7302272"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7298880"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> Does not affect the validity of cursors and
             references.
-          </p></div><div class="simplesect std_definition" id="idp7303776"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp7308416"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_definition" id="idp7300384"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">(</span><span class="identifier">cursor</span> <span class="identifier">position</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp7305024"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> Invalidates only the cursors and references
             to the erased elements.
           </p></div></div><div class="section  tree_tree_adaptors_multiwaytree_special" id="tree.tree.adaptors.multiwaytree.special"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.3.6. <a class="link" href="#tree.tree.adaptors.multiwaytree.special" title="23.7.4.3.3.6. multiway_tree specialized algorithms [multiwaytree.special]"><code class="literal">multiway_tree</code>
-          specialized algorithms <span class="std_section_label">[multiwaytree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7312800"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+          specialized algorithms <span class="std_section_label">[multiwaytree.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp7309408"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
               <span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp7329328"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7325936"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">swap</span><span class="special">(</span><span class="identifier">y</span><span class="special">);</span></code>
-          </p></div><div class="simplesect std_definition" id="idp7334336"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+          </p></div><div class="simplesect std_definition" id="idp7330944"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp7355216"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7351824"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;::</span><span class="identifier">cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_first</span><span class="special">())</span></code>.
-          </p></div><div class="simplesect std_specification" id="idp7365472"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7362080"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> constant
-          </p></div><div class="simplesect std_definition" id="idp7366928"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+          </p></div><div class="simplesect std_definition" id="idp7363536"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tp</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
     <span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp7388960"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7385568"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">inorder</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">multiway_tree</span><span class="special">&lt;</span><span class="identifier">Tp</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_cursor</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">.</span><span class="identifier">inorder_cfirst</span><span class="special">())</span></code>.
-          </p></div><div class="simplesect std_specification" id="idp7399216"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7395824"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> constant
           </p></div></div></div><div class="section  tree_tree_adaptors_augment" id="tree.tree.adaptors.augment"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.4. <a class="link" href="#tree.tree.adaptors.augment" title="23.7.4.3.4. Augmenting hierarchy adaptors [hierarchy.augment]">Augmenting hierarchy adaptors
         <span class="std_section_label">[hierarchy.augment]</span></a></h6></div></div></div><p>
@@ -2663,13 +2661,13 @@ div div.legalnotice p {
             in the public interface of <code class="literal">hierarchy_type</code>. (The only
             exception to the above stated are the functions <code class="literal">rank()</code>,
             which are newly introduced.)
-          </p><div class="simplesect std_definition" id="idp7685984"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
+          </p><div class="simplesect std_definition" id="idp7682592"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">cursor</span>        <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">);</span>
 <span class="identifier">const_cursor</span>  <span class="identifier">rank</span><span class="special">(</span><span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp7695152"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp7691760"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Returns:</em></span> A cursor (or <code class="literal">const_cursor</code>)
             to the <code class="literal">n=th element of the hierarchy in inorder, counting from
             =inorder_first()</code>.
-          </p></div><div class="simplesect std_specification" id="idp7698000"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp7694608"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> logarithmic in <code class="literal">size()</code>.
           </p></div></div></div><div class="section  tree_tree_adaptors_balance" id="tree.tree.adaptors.balance"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5. <a class="link" href="#tree.tree.adaptors.balance" title="23.7.4.3.5. Balancing hierarchy adaptors [hierarchy.balance]">Balancing hierarchy adaptors
         <span class="std_section_label">[hierarchy.balance]</span></a></h6></div></div></div><div class="note"><h3 class="title">Note</h3><p>
@@ -2850,25 +2848,25 @@ div div.legalnotice p {
 
 <span class="special">}</span> <span class="comment">// namespace std</span>
 </pre><div class="section  tree_tree_adaptors_balance_cons" id="tree.tree.adaptors.balance.cons"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.1. <a class="link" href="#tree.tree.adaptors.balance.cons" title="23.7.4.3.5.1. Balancing adaptor constructors, copy, and assigment [balance.cons]">Balancing adaptor
-          constructors, copy, and assigment <span class="std_section_label">[balance.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8239984"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">avl_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
+          constructors, copy, and assigment <span class="std_section_label">[balance.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8236592"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">avl_tree</span> <span class="special">(</span><span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputIterator</span><span class="special">&gt;</span>
   <span class="identifier">avl_tree</span> <span class="special">(</span><span class="identifier">InputIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">InputIterator</span> <span class="identifier">last</span><span class="special">,</span>
     <span class="identifier">hierarchy_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">hierarchy_type</span><span class="special">());</span>
 <span class="identifier">avl_tree</span> <span class="special">(</span><span class="identifier">avl_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8264448"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8261056"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span> constructs a balanced tree equal to the
             range [<code class="literal">first</code>, <code class="literal">last</code>).
-          </p></div><div class="simplesect std_specification" id="idp8267232"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp8263840"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> Linear.
-          </p></div><div class="simplesect std_definition" id="idp8268688"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputIterator</span><span class="special">&gt;</span>
+          </p></div><div class="simplesect std_definition" id="idp8265296"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputIterator</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">InputIterator</span> <span class="identifier">last</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8278048"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8274656"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span>
           </p><pre class="programlisting"><span class="identifier">clear</span><span class="special">();</span>
 <span class="keyword">while</span><span class="special">(</span><span class="identifier">first</span><span class="special">++</span> <span class="special">!=</span> <span class="identifier">last</span><span class="special">)</span>
   <span class="identifier">insert</span><span class="special">(</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">*</span><span class="identifier">first</span><span class="special">);</span>
 </pre></div></div><div class="section  tree_tree_adaptors_balance_map" id="tree.tree.adaptors.balance.map"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.2. <a class="link" href="#tree.tree.adaptors.balance.map" title="23.7.4.3.5.2. Balancing adaptor map operations [balance.map]">Balancing adaptor
-          map operations <span class="std_section_label">[balance.map]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8291104"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+          map operations <span class="std_section_label">[balance.map]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8287712"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
 <span class="identifier">const_iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cmp</span><span class="special">&gt;</span>
   <span class="identifier">iterator</span> <span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">Cmp</span> <span class="identifier">cmp</span><span class="special">);</span>
@@ -2901,7 +2899,7 @@ div div.legalnotice p {
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cmp</span><span class="special">&gt;</span>
   <span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">const_iterator</span><span class="special">,</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
     <span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">Cmp</span> <span class="identifier">cmp</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp8449568"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8446176"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Notes:</em></span> The <code class="literal">find</code>, <code class="literal">lower_bound</code>,
             <code class="literal">upper_bound</code> and <code class="literal">equal_range</code> member
             functions each have four versions, differing in whether they return an
@@ -2910,39 +2908,39 @@ div div.legalnotice p {
             (<code class="literal">count</code> comes only in the latter two variants, as it
             returns a <code class="literal">size_type</code>, not an iterator). In each case
             the behavior of the four (two) functions is in principle identical.
-          </p></div><div class="simplesect std_specification" id="idp8457216"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_specification" id="idp8453824"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> logarithmic (with the exception of
             <code class="literal">count</code>, which is <code class="computeroutput"><span class="identifier">log</span><span class="special">(</span><span class="identifier">size</span><span class="special">())</span> <span class="special">+</span> <span class="identifier">count</span><span class="special">(</span><span class="identifier">x</span><span class="special">)</span></code>
           </p></div></div><div class="section  tree_tree_adaptors_balance_modifiers" id="tree.tree.adaptors.balance.modifiers"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.3. <a class="link" href="#tree.tree.adaptors.balance.modifiers" title="23.7.4.3.5.3. Balancing adaptor modifiers [balance.modifiers]">Balancing adaptor
-          modifiers <span class="std_section_label">[balance.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8467056"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">push_front</span><span class="special">(</span><span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+          modifiers <span class="std_section_label">[balance.modifiers]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8463664"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">push_front</span><span class="special">(</span><span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
 <span class="keyword">void</span>      <span class="identifier">push_back</span><span class="special">(</span><span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
 <span class="identifier">iterator</span>  <span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">());</span>
-</pre></div><div class="simplesect std_specification" id="idp8485008"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8481616"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> amortized constant
-          </p></div><div class="simplesect std_definition" id="idp8486464"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
+          </p></div><div class="simplesect std_definition" id="idp8483072"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="identifier">n</span><span class="special">,</span> <span class="identifier">value_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">);</span>
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">InputIterator</span><span class="special">&gt;</span>
   <span class="keyword">void</span>    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">position</span><span class="special">,</span> <span class="identifier">InputIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">InputIterator</span> <span class="identifier">last</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8505696"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8502304"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> linear in the number of elements to
             insert
-          </p></div><div class="simplesect std_definition" id="idp8507200"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">pop_front</span><span class="special">();</span>
+          </p></div><div class="simplesect std_definition" id="idp8503808"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">pop_front</span><span class="special">();</span>
 <span class="keyword">void</span>      <span class="identifier">pop_back</span><span class="special">();</span>
 <span class="keyword">void</span>      <span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">position</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8515392"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8512000"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> amortized constant
-          </p></div><div class="simplesect std_definition" id="idp8516848"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="identifier">last</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8523264"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_definition" id="idp8513456"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="identifier">last</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp8519872"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> <code class="literal">log(size())+N</code> where
             <code class="literal">N</code> is the distance from <code class="literal">first</code> to
             <code class="literal">last</code>
-          </p></div><div class="simplesect std_definition" id="idp8527328"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">();</span>
-</pre></div><div class="simplesect std_specification" id="idp8530320"><div class="titlepage"></div><p>
+          </p></div><div class="simplesect std_definition" id="idp8523936"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">void</span>      <span class="identifier">clear</span><span class="special">();</span>
+</pre></div><div class="simplesect std_specification" id="idp8526928"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Complexity:</em></span> <code class="literal">log(size())+N</code>
           </p></div></div><div class="section  tree_tree_adaptors_balance_special" id="tree.tree.adaptors.balance.special"><div class="titlepage"><div><div><h6 class="title">23.7.4.3.5.4. <a class="link" href="#tree.tree.adaptors.balance.special" title="23.7.4.3.5.4. Balancing adaptor specialized algorithms [balance.special]">Balancing adaptor
-          specialized algorithms <span class="std_section_label">[balance.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8534800"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
+          specialized algorithms <span class="std_section_label">[balance.special]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp8531408"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
   <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span>  <span class="identifier">avl_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
               <span class="identifier">avl_tree</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hierarchy</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp8551280"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp8547888"><div class="titlepage"></div><p>
             <span class="emphasis"><em>Effects:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">swap</span><span class="special">(</span><span class="identifier">y</span><span class="special">);</span></code>
           </p></div></div></div></div></div></div></div><div class="section std_section tree_proposal_iterators" id="tree.proposal.iterators"><div class="titlepage"><div><div><h3 class="title">24. <a class="link" href="#tree.proposal.iterators" title="24. Iterators library [iterators]">Iterators library
   <span class="std_section_label">[iterators]</span></a></h3></div></div></div><div class="section std_section iterator_synopsis" id="iterator.synopsis"><div class="titlepage"><div><div><h4 class="title">24.3. <a class="link" href="#iterator.synopsis" title="24.3. Headers &lt;iterator&gt; synopsis [iterator.synopsis]">Headers
@@ -3058,7 +3056,7 @@ div div.legalnotice p {
     type <code class="literal">T</code>, <code class="literal">a</code> and <code class="literal">b</code> denotes
     an identifier, <code class="literal">r</code> denotes a value of <code class="literal">T&amp;</code>
     and <code class="literal">t</code> denotes a value of type <code class="literal">T</code>.
-  </p><div class="section  tree_cursor_requirements" id="tree.cursor_requirements"><div class="titlepage"><div><div><h5 class="title">24.7.1. <a class="link" href="#tree.cursor_requirements" title="24.7.1. Cursor requirements [cursor.requirements]">Cursor requirements <span class="std_section_label">[cursor.requirements]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp8724272"><div class="titlepage"></div><p>
+  </p><div class="section  tree_cursor_requirements" id="tree.cursor_requirements"><div class="titlepage"><div><div><h5 class="title">24.7.1. <a class="link" href="#tree.cursor_requirements" title="24.7.1. Cursor requirements [cursor.requirements]">Cursor requirements <span class="std_section_label">[cursor.requirements]</span></a></h5></div></div></div><div class="simplesect std_requisite" id="idp8720880"><div class="titlepage"></div><p>
       A class <code class="literal">X</code> satisfies the requirements of a cursor if the
       following expressions are valid, as shown in Table 8, in addition to satisfying
       the requirements of input iterators ([input.iterators]) and output iterators
@@ -3136,7 +3134,7 @@ div div.legalnotice p {
                 compile time
               </p>
             </td></tr></tbody></table></div></div><br class="table-break"></div><div class="section  tree_cursor_requirements_descending" id="tree.cursor_requirements.descending"><div class="titlepage"><div><div><h6 class="title">24.7.1.1. <a class="link" href="#tree.cursor_requirements.descending" title="24.7.1.1. Descending Cursor [descending.cursors]">Descending Cursor
-      <span class="std_section_label">[descending.cursors]</span></a></h6></div></div></div><div class="simplesect std_requisite" id="idp8754752"><div class="titlepage"></div><p>
+      <span class="std_section_label">[descending.cursors]</span></a></h6></div></div></div><div class="simplesect std_requisite" id="idp8751360"><div class="titlepage"></div><p>
         A class <code class="literal">X</code> satisfies the requirements of a descending cursor
         if, in addition to satisfying the requirements for cursors ([cursor.requirements])
         it also conforms to the container requirements ([container.requirements])
@@ -3236,7 +3234,7 @@ div div.legalnotice p {
               </td></tr></tbody></table></div></div><br class="table-break"><p>
         Notes: The expressions <code class="literal">a.begin()</code> and <code class="literal">a.end()</code>
         are, as shown in Table 9, replaced with equivalent expressions for cursors.
-      </p></div><div class="simplesect std_requisite" id="idp8836688"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_requisite" id="idp8833296"><div class="titlepage"></div><p>
         Additionally, for a descending cursor, the following expression are valid,
         as shown in Table 10:
       </p><div class="table" id="tree.cursor_requirements.descending.table10"><div class="table-title">Table 10.  Descending cursor requirements (in addition to cursor)</div><div class="table-contents"><table class="table" summary=" Descending cursor requirements (in addition to cursor)"><colgroup><col><col><col><col></colgroup><thead><tr><th>
@@ -3473,7 +3471,7 @@ div div.legalnotice p {
                   compile time
                 </p>
               </td></tr></tbody></table></div></div><br class="table-break"></div><div class="section  tree_cursor_requirements_ascending" id="tree.cursor_requirements.ascending"><div class="titlepage"><div><div><h6 class="title">24.7.1.5. <a class="link" href="#tree.cursor_requirements.ascending" title="24.7.1.5. Ascending Cursor [ascending.cursors]">Ascending Cursor
-      <span class="std_section_label">[ascending.cursors]</span></a></h6></div></div></div><div class="simplesect std_requisite" id="idp8935888"><div class="titlepage"></div><p>
+      <span class="std_section_label">[ascending.cursors]</span></a></h6></div></div></div><div class="simplesect std_requisite" id="idp8932496"><div class="titlepage"></div><p>
         A class type <code class="literal">X</code> satisfies the requirements of an ascending
         cursor if the following expressions are valid, as shown in Table 14, in addition
         to satisfying the requirements for descending cursors ([descending.cursors]):
@@ -3808,7 +3806,7 @@ div div.legalnotice p {
     Increment and decrement operations for these iterator adaptor classes are implemented
     to allow stepwise iteration according to the respective requirements.
   </p><div class="section  tree_order_iterator" id="tree.order_iterator"><div class="titlepage"><div><div><h5 class="title">24.8.1. <a class="link" href="#tree.order_iterator" title="24.8.1. Class template iterator [order.iterator]">Class template <code class="literal">iterator</code>
-    <span class="std_section_label">[order.iterator]</span></a></h5></div></div></div><div class="simplesect std_definition" id="idp9321920"><div class="titlepage"></div><p>
+    <span class="std_section_label">[order.iterator]</span></a></h5></div></div></div><div class="simplesect std_definition" id="idp9318528"><div class="titlepage"></div><p>
       In the following, the template class <code class="literal">iterator</code> and related
       operators only as in <code class="literal">namespace</code> <code class="literal">preorder</code>
       are shown. Note that template classes and operators of same name and interface
@@ -3871,60 +3869,60 @@ div div.legalnotice p {
       ([order.iter.op.eq]) is referenced in a way that requires instantiation (14.7.1).
     </p></div><div class="section  tree_order_iter_ops" id="tree.order_iter_ops"><div class="titlepage"><div><div><h5 class="title">24.8.3. <a class="link" href="#tree.order_iter_ops" title="24.8.3. inorder::iterator operations [order.iter.ops]"><code class="literal">inorder::iterator</code>
     operations <span class="std_section_label">[order.iter.ops]</span></a></h5></div></div></div><div class="section  tree_order_iter_ops_order_iter_cons" id="tree.order_iter_ops.order_iter_cons"><div class="titlepage"><div><div><h6 class="title">24.8.3.1. <a class="link" href="#tree.order_iter_ops.order_iter_cons" title="24.8.3.1. inorder::iterator constructor [order.iter.cons]"><code class="literal">inorder::iterator</code>
-      constructor <span class="std_section_label">[order.iter.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9454528"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">iterator</span><span class="special">(</span><span class="identifier">Cursor</span> <span class="identifier">x</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp9459104"><div class="titlepage"></div><p>
+      constructor <span class="std_section_label">[order.iter.cons]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9451136"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">explicit</span> <span class="identifier">iterator</span><span class="special">(</span><span class="identifier">Cursor</span> <span class="identifier">x</span><span class="special">);</span>
+</pre></div><div class="simplesect std_specification" id="idp9455712"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Effects:</em></span> Initializes <code class="literal">current</code> with
         <code class="literal">x</code>.
-      </p></div></div><div class="section  tree_order_iter_ops_order_iter_conv" id="tree.order_iter_ops.order_iter_conv"><div class="titlepage"><div><div><h6 class="title">24.8.3.2. <a class="link" href="#tree.order_iter_ops.order_iter_conv" title="24.8.3.2. Conversion [order.iter.conv]">Conversion <span class="std_section_label">[order.iter.conv]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9464304"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Iterator</span> <span class="identifier">base</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span> <span class="comment">// explicit</span>
-</pre></div><div class="simplesect std_specification" id="idp9469024"><div class="titlepage"></div><p>
+      </p></div></div><div class="section  tree_order_iter_ops_order_iter_conv" id="tree.order_iter_ops.order_iter_conv"><div class="titlepage"><div><div><h6 class="title">24.8.3.2. <a class="link" href="#tree.order_iter_ops.order_iter_conv" title="24.8.3.2. Conversion [order.iter.conv]">Conversion <span class="std_section_label">[order.iter.conv]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9460912"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Iterator</span> <span class="identifier">base</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span> <span class="comment">// explicit</span>
+</pre></div><div class="simplesect std_specification" id="idp9465632"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">current</span></code>
       </p></div></div><div class="section  tree_order_iter_ops_order_iter_op_star" id="tree.order_iter_ops.order_iter_op_star"><div class="titlepage"><div><div><h6 class="title">24.8.3.3. <a class="link" href="#tree.order_iter_ops.order_iter_op_star" title="24.8.3.3. operator* [order.iter.op.star]"><code class="literal">operator*</code>
-      <span class="std_section_label">[order.iter.op.star]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9474480"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Reference</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9478560"><div class="titlepage"></div><p>
+      <span class="std_section_label">[order.iter.op.star]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9471088"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Reference</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9475168"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="special">*</span><span class="identifier">current</span></code>
       </p></div></div><div class="section  tree_order_iter_ops_order_iter_op_ref" id="tree.order_iter_ops.order_iter_op_ref"><div class="titlepage"><div><div><h6 class="title">24.8.3.4. <a class="link" href="#tree.order_iter_ops.order_iter_op_ref" title="24.8.3.4. operator-&gt; [order.iter.op.ref]"><code class="literal">operator-&gt;</code>
-      <span class="std_section_label">[order.iter.op.ref]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9484544"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Pointer</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9488656"><div class="titlepage"></div><p>
+      <span class="std_section_label">[order.iter.op.ref]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9481152"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">Pointer</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9485264"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="special">&amp;(</span><span class="keyword">operator</span><span class="special">*())</span></code>
       </p></div></div><div class="section  tree_order_iter_ops_order_iter_op_inc" id="tree.order_iter_ops.order_iter_op_inc"><div class="titlepage"><div><div><h6 class="title">24.8.3.5. <a class="link" href="#tree.order_iter_ops.order_iter_op_inc" title="24.8.3.5. operator++ [order.iter.op.inc]"><code class="literal">operator++</code>
-      <span class="std_section_label">[order.iter.op.inc]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9495072"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">++()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9499680"><div class="titlepage"></div><p>
+      <span class="std_section_label">[order.iter.op.inc]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9491680"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">++()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9496288"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Effects:</em></span> Sets <code class="literal">current</code> to the next
         cursor in the given order.
-      </p></div><div class="simplesect std_specification" id="idp9501824"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9498432"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
-      </p></div><div class="simplesect std_definition" id="idp9504848"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9509968"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_definition" id="idp9501456"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9506576"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Effects:</em></span>
       </p><pre class="programlisting"><span class="identifier">iterator</span> <span class="identifier">tmp</span> <span class="special">=</span> <span class="special">*</span><span class="keyword">this</span><span class="special">;</span>
 <span class="keyword">this</span><span class="special">-&gt;</span><span class="keyword">operator</span><span class="special">++();</span>
 <span class="keyword">return</span> <span class="identifier">tmp</span><span class="special">;</span>
 </pre></div></div><div class="section  tree_order_iter_ops_order_iter_op_dec" id="tree.order_iter_ops.order_iter_op_dec"><div class="titlepage"><div><div><h6 class="title">24.8.3.6. <a class="link" href="#tree.order_iter_ops.order_iter_op_dec" title="24.8.3.6. operator-- [order.iter.op.dec]"><code class="literal">operator--</code>
-      <span class="std_section_label">[order.iter.op.dec]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9522400"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">--()</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9527008"><div class="titlepage"></div><p>
+      <span class="std_section_label">[order.iter.op.dec]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9519008"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">--()</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9523616"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Effects:</em></span> Sets <code class="literal">current</code> to the previous
         cursor in the given order.
-      </p></div><div class="simplesect std_specification" id="idp9529152"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9525760"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
-      </p></div><div class="simplesect std_definition" id="idp9532176"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="keyword">operator</span><span class="special">--(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-</pre></div><div class="simplesect std_specification" id="idp9537296"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_definition" id="idp9528784"><div class="titlepage"></div><pre class="programlisting"><span class="identifier">iterator</span> <span class="keyword">operator</span><span class="special">--(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+</pre></div><div class="simplesect std_specification" id="idp9533904"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Effects:</em></span>
       </p><pre class="programlisting"><span class="identifier">iterator</span> <span class="identifier">tmp</span> <span class="special">=</span> <span class="special">*</span><span class="keyword">this</span><span class="special">;</span>
 <span class="keyword">this</span><span class="special">-&gt;</span><span class="keyword">operator</span><span class="special">--();</span>
 <span class="keyword">return</span> <span class="identifier">tmp</span><span class="special">;</span>
 </pre></div></div><div class="section  tree_order_iter_ops_order_iter_op_eq" id="tree.order_iter_ops.order_iter_op_eq"><div class="titlepage"><div><div><h6 class="title">24.8.3.7. <a class="link" href="#tree.order_iter_ops.order_iter_op_eq" title="24.8.3.7. operator== [order.iter.op.eq]"><code class="literal">operator==</code>
-      <span class="std_section_label">[order.iter.op.eq]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9549728"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cursor</span><span class="special">&gt;</span>
+      <span class="std_section_label">[order.iter.op.eq]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9546336"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cursor</span><span class="special">&gt;</span>
   <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span>
     <span class="keyword">const</span> <span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">Cursor</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
     <span class="keyword">const</span> <span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">Cursor</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp9563488"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9560096"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">current</span> <span class="special">==</span> <span class="identifier">y</span><span class="special">.</span><span class="identifier">current</span></code>
       </p></div></div><div class="section  tree_order_iter_ops_order_iter_op_ne" id="tree.order_iter_ops.order_iter_op_ne"><div class="titlepage"><div><div><h6 class="title">24.8.3.8. <a class="link" href="#tree.order_iter_ops.order_iter_op_ne" title="24.8.3.8. operator!= [order.iter.op.ne]"><code class="literal">operator!=</code>
-      <span class="std_section_label">[order.iter.op.ne]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9572096"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cursor</span><span class="special">&gt;</span>
+      <span class="std_section_label">[order.iter.op.ne]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9568704"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Cursor</span><span class="special">&gt;</span>
   <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">!=(</span>
     <span class="keyword">const</span> <span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">Cursor</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
     <span class="keyword">const</span> <span class="identifier">iterator</span><span class="special">&lt;</span><span class="identifier">Cursor</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
-</pre></div><div class="simplesect std_specification" id="idp9585856"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9582464"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> <code class="computeroutput"><span class="identifier">x</span><span class="special">.</span><span class="identifier">current</span> <span class="special">!=</span> <span class="identifier">y</span><span class="special">.</span><span class="identifier">current</span></code>
       </p></div></div></div></div></div><div class="section std_section tree_proposal_algorithms" id="tree.proposal.algorithms"><div class="titlepage"><div><div><h3 class="title">25. <a class="link" href="#tree.proposal.algorithms" title="25. Algorithms library [algorithms]">Algorithms
   library <span class="std_section_label">[algorithms]</span></a></h3></div></div></div><div class="note"><h3 class="title">Note</h3><p>
@@ -4002,7 +4000,7 @@ div div.legalnotice p {
       Insert after section 25.2 Non-modifying sequence operations [alg.nonmodifying]
     </p></div><div class="section std_section alg_hierarchy" id="alg.hierarchy"><div class="titlepage"><div><div><h4 class="title">25.3. <a class="link" href="#alg.hierarchy" title="25.3. Non-modifying hierarchy algorithms [alg.hierarchy]">Non-modifying hierarchy algorithms <span class="std_section_label">[alg.hierarchy]</span></a></h4></div></div></div><div class="section  tree_alg_hier_preorder" id="tree.alg_hier_preorder"><div class="titlepage"><div><div><h5 class="title">25.3.1. <a class="link" href="#tree.alg_hier_preorder" title="25.3.1. Non-modifying hierarchy preorder range algorithms [alg.hier.preorder]">Non-modifying hierarchy preorder
     range algorithms <span class="std_section_label">[alg.hier.preorder]</span></a></h5></div></div></div><div class="section  tree_alg_hier_preorder_alg_hier_pre_begin" id="tree.alg_hier_preorder.alg_hier_pre_begin"><div class="titlepage"><div><div><h6 class="title">25.3.1.1. <a class="link" href="#tree.alg_hier_preorder.alg_hier_pre_begin" title="25.3.1.1. Preorder begin [alg.hier.pre.begin]">Preorder begin
-      <span class="std_section_label">[alg.hier.pre.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9748528"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">preorder</span> <span class="special">{</span>
+      <span class="std_section_label">[alg.hier.pre.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9745136"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">preorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">Hierarchy</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
@@ -4010,13 +4008,13 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">Hierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace preorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9773616"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9770224"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing to the first element of
         <code class="literal">h</code> in preorder.
-      </p></div><div class="simplesect std_specification" id="idp9775760"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9772368"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> constant
       </p></div></div><div class="section  tree_alg_hier_preorder_alg_hier_pre_end" id="tree.alg_hier_preorder.alg_hier_pre_end"><div class="titlepage"><div><div><h6 class="title">25.3.1.2. <a class="link" href="#tree.alg_hier_preorder.alg_hier_pre_end" title="25.3.1.2. Preorder end [alg.hier.pre.end]">Preorder end
-      <span class="std_section_label">[alg.hier.pre.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9779600"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">preorder</span> <span class="special">{</span>
+      <span class="std_section_label">[alg.hier.pre.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9776208"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">preorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">end</span><span class="special">(</span><span class="identifier">Hierarchy</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
@@ -4024,14 +4022,14 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cend</span><span class="special">(</span><span class="identifier">Hierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace preorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9804672"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9801280"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing one position past the
         last element of <code class="literal">h</code> in preorder.
-      </p></div><div class="simplesect std_specification" id="idp9806832"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9803440"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> linear
       </p></div></div></div><div class="section  tree_alg_hier_postorder" id="tree.alg_hier_postorder"><div class="titlepage"><div><div><h5 class="title">25.3.2. <a class="link" href="#tree.alg_hier_postorder" title="25.3.2. Non-modifying hierarchy postorder range algorithms [alg.hier.postorder]">Non-modifying hierarchy postorder
     range algorithms <span class="std_section_label">[alg.hier.postorder]</span></a></h5></div></div></div><div class="section  tree_alg_hier_postorder_alg_hier_post_begin" id="tree.alg_hier_postorder.alg_hier_post_begin"><div class="titlepage"><div><div><h6 class="title">25.3.2.1. <a class="link" href="#tree.alg_hier_postorder.alg_hier_post_begin" title="25.3.2.1. Postorder begin [alg.hier.post.begin]">Postorder
-      begin <span class="std_section_label">[alg.hier.post.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9812928"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">postorder</span> <span class="special">{</span>
+      begin <span class="std_section_label">[alg.hier.post.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9809536"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">postorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">Hierarchy</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
@@ -4039,13 +4037,13 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">Hierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace postorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9838016"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9834624"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing to the first element of
         <code class="literal">h</code> in postorder.
-      </p></div><div class="simplesect std_specification" id="idp9840160"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9836768"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> linear
       </p></div></div><div class="section  tree_alg_hier_postorder_alg_hier_post_end" id="tree.alg_hier_postorder.alg_hier_post_end"><div class="titlepage"><div><div><h6 class="title">25.3.2.2. <a class="link" href="#tree.alg_hier_postorder.alg_hier_post_end" title="25.3.2.2. Postorder end [alg.hier.post.end]">Postorder
-      end <span class="std_section_label">[alg.hier.post.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9843984"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">postorder</span> <span class="special">{</span>
+      end <span class="std_section_label">[alg.hier.post.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9840592"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">postorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Hierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">end</span><span class="special">(</span><span class="identifier">Hierarchy</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
@@ -4053,14 +4051,14 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Hierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cend</span><span class="special">(</span><span class="identifier">Hierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">h</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace postorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9869056"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9865664"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing one position past the
         last element of <code class="literal">h</code> in postorder.
-      </p></div><div class="simplesect std_specification" id="idp9871216"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9867824"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> constant
       </p></div></div></div><div class="section  tree_alg_hier_inorder" id="tree.alg_hier_inorder"><div class="titlepage"><div><div><h5 class="title">25.3.3. <a class="link" href="#tree.alg_hier_inorder" title="25.3.3. Non-modifying hierarchy inorder range algorithms [alg.hier.inorder]">Non-modifying hierarchy inorder
     range algorithms <span class="std_section_label">[alg.hier.inorder]</span></a></h5></div></div></div><div class="section  tree_alg_hier_inorder_alg_hier_in_begin" id="tree.alg_hier_inorder.alg_hier_in_begin"><div class="titlepage"><div><div><h6 class="title">25.3.3.1. <a class="link" href="#tree.alg_hier_inorder.alg_hier_in_begin" title="25.3.3.1. Inorder begin [alg.hier.in.begin]">Inorder begin
-      <span class="std_section_label">[alg.hier.in.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9877520"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+      <span class="std_section_label">[alg.hier.in.begin]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9874128"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">MultiwayHierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MultiwayHierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">begin</span><span class="special">(</span><span class="identifier">MultiwayHierarchy</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">);</span>
@@ -4068,12 +4066,12 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MultiwayHierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cbegin</span><span class="special">(</span><span class="identifier">MultiwayHierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9902704"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9899312"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing to the first element of
         <code class="literal">h</code> in inorder.
-      </p></div><div class="simplesect std_specification" id="idp9904848"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9901456"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> linear
-      </p></div></div><div class="section  tree_alg_hier_inorder_alg_hier_in_end" id="tree.alg_hier_inorder.alg_hier_in_end"><div class="titlepage"><div><div><h6 class="title">25.3.3.2. <a class="link" href="#tree.alg_hier_inorder.alg_hier_in_end" title="25.3.3.2. Inorder end [alg.hier.in.end]">Inorder end <span class="std_section_label">[alg.hier.in.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9908656"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
+      </p></div></div><div class="section  tree_alg_hier_inorder_alg_hier_in_end" id="tree.alg_hier_inorder.alg_hier_in_end"><div class="titlepage"><div><div><h6 class="title">25.3.3.2. <a class="link" href="#tree.alg_hier_inorder.alg_hier_in_end" title="25.3.3.2. Inorder end [alg.hier.in.end]">Inorder end <span class="std_section_label">[alg.hier.in.end]</span></a></h6></div></div></div><div class="simplesect std_definition" id="idp9905264"><div class="titlepage"></div><pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">inorder</span> <span class="special">{</span>
   <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">MultiwayHierarchy</span><span class="special">&gt;</span>
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MultiwayHierarchy</span><span class="special">::</span><span class="identifier">cursor</span><span class="special">&gt;</span>
       <span class="identifier">end</span><span class="special">(</span><span class="identifier">MultiwayHierarchy</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">);</span>
@@ -4081,10 +4079,10 @@ div div.legalnotice p {
     <span class="identifier">iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MultiwayHierarchy</span><span class="special">::</span><span class="identifier">const_cursor</span><span class="special">&gt;</span>
       <span class="identifier">cend</span><span class="special">(</span><span class="identifier">MultiwayHierarchy</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">);</span>
 <span class="special">}</span> <span class="comment">// namespace inorder</span>
-</pre></div><div class="simplesect std_specification" id="idp9933824"><div class="titlepage"></div><p>
+</pre></div><div class="simplesect std_specification" id="idp9930432"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Returns:</em></span> An iterator pointing one position past the
         last element of <code class="literal">h</code> in inorder.
-      </p></div><div class="simplesect std_specification" id="idp9935984"><div class="titlepage"></div><p>
+      </p></div><div class="simplesect std_specification" id="idp9932592"><div class="titlepage"></div><p>
         <span class="emphasis"><em>Complexity:</em></span> linear
       </p></div></div></div></div></div></div><div class="section  tree_references" id="tree.references"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3. <a class="link" href="#tree.references" title="3. References">References</a></h2></div></div></div><div class="variablelist"><div class="variablelist-title">References</div><dl class="variablelist"><dt><span class="term">austern</span></dt><dd><p>
             Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,

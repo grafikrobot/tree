@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/24 05:04:55 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/05/24 13:49:27 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -352,6 +352,18 @@
 
   <section id="tree.req">
     <title><link linkend="tree.req">Hierarchy containers requirements <phrase role="std_section_label">[hierarchy.req]</phrase></link></title>
+    <para>
+      In this section's tables, <literal moreinfo="none">X</literal> denotes a hierarchy class,
+      <literal moreinfo="none">a</literal> denotes a value of <literal moreinfo="none">X</literal> containing elements
+      of type <literal moreinfo="none">T</literal>, <literal moreinfo="none">c</literal> denotes a valid, non-on-top
+      cursor satisfying input cursor requirements, <literal moreinfo="none">p</literal> denotes a
+      valid, non-on-top cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">q</literal> denotes
+      a valid, dereferenceable cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">t</literal>
+      denotes an lvalue or a const rvalue of <literal moreinfo="none">X::value_type</literal>, and
+      <literal moreinfo="none">rv</literal> denotes a non-const rvalue of <literal moreinfo="none">X::value_type</literal>.
+      <literal moreinfo="none">Args</literal> denotes a template parameter pack; <literal moreinfo="none">args</literal>
+      denotes a function parameter pack with the pattern <literal moreinfo="none">Args&amp;&amp;</literal>.
+    </para>
     <section id="tree.req.general">
       <title><link linkend="tree.req.general">General hierarchy requirements <phrase role="std_section_label">[hier.req.general]</phrase></link></title>
       <note>
@@ -532,11 +544,6 @@
         however, they are stated in terms of another value.
       </para>
       <simplesect role="std_requisite">
-      <para>
-        In Table 2: <literal moreinfo="none">X</literal> denotes a hierarchy class containing objects
-        of type <literal moreinfo="none">T</literal> and <literal moreinfo="none">a</literal> denotes a value of
-        type <literal moreinfo="none">X</literal>.
-      </para>
       <table frame="all" id="tree.req.general.table2">
         <title>Hierarchy requirements (in addition to container)</title>
         <tgroup cols="4">
@@ -765,16 +772,7 @@
       </simplesect> <simplesect role="std_requisite">
       <para>
         A hierarchy satisfying the requirements shown in Table 3 is called a <emphasis>mutable
-        hierarchy</emphasis>. In Table 3, <literal moreinfo="none">X</literal> denotes a hierarchy
-        class, <literal moreinfo="none">a</literal> denotes a value of <literal moreinfo="none">X</literal> containing
-        elements of type <literal moreinfo="none">T</literal>, <literal moreinfo="none">c</literal> denotes a valid,
-        non-on-top cursor satisfying input cursor requirements, <literal moreinfo="none">p</literal>
-        denotes a valid, non-on-top cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">q</literal>
-        denotes a valid, dereferenceable cursor to <literal moreinfo="none">a</literal>, <literal moreinfo="none">t</literal>
-        denotes an lvalue or a const rvalue of <literal moreinfo="none">X::value_type</literal>,
-        and <literal moreinfo="none">rv</literal> denotes a non-const rvalue of <literal moreinfo="none">X::value_type</literal>.
-        <literal moreinfo="none">Args</literal> denotes a template parameter pack; <literal moreinfo="none">args</literal>
-        denotes a function parameter pack with the pattern <literal moreinfo="none">Args&amp;&amp;</literal>.
+        hierarchy</emphasis>.
       </para>
       <table frame="all" id="tree.req.general.table3">
         <title>Mutable hierarchy requirements</title>

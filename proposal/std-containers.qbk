@@ -13,6 +13,14 @@
 
 [section:req Hierarchy containers requirements [label hierarchy.req]]
 
+In this section's tables, =X= denotes a hierarchy class, =a= denotes a value of
+=X= containing elements of type =T=, =c= denotes a valid, non-on-top cursor
+satisfying input cursor requirements, =p= denotes a valid, non-on-top cursor to =a=,
+=q= denotes a valid, dereferenceable cursor to =a=, =t= denotes an lvalue or a
+const rvalue of =X::value_type=, and =rv= denotes a non-const rvalue of
+=X::value_type=. =Args= denotes a template parameter pack; =args= denotes a function
+parameter pack with the pattern =Args&&=.
+
 [section:general General hierarchy requirements [label hier.req.general]]
 
 [note
@@ -65,9 +73,6 @@ the number of operations =n=, which stands for the total number of elements in t
 hierarchy; in some cases, however, they are stated in terms of another value.
 
 [std_req]
-In Table 2: =X= denotes a hierarchy class containing objects of type =T= and =a=
-denotes a value of type =X=.
-
 [table:table2 Hierarchy requirements (in addition to container)
 	[
 	[expression]
@@ -153,13 +158,7 @@ respectively, when =U= is the same type as =T=.
 
 [std_req]
 A hierarchy satisfying the requirements shown in Table 3 is called a /mutable
-hierarchy/. In Table 3, =X= denotes a hierarchy class, =a= denotes a value of
-=X= containing elements of type =T=, =c= denotes a valid, non-on-top cursor
-satisfying input cursor requirements, =p= denotes a valid, non-on-top cursor to =a=,
-=q= denotes a valid, dereferenceable cursor to =a=, =t= denotes an lvalue or a
-const rvalue of =X::value_type=, and =rv= denotes a non-const rvalue of
-=X::value_type=. =Args= denotes a template parameter pack; =args= denotes a function
-parameter pack with the pattern =Args&&=.
+hierarchy/.
 
 [table:table3 Mutable hierarchy requirements
 	[
@@ -168,6 +167,7 @@ parameter pack with the pattern =Args&&=.
 	[assertion/note [br] pre/post-condition]
 	[complexity]
 	]
+	
 	[
 	[ `a.emplace(p, args);` ]
 	[ =cursor= ]
@@ -177,6 +177,7 @@ parameter pack with the pattern =Args&&=.
 		`std::forward<Args>(args)...` before =p=.]
 	[ (Note A) ]
 	]
+	
 	[
 	[ `a.insert(p,t)` ]
 	[ =cursor= ]
@@ -184,6 +185,7 @@ parameter pack with the pattern =Args&&=.
 		/Effects:/ Inserts a copy of =t= before =p=. ]
 	[ (Note A) ]
 	]
+	
 	[
 	[ `a.insert(p,rv)` ]
 	[ =cursor= ]
@@ -191,6 +193,7 @@ parameter pack with the pattern =Args&&=.
 		/Effects:/ Inserts a copy of =rv= before =p=. ]
 	[ (Note A) ]
 	]
+	
 	[
 	[ `a.clear(q)` ]
 	[ =void= ]
@@ -199,6 +202,7 @@ parameter pack with the pattern =Args&&=.
 	[ Should be at worst linear in the the number of elements in the subtree
 		of =q= plus the distance to =q='s parent's =end()=. ]
 	]
+	
 	[
 	[ `a.clear()` ]
 	[ =void= ]
@@ -235,8 +239,8 @@ from =args= into =a=. Its parent cursor is the same as that of =p=.
 [section:plain Plain hierarchies [label hierarchy.plain]]
 
 [std_req]
-A hierarchy is called plain hierarchy if its =cursor= and =const_cursor= types satisfy
-the requirements of a plain cursor.
+A hierarchy is called a /plain hierarchy/ if its =cursor= and =const_cursor= types
+satisfy the requirements of a plain cursor.
 [std_end]
 
 [std_req]
@@ -259,7 +263,7 @@ additionally required to be valid:
 	[
 	[ `a.insert(p,c)` ]
 	[ =cursor= ]
-	[ inserts a copy of the subtree of =c= before =p=.[br]
+	[ Inserts a copy of the subtree of =c= before =p=.[br]
 		pre: =c= is dereferenceable. ]
 	[ Should be at worst linear in the the number of elements in the subtree of
 		=c= plus the distance to =p='s parent's =end()=.]
@@ -286,7 +290,7 @@ The cursor returned from =a.insert(p,c)= points to the copy of the element that
 [section:multiway Multiway hierarchies [label hierarchy.multiway]]
 
 [std_req]
-A hierarchy is called multiway hierarchy if its =cursor= and =const_cursor=
+A hierarchy is called a /multiway hierarchy/ if its =cursor= and =const_cursor=
 types satisfy the requirements of a multiway cursor.
 [std_end]
 
@@ -300,19 +304,28 @@ For a mutable multiway hierarchy, the semantics of some expressions from Table 3
 are modified as shown in Table 5.
 
 [table:table5 Multiway hierarchy requirements
-	[[expression]
-	 [return type]
-	 [assertion/note[br]
-		pre/post-condition]
-	 [complexity]]
-	[[[^a.clear(q)]]
-	 [=void=]
-	 [deletes the subtree of =q=.[br]
-	If =q= is dereferenceable, the expression also deletes the element =q= points to.[br]
-	If =q= is past-the-end, the expression deletes the element =q='s predecessor points to.[br]
-	If after either of these steps =q= has only a non-empty past-the-end child, that child's children become =q='s children instead. Finally, that child is deleted.[br]
-	pre: =q= is internal.]
-	 [Should be at worst linear in the the number of elements in the subtree of =c= plus the distance to =p='s parent's =end()=.]]
+	[
+	[ expression ]
+	[ return type ]
+	[ assertion/note [br] pre/post-condition ]
+	[ complexity ]
+	]
+	
+	[
+	[ `a.clear(q)` ]
+	[ =void= ]
+	[ Deletes the subtree of =q=.[br]
+		If =q= is dereferenceable, the expression also deletes the element =q=
+			points to. [br]
+		If =q= is past-the-end, the expression deletes the element =q='s predecessor
+			points to. [br]
+		If after either of these steps =q= has only a non-empty past-the-end child,
+			that child's children become =q='s children instead. Finally, that child
+			is deleted. [br]
+		pre: =q= is internal.]
+	[ Should be at worst linear in the the number of elements in the subtree of
+	 	=c= plus the distance to =p='s parent's =end()=.]
+	]
 	]
 [std_end]
 
