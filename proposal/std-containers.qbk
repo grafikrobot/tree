@@ -197,7 +197,7 @@ hierarchy/.
 	[
 	[ `a.clear(q)` ]
 	[ =void= ]
-	[ Deletes the subtree of =q= and the element =q= points to. [br]
+	[ /Effects:/ Deletes the subtree of =q= and the element =q= points to. [br]
 		pre: =q= is dereferenceable. ]
 	[ Should be at worst linear in the the number of elements in the subtree
 		of =q= plus the distance to =q='s parent's =end()=. ]
@@ -206,7 +206,7 @@ hierarchy/.
 	[
 	[ `a.clear()` ]
 	[ =void= ]
-	[ `while (a.size()) clear(a.begin());` [br]
+	[ /Effects:/ `while (a.size()) clear(a.begin());` [br]
 		post: `a.size() == 0` ]
 	[ (Note A) ]
 	]
@@ -254,27 +254,38 @@ additionally required to be valid:
 
 [table:table4 Plain hierarchy requirements
 	[
-	[expression]
-	[return type]
-	[assertion/note [br] pre/post-condition]
-	[complexity]
+	[ expression ]
+	[ return type ]
+	[ assertion/note [br] pre/post-condition ]
+	[ complexity ]
 	]
 	
 	[
 	[ `a.insert(p,c)` ]
 	[ =cursor= ]
-	[ Inserts a copy of the subtree of =c= before =p=.[br]
+	[ /Requires:/ =T= shall be =CopyInsertable= into =X= [br]
+		/Effects:/ Inserts a copy of the subtree of =c= before =p=. [br]
 		pre: =c= is dereferenceable. ]
 	[ Should be at worst linear in the the number of elements in the subtree of
-		=c= plus the distance to =p='s parent's =end()=.]
+		=c= plus the distance to =p='s parent's =end()=. ]
 	]
 	
 	[
 	[ `a.insert_above(p,t)` ]
 	[ =cursor= ]
-	[ inserts a copy of =t= as child of =p='s parent and new parent of =p= and its
-		siblings.[br]
+	[ /Requires:/ =T= shall be =CopyInsertable= into =X= [br]
+		/Effects:/ Inserts a copy of =t= as a child of =p='s parent and
+		new parent of =p= and its siblings. [br]
 		pre: =c= is dereferenceable. ]
+	[ Linear in the the number =p='s siblings. ]
+	]
+	
+	[
+	[ `a.insert_above(p,rv)` ]
+	[ =cursor= ]
+	[ /Requires:/ =T= shall be =MoveInsertable= into =X=.
+		/Effects:/ Inserts a copy of =rv= as a child of =p='s parent and
+		new parent of =p= and its siblings. ]
 	[ Linear in the the number =p='s siblings. ]
 	]
 ]
@@ -344,21 +355,26 @@ namespace std {
     class binary_tree;
 
   template <class T, class Alloc>
-    bool operator==(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator==(
+      binary_tree<T, Alloc> const& x,
+      binary_tree<T, Alloc> const& y);
   template <class T, class Alloc>
-    bool operator!=(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator!=(
+      binary_tree<T, Alloc> const& x,
+      binary_tree<T, Alloc> const& y);
   template <class T, class Alloc>
-    void swap(  binary_tree<T, Alloc>& x,
-                binary_tree<T, Alloc>& y);
+    void swap(
+      binary_tree<T, Alloc>& x,
+      binary_tree<T, Alloc>& y);
   namespace inorder {
   template <class Tp, class Alloc>
     inorder::iterator<binary_tree<Tp, Alloc>::cursor>
-      begin(binary_tree<Tp, Alloc>& h);
+      begin(
+        binary_tree<Tp, Alloc>& h);
   template <class Tp, class Alloc>
     inorder::iterator<binary_tree<Tp, Alloc>::const_cursor>
-      cbegin(binary_tree<Tp, Alloc> const& h);
+      cbegin(
+        binary_tree<Tp, Alloc> const& h);
   } // namespace inorder
 
 } // namespace std
@@ -372,21 +388,26 @@ namespace std {
     class nary_tree;
 
   template <class T, class Alloc>
-    bool operator==(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator==(
+      binary_tree<T, Alloc> const& x,
+      binary_tree<T, Alloc> const& y);
   template <class T, class Alloc>
-    bool operator!=(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator!=(
+      binary_tree<T, Alloc> const& x,
+      binary_tree<T, Alloc> const& y);
   template <class T, class Alloc>
-  void swap(  nary_tree<T, Alloc>& x,
-              nary_tree<T, Alloc>& y);
+  void swap(
+    nary_tree<T, Alloc>& x,
+    nary_tree<T, Alloc>& y);
   namespace inorder {
   template <class T, class Alloc>
     inorder::iterator<binary_tree<T, Alloc>::cursor>
-      begin(binary_tree<T, Alloc>& h);
+      begin(
+        binary_tree<T, Alloc>& h);
   template <class T, class Alloc>
     inorder::iterator<binary_tree<T, Alloc>::const_cursor>
-      cbegin(binary_tree<T, Alloc> const& h);
+      cbegin(
+        binary_tree<T, Alloc> const& h);
   } // namespace inorder
 } // namespace std
 ``
@@ -399,21 +420,26 @@ namespace std {
     class forest_tree;
 
   template <class T, class Hierarchy>
-    bool operator==(  forest_tree<T, Hierarchy> const& x,
-                      forest_tree<T, Hierarchy> const& y);
+    bool operator==(
+      forest_tree<T, Hierarchy> const& x,
+      forest_tree<T, Hierarchy> const& y);
   template <class T, class Alloc>
-    bool operator!=(  forest_tree<T, Hierarchy> const& x,
-                      forest_tree<T, Hierarchy> const& y);
+    bool operator!=(
+      forest_tree<T, Hierarchy> const& x,
+      forest_tree<T, Hierarchy> const& y);
   template <class T, class Hierarchy>
-  void swap(  forest_tree<T, Hierarchy>& x,
-              forest_tree<T, Hierarchy>& y);
+  void swap(
+    forest_tree<T, Hierarchy>& x,
+    forest_tree<T, Hierarchy>& y);
   namespace inorder {
   template <class T, class Hierarchy>
     inorder::iterator<forest_tree<T, Hierarchy>::cursor>
-      begin(forest_tree<T, Hierarchy>& h);
+      begin(
+        forest_tree<T, Hierarchy>& h);
   template <class T, class Alloc>
     inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
-      cbegin(forest_tree<T, Hierarchy> const& h);
+      cbegin(
+        forest_tree<T, Hierarchy> const& h);
   } // namespace inorder
 } // namespace std
 
@@ -427,21 +453,26 @@ namespace std {
     class multiway_tree;
 
   template <class T, class Hierarchy>
-    bool operator==(  multiway_tree<T, Hierarchy> const& x,
-                      multiway_tree<T, Hierarchy> const& y);
+    bool operator==(
+      multiway_tree<T, Hierarchy> const& x,
+      multiway_tree<T, Hierarchy> const& y);
   template <class T, class Alloc>
-    bool operator!=(  multiway_tree<T, Hierarchy> const& x,
-                      multiway_tree<T, Hierarchy> const& y);
+    bool operator!=(
+      multiway_tree<T, Hierarchy> const& x,
+      multiway_tree<T, Hierarchy> const& y);
   template <class T, class Hierarchy>
-    void swap(  multiway_tree<T, Hierarchy>& x,
-                multiway_tree<T, Hierarchy>& y);
+    void swap(
+      multiway_tree<T, Hierarchy>& x,
+      multiway_tree<T, Hierarchy>& y);
   namespace inorder {
   template <class T, class Hierarchy>
     inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
-      begin(multiway_tree<T, Hierarchy>& h);
+      begin(
+        multiway_tree<T, Hierarchy>& h);
   template <class T, class Alloc>
     inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
-      cbegin(multiway_tree<T, Hierarchy> const& h);
+      cbegin(
+        multiway_tree<T, Hierarchy> const& h);
   } // namespace inorder
 } // namespace std
 
@@ -455,9 +486,9 @@ namespace std {
 
 [section:general In general [label hiearchy.adaptors.general]]
 
-Hierarchy adaptors each take a Hierarchy template parameter, and each of
-their constructors takes a Hierarchy reference argument. This hierarchy is
-copied into the Hierarchy member of each adapter. Most hierarchy adaptors
+Hierarchy adaptors each take a =Hierarchy= template parameter, and each of
+their constructors takes a =Hierarchy= reference argument. This hierarchy is
+copied into the =Hierarchy= member of each adapter. Most hierarchy adaptors
 satisfy most of the hierarchy requirements (except for anything that deals
 with allocators, as storage management is done by the adaptees). The exception
 is the group of balancing hierarchy adaptors ([hierarchy.balance]), whose

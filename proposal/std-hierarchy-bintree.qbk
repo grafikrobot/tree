@@ -19,73 +19,76 @@ additional semantic information.
 
 ``
 namespace std {
-  template <class T, class Alloc = std::allocator<T> >
+  template <class T, class Allocator = std::allocator<T> >
   class binary_tree
   {
   public:
-    // types:
-    typedef T                                             value_type;
-    typedef Alloc                                         allocator_type;
-
-    typedef implementation_defined                        cursor;
-    typedef implementation_defined                        const_cursor;
-
-    typedef typename allocator_type::pointer              pointer;
-    typedef typename allocator_type::const_pointer        const_pointer;
+    // 23.7.4.1.2, types:
     typedef typename allocator_type::reference            reference;
     typedef typename allocator_type::const_reference      const_reference;
+    typedef implementation_defined                        cursor;
+    typedef implementation_defined                        const_cursor;
     typedef typename allocator_type::size_type            size_type;
     typedef typename allocator_type::difference_type      difference_type;
+    typedef T                                             value_type;
+    typedef Allocator                                     allocator_type;
+    typedef typename allocator_type::pointer              pointer;
+    typedef typename allocator_type::const_pointer        const_pointer;
 
     template <class U> struct rebind {
       typedef binary_tree< U, typename allocator_type::template rebind<U>::other >
         other;
     };
 
-    // construct/copy/destroy:
-    explicit binary_tree (allocator_type const& = allocator_type());
+    // 23.7.4.1.3, construct/copy/destroy:
+    explicit binary_tree(const allocator_type& = allocator_type());
     template <class InputCursor>
-      binary_tree (InputCursor subtree,
-        allocator_type const& = allocator_type());
-    binary_tree (binary_tree<T, Alloc> const& x);
+      binary_tree(InputCursor subtree,
+        const allocator_type& = allocator_type());
+    binary_tree(const binary_tree<value_type, allocator_type>& x);
+    binary_tree(binary_tree&&);
+    binary_tree(const binary_tree&, const allocator_type&);
+    binary_tree(binary_tree&&, const allocator_type&);
     ~binary_tree();
-    binary_tree<T, Alloc>& operator=(
-      binary_tree<T, Alloc> const& x);
-    template <class InputCursor>
-      void assign(InputCursor subtree);
-    allocator_type get_allocator() const;
+    binary_tree<value_type, allocator_type>&
+      operator=(const binary_tree<T, allocator_type>& x);
+    binary_tree<value_type, allocator_type>&
+      operator=(binary_tree<T, allocator_type>&& x);
+    template <class InputCursor> void assign(InputCursor subtree);
+    allocator_type get_allocator() const noexcept;
 
-    // cursors:
-    cursor        root();
-    const_cursor  croot() const;
-    cursor        shoot();
-    const_cursor  cshoot() const;
-    cursor        inorder_first();
-    const_cursor  inorder_cfirst const();
+    // 23.7.4.1.4, cursors:
+    cursor        root() noexcept;
+    const_cursor  croot() const noexcept;
+    cursor        shoot() noexcept;
+    const_cursor  cshoot() const noexcept;
+    cursor        inorder_first() noexcept;
+    const_cursor  inorder_cfirst const() noexcept;
 
     // capacity:
-    bool      empty() const;
-    size_type size() const;
-    size_type max_size() const;
+    bool      empty() const noexcept;
+    size_type size() const noexcept;
+    size_type max_size() const noexcept;
 
-    // modifiers:
-    cursor    insert(cursor position, value_type const& x = value_type());
+    // 23.7.4.1.5, modifiers:
+    cursor    insert(const_cursor position, const value_type& x);
+    cursor    insert(const_cursor position, value_type&& x);
     template <class InputCursor>
-      cursor  insert(cursor position, InputCursor subtree);
-    void      rotate(cursor position);
-    void      swap(binary_tree<T, Alloc>&);
+      cursor  insert(const_cursor position, InputCursor subtree);
+    void      rotate(const_cursor position);
+    void      swap(binary_tree<value_type, allocator_Type>&);
     void      clear(cursor position);
     void      clear();
   };
 
   template <class T, class Alloc>
-    bool operator==(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator==(  const binary_tree<T, Alloc>& x,
+                      const binary_tree<T, Alloc>& y);
   template <class T, class Alloc>
-    bool operator!=(  binary_tree<T, Alloc> const& x,
-                      binary_tree<T, Alloc> const& y);
+    bool operator!=(  const binary_tree<T, Alloc>& x,
+                      const binary_tree<T, Alloc>& y);
 
-  // specialized algorithms:
+  // 23.7.4.1.6, specialized algorithms:
   template <class T, class Alloc>
     void swap(  binary_tree<T, Alloc>& x,
                 binary_tree<T, Alloc>& y);
@@ -96,7 +99,7 @@ namespace std {
       begin(binary_tree<T, Alloc>& h);
   template <class T, class Alloc>
     inorder::iterator<binary_tree<T, Alloc>::const_cursor>
-      cbegin(binary_tree<T, Alloc> const& h);
+      cbegin(const binary_tree<T, Alloc>& h);
   } // namespace inorder
   
 } // namespace std
@@ -131,10 +134,10 @@ Additionally, for any instance a of either type =cursor= or
 
 [std_def]
 ``
-	explicit binary_tree (allocator_type const& = allocator_type());
+	explicit binary_tree (const allocator_type& = allocator_type());
 	template <class InputCursor>
 	  binary_tree (InputCursor subtree,
-	    allocator_type const& = allocator_type());
+	    const allocator_type& = allocator_type());
 	binary_tree (binary_tree<T, Alloc> const& x);
 ``
 [std_end]
@@ -162,7 +165,7 @@ template <class InputCursor>
 ``
 	clear(); 
 	for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
-	  insert(root.end(), *i);
+	  insert(root().end(), *i);
 ``
 [std_end]
 
@@ -191,7 +194,7 @@ template <class InputCursor>
 
 [std_spec]
 /Returns:/ A cursor to the =binary_tree='s first element in inorder
-(see \[tr.order.iterators\], §4).
+(see \[tr.order.iterators\]).
 [std_end]
 
 [std_spec]
@@ -205,7 +208,8 @@ template <class InputCursor>
 
 [std_def]
 ``
-	cursor insert(cursor position, value_type const& x = value_type());
+	cursor insert(cursor position, const value_type& x);
+	cursor insert(const_cursor position, value_type&& x);
 ``
 [std_end]
 
@@ -214,11 +218,12 @@ template <class InputCursor>
 [std_end]
 
 [std_spec]
-/Effect:/ Let =b be =a='s parent;
-if `b.size() < b.max_size()`, insert a copy of =t= before =p=, as child of =b=;
-Otherwise, if `a.empty()`, insert a copy of =t= as child of =a=;
-and if `!a.empty()`, insert a copy of =t= as parent of =a='s current child,
-as new child of =a=.
+/Effect:/ Let =parent= be =position='s parent;
+if `parent.size() < parent.max_size()`, insert a copy of =x= before =position=,
+as child of =parent=;
+Otherwise, if `position.empty()`, insert a copy of =x= as child of =position=;
+and if `!position.empty()`, insert a copy of =x= as parent of =position='s current
+child, as new child of =position=.
 [std_end]
 
 [std_spec]
@@ -238,7 +243,7 @@ Complexity: constant
 
 [std_spec]
 /Effects:/ as above, substituting =InputCursor subtree= to insert instead
-of `value_type const& x`.
+of `const value_type& x`.
 [std_end]
 
 [std_spec]
@@ -253,11 +258,11 @@ of `value_type const& x`.
 [std_end]
 
 [std_spec]
-/Precondition:/ position and its parent are internal and non-on-top
+/Precondition:/ =position= and its parent are internal and non-on-top
 [std_end]
 
 [std_spec]
-/Effects:/ Performs a left tree rotation around the parent of position if
+/Effects:/ Performs a left tree rotation around the parent of =position= if
 `position.parity() == 0` or a right tree rotation if `position.parity() == 1`.
 [std_end]
 
@@ -288,7 +293,7 @@ was before.]
 
 [std_spec]
 /Notes:/ Does not affect the validity of cursors and references. Tree
-rotations are important inorder-preserving (see \[tr.order.iterators\] §4)
+rotations are important inorder-preserving (see \[tr.order.iterators\])
 operations on binary trees that are especially required by balancers.
 [std_end]
 
