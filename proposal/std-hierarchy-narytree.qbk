@@ -80,11 +80,11 @@ namespace std {
   };
 
   template <class T, class Alloc>
-    bool operator==(  nary_tree<T, Alloc> const& x,
-                      nary_tree<T, Alloc> const& y);
+    bool operator==(  const nary_tree<T, Alloc>& x,
+                      const nary_tree<T, Alloc>& y);
   template <class T, class Alloc>
-    bool operator!=(  nary_tree<T, Alloc> const& x,
-                      nary_tree<T, Alloc> const& y);
+    bool operator!=(  const nary_tree<T, Alloc>& x,
+                      const nary_tree<T, Alloc>& y);
 
   // specialized algorithms:
   template <class T, class Alloc>
