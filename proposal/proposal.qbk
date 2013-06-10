@@ -90,6 +90,7 @@
 [template std_def[] [std_begin std_definition]]
 [template std_spec[] [std_begin std_specification]]
 [template std_doc[] [std_begin std_doc_info]]
+[template std_par[] [std_begin std_paragraph]]
 
 [/ The content.. /]
 

@@ -9,9 +9,9 @@
 
 [section:foresttree Class template =forest_tree= [label foresttree]]
 
-[section:defn =forest_tree= definition [labe foresttree.defn]]
+[section:defn =forest_tree= definition [label foresttree.defn]]
 
-[std_def]
+[std_par]
 A =forest_tree= is a kind of mutable plain hierarchy that is instantiated
 with a mutable multiway hierarchy that has insertion semantics as a
 =binary_tree= ([bintree.modifiers])), and whose cursor
@@ -52,8 +52,8 @@ namespace std {
       forest_tree(InputCursor subtree);
     forest_tree(const forest_tree<value_type, hierarchy_type>& x);
     forest_tree(forest_tree&& x);
-    forest_tree<T, Hierarchy>&
-      operator=(const forest_tree<T, Hierarchy>& x);
+    forest_tree<value_type, hierarchy_type>&
+      operator=(const forest_tree<value_type, hierarchy_type>&);
     template <class InputCursor>
       void assign(InputCursor subtree);
 

@@ -536,6 +536,7 @@ div div.legalnotice p {
 }
 
 .std_proposal .section > p:before,
+.std_proposal div.std_paragraph > *:first-child:before,
 .std_proposal div.std_requisite > *:first-child:before,
 .std_proposal div.std_specification > *:first-child:before
 {
@@ -552,6 +553,9 @@ div div.legalnotice p {
 
 .std_proposal .std_section_label {
   float: right;
+}
+
+.std_proporal .std_paragraph {
 }
 
 .std_proporal .std_requisite {

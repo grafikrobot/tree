@@ -7,8 +7,11 @@
  /  http://www.boost.org/LICENSE_1_0.txt)
  /]
 
-[section:multiwaytree Class template =multiway_tree= [label multiwaytree]]
+[section:multiwaytree Template class =multiway_tree= [label multiwaytree]]
 
+[section:defn =multiway_tree= definition [label multiwaytree.defn]]
+
+[std_par]
 A =multiway_tree= is a kind of mutable multiway hierarchy that is
 instantiated with a mutable plain hierarchy whose value type in turn is a
 container holding elements of =multiway_tree='s =value_type=.
@@ -26,17 +29,15 @@ namespace std {
 
   public:
     // types:
-    typedef T                                             value_type;
-
-    typedef implementation_defined                        cursor;
-    typedef implementation_defined                        const_cursor;
-
-    typedef typename hierarchy_type::pointer              pointer;
-    typedef typename hierarchy_type::const_pointer        const_pointer;
     typedef typename hierarchy_type::reference            reference;
     typedef typename hierarchy_type::const_reference      const_reference;
+    typedef implementation_defined                        cursor;
+    typedef implementation_defined                        const_cursor;
     typedef typename hierarchy_type::size_type            size_type;
     typedef typename hierarchy_type::difference_type      difference_type;
+    typedef T                                             value_type;
+    typedef typename hierarchy_type::pointer              pointer;
+    typedef typename hierarchy_type::const_pointer        const_pointer;
 
     template <class U> struct rebind {
       typedef multiway_tree< U,
@@ -45,13 +46,15 @@ namespace std {
     };
 
     // construct/copy/destroy:
-    explicit multiway_tree (hierarchy_type const& = hierarchy_type());
+    explicit multiway_tree(const hierarchy_type&);
+    explicit multiway_tree(hierarchy_type&& = hierarchy_type());
     template <class InputCursor>
       multiway_tree (InputCursor subtree);
-    multiway_tree (multiway_tree<T, Hierarchy> const& x);
+    multiway_tree(const multiway_tree<value_type, hierarchy_type>&);
+    multiway_tree(multiway_tree&&)
     ~multiway_tree();
-    multiway_tree<T, Hierarchy>& operator=(
-      multiway_tree<T, Hierarchy> const& x);
+    multiway_tree<value_type, hierarchy_type>&
+      operator=(const multiway_tree<value_type, hierarchy_type>&);
     template <class InputCursor>
       void assign(InputCursor subtree);
 
@@ -71,11 +74,12 @@ namespace std {
     void      reserve(cursor position, size_type n);
 
     // modifiers:
-    cursor    insert(cursor position, value_type const& x = value_type());
+    cursor    insert(cursor position, const value_type&);
+    cursor    insert(cursor position, value_type&& x = value_type());
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
     void      rotate(cursor position);
-    void      swap(multiway_tree<p, Hierarchy>&);
+    void      swap(multiway_tree<value_type, hierarchy_type>&);
     void      clear(cursor position);
     void      clear();
   };
@@ -103,16 +107,19 @@ namespace std {
   
 } // namespace std
 ``
+[std_end]
 
 Types `typename Hierarchy::cursor` and `typename Hierarchy::const_cursor` are
 required to be random access cursors.
+
+[endsect] [/defn]
 
 [section:types =multiway_tree= types [label multiwaytree.types]]
 
 [std_def]
 ``
-	typedef implementation defined                        cursor;
-	typedef implementation defined                        const_cursor;
+	typedef implementation_defined                        cursor;
+	typedef implementation_defined                        const_cursor;
 ``
 [std_end]
 
@@ -144,10 +151,12 @@ complexity are for =m= as they are for =n=):
 
 [std_def]
 ``
-	explicit multiway_tree (hierarchy_type const& = hierarchy_type());
-	template <class InputCursor>
-	  multiway_tree (InputCursor subtree);
-	multiway_tree (multiway_tree<T, Hierarchy> const& x);
+    explicit multiway_tree(const hierarchy_type&);
+    explicit multiway_tree(hierarchy_type&& = hierarchy_type());
+    template <class InputCursor>
+      multiway_tree (InputCursor subtree);
+    multiway_tree(const multiway_tree<value_type, hierarchy_type>&);
+    multiway_tree(multiway_tree&&)
 ``
 [std_end]
 
@@ -204,7 +213,7 @@ for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
 
 [std_spec]
 /Returns:/ A cursor to the =multiway_tree='s first element in inorder
-(see [order.iterators], §4).
+(see [order.iterators]).
 [std_end]
 
 [std_spec]
@@ -264,10 +273,10 @@ call to `reserve()` until the time when an insertion would make
 
 [std_def]
 ``
-	cursor    insert(cursor position, value_type const& x = value_type());
-	template <class InputCursor>
-	  cursor  insert(cursor position, InputCursor subtree);
-	cursor    insert_above(cursor position, value_type const& x = value_type());
+    cursor    insert(cursor position, const value_type&);
+    cursor    insert(cursor position, value_type&& x = value_type());
+    template <class InputCursor>
+      cursor  insert(cursor position, InputCursor subtree);
 ``
 [std_end]
 

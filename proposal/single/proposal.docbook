@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/07 22:09:47 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/10 22:09:59 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -58,7 +58,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-Jun-07
+            2013-Jun-10
           </para>
         </listitem>
       </varlistentry>
@@ -1977,7 +1977,8 @@
         <phrase role="std_section_label">[foresttree]</phrase></link></title>
         <section id="tree.tree.adaptors.foresttree.defn">
           <title><link linkend="tree.tree.adaptors.foresttree.defn"><literal moreinfo="none">forest_tree</literal>
-          definition [labe foresttree.defn]</link></title> <simplesect role="std_definition">
+          definition <phrase role="std_section_label">[foresttree.defn]</phrase></link></title>
+          <simplesect role="std_paragraph">
           <para>
             A <literal moreinfo="none">forest_tree</literal> is a kind of mutable plain hierarchy
             that is instantiated with a mutable multiway hierarchy that has insertion
@@ -2019,8 +2020,8 @@
       <phrase role="identifier">forest_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
     <phrase role="identifier">forest_tree</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
     <phrase role="identifier">forest_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">forest_tree</phrase><phrase role="special">&amp;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
-    <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase>
-      <phrase role="keyword">operator</phrase><phrase role="special">=(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;</phrase>
+      <phrase role="keyword">operator</phrase><phrase role="special">=(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">forest_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;);</phrase>
     <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
       <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 
@@ -2278,14 +2279,18 @@
         </section>
       </section>
       <section id="tree.tree.adaptors.multiwaytree">
-        <title><link linkend="tree.tree.adaptors.multiwaytree">Class template <literal moreinfo="none">multiway_tree</literal>
+        <title><link linkend="tree.tree.adaptors.multiwaytree">Template class <literal moreinfo="none">multiway_tree</literal>
         <phrase role="std_section_label">[multiwaytree]</phrase></link></title>
-        <para>
-          A <literal moreinfo="none">multiway_tree</literal> is a kind of mutable multiway hierarchy
-          that is instantiated with a mutable plain hierarchy whose value type in
-          turn is a container holding elements of <literal moreinfo="none">multiway_tree</literal>'s
-          <literal moreinfo="none">value_type</literal>.
-        </para>
+        <section id="tree.tree.adaptors.multiwaytree.defn">
+          <title><link linkend="tree.tree.adaptors.multiwaytree.defn"><literal moreinfo="none">multiway_tree</literal>
+          definition <phrase role="std_section_label">[multiwaytree.defn]</phrase></link></title>
+          <simplesect role="std_paragraph">
+          <para>
+            A <literal moreinfo="none">multiway_tree</literal> is a kind of mutable multiway hierarchy
+            that is instantiated with a mutable plain hierarchy whose value type
+            in turn is a container holding elements of <literal moreinfo="none">multiway_tree</literal>'s
+            <literal moreinfo="none">value_type</literal>.
+          </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase> <phrase role="special">=</phrase> <phrase role="identifier">nary_tree</phrase><phrase role="special">&lt;</phrase> <phrase role="identifier">std</phrase><phrase role="special">::</phrase><phrase role="identifier">vector</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">&gt;</phrase> <phrase role="special">&gt;</phrase> <phrase role="special">&gt;</phrase>
   <phrase role="keyword">class</phrase> <phrase role="identifier">multiway_tree</phrase>
@@ -2298,17 +2303,15 @@
 
   <phrase role="keyword">public</phrase><phrase role="special">:</phrase>
     <phrase role="comment">// types:</phrase>
-    <phrase role="keyword">typedef</phrase> <phrase role="identifier">T</phrase>                                             <phrase role="identifier">value_type</phrase><phrase role="special">;</phrase>
-
-    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
-    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
-
-    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">pointer</phrase>              <phrase role="identifier">pointer</phrase><phrase role="special">;</phrase>
-    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_pointer</phrase>        <phrase role="identifier">const_pointer</phrase><phrase role="special">;</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">reference</phrase>            <phrase role="identifier">reference</phrase><phrase role="special">;</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_reference</phrase>      <phrase role="identifier">const_reference</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">size_type</phrase>            <phrase role="identifier">size_type</phrase><phrase role="special">;</phrase>
     <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">difference_type</phrase>      <phrase role="identifier">difference_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="identifier">T</phrase>                                             <phrase role="identifier">value_type</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">pointer</phrase>              <phrase role="identifier">pointer</phrase><phrase role="special">;</phrase>
+    <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">::</phrase><phrase role="identifier">const_pointer</phrase>        <phrase role="identifier">const_pointer</phrase><phrase role="special">;</phrase>
 
     <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">U</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">rebind</phrase> <phrase role="special">{</phrase>
       <phrase role="keyword">typedef</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase> <phrase role="identifier">U</phrase><phrase role="special">,</phrase>
@@ -2317,13 +2320,15 @@
     <phrase role="special">};</phrase>
 
     <phrase role="comment">// construct/copy/destroy:</phrase>
-    <phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+    <phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&amp;);</phrase>
+    <phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase><phrase role="special">&amp;&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
     <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
       <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
-    <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;);</phrase>
+    <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&amp;&amp;)</phrase>
     <phrase role="special">~</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">();</phrase>
-    <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">=(</phrase>
-      <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;</phrase>
+      <phrase role="keyword">operator</phrase><phrase role="special">=(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;);</phrase>
     <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
       <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
 
@@ -2343,11 +2348,12 @@
     <phrase role="keyword">void</phrase>      <phrase role="identifier">reserve</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
 
     <phrase role="comment">// modifiers:</phrase>
-    <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
+    <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;);</phrase>
+    <phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
     <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
       <phrase role="identifier">cursor</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
     <phrase role="keyword">void</phrase>      <phrase role="identifier">rotate</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
-    <phrase role="keyword">void</phrase>      <phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">p</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;);</phrase>
+    <phrase role="keyword">void</phrase>      <phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;);</phrase>
     <phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
     <phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
   <phrase role="special">};</phrase>
@@ -2375,17 +2381,18 @@
 
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-        <para>
-          Types <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase></computeroutput>
-          and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">const_cursor</phrase></computeroutput>
-          are required to be random access cursors.
-        </para>
+          </simplesect><para>
+            Types <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase></computeroutput>
+            and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">const_cursor</phrase></computeroutput>
+            are required to be random access cursors.
+          </para>
+        </section>
         <section id="tree.tree.adaptors.multiwaytree.types">
           <title><link linkend="tree.tree.adaptors.multiwaytree.types"><literal moreinfo="none">multiway_tree</literal>
           types <phrase role="std_section_label">[multiwaytree.types]</phrase></link></title>
           <simplesect role="std_definition">
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
-<phrase role="keyword">typedef</phrase> <phrase role="identifier">implementation</phrase> <phrase role="identifier">defined</phrase>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">cursor</phrase><phrase role="special">;</phrase>
+<phrase role="keyword">typedef</phrase> <emphasis>implementation-defined</emphasis>                        <phrase role="identifier">const_cursor</phrase><phrase role="special">;</phrase>
 </programlisting>
           </simplesect> <simplesect role="std_specification">
           <para>
@@ -2454,10 +2461,12 @@
           <title><link linkend="tree.tree.adaptors.multiwaytree.cons"><literal moreinfo="none">multiway_tree</literal>
           constructors, copy, and assignment <phrase role="std_section_label">[multiwaytree.cons]</phrase></link></title>
           <simplesect role="std_definition">
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&amp;);</phrase>
+<phrase role="keyword">explicit</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">hierarchy_type</phrase><phrase role="special">&amp;&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">());</phrase>
 <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
-<phrase role="identifier">multiway_tree</phrase> <phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">multiway_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">value_type</phrase><phrase role="special">,</phrase> <phrase role="identifier">hierarchy_type</phrase><phrase role="special">&gt;&amp;);</phrase>
+<phrase role="identifier">multiway_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">multiway_tree</phrase><phrase role="special">&amp;&amp;)</phrase>
 </programlisting>
           </simplesect> <simplesect role="std_specification">
           <para>
@@ -2506,7 +2515,7 @@
           </simplesect> <simplesect role="std_specification">
           <para>
             <emphasis>Returns:</emphasis> A cursor to the <literal moreinfo="none">multiway_tree</literal>'s
-            first element in inorder (see [order.iterators], §4).
+            first element in inorder (see [order.iterators]).
           </para>
           </simplesect> <simplesect role="std_specification">
           <para>
@@ -2558,10 +2567,10 @@
           <title><link linkend="tree.tree.adaptors.multiwaytree.modifiers"><literal moreinfo="none">multiway_tree</literal>
           modifiers <phrase role="std_section_label">[multiwaytree.modifiers]</phrase></link></title>
           <simplesect role="std_definition">
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="keyword">const</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;);</phrase>
+<phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">&amp;&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputCursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="identifier">cursor</phrase>  <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputCursor</phrase> <phrase role="identifier">subtree</phrase><phrase role="special">);</phrase>
-<phrase role="identifier">cursor</phrase>    <phrase role="identifier">insert_above</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">value_type</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">x</phrase> <phrase role="special">=</phrase> <phrase role="identifier">value_type</phrase><phrase role="special">());</phrase>
 </programlisting>
           </simplesect> <simplesect role="std_specification">
           <para>
