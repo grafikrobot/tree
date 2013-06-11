@@ -9,6 +9,8 @@
 
 [section:augment Augmenting hierarchy adaptors [label hierarchy.augment]]
 
+[section:general In general [label hierarchy.augment.general]]
+
 An augmenting hierarchy "augments" a mutable multiway hierarchy which it is
 given as a template parameter by associating additional information with its
 elements and modeling a mutable multiway hierarchy in turn. This additional
@@ -18,7 +20,11 @@ structural or content-wise changes in the hierarchy. The library provides
 one augmenting hierarchy adaptor template class: =rank_tree=, found in
 header =<augment>=.
 
+[endsect] [/general]
+
 [section:ranktree Class template =rank_tree= [label ranktree]]
+
+[section:defn =rank_tree= definition [label ranktree.defn]]
 
 ``
 namespace std {
@@ -33,17 +39,15 @@ namespace std {
   
   public:
     // types:
-    typedef T                                             value_type;
-
-    typedef implementation defined                        cursor;
-    typedef implementation defined                        const_cursor;
-
-    typedef typename hierarchy_type::pointer              pointer;
-    typedef typename hierarchy_type::const_pointer        const_pointer;
     typedef typename hierarchy_type::reference            reference;
     typedef typename hierarchy_type::const_reference      const_reference;
+    typedef implementation_defined                        cursor;
+    typedef implementation_defined                        const_cursor;
     typedef typename hierarchy_type::size_type            size_type;
     typedef typename hierarchy_type::difference_type      difference_type;
+    typedef T                                             value_type;
+    typedef typename hierarchy_type::pointer              pointer;
+    typedef typename hierarchy_type::const_pointer        const_pointer;
 
     template <class U> struct rebind {
       typedef rank_tree< U, typename hierarchy_type::template rebind<U>::other >
@@ -51,13 +55,15 @@ namespace std {
     };
 
     // construct/copy/destroy:
-    explicit rank_tree (hierarchy_type const& = hierarchy_type());
+    explicit rank_tree (const hierarchy_type&);
+    explicit rank_tree (hierarchy_type&& = hierarchy_type());
     template <class InputCursor>
       rank_tree (InputCursor subtree);
-    rank_tree (rank_tree<T, Hierarchy> const& x);
+    rank_tree (const rank_tree<value_type, hierarchy_type>&);
+    rank_tree (rank_tree&&);
     ~rank_tree();
     rank_tree<T, Hierarchy>& operator=(
-      rank_tree<T, Hierarchy> const& x);
+      const rank_tree<value_type, hierarchy_type>& x);
     template <class InputCursor>
       void assign(InputCursor subtree);
 
@@ -80,21 +86,22 @@ namespace std {
     void      reserve(cursor position, size_type n);
 
     // modifiers:
-    cursor    insert(cursor position, value_type const& x = value_type());
+    cursor    insert(cursor position, const value_type&);
+    cursor    insert(cursor position, value_type&& = value_type());
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
     void      rotate(cursor position);
-    void      swap(rank_tree<T, Hierarchy>&);
+    void      swap(rank_tree<value_type, hierarchy_type>&);
     void      clear(cursor position);
     void      clear();
   };
 
   template <class T, class Hierarchy>
-    bool operator==(  rank_tree<T, Hierarchy> const& x,
-                      rank_tree<T, Hierarchy> const& y);
+    bool operator==(  const rank_tree<T, Hierarchy>& x,
+                      const rank_tree<T, Hierarchy>& y);
   template <class T, class Hier>
-    bool operator!=(  rank_tree<T, Hierarchy> const& x,
-                      rank_tree<T, Hierarchy> const& y);
+    bool operator!=(  const rank_tree<T, Hierarchy>& x,
+                      const rank_tree<T, Hierarchy>& y);
 
   // specialized algorithms:
   template <class T, class Hierarchy>
@@ -107,7 +114,7 @@ namespace std {
       begin(rank_tree<T, Hierarchy>& h);
   template <class Tp, class Hierarchy>
     inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
-      cbegin(rank_tree<T, Hierarchy> const& h);
+      cbegin(const rank_tree<T, Hierarchy>& h);
   } // namespace inorder
   
 } // namespace std
@@ -121,6 +128,10 @@ by the =hierarchy_type=; and that a function can only be called if a
 function of the same name is present in the public interface of =hierarchy_type=.
 (The only exception to the above stated are the functions =rank()=,
 which are newly introduced.)
+
+[endsect] [/defn]
+
+[section:cursors =rank_tree= cursors [label rantree.cursors]]
 
 [std_def]
 ``
@@ -138,6 +149,7 @@ in inorder, counting from =inorder_first()=.
 /Complexity:/ logarithmic in =size()=.
 [std_end]
 
+[endsect] [/cursors]
 
 [endsect] [/ranktree]
 
