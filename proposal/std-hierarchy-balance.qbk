@@ -9,6 +9,8 @@
 
 [section:balance Balancing hierarchy adaptors [label hierarchy.balance]]
 
+[section:general In general [label balance.general]]
+
 [note These do not model AssociativeContainer yet but Sequence as they
 permit insertion in arbitrary positions. (This way, they are not required to
 take care of extracting, sorting and searching.)]
@@ -18,8 +20,8 @@ guarantee logarithmic time complexity for many important operations while
 keeping the inorder of the adaptee hierarchy as its invariant.
 
 A balancing hierarchy adaptor satisfies all of the requirements of a
-container ([lib.container.requirements]), of a sequence
-([lib.sequence.reqmts]), with the exception that its =erase()= member
+container ([container.requirements]), of a sequence
+([sequence.reqmts]), with the exception that its =erase()= member
 functions return =void=, and most of the optional sequence requirements,
 except for the =operator[]= and =at= member functions, which are not provided.
 If the adaptee hierarchy supports at least descending bidirectional cursors,
@@ -31,7 +33,7 @@ semantic information.
 The library provides four balancing hierarchy adaptor template classes which
 take a mutable multiway template parameter that provides a =rotate()= operation
 and whose =cursor= and =const_cursor= types satisfy the requirements of a
-binary tree cursor ([bintree.types], §1 and §2): =avl_tree=, =red_black_tree=,
+binary tree cursor ([bintree.types]): =avl_tree=, =red_black_tree=,
 =splay_tree=, and =treap=. Furthermore, two balancing hierarchy adaptor
 template classes that take a mutable multiway tree template parameter are
 provided: =b_tree= and =b_star_tree=. All balancing adaptors and corresponding
@@ -43,6 +45,96 @@ be present and have identical interfaces (with all occurrences of =avl_tree=
 replaced accordingly). The same holds true for =b_tree= and =b_star_tree=, as
 well, except that the standard value for the template parameter reads
 =multiway_tree<T>= (instead of =binary_tree<T>=) in their case.
+
+[endsect] [/general]
+
+[section:syn Header =<balance>= synopsis [label balance.syn]]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = binary_tree<T> > class avl_tree;
+  template <class T, class Hierarchy = binary_tree<T> > class red_black_tree;
+  template <class T, class Hierarchy = binary_tree<T> > class splay_tree;
+  template <class T, class Hierarchy = binary_tree<T> > class treap;
+  template <class T, class Hierarchy = multiway_tree<T> > class b_tree;
+  template <class T, class Hierarchy = multiway_tree<T> > class b_star_tree;
+  
+  template <class T, class Hierarchy>
+    bool operator==(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(avl_tree<T, Hierarchy>&, avl_tree<T, Hierarchy>&);
+  
+  template <class T, class Hierarchy>
+    bool operator==(const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(red_black_tree<T, Hierarchy>&, red_black_tree<T, Hierarchy>&);
+  
+  template <class T, class Hierarchy>
+    bool operator==(const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(splay_tree<T, Hierarchy>&, splay_tree<T, Hierarchy>&);
+  
+  template <class T, class Hierarchy>
+    bool operator==(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
+
+  // specialized algorithms:
+  template <class T, class Hierarchy>
+    void swap(treap<T, Hierarchy>&, treap<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[endsect] [/syn]
+
+[section:avltree Class template =avl_tree= [label avltree]]
+
+[section:defn =avl_tree= definition [label avltree.defn]]
 
 ``
 namespace std {
@@ -56,144 +148,119 @@ namespace std {
     
   public:
     // types:
-    typedef typename hierarchy_type::value_type           value_type;
-    typedef typename hierarchy_type::pointer              pointer;
-    typedef typename hierarchy_type::const_pointer        const_pointer;
     typedef typename hierarchy_type::reference            reference;
     typedef typename hierarchy_type::const_reference      const_reference;
-    typedef typename hierarchy_type::size_type            size_type;
-    typedef typename hierarchy_type::difference_type      difference_type;
-
     typedef implementation_defined                        iterator;
     typedef implementation_defined                        const_iterator;
-
+    typedef typename hierarchy_type::size_type            size_type;
+    typedef typename hierarchy_type::difference_type      difference_type;
+    typedef typename hierarchy_type::value_type           value_type;
+    typedef typename hierarchy_type::allocator_type       alocator_type;
+    typedef typename hierarchy_type::pointer              pointer;
+    typedef typename hierarchy_type::const_pointer        const_pointer;
     typedef std::reverse_iterator<iterator>               reverse_iterator;
     typedef std::reverse_iterator<const_iterator>         const_reverse_iterator;
 
     // construct/copy/destroy:
-    explicit avl_tree(hierarchy_type const& = hierarchy_type());
-    explicit avl_tree(size_type n, value_type const& value = value_type(),
-      hierarchy_type const& = hierarchy_type());
+    explicit avl_tree(const Hierarchy&);
+    explicit avl_tree(Hierarchy&& = Hierarchy());
+    avl_tree(size_type n, const Hierarchy&);
+    avl_tree(size_type n, Hierarchy&& = Hierarchy());
+    avl_tree(size_type n, const T& value, const Hierarchy&);
+    avl_tree(size_type n, const T& value, Hierarchy&& = Hierarchy());
     template <class InputIterator>
-      avl_tree (InputIterator first, InputIterator last,
-        hierarchy_type const& = hierarchy_type());
-    avl_tree (avl_tree<T, Hierarchy> const& x);
-    ~avl_tree();
-    avl_tree<T, Hierarchy>& operator=(
-      avl_tree<T, Hierarchy> const& x);
+      avl_tree(InputIterator first, InputIterator last,
+        Hierarchy const& = Hierarchy());
+    avl_tree(const avl_tree<T,Hierarchy>&);
+    avl_tree(avl_tree&&);
+    avl_tree(initializer_list<T>);
+    avl_tree<T,Hierarchy>& operator=(const avl_tree<T,Hierarchy>&);
+    avl_tree<T,Hierarchy>& operator=(avl_tree<T,Hierarchy>&&);
+    avl_tree& operator=(initializer_list<T>);
     template <class InputIterator>
       void assign(InputIterator first, InputIterator last);
-    template <class Size, class T>
-      void assign(Size n, T const& t = T());
+    void assign(size_type n, const T&);
+    void assign(initializer_list<T>);
 
     // iterators:
-    iterator                begin();
-    const_iterator          cbegin() const;
-    iterator                end()             { return iterator(h.shoot()); }
-    const_iterator          cend() const      { return const_iterator(h.cshoot()); }
-    reverse_iterator        rbegin();
-    const_reverse_iterator  crbegin() const;
-    reverse_iterator        rend();
-    const_reverse_iterator  crend() const;
+    iterator                begin() noexcept;
+    const_iterator          begin() const noexcept;
+    iterator                end() noexcept{ return iterator(h.shoot()); }
+    const_iterator          end() const noexcept { return const_iterator(h.cshoot()); }
+    reverse_iterator        rbegin() noexcept;
+    const_reverse_iterator  rbegin() const noexcept;
+    reverse_iterator        rend() noexcept;
+    const_reverse_iterator  rend() const noexcept;
+    const_iterator          cbegin() const noexcept;
+    const_iterator          cend() const noexcept { return const_iterator(h.cshoot()); }
+    const_reverse_iterator  crbegin() const noexcept;
+    const_reverse_iterator  crend() const noexcept;
     
     // capacity:
-    bool      empty() const { return h.empty(); }
-    size_type size() const  { return h.size(); }
-    size_type max_size() const;
-    void      resize(size_type sz, T c = T());
+    size_type size() const noexcept { return h.size(); }
+    size_type max_size() const noexcept;
+    void      resize(size_type sz);
+    void      resize(size_type sz, const T&);
+    bool      empty() const noexcept { return h.empty(); }
 
     // element access:
     reference       front();
     const_reference front() const;
     reference       back();
     const_reference back() const;
-    
-    // map operations:
-    iterator find(const value_type& x);
-      const_iterator find(const value_type& x) const;
-    template <class Cmp>
-      iterator find(const value_type& x, Cmp cmp);
-        const_iterator find(const value_type& x) const;
-
-    size_type count(const value_type& x) const;
-    template <class Cmp>
-      size_type count(const value_type& x, Cmp cmp) const;
-
-    iterator lower_bound(const value_type& x);
-    const_iterator lower_bound(const value_type& x) const;
-    template <class Cmp>
-      iterator lower_bound(const value_type& x, Cmp cmp);
-    template <class Cmp>
-      const_iterator lower_bound(const value_type& x, Cmp cmp) const;
-
-    iterator upper_bound(const value_type& x);
-    const_iterator upper_bound(const value_type& x) const;
-    template <class Cmp>
-      iterator upper_bound(const value_type& x, Cmp cmp);
-    template <class Cmp>
-      const_iterator upper_bound(const value_type& x, Cmp cmp) const;
-
-    pair<iterator,iterator> equal_range(const value_type& x);
-    pair<const_iterator,const_iterator>
-      equal_range(const value_type& x) const;
-    template <class Cmp>
-      pair<iterator,iterator>
-        equal_range(const value_type& x, Cmp cmp);
-    template <class Cmp>
-      pair<const_iterator,const_iterator>
-        equal_range(const value_type& x, Cmp cmp) const;
 
     // modifiers:
-    void      push_front(value_type const& x);
-    void      push_back(value_type const& x);
-    iterator  insert(iterator position, value_type const& x = value_type());
-    void      insert(iterator position, size_type n, value_type const& x);
+    template <class... Args> void emplace_front(Args&&...);
+    template <class... Args> void emplace_back(Args&&...);
+    void push_front(const T&);
+    void push_front(T&&);
+    void push_back(const T&);
+    void push_back(T&&);
+    void pop_front();
+    void pop_back();
+    
+    template <class... Args> iterator emplace(const_iterator position, Args&&);
+    iterator insert(const_iterator position, const T&);
+    iterator insert(const_iterator position, T&&);
+    iterator insert(iterator position, size_type n, const T&);
     template <class InputIterator>
-      void    insert(iterator position, InputIterator first, InputIterator last);
-    void      pop_front();
-    void      pop_back();
-    void      erase(iterator position);
-    void      erase(iterator first, iterator last);
-    void      swap(avl_tree<Tp, Hierarchy>&);
-    void      clear() { h.clear(); }
+      iterator insert(const_iterator position, InputIterator first,
+        InputIterator last);
+    iterator insert(const_iterator position, initializer_list<T>);
+    iterator erase(const_iterator position);
+    iterator erase(const_iterator position, const_iterator last);
+    void     swap(avl_tree<T, Hierarchy>&);
+    void     clear() noexcept { h.clear(); }
   };
   
   template <class T, class Hierarchy>
-    bool operator==(  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator==(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
-    bool operator< (  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator< (const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
-    bool operator!=(  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator!=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
-    bool operator> (  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator> (const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
-    bool operator>=(  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator>=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
-    bool operator<=(  avl_tree<T, Hierarchy> const& x,
-                      avl_tree<T, Hierarchy> const& y);
+    bool operator<=(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
 
   // specialized algorithms:
   template <class T, class Hierarchy>
-    void swap(  avl_tree<T, Hierarchy>& x,
-                avl_tree<T, Hierarchy>& y);
-
+    void swap(avl_tree<T, Hierarchy>&, avl_tree<T, Hierarchy>&);
 } // namespace std
 ``
+
+[/endsect] [/defn]
 
 [section:cons Balancing adaptor constructors, copy, and assigment [label balance.cons]]
 
 [std_def]
 ``
-	explicit avl_tree (hierarchy_type const& = hierarchy_type());
 	template <class InputIterator>
-	  avl_tree (InputIterator first, InputIterator last,
-	    hierarchy_type const& = hierarchy_type());
-	avl_tree (avl_tree<T, Hierarchy> const& x);
+	  avl_tree(InputIterator first, InputIterator last,
+	    Hierarchy const& = Hierarchy());
 ``
 [std_end]
 
@@ -225,99 +292,32 @@ while(first++ != last)
 [endsect] [/cons]
 
 
-[section:map Balancing adaptor map operations [label balance.map]]
-
-[std_def]
-``
-	iterator find(const value_type& x);
-	const_iterator find(const value_type& x) const;
-	template <class Cmp>
-	  iterator find(const value_type& x, Cmp cmp);
-	const_iterator find(const value_type& x) const;
-	
-	size_type count(const value_type& x) const;
-	template <class Cmp>
-	  size_type count(const value_type& x, Cmp cmp) const;
-	
-	iterator lower_bound(const value_type& x);
-	const_iterator lower_bound(const value_type& x) const;
-	template <class Cmp>
-	  iterator lower_bound(const value_type& x, Cmp cmp);
-	template <class Cmp>
-	  const_iterator lower_bound(const value_type& x, Cmp cmp) const;
-	
-	iterator upper_bound(const value_type& x);
-	const_iterator upper_bound(const value_type& x) const;
-	template <class Cmp>
-	  iterator upper_bound(const value_type& x, Cmp cmp);
-	template <class Cmp>
-	  const_iterator upper_bound(const value_type& x, Cmp cmp) const;
-	
-	pair<iterator,iterator> equal_range(const value_type& x);
-	pair<const_iterator,const_iterator>
-	  equal_range(const value_type& x) const;
-	template <class Cmp>
-	  pair<iterator,iterator>
-	    equal_range(const value_type& x, Cmp cmp);
-	template <class Cmp>
-	  pair<const_iterator,const_iterator>
-	    equal_range(const value_type& x, Cmp cmp) const;
-``
-[std_end]
-
-[std_spec]
-/Notes:/ The =find=, =lower_bound=, =upper_bound= and =equal_range= member
-functions each have four versions, differing in whether they return an
-=iterator= or a =const_iterator=, and if they take a =cmp= function object
-argument or not (=count= comes only in the latter two variants, as it returns
-a =size_type=, not an iterator). In each case the behavior of the four (two)
-functions is in principle identical.
-[std_end]
-
-[std_spec]
-/Complexity:/ logarithmic (with the exception of =count=, which is
-`log(size()) + count(x)`
-[std_end]
-
-[endsect] [/map]
-
-
 [section:modifiers Balancing adaptor modifiers [label balance.modifiers]]
 
 [std_def]
 ``
-	void      push_front(value_type const& x);
-	void      push_back(value_type const& x);
-	iterator  insert(iterator position, value_type const& x = value_type());
+    template <class... Args> void emplace_front(Args&&...);
+    template <class... Args> void emplace_back(Args&&...);
+    void push_front(const T&);
+    void push_front(T&&);
+    void push_back(const T&);
+    void push_back(T&&);
+    void pop_front();
+    void pop_back();
+    template <class... Args> iterator emplace(const_iterator position, Args&&);
+    iterator insert(const_iterator position, const T&);
+    iterator insert(const_iterator position, T&&);
+    iterator insert(iterator position, size_type n, const T&);
+    template <class InputIterator>
+      iterator insert(const_iterator position, InputIterator first,
+        InputIterator last);
+    iterator insert(const_iterator position, initializer_list<T>);
 ``
 [std_end]
 
 [std_spec]
-/Complexity:/ amortized constant
-[std_end]
-
-[std_def]
-``
-	void      insert(iterator position, size_type n, value_type const& x);
-	template <class InputIterator>
-	  void    insert(iterator position, InputIterator first, InputIterator last);    
-``
-[std_end]
-
-[std_spec]
-/Complexity:/ linear in the number of elements to insert
-[std_end]
-
-[std_def]
-``
-	void      pop_front();
-	void      pop_back();
-	void      erase(iterator position);
-``
-[std_end]
-
-[std_spec]
-/Complexity:/ amortized constant
+/Complexity:/ linear in the number of elements to insert when inserting
+more than one element, otherwise amortized contant.
 [std_end]
 
 [std_def]
@@ -348,8 +348,7 @@ functions is in principle identical.
 [std_def]
 ``
 	template <class T, class Hierarchy>
-	  void swap(  avl_tree<T, Hierarchy>& x,
-	              avl_tree<T, Hierarchy>& y);
+	  void swap(avl_tree<T, Hierarchy>&, avl_tree<T, Hierarchy>&);
 ``
 [std_end]
 
@@ -359,5 +358,6 @@ functions is in principle identical.
 
 [endsect] [/special]
 
+[endsect] [/avltree]
 
 [endsect] [/balance]
