@@ -95,20 +95,20 @@ namespace std {
     template <class InputCursor> void assign(InputCursor subtree);
 
     // cursors:
-    cursor        root();
-    const_cursor  croot() const;
-    cursor        shoot();
-    const_cursor  cshoot() const;
-    cursor        inorder_first();
-    const_cursor  inorder_cfirst() const;
+    cursor        root() noexcept;
+    const_cursor  croot() const noexcept;
+    cursor        shoot() noexcept;
+    const_cursor  cshoot() const noexcept;
+    cursor        inorder_first() noexcept;
+    const_cursor  inorder_cfirst() const noexcept;
 
     cursor        rank(size_type n);
     const_cursor  rank(size_type n) const;
 
     // capacity:
-    bool      empty() const;
-    size_type size() const;
-    size_type max_size() const;
+    bool      empty() const noexcept;
+    size_type size() const noexcept;
+    size_type max_size() const noexcept;
 
     // modifiers:
     cursor    insert(cursor position, const T&);
