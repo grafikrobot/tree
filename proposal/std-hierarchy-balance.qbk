@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -123,7 +123,6 @@ namespace std {
   template <class T, class Hierarchy>
     bool operator<=(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
 
-  // specialized algorithms:
   template <class T, class Hierarchy>
     void swap(treap<T, Hierarchy>&, treap<T, Hierarchy>&);
 

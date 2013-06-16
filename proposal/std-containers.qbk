@@ -345,7 +345,8 @@ are modified as shown in Table 5.
 [section:tree Trees [label hierarchy.tree]]
 
 [std_req]
-Headers =<binary_tree>=, =<nary_tree>=, =<forest_tree>=, and =<multiway_tree>=.
+Headers =<binary_tree>=, =<nary_tree>=, =<forest_tree>=, and =<multiway_tree>=
+define template classes that meet the requirements for hierarchies.
 
 [*Header =<binary_tree>= synopsis]
 

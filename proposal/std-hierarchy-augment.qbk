@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,6 +22,37 @@ header =<augment>=.
 
 [endsect] [/general]
 
+[section:syn Header =<augment>= synopsis [label augment.syn]]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = binary_tree<T> > class rank_tree;
+
+  template <class T, class Hierarchy>
+    bool operator==(const rank_tree<T, Hierarchy>&, const rank_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const rank_tree<T, Hierarchy>&, const rank_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(rank_tree<T, Hierarchy>&, rank_tree<T, Hierarchy>&);
+              
+  namespace inorder {
+    template <class T, class Hierarchy>
+      inorder::iterator<rank_tree<T, Hierarchy>::cursor>
+        begin(rank_tree<T, Hierarchy>&);
+    template <class Tp, class Hierarchy>
+      inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
+        cbegin(const rank_tree<T, Hierarchy>&);
+  } // namespace inorder
+
+} // namespace std
+``
+
+[endsect] [/syn]
+
 [section:ranktree Class template =rank_tree= [label ranktree]]
 
 [section:defn =rank_tree= definition [label ranktree.defn]]
@@ -35,7 +66,8 @@ namespace std {
     typedef Hierarchy                                     hierarchy_type;
 
   protected:
-    typename hierarchy_type::template rebind< pair<T,size_t> >::other h;
+    typename hierarchy_type::template rebind< pair<T,size_t> >::other
+      rank_tree_type;
   
   public:
     // types:
@@ -55,17 +87,12 @@ namespace std {
     };
 
     // construct/copy/destroy:
-    explicit rank_tree (const hierarchy_type&);
-    explicit rank_tree (hierarchy_type&& = hierarchy_type());
-    template <class InputCursor>
-      rank_tree (InputCursor subtree);
-    rank_tree (const rank_tree<value_type, hierarchy_type>&);
-    rank_tree (rank_tree&&);
-    ~rank_tree();
-    rank_tree<T, Hierarchy>& operator=(
-      const rank_tree<value_type, hierarchy_type>& x);
-    template <class InputCursor>
-      void assign(InputCursor subtree);
+    template <class InputCursor> rank_tree(InputCursor subtree);
+    rank_tree(const rank_tree<T, Hierarchy>&);
+    rank_tree(rank_tree&&);
+    rank_tree<T, Hierarchy>& operator=(const rank_tree<T, Hierarchy>&);
+    rank_tree<T, Hierarchy>& operator=(rank_tree<T, Hierarchy>&&);
+    template <class InputCursor> void assign(InputCursor subtree);
 
     // cursors:
     cursor        root();
@@ -73,7 +100,7 @@ namespace std {
     cursor        shoot();
     const_cursor  cshoot() const;
     cursor        inorder_first();
-    const_cursor  inorder_cfirst const();
+    const_cursor  inorder_cfirst() const;
 
     cursor        rank(size_type n);
     const_cursor  rank(size_type n) const;
@@ -82,39 +109,34 @@ namespace std {
     bool      empty() const;
     size_type size() const;
     size_type max_size() const;
-    size_type capacity(cursor position) const;
-    void      reserve(cursor position, size_type n);
 
     // modifiers:
-    cursor    insert(cursor position, const value_type&);
-    cursor    insert(cursor position, value_type&& = value_type());
+    cursor    insert(cursor position, const T&);
+    cursor    insert(cursor position, T&& = T());
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
     void      rotate(cursor position);
-    void      swap(rank_tree<value_type, hierarchy_type>&);
+    void      swap(rank_tree<T, Hierarchy>&);
     void      clear(cursor position);
     void      clear();
   };
 
   template <class T, class Hierarchy>
-    bool operator==(  const rank_tree<T, Hierarchy>& x,
-                      const rank_tree<T, Hierarchy>& y);
-  template <class T, class Hier>
-    bool operator!=(  const rank_tree<T, Hierarchy>& x,
-                      const rank_tree<T, Hierarchy>& y);
+    bool operator==(const rank_tree<T, Hierarchy>&, const rank_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const rank_tree<T, Hierarchy>&, const rank_tree<T, Hierarchy>&);
 
   // specialized algorithms:
   template <class T, class Hierarchy>
-    void swap(  rank_tree<T, Hierarchy>& x,
-                rank_tree<T, Hierarchy>& y);
+    void swap(rank_tree<T, Hierarchy>&, rank_tree<T, Hierarchy>&);
               
   namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<rank_tree<T, Hierarchy>::cursor>
-      begin(rank_tree<T, Hierarchy>& h);
-  template <class Tp, class Hierarchy>
-    inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
-      cbegin(const rank_tree<T, Hierarchy>& h);
+    template <class T, class Hierarchy>
+      inorder::iterator<rank_tree<T, Hierarchy>::cursor>
+        begin(rank_tree<T, Hierarchy>& h);
+    template <class Tp, class Hierarchy>
+      inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
+        cbegin(const rank_tree<T, Hierarchy>& h);
   } // namespace inorder
   
 } // namespace std
