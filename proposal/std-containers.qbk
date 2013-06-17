@@ -23,10 +23,6 @@ parameter pack with the pattern =Args&&=.
 
 [section:general General hierarchy requirements [label hier.req.general]]
 
-[note
-Need better definitions for hierachy, plain hierarchy, and multiway hierarchy.
-]
-
 [std_req]
 A hierarchy is an object that stores a finite set of objects, all of the same
 type, in a hierarchical manner, i.e. as a rooted ordered connected acyclic graph.
@@ -352,30 +348,21 @@ define template classes that meet the requirements for hierarchies.
 
 ``
 namespace std {
-  template <class T, class Alloc = std::allocator<T> >
-    class binary_tree;
+  template <class T, class Alloc = std::allocator<T> > class binary_tree;
 
   template <class T, class Alloc>
-    bool operator==(
-      binary_tree<T, Alloc> const& x,
-      binary_tree<T, Alloc> const& y);
+    bool operator==(const binary_tree<T, Alloc>&, const binary_tree<T, Alloc>&);
   template <class T, class Alloc>
-    bool operator!=(
-      binary_tree<T, Alloc> const& x,
-      binary_tree<T, Alloc> const& y);
+    bool operator!=(const binary_tree<T, Alloc>&, const binary_tree<T, Alloc>&);
   template <class T, class Alloc>
-    void swap(
-      binary_tree<T, Alloc>& x,
-      binary_tree<T, Alloc>& y);
+    void swap(binary_tree<T, Alloc>&, binary_tree<T, Alloc>&);
   namespace inorder {
-  template <class Tp, class Alloc>
-    inorder::iterator<binary_tree<Tp, Alloc>::cursor>
-      begin(
-        binary_tree<Tp, Alloc>& h);
-  template <class Tp, class Alloc>
-    inorder::iterator<binary_tree<Tp, Alloc>::const_cursor>
-      cbegin(
-        binary_tree<Tp, Alloc> const& h);
+  template <class T, class Alloc>
+    inorder::iterator<binary_tree<T, Alloc>::cursor>
+      begin(binary_tree<T, Alloc>&);
+  template <class T, class Alloc>
+    inorder::iterator<binary_tree<T, Alloc>::const_cursor>
+      cbegin(const binary_tree<T, Alloc>&);
   } // namespace inorder
 
 } // namespace std
@@ -385,98 +372,23 @@ namespace std {
 
 ``
 namespace std {
-  template <class T, class Alloc = std::allocator<T> >
-    class nary_tree;
+  template <class T, class Alloc = std::allocator<T> > class nary_tree;
 
   template <class T, class Alloc>
-    bool operator==(
-      binary_tree<T, Alloc> const& x,
-      binary_tree<T, Alloc> const& y);
+    bool operator==(const nary_tree<T, Alloc>&, const nary_tree<T, Alloc>&);
   template <class T, class Alloc>
-    bool operator!=(
-      binary_tree<T, Alloc> const& x,
-      binary_tree<T, Alloc> const& y);
+    bool operator!=(const nary_tree<T, Alloc>&, const nary_tree<T, Alloc>&);
   template <class T, class Alloc>
-  void swap(
-    nary_tree<T, Alloc>& x,
-    nary_tree<T, Alloc>& y);
+    void swap(nary_tree<T, Alloc>&, nary_tree<T, Alloc>&);
   namespace inorder {
   template <class T, class Alloc>
     inorder::iterator<binary_tree<T, Alloc>::cursor>
-      begin(
-        binary_tree<T, Alloc>& h);
+      begin(binary_tree<T, Alloc>&);
   template <class T, class Alloc>
     inorder::iterator<binary_tree<T, Alloc>::const_cursor>
-      cbegin(
-        binary_tree<T, Alloc> const& h);
+      cbegin(const binary_tree<T, Alloc>&);
   } // namespace inorder
 } // namespace std
-``
-
-[*Header =<forest_tree>= synopsis]
-
-``
-namespace std {
-  template <class T, class Hierarchy = binary_tree<T> >
-    class forest_tree;
-
-  template <class T, class Hierarchy>
-    bool operator==(
-      forest_tree<T, Hierarchy> const& x,
-      forest_tree<T, Hierarchy> const& y);
-  template <class T, class Alloc>
-    bool operator!=(
-      forest_tree<T, Hierarchy> const& x,
-      forest_tree<T, Hierarchy> const& y);
-  template <class T, class Hierarchy>
-  void swap(
-    forest_tree<T, Hierarchy>& x,
-    forest_tree<T, Hierarchy>& y);
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<forest_tree<T, Hierarchy>::cursor>
-      begin(
-        forest_tree<T, Hierarchy>& h);
-  template <class T, class Alloc>
-    inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
-      cbegin(
-        forest_tree<T, Hierarchy> const& h);
-  } // namespace inorder
-} // namespace std
-
-``
-
-[*Header =<multiway_tree>= synopsis]
-
-``
-namespace std {
-  template <class T, class Hierarchy = nary_tree< std::vector<T> > >
-    class multiway_tree;
-
-  template <class T, class Hierarchy>
-    bool operator==(
-      multiway_tree<T, Hierarchy> const& x,
-      multiway_tree<T, Hierarchy> const& y);
-  template <class T, class Alloc>
-    bool operator!=(
-      multiway_tree<T, Hierarchy> const& x,
-      multiway_tree<T, Hierarchy> const& y);
-  template <class T, class Hierarchy>
-    void swap(
-      multiway_tree<T, Hierarchy>& x,
-      multiway_tree<T, Hierarchy>& y);
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
-      begin(
-        multiway_tree<T, Hierarchy>& h);
-  template <class T, class Alloc>
-    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
-      cbegin(
-        multiway_tree<T, Hierarchy> const& h);
-  } // namespace inorder
-} // namespace std
-
 ``
 [std_end]
 

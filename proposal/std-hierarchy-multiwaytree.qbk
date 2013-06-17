@@ -9,6 +9,35 @@
 
 [section:multiwaytree Template class =multiway_tree= [label multiwaytree]]
 
+[section:syn Header =multiway_tree= synopsis [label multiwaytree.syn]]
+
+``
+namespace std {
+  template <class T, class Hierarchy = nary_tree< std::vector<T> > >
+    class multiway_tree;
+
+  template <class T, class Hierarchy>
+    bool operator==(
+      const multiway_tree<T, Hierarchy>&, const multiway_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(
+      const multiway_tree<T, Hierarchy>&, const multiway_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    void swap(multiway_tree<T, Hierarchy>&, multiway_tree<T, Hierarchy>&);
+  namespace inorder {
+  template <class T, class Hierarchy>
+    inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
+      begin(multiway_tree<T, Hierarchy>&);
+  template <class T, class Alloc>
+    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
+      cbegin(const multiway_tree<T, Hierarchy>&);
+  } // namespace inorder
+} // namespace std
+
+``
+
+[endsec] [/syn]
+
 [section:defn =multiway_tree= definition [label multiwaytree.defn]]
 
 [std_par]

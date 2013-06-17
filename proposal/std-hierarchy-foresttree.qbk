@@ -9,6 +9,32 @@
 
 [section:foresttree Class template =forest_tree= [label foresttree]]
 
+[section:syn Header =forest_tree= synopsis [label foresttree.syn]]
+
+``
+namespace std {
+  template <class T, class Hierarchy = binary_tree<T> > class forest_tree;
+
+  template <class T, class Hierarchy>
+    bool operator==(const forest_tree<T, Hierarchy>&, const forest_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const forest_tree<T, Hierarchy>&, const forest_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    void swap(forest_tree<T, Hierarchy>&, forest_tree<T, Hierarchy>&);
+  namespace inorder {
+  template <class T, class Hierarchy>
+    inorder::iterator<forest_tree<T, Hierarchy>::cursor>
+      begin(forest_tree<T, Hierarchy>&);
+  template <class T, class Alloc>
+    inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
+      cbegin(const forest_tree<T, Hierarchy>&);
+  } // namespace inorder
+} // namespace std
+
+``
+
+[endsect] [/syn]
+
 [section:defn =forest_tree= definition [label foresttree.defn]]
 
 [std_par]

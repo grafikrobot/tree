@@ -22,7 +22,7 @@ boostbook proposal-standalone
         <xsl:param>html.stylesheet=proposal.css
         <xsl:param>doc.standalone=1
         <xsl:param>nav.layout=none
-        <xsl:param>toc.section.depth=2
+        <xsl:param>toc.section.depth=3
         <xsl:param>section.autolabel=1
         <xsl:param>section.autolabel.max.depth=3
         <xsl:param>chapter.autolabel=0
