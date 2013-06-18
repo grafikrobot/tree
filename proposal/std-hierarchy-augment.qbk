@@ -18,11 +18,9 @@ information is not directly exposed, but only readable via certain member
 functions of the augmentor; it is updated internally in order to adapt to
 structural or content-wise changes in the hierarchy. The library provides
 one augmenting hierarchy adaptor template class: =rank_tree=, found in
-header =<augment>=.
+header =<rank_tree>=.
 
-[endsect] [/general]
-
-[section:syn Header =<augment>= synopsis [label augment.syn]]
+[*Header =<rank_tree>= synopsis]
 
 ``
 #include <initializer_list>
@@ -51,7 +49,7 @@ namespace std {
 } // namespace std
 ``
 
-[endsect] [/syn]
+[endsect] [/general]
 
 [section:ranktree Class template =rank_tree= [label ranktree]]
 

@@ -36,8 +36,7 @@ and whose =cursor= and =const_cursor= types satisfy the requirements of a
 binary tree cursor ([bintree.types]): =avl_tree=, =red_black_tree=,
 =splay_tree=, and =treap=. Furthermore, two balancing hierarchy adaptor
 template classes that take a mutable multiway tree template parameter are
-provided: =b_tree= and =b_star_tree=. All balancing adaptors and corresponding
-free functions are found in header =<balance>=.
+provided: =b_tree= and =b_star_tree=.
 
 In the following, only the template class =avl_tree= and related operators
 are shown. Note that also =red_black_tree=, =splay_tree=, and =treap= must
@@ -46,9 +45,9 @@ replaced accordingly). The same holds true for =b_tree= and =b_star_tree=, as
 well, except that the standard value for the template parameter reads
 =multiway_tree<T>= (instead of =binary_tree<T>=) in their case.
 
-[endsect] [/general]
+[std_par]
 
-[section:syn Header =<balance>= synopsis [label balance.syn]]
+[*Header =<avl_tree>= synopsis]
 
 ``
 #include <initializer_list>
@@ -56,11 +55,6 @@ well, except that the standard value for the template parameter reads
 namespace std {
 
   template <class T, class Hierarchy = binary_tree<T> > class avl_tree;
-  template <class T, class Hierarchy = binary_tree<T> > class red_black_tree;
-  template <class T, class Hierarchy = binary_tree<T> > class splay_tree;
-  template <class T, class Hierarchy = binary_tree<T> > class treap;
-  template <class T, class Hierarchy = multiway_tree<T> > class b_tree;
-  template <class T, class Hierarchy = multiway_tree<T> > class b_star_tree;
   
   template <class T, class Hierarchy>
     bool operator==(const avl_tree<T, Hierarchy> const&, const avl_tree<T, Hierarchy>&);
@@ -77,6 +71,18 @@ namespace std {
 
   template <class T, class Hierarchy>
     void swap(avl_tree<T, Hierarchy>&, avl_tree<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[*Header =<red_black_tree>= synopsis]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = binary_tree<T> > class red_black_tree;
   
   template <class T, class Hierarchy>
     bool operator==(const red_black_tree<T, Hierarchy> const&, const red_black_tree<T, Hierarchy>&);
@@ -93,6 +99,18 @@ namespace std {
 
   template <class T, class Hierarchy>
     void swap(red_black_tree<T, Hierarchy>&, red_black_tree<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[*Header =<splay_tree>= synopsis]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = binary_tree<T> > class splay_tree;
   
   template <class T, class Hierarchy>
     bool operator==(const splay_tree<T, Hierarchy> const&, const splay_tree<T, Hierarchy>&);
@@ -109,6 +127,18 @@ namespace std {
 
   template <class T, class Hierarchy>
     void swap(splay_tree<T, Hierarchy>&, splay_tree<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[*Header =<treap>= synopsis]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = binary_tree<T> > class treap;
   
   template <class T, class Hierarchy>
     bool operator==(const treap<T, Hierarchy> const&, const treap<T, Hierarchy>&);
@@ -129,7 +159,65 @@ namespace std {
 } // namespace std
 ``
 
-[endsect] [/syn]
+[*Header =<b_tree>= synopsis]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = multiway_tree<T> > class b_tree;
+  
+  template <class T, class Hierarchy>
+    bool operator==(const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const b_tree<T, Hierarchy> const&, const b_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(b_tree<T, Hierarchy>&, b_tree<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[*Header =<b_star_tree>= synopsis]
+
+``
+#include <initializer_list>
+
+namespace std {
+
+  template <class T, class Hierarchy = multiway_tree<T> > class b_star_tree;
+  
+  template <class T, class Hierarchy>
+    bool operator==(const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator< (const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator!=(const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator> (const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator>=(const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+  template <class T, class Hierarchy>
+    bool operator<=(const b_star_tree<T, Hierarchy> const&, const b_star_tree<T, Hierarchy>&);
+
+  template <class T, class Hierarchy>
+    void swap(b_star_tree<T, Hierarchy>&, b_star_tree<T, Hierarchy>&);
+
+} // namespace std
+``
+
+[std_end]
+
+[endsect] [/general]
 
 [section:avltree Class template =avl_tree= [label avltree]]
 
