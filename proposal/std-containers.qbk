@@ -90,25 +90,25 @@ hierarchy; in some cases, however, they are stated in terms of another value.
 	]
 	[
 	[[^a.root()]]
-	[=iterator= for mutable =a=; [br] =const_iterator= for constant =a=]
+	[=cursor= for mutable =a=; [br] =const_cursor= for constant =a=]
 	[__nbsp__]
 	[constant]
 	]
 	[
 	[[^a.croot()]]
-	[=const_iterator=]
+	[=const_cursor=]
 	[__nbsp__]
 	[constant]
 	]
 	[
 	[[^a.shoot()]]
-	[=iterator= for mutable =a=; [br] =const_iterator= for constant =a=]
+	[=cursor= for mutable =a=; [br] =const_cursor= for constant =a=]
 	[__nbsp__]
 	[(Note A)]
 	]
 	[
 	[[^a.cshoot()]]
-	[=const_iterator=]
+	[=const_cursor=]
 	[__nbsp__]
 	[(Note A)]
 	]
@@ -262,7 +262,7 @@ additionally required to be valid:
 	[ /Requires:/ =T= shall be =CopyInsertable= into =X= [br]
 		/Effects:/ Inserts a copy of the subtree of =c= before =p=. [br]
 		pre: =c= is dereferenceable. ]
-	[ Should be at worst linear in the the number of elements in the subtree of
+	[ Should be at worst linear in the number of elements in the subtree of
 		=c= plus the distance to =p='s parent's =end()=. ]
 	]
 	
@@ -273,7 +273,7 @@ additionally required to be valid:
 		/Effects:/ Inserts a copy of =t= as a child of =p='s parent and
 		new parent of =p= and its siblings. [br]
 		pre: =c= is dereferenceable. ]
-	[ Linear in the the number =p='s siblings. ]
+	[ Linear in the number =p='s siblings. ]
 	]
 	
 	[
@@ -282,7 +282,7 @@ additionally required to be valid:
 	[ /Requires:/ =T= shall be =MoveInsertable= into =X=.
 		/Effects:/ Inserts a copy of =rv= as a child of =p='s parent and
 		new parent of =p= and its siblings. ]
-	[ Linear in the the number =p='s siblings. ]
+	[ Linear in the number =p='s siblings. ]
 	]
 ]
 [std_end]

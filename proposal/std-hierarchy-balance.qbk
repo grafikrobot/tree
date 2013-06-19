@@ -219,9 +219,9 @@ namespace std {
 
 [endsect] [/general]
 
-[section:avltree Class template =avl_tree= [label avltree]]
+[section:avltree Class template =avl_tree= [label balance.avltree]]
 
-[section:defn =avl_tree= definition [label avltree.defn]]
+[section:defn =avl_tree= definition [label balance.defn]]
 
 ``
 namespace std {

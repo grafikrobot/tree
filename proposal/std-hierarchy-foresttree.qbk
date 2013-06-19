@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -26,34 +26,34 @@ namespace std {
     typedef Hierarchy                                     hierarchy_type;
 
   protected:
-    hierarchy_type h;
+    Hierarchy h;
     
   public:
     // types:
-    typedef typename hierarchy_type::reference            reference;
-    typedef typename hierarchy_type::const_reference      const_reference;
+    typedef typename Hierarchy::reference                 reference;
+    typedef typename Hierarchy::const_reference           const_reference;
     typedef implementation_defined                        cursor;
     typedef implementation_defined                        const_cursor;
-    typedef typename hierarchy_type::size_type            size_type;
-    typedef typename hierarchy_type::difference_type      difference_type;
+    typedef typename Hierarchy::size_type                 size_type;
+    typedef typename Hierarchy::difference_type           difference_type;
     typedef T                                             value_type;
-    typedef typename hierarchy_type::pointer              pointer;
-    typedef typename hierarchy_type::const_pointer        const_pointer;
+    typedef typename Hierarchy::pointer                   pointer;
+    typedef typename Hierarchy::const_pointer             const_pointer;
 
     template <class U> struct rebind {
-      typedef forest_tree< U, typename hierarchy_type::template rebind<U>::other >
+      typedef forest_tree< U, typename Hierarchy::template rebind<U>::other >
         other;
     };
 
     // construct/copy/destroy:
-    explicit forest_tree(const hierarchy_type&);
-    explicit forest_tree(hierarchy_type&& = hierarchy_type());
+    explicit forest_tree(const Hierarchy&);
+    explicit forest_tree(Hierarchy&& = Hierarchy());
     template <class InputCursor>
       forest_tree(InputCursor subtree);
-    forest_tree(const forest_tree<value_type, hierarchy_type>& x);
+    forest_tree(const forest_tree<value_type, Hierarchy>& x);
     forest_tree(forest_tree&& x);
-    forest_tree<value_type, hierarchy_type>&
-      operator=(const forest_tree<value_type, hierarchy_type>&);
+    forest_tree<value_type, Hierarchy>&
+      operator=(const forest_tree<value_type, Hierarchy>&);
     template <class InputCursor>
       void assign(InputCursor subtree);
 
@@ -75,7 +75,7 @@ namespace std {
       cursor  insert(cursor position, InputCursor subtree);
     cursor    insert_above(cursor position, const value_type& x);
     cursor    insert_above(cursor position, value_type&& x);
-    void      swap(forest_tree<value_type, hierarchy_type>&);
+    void      swap(forest_tree<value_type, Hierarchy>&);
     void      clear(cursor position);
     void      clear();
   };
@@ -165,7 +165,7 @@ are for =b= as they are for =f=):
 [std_end]
 
 [std_spec]
-/Complexity:/ The constructor `template <class InputCursor> vector(InputCursor subtree)`
+/Complexity:/ The constructor `template <class InputCursor> forest_tree(InputCursor subtree)`
 makes only =N= calls to the copy constructor of =T= (where =N= is the number
 of elements in =subtree=) and no reallocations if the cursor =subtree= is of
 (either descending or ascending) forward, bidirectional, or random access

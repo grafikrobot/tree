@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -25,36 +25,36 @@ namespace std {
     typedef Hierarchy                                     hierarchy_type;
 
   protected:
-    hierarchy_type h;
+    Hierachy h;
 
   public:
     // types:
-    typedef typename hierarchy_type::reference            reference;
-    typedef typename hierarchy_type::const_reference      const_reference;
+    typedef typename Hierachy::reference                  reference;
+    typedef typename Hierachy::const_reference            const_reference;
     typedef implementation_defined                        cursor;
     typedef implementation_defined                        const_cursor;
-    typedef typename hierarchy_type::size_type            size_type;
-    typedef typename hierarchy_type::difference_type      difference_type;
+    typedef typename Hierachy::size_type                  size_type;
+    typedef typename Hierachy::difference_type            difference_type;
     typedef T                                             value_type;
-    typedef typename hierarchy_type::pointer              pointer;
-    typedef typename hierarchy_type::const_pointer        const_pointer;
+    typedef typename Hierachy::pointer                    pointer;
+    typedef typename Hierachy::const_pointer              const_pointer;
 
     template <class U> struct rebind {
       typedef multiway_tree< U,
-        typename hierarchy_type::template rebind< implementation defined >::other >
+        typename Hierachy::template rebind< implementation defined >::other >
           other;
     };
 
     // construct/copy/destroy:
-    explicit multiway_tree(const hierarchy_type&);
-    explicit multiway_tree(hierarchy_type&& = hierarchy_type());
+    explicit multiway_tree(const Hierachy&);
+    explicit multiway_tree(Hierachy&& = Hierachy());
     template <class InputCursor>
       multiway_tree (InputCursor subtree);
-    multiway_tree(const multiway_tree<value_type, hierarchy_type>&);
+    multiway_tree(const multiway_tree<value_type, Hierachy>&);
     multiway_tree(multiway_tree&&)
     ~multiway_tree();
-    multiway_tree<value_type, hierarchy_type>&
-      operator=(const multiway_tree<value_type, hierarchy_type>&);
+    multiway_tree<value_type, Hierachy>&
+      operator=(const multiway_tree<value_type, Hierachy>&);
     template <class InputCursor>
       void assign(InputCursor subtree);
 
@@ -79,7 +79,7 @@ namespace std {
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
     void      rotate(cursor position);
-    void      swap(multiway_tree<value_type, hierarchy_type>&);
+    void      swap(multiway_tree<value_type, Hierachy>&);
     void      clear(cursor position);
     void      clear();
   };
@@ -87,7 +87,7 @@ namespace std {
   template <class T, class Hierarchy>
     bool operator==(  multiway_tree<T, Hierarchy> const& x,
                       multiway_tree<T, Hierarchy> const& y);
-  template <class Tp, class Alloc>
+  template <class T, class Hierarchy>
     bool operator!=(  multiway_tree<T, Hierarchy> const& x,
                       multiway_tree<T, Hierarchy> const& y);
 
@@ -151,18 +151,18 @@ complexity are for =m= as they are for =n=):
 
 [std_def]
 ``
-    explicit multiway_tree(const hierarchy_type&);
-    explicit multiway_tree(hierarchy_type&& = hierarchy_type());
+    explicit multiway_tree(const Hierachy&);
+    explicit multiway_tree(Hierachy&& = Hierachy());
     template <class InputCursor>
       multiway_tree (InputCursor subtree);
-    multiway_tree(const multiway_tree<value_type, hierarchy_type>&);
+    multiway_tree(const multiway_tree<value_type, Hierachy>&);
     multiway_tree(multiway_tree&&)
 ``
 [std_end]
 
 [std_spec]
 /Complexity:/ The constructor
-`template <class InputCursor> vector(InputCursor subtree)` makes only =N=
+`template <class InputCursor> multiway_tree(InputCursor subtree)` makes only =N=
 calls to the copy constructor of =T= (where =N= is the number of elements in
 =subtree=) and no reallocations if the cursor =subtree= is of (either
 descending or ascending) forward, bidirectional, or random access categories.
@@ -332,15 +332,15 @@ call to `reserve()` until the time when an insertion would make
 [std_def]
 ``
 	namespace inorder {
-	  template <class Tp, class Alloc>
-	    inorder::iterator<multiway_tree<Tp, Alloc>::const_cursor>
-	      cbegin(multiway_tree<Tp, Alloc> const& h);
+	  template <class T, class Hierarchy>
+	    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
+	      cbegin(multiway_tree<T, Hierarchy> const& h);
 	} // namespace inorder
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ `inorder::iterator<multiway_tree<Tp, Alloc>::const_cursor>(h.inorder_cfirst())`.
+/Returns:/ `inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>(h.inorder_cfirst())`.
 [std_end]
 
 [std_spec]

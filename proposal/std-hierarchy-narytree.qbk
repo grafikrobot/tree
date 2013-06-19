@@ -1,6 +1,6 @@
 [/
  /  Copyright (c) 2006-2009, Bernhard Reiter
- /  Copyright (c) 2006-2012, René Rivera
+ /  Copyright (c) 2006-2013, René Rivera
  /
  /  Distributed under the Boost Software License, Version 1.0.
  /  (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,42 +13,42 @@
 
 ``
 namespace std {
-  template <class T, class Alloc = std::allocator<T> >
+  template <class T, class Allocator = std::allocator<T> >
   class nary_tree {
   public:
     // types:
-    typedef typename allocator_type::reference            reference;
-    typedef typename allocator_type::const_reference      const_reference;
+    typedef value_type&                                   reference;
+    typedef const value_type&                             const_reference;
     typedef implementation_defined                        cursor;
     typedef implementation_defined                        const_cursor;
-    typedef typename allocator_type::size_type            size_type;
-    typedef typename allocator_type::difference_type      difference_type;
+    typedef implementation_defined                        size_type;
+    typedef implementation_defined                        difference_type;
     typedef T                                             value_type;
-    typedef Alloc                                         allocator_type;
-    typedef typename allocator_type::pointer              pointer;
-    typedef typename allocator_type::const_pointer        const_pointer;
+    typedef Allocator                                     allocator_type;
+    typedef typename allocator_traits<Allocator>::pointer              pointer;
+    typedef typename allocator_traits<Allocator>::const_pointer        const_pointer;
 
     template <class U> struct rebind {
-      typedef nary_tree< U, typename allocator_type::template rebind<U>::other >
+      typedef nary_tree< U, typename Allocator::template rebind<U>::other >
         other;
     };
 
     // construct/copy/destroy:
-    explicit nary_tree (const allocator_type& = allocator_type());
+    explicit nary_tree (const Allocator& = Allocator());
     template <class InputCursor>
       nary_tree (InputCursor subtree,
-        const allocator_type& = allocator_type());
-    nary_tree (const nary_tree<value_type, allocator_type>&);
+        const Allocator& = Allocator());
+    nary_tree (const nary_tree<T, Allocator>&);
     nary_tree (nary_tree&&);
-    nary_tree (const nary_tree&, const allocator_type&);
-    nary_tree (nary_tree&&, const allocator_type&);
+    nary_tree (const nary_tree&, const Allocator&);
+    nary_tree (nary_tree&&, const Allocator&);
     ~nary_tree();
-    nary_tree<value_type, allocator_type>&
-      operator=(const nary_tree<value_type, allocator_type>&);
-    nary_tree<value_type, allocator_type>&
-      operator=(nary_tree<value_type, allocator_type>&&);
+    nary_tree<T, Allocator>&
+      operator=(const nary_tree<T, Allocator>&);
+    nary_tree<T, Allocator>&
+      operator=(nary_tree<T, Allocator>&&);
     template <class InputCursor> void assign(InputCursor subtree);
-    allocator_type get_allocator() const noexcept;
+    Allocator get_allocator() const noexcept;
 
     // cursors:
     cursor        root() noexcept;
@@ -67,36 +67,36 @@ namespace std {
     void      shrink_to_fit(cursor position);
 
     // modifiers:
-    cursor    insert(cursor position, const value_type&);
-    cursor    insert(cursor position, value_type&&);
+    cursor    insert(cursor position, const T&);
+    cursor    insert(cursor position, T&&);
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
-    cursor    insert_above(cursor position, const value_type&);
-    cursor    insert_above(cursor position, value_type&&);
-    void      swap(nary_tree<value_type, allocator_type>&);
+    cursor    insert_above(cursor position, const T&);
+    cursor    insert_above(cursor position, T&&);
+    void      swap(nary_tree<T, Allocator>&);
     void      clear(cursor position);
     void      clear();
   };
 
-  template <class T, class Alloc>
-    bool operator==(  const nary_tree<T, Alloc>& x,
-                      const nary_tree<T, Alloc>& y);
-  template <class T, class Alloc>
-    bool operator!=(  const nary_tree<T, Alloc>& x,
-                      const nary_tree<T, Alloc>& y);
+  template <class T, class Allocator>
+    bool operator==(  const nary_tree<T, Allocator>& x,
+                      const nary_tree<T, Allocator>& y);
+  template <class T, class Allocator>
+    bool operator!=(  const nary_tree<T, Allocator>& x,
+                      const nary_tree<T, Allocator>& y);
 
   // specialized algorithms:
-  template <class T, class Alloc>
-    void swap(  nary_tree<T, Alloc>& x,
-                nary_tree<T, Alloc>& y);
+  template <class T, class Allocator>
+    void swap(  nary_tree<T, Allocator>& x,
+                nary_tree<T, Allocator>& y);
 
   namespace inorder {
-  template <class T, class Alloc>
-    inorder::iterator<nary_tree<T, Alloc>::cursor>
-      begin(nary_tree<T, Alloc>& h);
-  template <class T, class Alloc>
-    inorder::iterator<nary_tree<T, Alloc>::const_cursor>
-      cbegin(const nary_tree<T, Alloc>& h);
+  template <class T, class Allocator>
+    inorder::iterator<nary_tree<T, Allocator>::cursor>
+      begin(nary_tree<T, Allocator>& h);
+  template <class T, class Allocator>
+    inorder::iterator<nary_tree<T, Allocator>::const_cursor>
+      cbegin(const nary_tree<T, Allocator>& h);
   } // namespace inorder
               
 } // namespace std
@@ -127,16 +127,16 @@ Both =cursor= and =const_cursor= have to fulfill the plain cursor
 
 [std_def]
 ``
-    explicit nary_tree (const allocator_type& = allocator_type());
+    explicit nary_tree (const Allocator& = Allocator());
     template <class InputCursor>
       nary_tree (InputCursor subtree,
-        const allocator_type& = allocator_type());
-    nary_tree (const nary_tree<T, Alloc>& x);
+        const Allocator& = Allocator());
+    nary_tree (const nary_tree<T, Allocator>& x);
 ``
 [std_end]
 
 [std_spec]
-/Complexity:/ The constructor `template <class InputCursor> vector(InputCursor subtree)`
+/Complexity:/ The constructor `template <class InputCursor> nary_tree(InputCursor subtree)`
 makes only =N= calls to the copy constructor of =T= (where =N= is the number
 of elements in =subtree=) and no reallocations if the cursor =subtree= is of
 (either descending or ascending) forward, bidirectional, or random access
@@ -247,12 +247,12 @@ call to `reserve()` until the time when an insertion would make
 
 [std_def]
 ``
-    cursor    insert(cursor position, const value_type&);
-    cursor    insert(cursor position, value_type&&);
+    cursor    insert(cursor position, const T&);
+    cursor    insert(cursor position, T&&);
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
-    cursor    insert_above(cursor position, const value_type&);
-    cursor    insert_above(cursor position, value_type&&);
+    cursor    insert_above(cursor position, const T&);
+    cursor    insert_above(cursor position, T&&);
 ``
 [std_end]
 
@@ -277,9 +277,9 @@ call to `reserve()` until the time when an insertion would make
 
 [std_def]
 ``
-  template <class T, class Alloc>
-    void swap(  nary_tree<T, Alloc>& x,
-                nary_tree<T, Alloc>& y);
+  template <class T, class Allocator>
+    void swap(  nary_tree<T, Allocator>& x,
+                nary_tree<T, Allocator>& y);
 ``
 [std_end]
 
@@ -290,15 +290,15 @@ call to `reserve()` until the time when an insertion would make
 [std_def]
 ``
     namespace inorder {
-      template <class T, class Alloc>
-        inorder::iterator<nary_tree<T, Alloc>::cursor>
-          begin(nary_tree<T, Alloc>& h);
+      template <class T, class Allocator>
+        inorder::iterator<nary_tree<T, Allocator>::cursor>
+          begin(nary_tree<T, Allocator>& h);
     } // namespace inorder
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ `inorder::iterator<nary_tree<T, Alloc>::cursor>(h.inorder_first())`.
+/Returns:/ `inorder::iterator<nary_tree<T, Allocator>::cursor>(h.inorder_first())`.
 [std_end]
 
 [std_spec]
@@ -308,15 +308,15 @@ call to `reserve()` until the time when an insertion would make
 [std_def]
 ``
     namespace inorder {
-      template <class T, class Alloc>
-        inorder::iterator<nary_tree<T, Alloc>::const_cursor>
-          cbegin(const nary_tree<T, Alloc>& h);
+      template <class T, class Allocator>
+        inorder::iterator<nary_tree<T, Allocator>::const_cursor>
+          cbegin(const nary_tree<T, Allocator>& h);
     } // namespace inorder
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ `inorder::iterator<nary_tree<T, Alloc>::const_cursor>(h.inorder_cfirst())`.
+/Returns:/ `inorder::iterator<nary_tree<T, Allocator>::const_cursor>(h.inorder_cfirst())`.
 [std_end]
 
 [endsect] [/special]

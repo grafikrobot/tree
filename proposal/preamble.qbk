@@ -121,7 +121,7 @@ It can be, and partly has been, implemented with today's compilers.
 
 Note that it might be worthwhile to investigate if the present Container concept should
 be modified so that it only covers the requirements as of paragraph 2 of section
-[@#hierarchy.req [hierarchy.req]] of this proposal, which correspond to the current
+[@#hierarchy.req [hierarchy.req.general]] of this proposal, which correspond to the current
 Container concept with the exception of any expressions that implicitly assume linear
 internal structure and outsource those to a "Linear Container" concept as similarly
 formalized in the [@http://boost.org/libs/range/doc/range.html Boost Range concept]

@@ -151,7 +151,7 @@ which are newly introduced.)
 
 [endsect] [/defn]
 
-[section:cursors =rank_tree= cursors [label rantree.cursors]]
+[section:cursors =rank_tree= cursors [label ranktree.cursors]]
 
 [std_def]
 ``

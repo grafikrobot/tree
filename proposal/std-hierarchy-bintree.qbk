@@ -9,7 +9,7 @@
 
 [section:bintree Class template =binary_tree=  [label hierarchy.bintree]]
 
-[section:overview Class template =binary_tree= overview [label hiearchy.bintree.overview]]
+[section:overview Class template =binary_tree= overview [label bintree.overview]]
 
 A =binary_tree= is a kind of hierarchy that satisfies multiway hierarchy
 requirements. Additionally, it supports (inorder-invariant) cursor rotation.
@@ -20,44 +20,43 @@ additional semantic information.
 ``
 namespace std {
   template <class T, class Allocator = std::allocator<T> >
-  class binary_tree
-  {
+  class binary_tree {
   public:
-    // 23.7.4.1.2, types:
-    typedef typename allocator_type::reference            reference;
-    typedef typename allocator_type::const_reference      const_reference;
+    // types:
+    typedef value_type&                                   reference;
+    typedef const value_type&                             const_reference;
     typedef implementation_defined                        cursor;
     typedef implementation_defined                        const_cursor;
-    typedef typename allocator_type::size_type            size_type;
-    typedef typename allocator_type::difference_type      difference_type;
+    typedef implementation_defined                        size_type;
+    typedef implementation_defined                        difference_type;
     typedef T                                             value_type;
     typedef Allocator                                     allocator_type;
-    typedef typename allocator_type::pointer              pointer;
-    typedef typename allocator_type::const_pointer        const_pointer;
+    typedef typename allocator_traits<Allocator>::pointer              pointer;
+    typedef typename allocator_traits<Allocator>::const_pointer        const_pointer;
 
     template <class U> struct rebind {
-      typedef binary_tree< U, typename allocator_type::template rebind<U>::other >
+      typedef binary_tree< U, typename Allocator::template rebind<U>::other >
         other;
     };
 
-    // 23.7.4.1.3, construct/copy/destroy:
-    explicit binary_tree(const allocator_type& = allocator_type());
+    // construct/copy/destroy:
+    explicit binary_tree(const Allocator& = Allocator());
     template <class InputCursor>
       binary_tree(InputCursor subtree,
-        const allocator_type& = allocator_type());
-    binary_tree(const binary_tree<value_type, allocator_type>& x);
+        const Allocator& = Allocator());
+    binary_tree(const binary_tree<T, Allocator>& x);
     binary_tree(binary_tree&&);
-    binary_tree(const binary_tree&, const allocator_type&);
-    binary_tree(binary_tree&&, const allocator_type&);
+    binary_tree(const binary_tree&, const Allocator&);
+    binary_tree(binary_tree&&, const Allocator&);
     ~binary_tree();
-    binary_tree<value_type, allocator_type>&
-      operator=(const binary_tree<T, allocator_type>& x);
-    binary_tree<value_type, allocator_type>&
-      operator=(binary_tree<T, allocator_type>&& x);
+    binary_tree<T, Allocator>&
+      operator=(const binary_tree<T, Allocator>& x);
+    binary_tree<T, Allocator>&
+      operator=(binary_tree<T, Allocator>&& x);
     template <class InputCursor> void assign(InputCursor subtree);
-    allocator_type get_allocator() const noexcept;
+    Allocator get_allocator() const noexcept;
 
-    // 23.7.4.1.4, cursors:
+    // cursors:
     cursor        root() noexcept;
     const_cursor  croot() const noexcept;
     cursor        shoot() noexcept;
@@ -70,36 +69,36 @@ namespace std {
     size_type size() const noexcept;
     size_type max_size() const noexcept;
 
-    // 23.7.4.1.5, modifiers:
-    cursor    insert(const_cursor position, const value_type& x);
-    cursor    insert(const_cursor position, value_type&& x);
+    // modifiers:
+    cursor    insert(const_cursor position, const T& x);
+    cursor    insert(const_cursor position, T&& x);
     template <class InputCursor>
       cursor  insert(const_cursor position, InputCursor subtree);
     void      rotate(const_cursor position);
-    void      swap(binary_tree<value_type, allocator_Type>&);
+    void      swap(binary_tree<T, Allocator>&);
     void      clear(cursor position);
     void      clear();
   };
 
-  template <class T, class Alloc>
-    bool operator==(  const binary_tree<T, Alloc>& x,
-                      const binary_tree<T, Alloc>& y);
-  template <class T, class Alloc>
-    bool operator!=(  const binary_tree<T, Alloc>& x,
-                      const binary_tree<T, Alloc>& y);
+  template <class T, class Allocator>
+    bool operator==(  const binary_tree<T, Allocator>& x,
+                      const binary_tree<T, Allocator>& y);
+  template <class T, class Allocator>
+    bool operator!=(  const binary_tree<T, Allocator>& x,
+                      const binary_tree<T, Allocator>& y);
 
   // 23.7.4.1.6, specialized algorithms:
-  template <class T, class Alloc>
-    void swap(  binary_tree<T, Alloc>& x,
-                binary_tree<T, Alloc>& y);
+  template <class T, class Allocator>
+    void swap(  binary_tree<T, Allocator>& x,
+                binary_tree<T, Allocator>& y);
               
   namespace inorder {
-  template <class T, class Alloc>
-    inorder::iterator<binary_tree<T, Alloc>::cursor>
-      begin(binary_tree<T, Alloc>& h);
-  template <class T, class Alloc>
-    inorder::iterator<binary_tree<T, Alloc>::const_cursor>
-      cbegin(const binary_tree<T, Alloc>& h);
+  template <class T, class Allocator>
+    inorder::iterator<binary_tree<T, Allocator>::cursor>
+      begin(binary_tree<T, Allocator>& h);
+  template <class T, class Allocator>
+    inorder::iterator<binary_tree<T, Allocator>::const_cursor>
+      cbegin(const binary_tree<T, Allocator>& h);
   } // namespace inorder
   
 } // namespace std
@@ -107,7 +106,7 @@ namespace std {
 
 [endsect] [/overview]
 
-[section:types =binary_tree= types [label hierarchy.bintree.types]]
+[section:types =binary_tree= types [label bintree.types]]
 
 [std_def]
 ``
@@ -130,21 +129,21 @@ Additionally, for any instance a of either type =cursor= or
 [endsect] [/types]
 
 
-[section:cons =binary_tree= constructors, copy, and assignment [label hierarchy.bintree.cons]]
+[section:cons =binary_tree= constructors, copy, and assignment [label bintree.cons]]
 
 [std_def]
 ``
-	explicit binary_tree (const allocator_type& = allocator_type());
+	explicit binary_tree (const Allocator& = Allocator());
 	template <class InputCursor>
 	  binary_tree (InputCursor subtree,
-	    const allocator_type& = allocator_type());
-	binary_tree (binary_tree<T, Alloc> const& x);
+	    const Allocator& = Allocator());
+	binary_tree (binary_tree<T, Allocator> const& x);
 ``
 [std_end]
 
 [std_spec]
 /Complexity:/ The constructor
-`template <class InputCursor> vector(InputCursor subtree)` makes only
+`template <class InputCursor> binary_tree(InputCursor subtree)` makes only
 =N= calls to the copy constructor of =T= (where =N= is the number of elements
 in =subtree=) and no reallocations if the cursor =subtree= is of (either
 descending or ascending) forward, bidirectional, or random access categories.
@@ -172,7 +171,7 @@ template <class InputCursor>
 [endsect] [/cons]
 
 
-[section:cursors =binary_tree= cursors [label hierarchy.bintree.cursors]]
+[section:cursors =binary_tree= cursors [label bintree.cursors]]
 
 [std_def]
 ``
@@ -194,7 +193,7 @@ template <class InputCursor>
 
 [std_spec]
 /Returns:/ A cursor to the =binary_tree='s first element in inorder
-(see \[tr.order.iterators\]).
+(see \[order.iterators\]).
 [std_end]
 
 [std_spec]
@@ -204,12 +203,12 @@ template <class InputCursor>
 [endsect] [/cursors]
 
 
-[section:modifiers =binary_tree= modifiers [label hierarchy.bintree.modifiers]]
+[section:modifiers =binary_tree= modifiers [label bintree.modifiers]]
 
 [std_def]
 ``
-	cursor insert(cursor position, const value_type& x);
-	cursor insert(const_cursor position, value_type&& x);
+	cursor insert(cursor position, const T& x);
+	cursor insert(const_cursor position, T&& x);
 ``
 [std_end]
 
@@ -243,7 +242,7 @@ Complexity: constant
 
 [std_spec]
 /Effects:/ as above, substituting =InputCursor subtree= to insert instead
-of `const value_type& x`.
+of `const T& x`.
 [std_end]
 
 [std_spec]
@@ -293,7 +292,7 @@ was before.]
 
 [std_spec]
 /Notes:/ Does not affect the validity of cursors and references. Tree
-rotations are important inorder-preserving (see \[tr.order.iterators\])
+rotations are important inorder-preserving (see \[order.iterators\])
 operations on binary trees that are especially required by balancers.
 [std_end]
 
@@ -310,13 +309,13 @@ operations on binary trees that are especially required by balancers.
 [endsect] [/modifiers]
 
 
-[section:special =binary_tree= specialized algorithms [label hierarchy.bintree.special]]
+[section:special =binary_tree= specialized algorithms [label bintree.special]]
 
 [std_def]
 ``
-    template <class T, class Alloc>
-      void swap(  binary_tree<T, Alloc>& x,
-                  binary_tree<T, Alloc>& y);
+    template <class T, class Allocator>
+      void swap(  binary_tree<T, Allocator>& x,
+                  binary_tree<T, Allocator>& y);
 ``
 [std_end]
 
@@ -327,15 +326,15 @@ operations on binary trees that are especially required by balancers.
 [std_def]
 ``
     namespace inorder {
-      template <class T, class Alloc>
-        inorder::iterator<binary_tree<T, Alloc>::cursor>
-          begin(binary_tree<T, Alloc>& h);
+      template <class T, class Allocator>
+        inorder::iterator<binary_tree<T, Allocator>::cursor>
+          begin(binary_tree<T, Allocator>& h);
     } // namespace inorder
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ `inorder::iterator<binary_tree<T, Alloc>::cursor>(h.inorder_first())`.
+/Returns:/ `inorder::iterator<binary_tree<T, Allocator>::cursor>(h.inorder_first())`.
 [std_end]
 
 [std_spec]
@@ -345,15 +344,15 @@ operations on binary trees that are especially required by balancers.
 [std_def]
 ``
     namespace inorder {
-      template <class T, class Alloc>
-        inorder::iterator<binary_tree<T, Alloc>::const_cursor>
-          cbegin(binary_tree<T, Alloc> const& h);
+      template <class T, class Allocator>
+        inorder::iterator<binary_tree<T, Allocator>::const_cursor>
+          cbegin(binary_tree<T, Allocator> const& h);
     } // namespace inorder
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ `inorder::iterator<binary_tree<T, Alloc>::const_cursor>(h.inorder_cfirst())`.
+/Returns:/ `inorder::iterator<binary_tree<T, Allocator>::const_cursor>(h.inorder_cfirst())`.
 [std_end]
 
 [std_spec]

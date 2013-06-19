@@ -112,7 +112,7 @@
     [
     [austern]
     [Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson, John. /Untangling the Balancing and Searching of Balanced Binary Search Trees/, Software: Practice and Experience 33(13): 1273-1298 (2003)
-    Electronic Appendix: http://www.research.att.com/~bs/tree-appendix.pdf]
+    Electronic Appendix: [@http://www.research.att.com/~bs/tree-appendix.pdf]]
     ]
     [
     [cormen]
@@ -120,23 +120,23 @@
     ]
     [
     [dreizin]
-    [Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. /Policy-Based Data Structures/, http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/]
+    [Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. /Policy-Based Data Structures/, [@http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/]]
     ]
     [
     [ekman]
-    [Ekman, Rasmus. /Structured Associative Containers/, http://www.abc.se/~re/code/tst]
+    [Ekman, Rasmus. /Structured Associative Containers/, [@http://www.abc.se/~re/code/tst]]
     ]
     [
     [gottschlich]
-    [Gottschlich, Justin. /C++ Trees/, http://www.gamedev.net/reference/articles/article2192.asp and http://www.gamedev.net/reference/articles/article2233.asp]
+    [Gottschlich, Justin. /C++ Trees/, [@http://www.gamedev.net/reference/articles/article2192.asp] and [@http://www.gamedev.net/reference/articles/article2233.asp]]
     ]
     [
     [haas]
-    [Haas, Mitchell. /Tree Container Library/, http://www.datasoftsolutions.net/tree_container_library/overview.php]
+    [Haas, Mitchell. /Tree Container Library/, [@http://www.datasoftsolutions.net/tree_container_library/overview.php]]
     ]
     [
     [karas]
-    [Karas, Walt. /C++ AVL Tree Template/, http://us.geocities.com/wkaras/gen_cpp/avl_tree.html]
+    [Karas, Walt. /C++ AVL Tree Template/, [@http://us.geocities.com/wkaras/gen_cpp/avl_tree.html]]
     ]
     [
     [knuth97]
@@ -148,19 +148,19 @@
     ]
     [
     [mirwaisi]
-    [Mirwaisi, Jeff. /treelib/, https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2]
+    [Mirwaisi, Jeff. /treelib/, [@https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2]]
     ]
     [
     [parent]
-    [Parent, Sean et al. /forest/, http://opensource.adobe.com/group__forest__related.html]
+    [Parent, Sean et al. /forest/, [@http://opensource.adobe.com/group__forest__related.html]]
     ]
     [
     [peeters]
-    [Peeters, Kasper. /tree.hh: an STL-like C++ tree class/, http://www.aei.mpg.de/~peekas/tree/]
+    [Peeters, Kasper. /tree.hh: an STL-like C++ tree class/, [@http://www.aei.mpg.de/~peekas/tree/]]
     ]
     [
     [rivera]
-    [Rivera, René. /RankTree.h/, http://redshift-software.com/~grafik/RankTree.h]
+    [Rivera, René. /RankTree.h/, [@http://redshift-software.com/~grafik/RankTree.h]]
     ]
 ]
 
