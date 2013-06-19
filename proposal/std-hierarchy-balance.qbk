@@ -339,7 +339,7 @@ namespace std {
 } // namespace std
 ``
 
-[/endsect] [/defn]
+[endsect] [/defn]
 
 [section:cons Balancing adaptor constructors, copy, and assigment [label balance.cons]]
 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/19 13:50:13 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/19 14:05:40 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -3100,41 +3100,42 @@
     <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;,</phrase> <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-            <section id="tree.tree.adaptors.balance.avltree.defn.cons">
-              <title><link linkend="tree.tree.adaptors.balance.avltree.defn.cons">Balancing
-              adaptor constructors, copy, and assigment <phrase role="std_section_label">[balance.cons]</phrase></link></title>
-              <simplesect role="std_definition">
+          </section>
+          <section id="tree.tree.adaptors.balance.avltree.cons">
+            <title><link linkend="tree.tree.adaptors.balance.avltree.cons">Balancing
+            adaptor constructors, copy, and assigment <phrase role="std_section_label">[balance.cons]</phrase></link></title>
+            <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
   <phrase role="identifier">avl_tree</phrase><phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">,</phrase>
     <phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="special">=</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">());</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Effects:</emphasis> constructs a balanced tree equal to
-                the range [<literal moreinfo="none">first</literal>, <literal moreinfo="none">last</literal>).
-              </para>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Complexity:</emphasis> Linear.
-              </para>
-              </simplesect> <simplesect role="std_definition">
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Effects:</emphasis> constructs a balanced tree equal to the
+              range [<literal moreinfo="none">first</literal>, <literal moreinfo="none">last</literal>).
+            </para>
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Complexity:</emphasis> Linear.
+            </para>
+            </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">InputIterator</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">assign</phrase><phrase role="special">(</phrase><phrase role="identifier">InputIterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Effects:</emphasis>
-              </para>
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Effects:</emphasis>
+            </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
 <phrase role="keyword">while</phrase><phrase role="special">(</phrase><phrase role="identifier">first</phrase><phrase role="special">++</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">last</phrase><phrase role="special">)</phrase>
   <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">end</phrase><phrase role="special">(),</phrase> <phrase role="special">*</phrase><phrase role="identifier">first</phrase><phrase role="special">);</phrase>
 </programlisting>
-              </simplesect>
-            </section>
-            <section id="tree.tree.adaptors.balance.avltree.defn.modifiers">
-              <title><link linkend="tree.tree.adaptors.balance.avltree.defn.modifiers">Balancing
-              adaptor modifiers <phrase role="std_section_label">[balance.modifiers]</phrase></link></title>
-              <simplesect role="std_definition">
+            </simplesect>
+          </section>
+          <section id="tree.tree.adaptors.balance.avltree.modifiers">
+            <title><link linkend="tree.tree.adaptors.balance.avltree.modifiers">Balancing
+            adaptor modifiers <phrase role="std_section_label">[balance.modifiers]</phrase></link></title>
+            <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase><phrase role="special">...</phrase> <phrase role="identifier">Args</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">void</phrase> <phrase role="identifier">emplace_front</phrase><phrase role="special">(</phrase><phrase role="identifier">Args</phrase><phrase role="special">&amp;&amp;...);</phrase>
 <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase><phrase role="special">...</phrase> <phrase role="identifier">Args</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">void</phrase> <phrase role="identifier">emplace_back</phrase><phrase role="special">(</phrase><phrase role="identifier">Args</phrase><phrase role="special">&amp;&amp;...);</phrase>
 <phrase role="keyword">void</phrase> <phrase role="identifier">push_front</phrase><phrase role="special">(</phrase><phrase role="keyword">const</phrase> <phrase role="identifier">T</phrase><phrase role="special">&amp;);</phrase>
@@ -3152,58 +3153,57 @@
     <phrase role="identifier">InputIterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 <phrase role="identifier">iterator</phrase> <phrase role="identifier">insert</phrase><phrase role="special">(</phrase><phrase role="identifier">const_iterator</phrase> <phrase role="identifier">position</phrase><phrase role="special">,</phrase> <phrase role="identifier">initializer_list</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">&gt;);</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Complexity:</emphasis> linear in the number of elements
-                to insert when inserting more than one element, otherwise amortized
-                contant.
-              </para>
-              </simplesect> <simplesect role="std_definition">
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Complexity:</emphasis> linear in the number of elements to
+              insert when inserting more than one element, otherwise amortized contant.
+            </para>
+            </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">erase</phrase><phrase role="special">(</phrase><phrase role="identifier">iterator</phrase> <phrase role="identifier">first</phrase><phrase role="special">,</phrase> <phrase role="identifier">iterator</phrase> <phrase role="identifier">last</phrase><phrase role="special">);</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal>
-                where <literal moreinfo="none">N</literal> is the distance from <literal moreinfo="none">first</literal>
-                to <literal moreinfo="none">last</literal>
-              </para>
-              </simplesect> <simplesect role="std_definition">
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal> where
+              <literal moreinfo="none">N</literal> is the distance from <literal moreinfo="none">first</literal>
+              to <literal moreinfo="none">last</literal>
+            </para>
+            </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">void</phrase>      <phrase role="identifier">clear</phrase><phrase role="special">();</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal>
-              </para>
-              </simplesect>
-            </section>
-            <section id="tree.tree.adaptors.balance.avltree.defn.special">
-              <title><link linkend="tree.tree.adaptors.balance.avltree.defn.special">Balancing
-              adaptor specialized algorithms <phrase role="std_section_label">[balance.special]</phrase></link></title>
-              <simplesect role="std_definition">
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Complexity:</emphasis> <literal moreinfo="none">log(size())+N</literal>
+            </para>
+            </simplesect>
+          </section>
+          <section id="tree.tree.adaptors.balance.avltree.special">
+            <title><link linkend="tree.tree.adaptors.balance.avltree.special">Balancing
+            adaptor specialized algorithms <phrase role="std_section_label">[balance.special]</phrase></link></title>
+            <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">void</phrase> <phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;,</phrase> <phrase role="identifier">avl_tree</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;&amp;);</phrase>
 </programlisting>
-              </simplesect> <simplesect role="std_specification">
-              <para>
-                <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
-              </para>
-              </simplesect>
-            </section>
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Effects:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">y</phrase><phrase role="special">);</phrase></computeroutput>
+            </para>
+            </simplesect>
           </section>
         </section>
       </section>
     </section>
-    </section> </section> <section role="std_section" id="tree.proposal.iterators" label="24" label-style="no-parent">
-<title><link linkend="tree.proposal.iterators">Iterators
-    library <phrase role="std_section_label">[iterators]</phrase></link></title> <section role="std_section" id="iterator.synopsis" label="24.3" label-style="no-parent">
+  </section>
+  </section> </section> <section role="std_section" id="tree.proposal.iterators" label="24" label-style="no-parent">
+<title><link linkend="tree.proposal.iterators">Iterators library
+  <phrase role="std_section_label">[iterators]</phrase></link></title> <section role="std_section" id="iterator.synopsis" label="24.3" label-style="no-parent">
 <title><link linkend="iterator.synopsis">Headers
-    <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[iterator.synopsis]</phrase></link></title>
-    <note>
-      <para>
-        Insert after section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.6.5,
-        range access:</phrase></computeroutput>
-      </para>
-    </note>
+  <literal moreinfo="none">&lt;iterator&gt;</literal> synopsis <phrase role="std_section_label">[iterator.synopsis]</phrase></link></title>
+  <note>
+    <para>
+      Insert after section introduced with <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.6.5,
+      range access:</phrase></computeroutput>
+    </para>
+  </note>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// 24.7, linear order traversal iterators</phrase>
 <phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">;</phrase>
@@ -3247,96 +3247,392 @@
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-    </section> <section role="std_section" id="cursors" label="24.7" label-style="no-parent">
+  </section> <section role="std_section" id="cursors" label="24.7" label-style="no-parent">
 <title><link linkend="cursors">Cursors <phrase role="std_section_label">[cursors]</phrase></link></title>
-    <note>
+  <note>
+    <para>
+      Add after subclause 24.7, Stream iterators ([stream.iterators]):
+    </para>
+  </note>
+  <para>
+    Cursors provide a uniform way of applying algorithms to hierarchical data structures.
+    In order to also allow for algorithms relevant when dealing with linear data
+    structures, any cursor class is actually a refinement of a corresponding iterator
+    class.
+  </para>
+  <para>
+    If exactly one application of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase>
+    <phrase role="special">=</phrase> <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput>,
+    followed by a finite sequence of applications of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">j</phrase></computeroutput> makes
+    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
+    <phrase role="identifier">j</phrase></computeroutput>, <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>
+    is a <emphasis>child</emphasis> (or <emphasis>immediate descendant</emphasis>)
+    of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>, and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
+    is the <emphasis>parent</emphasis> (or the <emphasis>immediate ancestor</emphasis>)
+    of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>. A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> is another cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>'s
+    descendant if there is a finite sequential combination of applications of either
+    of the expressions <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">i</phrase></computeroutput>
+    and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">=</phrase>
+    <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput> that
+    makes <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
+    <phrase role="identifier">j</phrase></computeroutput>; <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
+    is then called <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>'s ancestor.
+    If two cursors <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput> and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> share at least one common ancestor, they
+    refer to the same container. The descending traversal capabilities of a class
+    relate to the range of children of a given instance of that class.
+  </para>
+  <para>
+    In addition to a cursor's descending traversal tags, two of them are reused to
+    indicate a cursor's ascending traversal abilities, namely <emphasis>forward</emphasis>
+    and <emphasis>bidirectional</emphasis> traversal in order to indicate whether
+    a given cursor provides traversal to the parent.
+  </para>
+  <para>
+    Apart from cursors that are <emphasis>past-the-end</emphasis> (like their iterator
+    counterparts can be), the notion of a cursor <emphasis>on-top</emphasis> is introduced,
+    denoting a cursor that is ancestor to all other cursors within a hierarchy; and
+    just as for past-the-end ones, the library generally does not assume on-top cursors
+    be dereferenceable.
+  </para>
+  <para>
+    A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase></computeroutput> for which <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase><phrase role="special">.</phrase><phrase role="identifier">emtpy</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="keyword">true</phrase></computeroutput>
+    is called a <emphasis>leaf cursor</emphasis>. A leaf cursor's children are never
+    assumed to be dereferenceable. A cursor which is either on-top or a descendant
+    of an on-top cursor, but in either case not a leaf cursor, nor a descendant of
+    a leaf cursor, is called an <emphasis>internal cursor</emphasis>.
+  </para>
+  <para>
+    A cursor, like an iterator, can have a singular value that is not associated
+    with any hierarchy, meaning that most expressions are undefined for it, with
+    the exception of assignment of a non-singular value to a cursor that holds a
+    singular value. The children of a leaf cursor's child are never assumed to be
+    non-singular; nor is the parent of an on-top node.
+  </para>
+  <para>
+    Like for iterators, the Standard defines a number of categories of cursors according
+    to the operations defined on them: <emphasis>cursor</emphasis>, <emphasis>descending
+    cursor</emphasis>, <emphasis>descending forward cursor</emphasis>, <emphasis>descending
+    bidirectional cursor</emphasis>, <emphasis>descending random access cursor</emphasis>,
+    <emphasis>ascending cursor</emphasis>, <emphasis>ascending forward cursor</emphasis>,
+    <emphasis>ascending bidirectional</emphasis> , and <emphasis>ascending random
+    access cursor</emphasis>. The cursors of any <emphasis>ascending</emphasis> category
+    generally support all the operations of their <emphasis>descending</emphasis>
+    counterpart, plus a method to obtain their parent; relations between the <emphasis>forward</emphasis>,
+    <emphasis>bidirectional</emphasis> and <emphasis>random access</emphasis> parts
+    are as for iterators of those categories.
+  </para>
+  <para>
+    In the following sections <literal moreinfo="none">X</literal> denotes a cursor over values of
+    type <literal moreinfo="none">T</literal>, <literal moreinfo="none">a</literal> and <literal moreinfo="none">b</literal> denotes
+    an identifier, <literal moreinfo="none">r</literal> denotes a value of <literal moreinfo="none">T&amp;</literal>
+    and <literal moreinfo="none">t</literal> denotes a value of type <literal moreinfo="none">T</literal>.
+  </para>
+  <section id="tree.cursor_requirements">
+    <title><link linkend="tree.cursor_requirements">Cursor requirements <phrase role="std_section_label">[cursor.requirements]</phrase></link></title>
+    <simplesect role="std_requisite">
+    <para>
+      A class <literal moreinfo="none">X</literal> satisfies the requirements of a cursor if the
+      following expressions are valid, as shown in Table 8, in addition to satisfying
+      the requirements of input iterators ([input.iterators]) and output iterators
+      ([output.iterators]):
+    </para>
+    <table frame="all" id="tree.cursor_requirements.table8">
+      <title> Cursor requirements (in addition to input and output iterators)</title>
+      <tgroup cols="4">
+        <thead>
+          <row>
+            <entry>
+              <para>
+                expression
+              </para>
+            </entry>
+            <entry>
+              <para>
+                return type
+              </para>
+            </entry>
+            <entry>
+              <para>
+                operational semantics
+              </para>
+            </entry>
+            <entry>
+              <para>
+                assertion/note <sbr/> pre/post-condition
+              </para>
+            </entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>
+              <para>
+                <literal moreinfo="none">X::value_type</literal>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                <literal moreinfo="none">T</literal>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Any non-reference, non-cv-qualified type
+              </para>
+            </entry>
+            <entry>
+              <para>
+                compile time
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>
+                <literal moreinfo="none">X::type</literal>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Convertible to <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">input_iterator_tag</literal>,
+                and <literal moreinfo="none">output_iterator_tag</literal>
+              </para>
+            </entry>
+            <entry>
+            </entry>
+            <entry>
+              <para>
+                compile time
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>
+                <literal moreinfo="none">X::cursor</literal>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Convertible to <literal moreinfo="none">X</literal>
+              </para>
+            </entry>
+            <entry>
+            </entry>
+            <entry>
+              <para>
+                compile time
+              </para>
+            </entry>
+          </row>
+          <row>
+            <entry>
+              <para>
+                <literal moreinfo="none">X::const_cursor</literal>
+              </para>
+            </entry>
+            <entry>
+              <para>
+                Convertible to <literal moreinfo="none">const X</literal>
+              </para>
+            </entry>
+            <entry>
+            </entry>
+            <entry>
+              <para>
+                compile time
+              </para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    </simplesect>
+<section id="tree.cursor_requirements.descending">
+      <title><link linkend="tree.cursor_requirements.descending">Descending Cursor
+      <phrase role="std_section_label">[descending.cursors]</phrase></link></title>
+      <simplesect role="std_requisite">
       <para>
-        Add after subclause 24.7, Stream iterators ([stream.iterators]):
+        A class <literal moreinfo="none">X</literal> satisfies the requirements of a descending cursor
+        if, in addition to satisfying the requirements for cursors ([cursor.requirements])
+        it also conforms to the container requirements ([container.requirements])
+        with the exception of the following expressions:
       </para>
-    </note>
-    <para>
-      Cursors provide a uniform way of applying algorithms to hierarchical data structures.
-      In order to also allow for algorithms relevant when dealing with linear data
-      structures, any cursor class is actually a refinement of a corresponding iterator
-      class.
-    </para>
-    <para>
-      If exactly one application of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase>
-      <phrase role="special">=</phrase> <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput>,
-      followed by a finite sequence of applications of the expression <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">j</phrase></computeroutput> makes
-      <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
-      <phrase role="identifier">j</phrase></computeroutput>, <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>
-      is a <emphasis>child</emphasis> (or <emphasis>immediate descendant</emphasis>)
-      of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>, and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
-      is the <emphasis>parent</emphasis> (or the <emphasis>immediate ancestor</emphasis>)
-      of <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>. A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> is another cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>'s
-      descendant if there is a finite sequential combination of applications of either
-      of the expressions <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">++</phrase><phrase role="identifier">i</phrase></computeroutput>
-      and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">=</phrase>
-      <phrase role="identifier">i</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput> that
-      makes <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase> <phrase role="special">==</phrase>
-      <phrase role="identifier">j</phrase></computeroutput>; <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput>
-      is then called <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput>'s ancestor.
-      If two cursors <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">i</phrase></computeroutput> and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">j</phrase></computeroutput> share at least one common ancestor, they
-      refer to the same container. The descending traversal capabilities of a class
-      relate to the range of children of a given instance of that class.
-    </para>
-    <para>
-      In addition to a cursor's descending traversal tags, two of them are reused
-      to indicate a cursor's ascending traversal abilities, namely <emphasis>forward</emphasis>
-      and <emphasis>bidirectional</emphasis> traversal in order to indicate whether
-      a given cursor provides traversal to the parent.
-    </para>
-    <para>
-      Apart from cursors that are <emphasis>past-the-end</emphasis> (like their iterator
-      counterparts can be), the notion of a cursor <emphasis>on-top</emphasis> is
-      introduced, denoting a cursor that is ancestor to all other cursors within
-      a hierarchy; and just as for past-the-end ones, the library generally does
-      not assume on-top cursors be dereferenceable.
-    </para>
-    <para>
-      A cursor <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase></computeroutput> for which <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">c</phrase><phrase role="special">.</phrase><phrase role="identifier">emtpy</phrase><phrase role="special">()</phrase> <phrase role="special">==</phrase> <phrase role="keyword">true</phrase></computeroutput>
-      is called a <emphasis>leaf cursor</emphasis>. A leaf cursor's children are
-      never assumed to be dereferenceable. A cursor which is either on-top or a descendant
-      of an on-top cursor, but in either case not a leaf cursor, nor a descendant
-      of a leaf cursor, is called an <emphasis>internal cursor</emphasis>.
-    </para>
-    <para>
-      A cursor, like an iterator, can have a singular value that is not associated
-      with any hierarchy, meaning that most expressions are undefined for it, with
-      the exception of assignment of a non-singular value to a cursor that holds
-      a singular value. The children of a leaf cursor's child are never assumed to
-      be non-singular; nor is the parent of an on-top node.
-    </para>
-    <para>
-      Like for iterators, the Standard defines a number of categories of cursors
-      according to the operations defined on them: <emphasis>cursor</emphasis>,
-      <emphasis>descending cursor</emphasis>, <emphasis>descending forward cursor</emphasis>,
-      <emphasis>descending bidirectional cursor</emphasis>, <emphasis>descending
-      random access cursor</emphasis>, <emphasis>ascending cursor</emphasis>, <emphasis>ascending
-      forward cursor</emphasis>, <emphasis>ascending bidirectional</emphasis> , and
-      <emphasis>ascending random access cursor</emphasis>. The cursors of any <emphasis>ascending</emphasis>
-      category generally support all the operations of their <emphasis>descending</emphasis>
-      counterpart, plus a method to obtain their parent; relations between the <emphasis>forward</emphasis>,
-      <emphasis>bidirectional</emphasis> and <emphasis>random access</emphasis> parts
-      are as for iterators of those categories.
-    </para>
-    <para>
-      In the following sections <literal moreinfo="none">X</literal> denotes a cursor over values
-      of type <literal moreinfo="none">T</literal>, <literal moreinfo="none">a</literal> and <literal moreinfo="none">b</literal>
-      denotes an identifier, <literal moreinfo="none">r</literal> denotes a value of <literal moreinfo="none">T&amp;</literal>
-      and <literal moreinfo="none">t</literal> denotes a value of type <literal moreinfo="none">T</literal>.
-    </para>
-    <section id="tree.tree.cursor_requirements">
-      <title><link linkend="tree.tree.cursor_requirements">Cursor requirements <phrase role="std_section_label">[cursor.requirements]</phrase></link></title> <simplesect role="std_requisite">
+      <table frame="all" id="tree.cursor_requirements.descending.table9">
+        <title> Container requirements that are not supported</title>
+        <tgroup cols="1">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  unsupported expression
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">const_iterator</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_iterator</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_const_iterator</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">(&amp;</phrase><phrase role="identifier">a</phrase><phrase role="special">)-&gt;~</phrase><phrase role="identifier">X</phrase><phrase role="special">();</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">);</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase> <phrase role="identifier">u</phrase><phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">);</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase> <phrase role="identifier">u</phrase>
+                  <phrase role="special">=</phrase> <phrase role="identifier">a</phrase><phrase role="special">;</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">end</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">rbegin</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">rend</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">==</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">!=</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">b</phrase><phrase role="special">)</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">=</phrase>
+                  <phrase role="identifier">a</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&lt;</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&gt;</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&lt;=</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&gt;=</phrase>
+                  <phrase role="identifier">b</phrase></computeroutput>
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
       <para>
-        A class <literal moreinfo="none">X</literal> satisfies the requirements of a cursor if the
-        following expressions are valid, as shown in Table 8, in addition to satisfying
-        the requirements of input iterators ([input.iterators]) and output iterators
-        ([output.iterators]):
+        Notes: The expressions <literal moreinfo="none">a.begin()</literal> and <literal moreinfo="none">a.end()</literal>
+        are, as shown in Table 9, replaced with equivalent expressions for cursors.
       </para>
-      <table frame="all" id="tree.tree.cursor_requirements.table8">
-        <title> Cursor requirements (in addition to input and output iterators)</title>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
+        Additionally, for a descending cursor, the following expression are valid,
+        as shown in Table 10:
+      </para>
+      <table frame="all" id="tree.cursor_requirements.descending.table10">
+        <title> Descending cursor requirements (in addition to cursor)</title>
         <tgroup cols="4">
           <thead>
             <row>
@@ -3366,18 +3662,15 @@
             <row>
               <entry>
                 <para>
-                  <literal moreinfo="none">X::value_type</literal>
+                  <literal moreinfo="none">X::type</literal>
                 </para>
               </entry>
               <entry>
                 <para>
-                  <literal moreinfo="none">T</literal>
+                  Convertible to <literal moreinfo="none">descending_cursor_tag</literal>
                 </para>
               </entry>
               <entry>
-                <para>
-                  Any non-reference, non-cv-qualified type
-                </para>
               </entry>
               <entry>
                 <para>
@@ -3385,6 +3678,163 @@
                 </para>
               </entry>
             </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.begin()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal> or <literal moreinfo="none">const_cursor</literal> for
+                  constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">a</literal> is non-leaf.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.end()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal> or <literal moreinfo="none">const_cursor</literal> for
+                  constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">a</literal> is non-leaf.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.cbegin()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">const_cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">a</literal> is non-leaf.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.cend()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">const_cursor</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">a</literal> is non-leaf.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  constant
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">a.parity()</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">size_type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">std::distance(b.begin(), a)</literal> if <literal moreinfo="none">b</literal>
+                  is <literal moreinfo="none">a</literal>'s parent. <sbr/> pre: <literal moreinfo="none">a</literal>
+                  is non-on-top.
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Linear in <literal moreinfo="none">b.size()</literal>
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      </simplesect>
+    </section>
+    <section id="tree.cursor_requirements.descending_forward">
+      <title><link linkend="tree.cursor_requirements.descending_forward">Descending
+      Forward Cursor <phrase role="std_section_label">[descending.forward.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
+        forward cursor if the following expressions are valid, as shown in Table
+        11, in addition to the requirements of descending cursors ([descending.cursors])
+        and forward iterators ([forward.iterators]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.descending_forward.table11">
+        <title> Descending forward cursor requirements (in addition to descending
+        cursors and forward iterators)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note <sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
             <row>
               <entry>
                 <para>
@@ -3393,46 +3843,8 @@
               </entry>
               <entry>
                 <para>
-                  Convertible to <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">input_iterator_tag</literal>,
-                  and <literal moreinfo="none">output_iterator_tag</literal>
-                </para>
-              </entry>
-              <entry>
-              </entry>
-              <entry>
-                <para>
-                  compile time
-                </para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para>
-                  <literal moreinfo="none">X::cursor</literal>
-                </para>
-              </entry>
-              <entry>
-                <para>
-                  Convertible to <literal moreinfo="none">X</literal>
-                </para>
-              </entry>
-              <entry>
-              </entry>
-              <entry>
-                <para>
-                  compile time
-                </para>
-              </entry>
-            </row>
-            <row>
-              <entry>
-                <para>
-                  <literal moreinfo="none">X::const_cursor</literal>
-                </para>
-              </entry>
-              <entry>
-                <para>
-                  Convertible to <literal moreinfo="none">const X</literal>
+                  Convertible to <literal moreinfo="none">descending_forward_cursor_tag</literal>
+                  and <literal moreinfo="none">forward_iterator_tag</literal>
                 </para>
               </entry>
               <entry>
@@ -3446,869 +3858,459 @@
           </tbody>
         </tgroup>
       </table>
-      </simplesect>
-<section id="tree.tree.cursor_requirements.descending">
-        <title><link linkend="tree.tree.cursor_requirements.descending">Descending
-        Cursor <phrase role="std_section_label">[descending.cursors]</phrase></link></title>
-        <simplesect role="std_requisite">
-        <para>
-          A class <literal moreinfo="none">X</literal> satisfies the requirements of a descending
-          cursor if, in addition to satisfying the requirements for cursors ([cursor.requirements])
-          it also conforms to the container requirements ([container.requirements])
-          with the exception of the following expressions:
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.descending.table9">
-          <title> Container requirements that are not supported</title>
-          <tgroup cols="1">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    unsupported expression
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">iterator</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">const_iterator</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_iterator</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">reverse_const_iterator</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">(&amp;</phrase><phrase role="identifier">a</phrase><phrase role="special">)-&gt;~</phrase><phrase role="identifier">X</phrase><phrase role="special">();</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">);</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase> <phrase role="identifier">u</phrase><phrase role="special">(</phrase><phrase role="identifier">a</phrase><phrase role="special">);</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase> <phrase role="identifier">u</phrase>
-                    <phrase role="special">=</phrase> <phrase role="identifier">a</phrase><phrase role="special">;</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">begin</phrase><phrase role="special">()</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">end</phrase><phrase role="special">()</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">rbegin</phrase><phrase role="special">()</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">rend</phrase><phrase role="special">()</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">==</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">!=</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">swap</phrase><phrase role="special">(</phrase><phrase role="identifier">b</phrase><phrase role="special">)</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">=</phrase>
-                    <phrase role="identifier">a</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&lt;</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&gt;</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&lt;=</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase> <phrase role="special">&gt;=</phrase>
-                    <phrase role="identifier">b</phrase></computeroutput>
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        <para>
-          Notes: The expressions <literal moreinfo="none">a.begin()</literal> and <literal moreinfo="none">a.end()</literal>
-          are, as shown in Table 9, replaced with equivalent expressions for cursors.
-        </para>
-        </simplesect> <simplesect role="std_requisite">
-        <para>
-          Additionally, for a descending cursor, the following expression are valid,
-          as shown in Table 10:
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.descending.table10">
-          <title> Descending cursor requirements (in addition to cursor)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note <sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">X::type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">descending_cursor_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">a.begin()</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">cursor</literal> or <literal moreinfo="none">const_cursor</literal>
-                    for constant <literal moreinfo="none">a</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    pre: <literal moreinfo="none">a</literal> is non-leaf.
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    constant
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">a.end()</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">cursor</literal> or <literal moreinfo="none">const_cursor</literal>
-                    for constant <literal moreinfo="none">a</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    pre: <literal moreinfo="none">a</literal> is non-leaf.
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    constant
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">a.cbegin()</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">const_cursor</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    pre: <literal moreinfo="none">a</literal> is non-leaf.
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    constant
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">a.cend()</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">const_cursor</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    pre: <literal moreinfo="none">a</literal> is non-leaf.
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    constant
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">a.parity()</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">size_type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">std::distance(b.begin(), a)</literal> if <literal moreinfo="none">b</literal>
-                    is <literal moreinfo="none">a</literal>'s parent. <sbr/> pre: <literal moreinfo="none">a</literal>
-                    is non-on-top.
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Linear in <literal moreinfo="none">b.size()</literal>
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        </simplesect>
-      </section>
-      <section id="tree.tree.cursor_requirements.descending_forward">
-        <title><link linkend="tree.tree.cursor_requirements.descending_forward">Descending
-        Forward Cursor <phrase role="std_section_label">[descending.forward.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
-          forward cursor if the following expressions are valid, as shown in Table
-          11, in addition to the requirements of descending cursors ([descending.cursors])
-          and forward iterators ([forward.iterators]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.descending_forward.table11">
-          <title> Descending forward cursor requirements (in addition to descending
-          cursors and forward iterators)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note <sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">X::type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">descending_forward_cursor_tag</literal>
-                    and <literal moreinfo="none">forward_iterator_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-      </section>
-      <section id="tree.tree.cursor_requirements.descending_bidirectional">
-        <title><link linkend="tree.tree.cursor_requirements.descending_bidirectional">Descending
-        Bidirectional Cursor <phrase role="std_section_label">[descending.bidirectional.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
-          bidirectional cursor if the following expressions are valid, as shown in
-          Table 12, in addition to satisfying the requirements for descending forward
-          cursors ([descending.forward.cursors]) and bidirectional iterators ([bidirectional.iterators]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.descending_bidirectional.table12">
-          <title> Descending bidirectional cursor requirements (in addition to forward
-          descending cursors and bidirectional iterators)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note <sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>
-                    and <literal moreinfo="none">bidirectional_iterator_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        <note>
-          <para>
-            rbegin() and rend() do not seem very useful for multiway trees, as they
-            hide end() and its possible children. Are different semantics or maybe
-            having rend() stand in for end() sensible solutions? Or just ignore this
-            aspect?
-          </para>
-        </note>
-      </section>
-      <section id="tree.tree.cursor_requirements.descending_random_access">
-        <title><link linkend="tree.tree.cursor_requirements.descending_random_access">Descending
-        Random Access Cursor <phrase role="std_section_label">[descending.random.access.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
-          random access cursor if the following expressions are valid, as shown in
-          Table 13, in addition to satisfying the requirements for descending bidirectional
-          cursors ([descending.bidirectional.cursors]) and random access iterators
-          ([random.access.iterators]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.descending_random_access.table13">
-          <title> Descending random access cursor requirements (in addition to descending
-          bidirectional cursors and random access iterators)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note <sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">descending_random_access_cursor_tag</literal>
-                    and <literal moreinfo="none">random_access_iterator_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-      </section>
-      <section id="tree.tree.cursor_requirements.ascending">
-        <title><link linkend="tree.tree.cursor_requirements.ascending">Ascending
-        Cursor <phrase role="std_section_label">[ascending.cursors]</phrase></link></title>
-        <simplesect role="std_requisite">
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
-          cursor if the following expressions are valid, as shown in Table 14, in
-          addition to satisfying the requirements for descending cursors ([descending.cursors]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.ascending.table14">
-          <title> Ascending cursor requirements (in addition to descending cursors)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note<sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">ascending_cursor_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">()</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">cursor</literal>; <literal moreinfo="none">const_cursor</literal> for
-                    a constant <literal moreinfo="none">a</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    (Note A)
-                  </para>
-                </entry>
-              </row>
-              <row>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">&amp;</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">=</phrase>
-                    <phrase role="identifier">r</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">();</phrase></computeroutput>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    pre: <literal moreinfo="none">r</literal> is an internal, non-on-top cursor.
-                    <sbr/> post: <literal moreinfo="none">r</literal> is internal. <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">==</phrase>
-                    <phrase role="identifier">s</phrase></computeroutput> and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase></computeroutput> is internal and non-on-top
-                    implies <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase>
-                    <phrase role="special">==</phrase> <phrase role="special">!</phrase><phrase role="identifier">s</phrase></computeroutput>. <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;</phrase><phrase role="identifier">r</phrase> <phrase role="special">==</phrase>
-                    <phrase role="special">&amp;!</phrase><phrase role="identifier">r</phrase></computeroutput>
-                    <sbr/> (Note A)
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-        <para>
-          <emphasis>Notes:</emphasis> Those entries marked "(Note A)" should
-          have at worst linear complexity. See the individual hierarchy containers
-          for specific complexity.
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.cursor_requirements.ascending_forward">
-        <title><link linkend="tree.tree.cursor_requirements.ascending_forward">Ascending
-        Forward Cursor <phrase role="std_section_label">[ascending.forward.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
-          forward cursor if the following expressions are valid, as shown in Table
-          15, in addition to satisfying the requirements for ascending cursors ([ascending.cursors])
-          and descending forward cursors ([descending.forward.cursors]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.ascending_forward.table15">
-          <title> Ascending forward cursor requirements (in addition to ascending
-          cursors and descending forward cursors)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note<sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">X::type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">ascending_forward_cursor_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-      </section>
-      <section id="tree.tree.cursor_requirements.ascending_bidirectional">
-        <title><link linkend="tree.tree.cursor_requirements.ascending_bidirectional">Ascending
-        Bidirectional Cursor <phrase role="std_section_label">[ascending.bidirectional.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
-          bidirectional cursor if the following expressions are valid, as shown in
-          Table 16, in addition to satisfying the requirements of ascending forward
-          cursors ([ascending.forward.cursors]) and descending bidirectional cursors
-          ([descending.bidirectional.cursors]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.ascending_bidirectional.table16">
-          <title> Ascending bidirectional cursor requirements (in addition to ascending
-          forward cursors and descending bidirectional cursors)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note<sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">X::type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-      </section>
-      <section id="tree.tree.cursor_requirements.ascending_random_access">
-        <title><link linkend="tree.tree.cursor_requirements.ascending_random_access">Ascending
-        Random Access Cursor <phrase role="std_section_label">[ascending.random.access.cursors]</phrase></link></title>
-        <para>
-          A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
-          random access cursor if the following expressions are valid, as shown in
-          Table 17, in addition to satisfying the requirements for ascending bidirectional
-          cursors ([ascending.bidirectional.cursors]) and descending random access
-          cursors ([descending.random.access.cursors]):
-        </para>
-        <table frame="all" id="tree.tree.cursor_requirements.ascending_random_access.table17">
-          <title> Ascending random access cursor requirements (in addition to ascending
-          bidirectional cursors and descending random access cursors)</title>
-          <tgroup cols="4">
-            <thead>
-              <row>
-                <entry>
-                  <para>
-                    expression
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    return type
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    operational semantics
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    assertion/note<sbr/> pre/post-condition
-                  </para>
-                </entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry>
-                  <para>
-                    <literal moreinfo="none">X::type</literal>
-                  </para>
-                </entry>
-                <entry>
-                  <para>
-                    Convertible to <literal moreinfo="none">ascending_random_access_cursor_tag</literal>
-                  </para>
-                </entry>
-                <entry>
-                </entry>
-                <entry>
-                  <para>
-                    compile time
-                  </para>
-                </entry>
-              </row>
-            </tbody>
-          </tgroup>
-        </table>
-      </section>
     </section>
-    <section id="tree.tree.cursor_flavors">
-      <title><link linkend="tree.tree.cursor_flavors">Cursor flavors <phrase role="std_section_label">[cursor.flavors]</phrase></link></title>
+    <section id="tree.cursor_requirements.descending_bidirectional">
+      <title><link linkend="tree.cursor_requirements.descending_bidirectional">Descending
+      Bidirectional Cursor <phrase role="std_section_label">[descending.bidirectional.cursors]</phrase></link></title>
       <para>
-        A cursor that satisfies at least the descending cursor requirements ([descending.cursors])
-        can be either a <emphasis>plain cursor</emphasis> or a <emphasis>multiway
-        cursor</emphasis>. If the expressions <literal moreinfo="none">a.begin()</literal>, <literal moreinfo="none">a.cbegin()</literal>,
-        <literal moreinfo="none">a.end()</literal> and <literal moreinfo="none">a.cend()</literal> are valid for
-        any internal cursor <literal moreinfo="none">a</literal> of type <literal moreinfo="none">X</literal>, except
-        for past-the-end ones, <literal moreinfo="none">X</literal> satisfies the <emphasis>plain
-        cursor</emphasis> requirements. If those expressions are valid for any internal
-        cursor <emphasis>including</emphasis> past-the-end ones, <literal moreinfo="none">X</literal>
-        satisfies the <emphasis>multiway cursor</emphasis> requirements.
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
+        bidirectional cursor if the following expressions are valid, as shown in
+        Table 12, in addition to satisfying the requirements for descending forward
+        cursors ([descending.forward.cursors]) and bidirectional iterators ([bidirectional.iterators]):
       </para>
+      <table frame="all" id="tree.cursor_requirements.descending_bidirectional.table12">
+        <title> Descending bidirectional cursor requirements (in addition to forward
+        descending cursors and bidirectional iterators)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note <sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>
+                  and <literal moreinfo="none">bidirectional_iterator_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <note>
+        <para>
+          rbegin() and rend() do not seem very useful for multiway trees, as they
+          hide end() and its possible children. Are different semantics or maybe
+          having rend() stand in for end() sensible solutions? Or just ignore this
+          aspect?
+        </para>
+      </note>
     </section>
-    <section id="tree.tree.cursor_synopsis">
-      <title><link linkend="tree.tree.cursor_synopsis">Header <literal moreinfo="none">&lt;cursor&gt;</literal>
-      synopsis <phrase role="std_section_label">[cursor.synopsis]</phrase></link></title>
+    <section id="tree.cursor_requirements.descending_random_access">
+      <title><link linkend="tree.cursor_requirements.descending_random_access">Descending
+      Random Access Cursor <phrase role="std_section_label">[descending.random.access.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of a descending
+        random access cursor if the following expressions are valid, as shown in
+        Table 13, in addition to satisfying the requirements for descending bidirectional
+        cursors ([descending.bidirectional.cursors]) and random access iterators
+        ([random.access.iterators]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.descending_random_access.table13">
+        <title> Descending random access cursor requirements (in addition to descending
+        bidirectional cursors and random access iterators)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note <sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">descending_random_access_cursor_tag</literal>
+                  and <literal moreinfo="none">random_access_iterator_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    <section id="tree.cursor_requirements.ascending">
+      <title><link linkend="tree.cursor_requirements.ascending">Ascending Cursor
+      <phrase role="std_section_label">[ascending.cursors]</phrase></link></title>
+      <simplesect role="std_requisite">
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        cursor if the following expressions are valid, as shown in Table 14, in addition
+        to satisfying the requirements for descending cursors ([descending.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending.table14">
+        <title> Ascending cursor requirements (in addition to descending cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">::</phrase><phrase role="identifier">type</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">a</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">()</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <literal moreinfo="none">cursor</literal>; <literal moreinfo="none">const_cursor</literal> for
+                  a constant <literal moreinfo="none">a</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  (Note A)
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">X</phrase><phrase role="special">&amp;</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase> <phrase role="special">=</phrase>
+                  <phrase role="identifier">r</phrase><phrase role="special">.</phrase><phrase role="identifier">parent</phrase><phrase role="special">();</phrase></computeroutput>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  pre: <literal moreinfo="none">r</literal> is an internal, non-on-top cursor. <sbr/>
+                  post: <literal moreinfo="none">r</literal> is internal. <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase>
+                  <phrase role="special">==</phrase> <phrase role="identifier">s</phrase></computeroutput>
+                  and <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">r</phrase></computeroutput> is internal
+                  and non-on-top implies <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">!</phrase><phrase role="identifier">r</phrase> <phrase role="special">==</phrase>
+                  <phrase role="special">!</phrase><phrase role="identifier">s</phrase></computeroutput>.
+                  <sbr/> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;</phrase><phrase role="identifier">r</phrase>
+                  <phrase role="special">==</phrase> <phrase role="special">&amp;!</phrase><phrase role="identifier">r</phrase></computeroutput> <sbr/> (Note A)
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para>
+        <emphasis>Notes:</emphasis> Those entries marked "(Note A)" should
+        have at worst linear complexity. See the individual hierarchy containers
+        for specific complexity.
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.cursor_requirements.ascending_forward">
+      <title><link linkend="tree.cursor_requirements.ascending_forward">Ascending
+      Forward Cursor <phrase role="std_section_label">[ascending.forward.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        forward cursor if the following expressions are valid, as shown in Table
+        15, in addition to satisfying the requirements for ascending cursors ([ascending.cursors])
+        and descending forward cursors ([descending.forward.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_forward.table15">
+        <title> Ascending forward cursor requirements (in addition to ascending cursors
+        and descending forward cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_forward_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    <section id="tree.cursor_requirements.ascending_bidirectional">
+      <title><link linkend="tree.cursor_requirements.ascending_bidirectional">Ascending
+      Bidirectional Cursor <phrase role="std_section_label">[ascending.bidirectional.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        bidirectional cursor if the following expressions are valid, as shown in
+        Table 16, in addition to satisfying the requirements of ascending forward
+        cursors ([ascending.forward.cursors]) and descending bidirectional cursors
+        ([descending.bidirectional.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_bidirectional.table16">
+        <title> Ascending bidirectional cursor requirements (in addition to ascending
+        forward cursors and descending bidirectional cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+    <section id="tree.cursor_requirements.ascending_random_access">
+      <title><link linkend="tree.cursor_requirements.ascending_random_access">Ascending
+      Random Access Cursor <phrase role="std_section_label">[ascending.random.access.cursors]</phrase></link></title>
+      <para>
+        A class type <literal moreinfo="none">X</literal> satisfies the requirements of an ascending
+        random access cursor if the following expressions are valid, as shown in
+        Table 17, in addition to satisfying the requirements for ascending bidirectional
+        cursors ([ascending.bidirectional.cursors]) and descending random access
+        cursors ([descending.random.access.cursors]):
+      </para>
+      <table frame="all" id="tree.cursor_requirements.ascending_random_access.table17">
+        <title> Ascending random access cursor requirements (in addition to ascending
+        bidirectional cursors and descending random access cursors)</title>
+        <tgroup cols="4">
+          <thead>
+            <row>
+              <entry>
+                <para>
+                  expression
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  return type
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  operational semantics
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  assertion/note<sbr/> pre/post-condition
+                </para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <literal moreinfo="none">X::type</literal>
+                </para>
+              </entry>
+              <entry>
+                <para>
+                  Convertible to <literal moreinfo="none">ascending_random_access_cursor_tag</literal>
+                </para>
+              </entry>
+              <entry>
+              </entry>
+              <entry>
+                <para>
+                  compile time
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </section>
+  </section>
+  <section id="tree.cursor_flavors">
+    <title><link linkend="tree.cursor_flavors">Cursor flavors <phrase role="std_section_label">[cursor.flavors]</phrase></link></title>
+    <para>
+      A cursor that satisfies at least the descending cursor requirements ([descending.cursors])
+      can be either a <emphasis>plain cursor</emphasis> or a <emphasis>multiway cursor</emphasis>.
+      If the expressions <literal moreinfo="none">a.begin()</literal>, <literal moreinfo="none">a.cbegin()</literal>,
+      <literal moreinfo="none">a.end()</literal> and <literal moreinfo="none">a.cend()</literal> are valid for any
+      internal cursor <literal moreinfo="none">a</literal> of type <literal moreinfo="none">X</literal>, except for
+      past-the-end ones, <literal moreinfo="none">X</literal> satisfies the <emphasis>plain cursor</emphasis>
+      requirements. If those expressions are valid for any internal cursor <emphasis>including</emphasis>
+      past-the-end ones, <literal moreinfo="none">X</literal> satisfies the <emphasis>multiway cursor</emphasis>
+      requirements.
+    </para>
+  </section>
+  <section id="tree.cursor_synopsis">
+    <title><link linkend="tree.cursor_synopsis">Header <literal moreinfo="none">&lt;cursor&gt;</literal>
+    synopsis <phrase role="std_section_label">[cursor.synopsis]</phrase></link></title>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
   <phrase role="comment">// 24.7.4, cursor primitives</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_value</phrase><phrase role="special">;</phrase>
@@ -4343,20 +4345,20 @@
     <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase> <phrase role="special">{};</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-    </section>
-    <section id="tree.tree.cursor_primitives">
-      <title><link linkend="tree.tree.cursor_primitives">Cursor primitives <phrase role="std_section_label">[cursor.primitives]</phrase></link></title>
+  </section>
+  <section id="tree.cursor_primitives">
+    <title><link linkend="tree.cursor_primitives">Cursor primitives <phrase role="std_section_label">[cursor.primitives]</phrase></link></title>
+    <para>
+      To simplify the task of defining cursors, the library provides several classes
+      and functions:
+    </para>
+    <section id="tree.cursor_primitives.cursor_traits">
+      <title><link linkend="tree.cursor_primitives.cursor_traits">Cursor traits
+      <phrase role="std_section_label">[cursor.traits]</phrase></link></title>
       <para>
-        To simplify the task of defining cursors, the library provides several classes
-        and functions:
+        The following classes are required to be defined appropriately for a cursor
+        of type <literal moreinfo="none">Cursor</literal>:
       </para>
-      <section id="tree.tree.cursor_primitives.cursor_traits">
-        <title><link linkend="tree.tree.cursor_primitives.cursor_traits">Cursor traits
-        <phrase role="std_section_label">[cursor.traits]</phrase></link></title>
-        <para>
-          The following classes are required to be defined appropriately for a cursor
-          of type <literal moreinfo="none">Cursor</literal>:
-        </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase> <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_value</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">value_type</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
 <phrase role="special">};</phrase>
@@ -4385,14 +4387,13 @@
   <phrase role="keyword">typedef</phrase> <phrase role="keyword">typename</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor_category</phrase> <phrase role="identifier">type</phrase><phrase role="special">;</phrase>
 <phrase role="special">};</phrase>
 </programlisting>
-      </section>
-      <section id="tree.tree.cursor_primitives.cursor_basic">
-        <title><link linkend="tree.tree.cursor_primitives.cursor_basic">Basic cursor
-        <phrase role="std_section_label">[cursor.basic]</phrase></link></title>
-        <para>
-          The <literal moreinfo="none">cursor</literal> template may be used as a base class to ease
-          the definition of required types for new cursors.
-        </para>
+    </section>
+    <section id="tree.cursor_primitives.cursor_basic">
+      <title><link linkend="tree.cursor_primitives.cursor_basic">Basic cursor <phrase role="std_section_label">[cursor.basic]</phrase></link></title>
+      <para>
+        The <literal moreinfo="none">cursor</literal> template may be used as a base class to ease
+        the definition of required types for new cursors.
+      </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Category</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">T</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Distance</phrase> <phrase role="special">=</phrase> <phrase role="identifier">ptrdiff_t</phrase><phrase role="special">,</phrase>
             <phrase role="keyword">class</phrase> <phrase role="identifier">Size</phrase> <phrase role="special">=</phrase> <phrase role="identifier">size_t</phrase><phrase role="special">,</phrase> <phrase role="keyword">class</phrase> <phrase role="identifier">Pointer</phrase> <phrase role="special">=</phrase> <phrase role="identifier">T</phrase><phrase role="special">*,</phrase>
@@ -4407,23 +4408,23 @@
   <phrase role="special">};</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-      </section>
-      <section id="tree.tree.cursor_primitives.cursor_tags">
-        <title><link linkend="tree.tree.cursor_primitives.cursor_tags">Standard cursor
-        tags <phrase role="std_section_label">[cursor.tags]</phrase></link></title>
-        <para>
-          Cursor tags pick up the notion of iterator tags ([std.iterator.tags]) and
-          extend them by adding information about a given cursor class' descending
-          or ascending traversal capabilities ([cursor.requirements]). This yields
-          the cursor tags <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">descending_cursor_tag</literal>,
-          <literal moreinfo="none">descending_forward_cursor_tag</literal>, <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>,
-          <literal moreinfo="none">descending_random_access_cursor_tag</literal>, <literal moreinfo="none">ascending_cursor_tag</literal>,
-          <literal moreinfo="none">ascending_forward_cursor_tag</literal>, <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
-          and <literal moreinfo="none">ascending_random_access_cursor_tag</literal>. For every cursor
-          of type <literal moreinfo="none">Cursor</literal>, <literal moreinfo="none">cursor_category&lt;Cursor&gt;::type</literal>
-          must be defined to be the most specific category tag that describes the
-          cursor's behavior.
-        </para>
+    </section>
+    <section id="tree.cursor_primitives.cursor_tags">
+      <title><link linkend="tree.cursor_primitives.cursor_tags">Standard cursor tags
+      <phrase role="std_section_label">[cursor.tags]</phrase></link></title>
+      <para>
+        Cursor tags pick up the notion of iterator tags ([std.iterator.tags]) and
+        extend them by adding information about a given cursor class' descending
+        or ascending traversal capabilities ([cursor.requirements]). This yields
+        the cursor tags <literal moreinfo="none">cursor_tag</literal>, <literal moreinfo="none">descending_cursor_tag</literal>,
+        <literal moreinfo="none">descending_forward_cursor_tag</literal>, <literal moreinfo="none">descending_bidirectional_cursor_tag</literal>,
+        <literal moreinfo="none">descending_random_access_cursor_tag</literal>, <literal moreinfo="none">ascending_cursor_tag</literal>,
+        <literal moreinfo="none">ascending_forward_cursor_tag</literal>, <literal moreinfo="none">ascending_bidirectional_cursor_tag</literal>
+        and <literal moreinfo="none">ascending_random_access_cursor_tag</literal>. For every cursor
+        of type <literal moreinfo="none">Cursor</literal>, <literal moreinfo="none">cursor_category&lt;Cursor&gt;::type</literal>
+        must be defined to be the most specific category tag that describes the cursor's
+        behavior.
+      </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">struct</phrase> <phrase role="identifier">cursor_tag</phrase>
     <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">input_iterator_tag</phrase><phrase role="special">,</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">output_iterator_tag</phrase> <phrase role="special">{};</phrase>
@@ -4445,44 +4446,44 @@
     <phrase role="special">:</phrase> <phrase role="keyword">public</phrase> <phrase role="identifier">descending_random_access_cursor_tag</phrase> <phrase role="special">{};</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
-      </section>
     </section>
-    </section> <section role="std_section" id="order.iterators" label="24.8" label-style="no-parent">
+  </section>
+  </section> <section role="std_section" id="order.iterators" label="24.8" label-style="no-parent">
 <title><link linkend="order.iterators">Linear order traversal iterators <phrase role="std_section_label">[order.iterators]</phrase></link></title>
+  <para>
+    For linear traversal of hierarchies, the library offers a number of useful predefined
+    iterators, namely for <literal moreinfo="none">preorder</literal>, <literal moreinfo="none">postorder</literal>
+    and <literal moreinfo="none">inorder</literal> traversal in namespaces named accordingly.
+  </para>
+  <para>
+    <emphasis>Preorder traversal</emphasis> means that after a given element, first
+    the subtree to its left, then the one to its right will be visited.
+  </para>
+  <para>
+    <emphasis>Postorder traversal</emphasis> means that before a given element, first
+    the subtree to its left, then the one to its right will be visited.
+  </para>
+  <para>
+    <emphasis>Inorder traversal</emphasis> means that a given element will be visited
+    after the subtree to its left and before the one to its right will be visited.
+  </para>
+  <para>
+    For each of the above kinds of traversal order, the library offers a kind of
+    order traversal iterator adaptor template class whose template parameter is a
+    bidirectional or random access (either ascending or descending) cursor class.
+    Increment and decrement operations for these iterator adaptor classes are implemented
+    to allow stepwise iteration according to the respective requirements.
+  </para>
+  <section id="tree.order_iterator">
+    <title><link linkend="tree.order_iterator">Class template <literal moreinfo="none">iterator</literal>
+    <phrase role="std_section_label">[order.iterator]</phrase></link></title> <simplesect role="std_definition">
     <para>
-      For linear traversal of hierarchies, the library offers a number of useful
-      predefined iterators, namely for <literal moreinfo="none">preorder</literal>, <literal moreinfo="none">postorder</literal>
-      and <literal moreinfo="none">inorder</literal> traversal in namespaces named accordingly.
+      In the following, the template class <literal moreinfo="none">iterator</literal> and related
+      operators only as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">preorder</literal>
+      are shown. Note that template classes and operators of same name and interface
+      must also be present in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">postorder</literal>
+      as well as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>.
     </para>
-    <para>
-      <emphasis>Preorder traversal</emphasis> means that after a given element, first
-      the subtree to its left, then the one to its right will be visited.
-    </para>
-    <para>
-      <emphasis>Postorder traversal</emphasis> means that before a given element,
-      first the subtree to its left, then the one to its right will be visited.
-    </para>
-    <para>
-      <emphasis>Inorder traversal</emphasis> means that a given element will be visited
-      after the subtree to its left and before the one to its right will be visited.
-    </para>
-    <para>
-      For each of the above kinds of traversal order, the library offers a kind of
-      order traversal iterator adaptor template class whose template parameter is
-      a bidirectional or random access (either ascending or descending) cursor class.
-      Increment and decrement operations for these iterator adaptor classes are implemented
-      to allow stepwise iteration according to the respective requirements.
-    </para>
-    <section id="tree.tree.order_iterator">
-      <title><link linkend="tree.tree.order_iterator">Class template <literal moreinfo="none">iterator</literal>
-      <phrase role="std_section_label">[order.iterator]</phrase></link></title> <simplesect role="std_definition">
-      <para>
-        In the following, the template class <literal moreinfo="none">iterator</literal> and related
-        operators only as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">preorder</literal>
-        are shown. Note that template classes and operators of same name and interface
-        must also be present in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">postorder</literal>
-        as well as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>.
-      </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">std</phrase> <phrase role="special">{</phrase>
 
 <phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
@@ -4524,179 +4525,176 @@
 
 <phrase role="special">}</phrase> <phrase role="comment">// namespace std</phrase>
 </programlisting>
+    <para>
+      <emphasis>Note A:</emphasis> If <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase>
+      <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput> is equivalent to <literal moreinfo="none">random_access_iterator_tag</literal>,
+      put in <literal moreinfo="none">bidirectional_iterator_tag</literal>; otherwise put in <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput>.
+    </para>
+    </simplesect>
+  </section>
+  <section id="tree.order_iter_requirements">
+    <title><link linkend="tree.order_iter_requirements">Linear order <literal moreinfo="none">iterator</literal>
+    requirements <phrase role="std_section_label">[order.iter.requirements]</phrase></link></title>
+    <para>
+      The template parameter <literal moreinfo="none">Cursor</literal> shall meet all the requirements
+      of an Ascending Forward Cursor ([ascending.forward.cursors]). Additionally,
+      for the template class and operators in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>,
+      the template parameter <literal moreinfo="none">Cursor</literal> must be a Multiway Cursor
+      ([cursor.flavors]).
+    </para>
+    <para>
+      Additionally, <literal moreinfo="none">Cursor</literal> shall meet the requirements of a Ascending
+      Bidirectional Cursor ([ascending.bidirectional.cursors]) if the member <literal moreinfo="none">operator--</literal>
+      ([order.iter.op.eq]) is referenced in a way that requires instantiation (14.7.1).
+    </para>
+  </section>
+  <section id="tree.order_iter_ops">
+    <title><link linkend="tree.order_iter_ops"><literal moreinfo="none">inorder::iterator</literal>
+    operations <phrase role="std_section_label">[order.iter.ops]</phrase></link></title>
+    <section id="tree.order_iter_ops.order_iter_cons">
+      <title><link linkend="tree.order_iter_ops.order_iter_cons"><literal moreinfo="none">inorder::iterator</literal>
+      constructor <phrase role="std_section_label">[order.iter.cons]</phrase></link></title>
+      <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">Cursor</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
+</programlisting>
+      </simplesect> <simplesect role="std_specification">
       <para>
-        <emphasis>Note A:</emphasis> If <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase>
-        <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput> is equivalent to <literal moreinfo="none">random_access_iterator_tag</literal>,
-        put in <literal moreinfo="none">bidirectional_iterator_tag</literal>; otherwise put in <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">typename</phrase> <phrase role="identifier">iterator_traits</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;::</phrase><phrase role="identifier">iterator_category</phrase></computeroutput>.
+        <emphasis>Effects:</emphasis> Initializes <literal moreinfo="none">current</literal> with
+        <literal moreinfo="none">x</literal>.
       </para>
       </simplesect>
     </section>
-    <section id="tree.tree.order_iter_requirements">
-      <title><link linkend="tree.tree.order_iter_requirements">Linear order <literal moreinfo="none">iterator</literal>
-      requirements <phrase role="std_section_label">[order.iter.requirements]</phrase></link></title>
-      <para>
-        The template parameter <literal moreinfo="none">Cursor</literal> shall meet all the requirements
-        of an Ascending Forward Cursor ([ascending.forward.cursors]). Additionally,
-        for the template class and operators in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">inorder</literal>,
-        the template parameter <literal moreinfo="none">Cursor</literal> must be a Multiway Cursor
-        ([cursor.flavors]).
-      </para>
-      <para>
-        Additionally, <literal moreinfo="none">Cursor</literal> shall meet the requirements of a
-        Ascending Bidirectional Cursor ([ascending.bidirectional.cursors]) if the
-        member <literal moreinfo="none">operator--</literal> ([order.iter.op.eq]) is referenced in
-        a way that requires instantiation (14.7.1).
-      </para>
-    </section>
-    <section id="tree.tree.order_iter_ops">
-      <title><link linkend="tree.tree.order_iter_ops"><literal moreinfo="none">inorder::iterator</literal>
-      operations <phrase role="std_section_label">[order.iter.ops]</phrase></link></title>
-      <section id="tree.tree.order_iter_ops.order_iter_cons">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_cons"><literal moreinfo="none">inorder::iterator</literal>
-        constructor <phrase role="std_section_label">[order.iter.cons]</phrase></link></title>
-        <simplesect role="std_definition">
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">explicit</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">(</phrase><phrase role="identifier">Cursor</phrase> <phrase role="identifier">x</phrase><phrase role="special">);</phrase>
-</programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Effects:</emphasis> Initializes <literal moreinfo="none">current</literal> with
-          <literal moreinfo="none">x</literal>.
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_conv">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_conv">Conversion
-        <phrase role="std_section_label">[order.iter.conv]</phrase></link></title>
-        <simplesect role="std_definition">
+    <section id="tree.order_iter_ops.order_iter_conv">
+      <title><link linkend="tree.order_iter_ops.order_iter_conv">Conversion <phrase role="std_section_label">[order.iter.conv]</phrase></link></title> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Iterator</phrase> <phrase role="identifier">base</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase> <phrase role="comment">// explicit</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">current</phrase></computeroutput>
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_star">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_star"><literal moreinfo="none">operator*</literal>
-        <phrase role="std_section_label">[order.iter.op.star]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_star">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_star"><literal moreinfo="none">operator*</literal>
+      <phrase role="std_section_label">[order.iter.op.star]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Reference</phrase> <phrase role="keyword">operator</phrase><phrase role="special">*()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="identifier">current</phrase></computeroutput>
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_ref">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_ref"><literal moreinfo="none">operator-&gt;</literal>
-        <phrase role="std_section_label">[order.iter.op.ref]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_ref">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_ref"><literal moreinfo="none">operator-&gt;</literal>
+      <phrase role="std_section_label">[order.iter.op.ref]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">Pointer</phrase> <phrase role="keyword">operator</phrase><phrase role="special">-&gt;()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;(</phrase><phrase role="keyword">operator</phrase><phrase role="special">*())</phrase></computeroutput>
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_inc">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_inc"><literal moreinfo="none">operator++</literal>
-        <phrase role="std_section_label">[order.iter.op.inc]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">&amp;(</phrase><phrase role="keyword">operator</phrase><phrase role="special">*())</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_inc">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_inc"><literal moreinfo="none">operator++</literal>
+      <phrase role="std_section_label">[order.iter.op.inc]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the next
-          cursor in the given order.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
-        </para>
-        </simplesect> <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the next
+        cursor in the given order.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
+      </para>
+      </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">++(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Effects:</emphasis>
-        </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Effects:</emphasis>
+      </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">this</phrase><phrase role="special">-&gt;</phrase><phrase role="keyword">operator</phrase><phrase role="special">++();</phrase>
 <phrase role="keyword">return</phrase> <phrase role="identifier">tmp</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_dec">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_dec"><literal moreinfo="none">operator--</literal>
-        <phrase role="std_section_label">[order.iter.op.dec]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_dec">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_dec"><literal moreinfo="none">operator--</literal>
+      <phrase role="std_section_label">[order.iter.op.dec]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase><phrase role="special">&amp;</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--()</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the previous
-          cursor in the given order.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
-        </para>
-        </simplesect> <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Effects:</emphasis> Sets <literal moreinfo="none">current</literal> to the previous
+        cursor in the given order.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="special">*</phrase><phrase role="keyword">this</phrase></computeroutput>
+      </para>
+      </simplesect> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="keyword">operator</phrase><phrase role="special">--(</phrase><phrase role="keyword">int</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Effects:</emphasis>
-        </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Effects:</emphasis>
+      </para>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">iterator</phrase> <phrase role="identifier">tmp</phrase> <phrase role="special">=</phrase> <phrase role="special">*</phrase><phrase role="keyword">this</phrase><phrase role="special">;</phrase>
 <phrase role="keyword">this</phrase><phrase role="special">-&gt;</phrase><phrase role="keyword">operator</phrase><phrase role="special">--();</phrase>
 <phrase role="keyword">return</phrase> <phrase role="identifier">tmp</phrase><phrase role="special">;</phrase>
 </programlisting>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_eq">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_eq"><literal moreinfo="none">operator==</literal>
-        <phrase role="std_section_label">[order.iter.op.eq]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_eq">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_eq"><literal moreinfo="none">operator==</literal>
+      <phrase role="std_section_label">[order.iter.op.eq]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">==(</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">==</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.order_iter_ops.order_iter_op_ne">
-        <title><link linkend="tree.tree.order_iter_ops.order_iter_op_ne"><literal moreinfo="none">operator!=</literal>
-        <phrase role="std_section_label">[order.iter.op.ne]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">==</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.order_iter_ops.order_iter_op_ne">
+      <title><link linkend="tree.order_iter_ops.order_iter_op_ne"><literal moreinfo="none">operator!=</literal>
+      <phrase role="std_section_label">[order.iter.op.ne]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Cursor</phrase><phrase role="special">&gt;</phrase>
   <phrase role="keyword">bool</phrase> <phrase role="keyword">operator</phrase><phrase role="special">!=(</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">x</phrase><phrase role="special">,</phrase>
     <phrase role="keyword">const</phrase> <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="identifier">Cursor</phrase><phrase role="special">&gt;&amp;</phrase> <phrase role="identifier">y</phrase><phrase role="special">);</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
-        </para>
-        </simplesect>
-      </section>
-    </section>
-    </section> </section> <section role="std_section" id="tree.proposal.algorithms" label="25" label-style="no-parent">
-<title><link linkend="tree.proposal.algorithms">Algorithms
-    library <phrase role="std_section_label">[algorithms]</phrase></link></title>
-    <note>
+      </simplesect> <simplesect role="std_specification">
       <para>
-        Append to paragraph 2, <replaceable>Header <literal moreinfo="none">&lt;iterator&gt;</literal>
-        synopsis</replaceable>, after <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// subclause 25.2,
-        non-modifying sequence operations</phrase></computeroutput>.
+        <emphasis>Returns:</emphasis> <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">x</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase> <phrase role="special">!=</phrase> <phrase role="identifier">y</phrase><phrase role="special">.</phrase><phrase role="identifier">current</phrase></computeroutput>
       </para>
-    </note>
+      </simplesect>
+    </section>
+  </section>
+  </section> </section> <section role="std_section" id="tree.proposal.algorithms" label="25" label-style="no-parent">
+<title><link linkend="tree.proposal.algorithms">Algorithms
+  library <phrase role="std_section_label">[algorithms]</phrase></link></title>
+  <note>
+    <para>
+      Append to paragraph 2, <replaceable>Header <literal moreinfo="none">&lt;iterator&gt;</literal>
+      synopsis</replaceable>, after <computeroutput xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// subclause 25.2,
+      non-modifying sequence operations</phrase></computeroutput>.
+    </para>
+  </note>
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="comment">// subclause 25.3, non-modifying hierarchy operations</phrase>
 <phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
@@ -4746,52 +4744,51 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">MultiwayHierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">m</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-    <note>
-      <para>
-        <literal moreinfo="none">[c]rbegin(...)</literal> and <literal moreinfo="none">[c]rend(..)</literal> are
-        not provided as they can be achieved via <literal moreinfo="none">reverse_iterator({[c]begin(...)|[c]end(...)})</literal>
-        (which also defines requirements when this is possible)
-      </para>
-    </note>
-    <note>
-      <para>
-        Change paragraph 3 to read:
-      </para>
-    </note>
+  <note>
     <para>
-      All of the algorithms are separated from the particular implementations of
-      data structures and are parameterized by iterator or hierarchy types. Because
-      of this, they can work with program-defined data structures, as long as these
-      data structures have iterator or cursor types satisfying the assumptions on
-      the algorithms.
+      <literal moreinfo="none">[c]rbegin(...)</literal> and <literal moreinfo="none">[c]rend(..)</literal> are not
+      provided as they can be achieved via <literal moreinfo="none">reverse_iterator({[c]begin(...)|[c]end(...)})</literal>
+      (which also defines requirements when this is possible)
     </para>
-    <note>
-      <para>
-        Append to paragraph 5:
-      </para>
-    </note>
+  </note>
+  <note>
     <para>
-      If an algorithm's template parameter is <literal moreinfo="none">Hierarchy</literal>, the actual
-      template argument shall satisfy the requirements of a hierarchy ([hierarchy.req]).
-      If an algorithm's template parameter is <literal moreinfo="none">MultiwayHierarchy</literal>,
-      the actual template argument shall satisfy the requirements of a multiway hierarchy
-      ([hierarchy.multiway]).
+      Change paragraph 3 to read:
     </para>
-    <note>
-      <para>
-        Insert after section 25.2 Non-modifying sequence operations [alg.nonmodifying]
-      </para>
-    </note>
-    <section role="std_section" id="alg.hierarchy" label="3">
+  </note>
+  <para>
+    All of the algorithms are separated from the particular implementations of data
+    structures and are parameterized by iterator or hierarchy types. Because of this,
+    they can work with program-defined data structures, as long as these data structures
+    have iterator or cursor types satisfying the assumptions on the algorithms.
+  </para>
+  <note>
+    <para>
+      Append to paragraph 5:
+    </para>
+  </note>
+  <para>
+    If an algorithm's template parameter is <literal moreinfo="none">Hierarchy</literal>, the actual
+    template argument shall satisfy the requirements of a hierarchy ([hierarchy.req]).
+    If an algorithm's template parameter is <literal moreinfo="none">MultiwayHierarchy</literal>,
+    the actual template argument shall satisfy the requirements of a multiway hierarchy
+    ([hierarchy.multiway]).
+  </para>
+  <note>
+    <para>
+      Insert after section 25.2 Non-modifying sequence operations [alg.nonmodifying]
+    </para>
+  </note>
+  <section role="std_section" id="alg.hierarchy" label="3">
 <title><link linkend="alg.hierarchy">Non-modifying hierarchy algorithms <phrase role="std_section_label">[alg.hierarchy]</phrase></link></title>
 
-    <section id="tree.tree.alg_hier_preorder">
-      <title><link linkend="tree.tree.alg_hier_preorder">Non-modifying hierarchy
-      preorder range algorithms <phrase role="std_section_label">[alg.hier.preorder]</phrase></link></title>
-      <section id="tree.tree.alg_hier_preorder.alg_hier_pre_begin">
-        <title><link linkend="tree.tree.alg_hier_preorder.alg_hier_pre_begin">Preorder
-        begin <phrase role="std_section_label">[alg.hier.pre.begin]</phrase></link></title>
-        <simplesect role="std_definition">
+  <section id="tree.alg_hier_preorder">
+    <title><link linkend="tree.alg_hier_preorder">Non-modifying hierarchy preorder
+    range algorithms <phrase role="std_section_label">[alg.hier.preorder]</phrase></link></title>
+    <section id="tree.alg_hier_preorder.alg_hier_pre_begin">
+      <title><link linkend="tree.alg_hier_preorder.alg_hier_pre_begin">Preorder begin
+      <phrase role="std_section_label">[alg.hier.pre.begin]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4801,21 +4798,21 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace preorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing to the first element
-          of <literal moreinfo="none">h</literal> in preorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> constant
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.alg_hier_preorder.alg_hier_pre_end">
-        <title><link linkend="tree.tree.alg_hier_preorder.alg_hier_pre_end">Preorder
-        end <phrase role="std_section_label">[alg.hier.pre.end]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing to the first element of
+        <literal moreinfo="none">h</literal> in preorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> constant
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.alg_hier_preorder.alg_hier_pre_end">
+      <title><link linkend="tree.alg_hier_preorder.alg_hier_pre_end">Preorder end
+      <phrase role="std_section_label">[alg.hier.pre.end]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">preorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4825,25 +4822,25 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace preorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing one position past the
-          last element of <literal moreinfo="none">h</literal> in preorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> linear
-        </para>
-        </simplesect>
-      </section>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing one position past the
+        last element of <literal moreinfo="none">h</literal> in preorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> linear
+      </para>
+      </simplesect>
     </section>
-    <section id="tree.tree.alg_hier_postorder">
-      <title><link linkend="tree.tree.alg_hier_postorder">Non-modifying hierarchy
-      postorder range algorithms <phrase role="std_section_label">[alg.hier.postorder]</phrase></link></title>
-      <section id="tree.tree.alg_hier_postorder.alg_hier_post_begin">
-        <title><link linkend="tree.tree.alg_hier_postorder.alg_hier_post_begin">Postorder
-        begin <phrase role="std_section_label">[alg.hier.post.begin]</phrase></link></title>
-        <simplesect role="std_definition">
+  </section>
+  <section id="tree.alg_hier_postorder">
+    <title><link linkend="tree.alg_hier_postorder">Non-modifying hierarchy postorder
+    range algorithms <phrase role="std_section_label">[alg.hier.postorder]</phrase></link></title>
+    <section id="tree.alg_hier_postorder.alg_hier_post_begin">
+      <title><link linkend="tree.alg_hier_postorder.alg_hier_post_begin">Postorder
+      begin <phrase role="std_section_label">[alg.hier.post.begin]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">postorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4853,21 +4850,21 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace postorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing to the first element
-          of <literal moreinfo="none">h</literal> in postorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> linear
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.alg_hier_postorder.alg_hier_post_end">
-        <title><link linkend="tree.tree.alg_hier_postorder.alg_hier_post_end">Postorder
-        end <phrase role="std_section_label">[alg.hier.post.end]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing to the first element of
+        <literal moreinfo="none">h</literal> in postorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> linear
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.alg_hier_postorder.alg_hier_post_end">
+      <title><link linkend="tree.alg_hier_postorder.alg_hier_post_end">Postorder
+      end <phrase role="std_section_label">[alg.hier.post.end]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">postorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">Hierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4877,25 +4874,25 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">Hierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">h</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace postorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing one position past the
-          last element of <literal moreinfo="none">h</literal> in postorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> constant
-        </para>
-        </simplesect>
-      </section>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing one position past the
+        last element of <literal moreinfo="none">h</literal> in postorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> constant
+      </para>
+      </simplesect>
     </section>
-    <section id="tree.tree.alg_hier_inorder">
-      <title><link linkend="tree.tree.alg_hier_inorder">Non-modifying hierarchy inorder
-      range algorithms <phrase role="std_section_label">[alg.hier.inorder]</phrase></link></title>
-      <section id="tree.tree.alg_hier_inorder.alg_hier_in_begin">
-        <title><link linkend="tree.tree.alg_hier_inorder.alg_hier_in_begin">Inorder
-        begin <phrase role="std_section_label">[alg.hier.in.begin]</phrase></link></title>
-        <simplesect role="std_definition">
+  </section>
+  <section id="tree.alg_hier_inorder">
+    <title><link linkend="tree.alg_hier_inorder">Non-modifying hierarchy inorder
+    range algorithms <phrase role="std_section_label">[alg.hier.inorder]</phrase></link></title>
+    <section id="tree.alg_hier_inorder.alg_hier_in_begin">
+      <title><link linkend="tree.alg_hier_inorder.alg_hier_in_begin">Inorder begin
+      <phrase role="std_section_label">[alg.hier.in.begin]</phrase></link></title>
+      <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">inorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">MultiwayHierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">MultiwayHierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4905,21 +4902,19 @@
       <phrase role="identifier">cbegin</phrase><phrase role="special">(</phrase><phrase role="identifier">MultiwayHierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">m</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing to the first element
-          of <literal moreinfo="none">h</literal> in inorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> linear
-        </para>
-        </simplesect>
-      </section>
-      <section id="tree.tree.alg_hier_inorder.alg_hier_in_end">
-        <title><link linkend="tree.tree.alg_hier_inorder.alg_hier_in_end">Inorder
-        end <phrase role="std_section_label">[alg.hier.in.end]</phrase></link></title>
-        <simplesect role="std_definition">
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing to the first element of
+        <literal moreinfo="none">h</literal> in inorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> linear
+      </para>
+      </simplesect>
+    </section>
+    <section id="tree.alg_hier_inorder.alg_hier_in_end">
+      <title><link linkend="tree.alg_hier_inorder.alg_hier_in_end">Inorder end <phrase role="std_section_label">[alg.hier.in.end]</phrase></link></title> <simplesect role="std_definition">
 <programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="keyword">namespace</phrase> <phrase role="identifier">inorder</phrase> <phrase role="special">{</phrase>
   <phrase role="keyword">template</phrase> <phrase role="special">&lt;</phrase><phrase role="keyword">class</phrase> <phrase role="identifier">MultiwayHierarchy</phrase><phrase role="special">&gt;</phrase>
     <phrase role="identifier">iterator</phrase><phrase role="special">&lt;</phrase><phrase role="keyword">typename</phrase> <phrase role="identifier">MultiwayHierarchy</phrase><phrase role="special">::</phrase><phrase role="identifier">cursor</phrase><phrase role="special">&gt;</phrase>
@@ -4929,142 +4924,141 @@
       <phrase role="identifier">cend</phrase><phrase role="special">(</phrase><phrase role="identifier">MultiwayHierarchy</phrase> <phrase role="keyword">const</phrase><phrase role="special">&amp;</phrase> <phrase role="identifier">m</phrase><phrase role="special">);</phrase>
 <phrase role="special">}</phrase> <phrase role="comment">// namespace inorder</phrase>
 </programlisting>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Returns:</emphasis> An iterator pointing one position past the
-          last element of <literal moreinfo="none">h</literal> in inorder.
-        </para>
-        </simplesect> <simplesect role="std_specification">
-        <para>
-          <emphasis>Complexity:</emphasis> linear
-        </para>
-        </simplesect>
-      </section>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Returns:</emphasis> An iterator pointing one position past the
+        last element of <literal moreinfo="none">h</literal> in inorder.
+      </para>
+      </simplesect> <simplesect role="std_specification">
+      <para>
+        <emphasis>Complexity:</emphasis> linear
+      </para>
+      </simplesect>
     </section>
-    </section> </section> </section>
+  </section>
+  </section> </section> </section>
 
-    <section id="tree.tree.references">
-      <title><link linkend="tree.tree.references">References</link></title>
-      <variablelist>
-        <title>References</title>
-        <varlistentry>
-          <term> <anchor id="ref.austern"/>austern</term>
-          <listitem>
-            <para>
-              Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
-              John. <emphasis>Untangling the Balancing and Searching of Balanced
-              Binary Search Trees</emphasis>, Software: Practice and Experience 33(13):
-              1273-1298 (2003) Electronic Appendix: <ulink url="http://www.research.att.com/~bs/tree-appendix.pdf">http://www.research.att.com/~bs/tree-appendix.pdf</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.cormen"/>cormen</term>
-          <listitem>
-            <para>
-              Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein,
-              Clifford. <emphasis>Introduction to Algorithms</emphasis>. Second Edition
-              (MIT Press, 2001)
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.dreizin"/>dreizin</term>
-          <listitem>
-            <para>
-              Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. <emphasis>Policy-Based
-              Data Structures</emphasis>, <ulink url="http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/">http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.ekman"/>ekman</term>
-          <listitem>
-            <para>
-              Ekman, Rasmus. <emphasis>Structured Associative Containers</emphasis>,
-              <ulink url="http://www.abc.se/~re/code/tst">http://www.abc.se/~re/code/tst</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.gottschlich"/>gottschlich</term>
-          <listitem>
-            <para>
-              Gottschlich, Justin. <emphasis>C++ Trees</emphasis>, <ulink url="http://www.gamedev.net/reference/articles/article2192.asp">http://www.gamedev.net/reference/articles/article2192.asp</ulink>
-              and <ulink url="http://www.gamedev.net/reference/articles/article2233.asp">http://www.gamedev.net/reference/articles/article2233.asp</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.haas"/>haas</term>
-          <listitem>
-            <para>
-              Haas, Mitchell. <emphasis>Tree Container Library</emphasis>, <ulink url="http://www.datasoftsolutions.net/tree_container_library/overview.php">http://www.datasoftsolutions.net/tree_container_library/overview.php</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.karas"/>karas</term>
-          <listitem>
-            <para>
-              Karas, Walt. <emphasis>C++ AVL Tree Template</emphasis>, <ulink url="http://us.geocities.com/wkaras/gen_cpp/avl_tree.html">http://us.geocities.com/wkaras/gen_cpp/avl_tree.html</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.knuth97"/>knuth97</term>
-          <listitem>
-            <para>
-              Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
-              Volume 1: Fundamental Algorithms. Third Edition (Reading, Massachusetts:
-              Addison-Wesley, 1997)
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.knuth98"/>knuth98</term>
-          <listitem>
-            <para>
-              Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
-              Volume 3: Sorting and Searching. Second Edition (Reading, Massachusetts:
-              Addison-Wesley, 1998)
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.mirwaisi"/>mirwaisi</term>
-          <listitem>
-            <para>
-              Mirwaisi, Jeff. <emphasis>treelib</emphasis>, <ulink url="https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2">https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.parent"/>parent</term>
-          <listitem>
-            <para>
-              Parent, Sean et al. <emphasis>forest</emphasis>, <ulink url="http://opensource.adobe.com/group__forest__related.html">http://opensource.adobe.com/group__forest__related.html</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.peeters"/>peeters</term>
-          <listitem>
-            <para>
-              Peeters, Kasper. <emphasis>tree.hh: an STL-like C++ tree class</emphasis>,
-              <ulink url="http://www.aei.mpg.de/~peekas/tree/">http://www.aei.mpg.de/~peekas/tree/</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term> <anchor id="ref.rivera"/>rivera</term>
-          <listitem>
-            <para>
-              Rivera, René. <emphasis>RankTree.h</emphasis>, <ulink url="http://redshift-software.com/~grafik/RankTree.h">http://redshift-software.com/~grafik/RankTree.h</ulink>
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </section>
+  <section id="tree.references">
+    <title><link linkend="tree.references">References</link></title>
+    <variablelist>
+      <title>References</title>
+      <varlistentry>
+        <term> <anchor id="ref.austern"/>austern</term>
+        <listitem>
+          <para>
+            Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
+            John. <emphasis>Untangling the Balancing and Searching of Balanced Binary
+            Search Trees</emphasis>, Software: Practice and Experience 33(13): 1273-1298
+            (2003) Electronic Appendix: <ulink url="http://www.research.att.com/~bs/tree-appendix.pdf">http://www.research.att.com/~bs/tree-appendix.pdf</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.cormen"/>cormen</term>
+        <listitem>
+          <para>
+            Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford.
+            <emphasis>Introduction to Algorithms</emphasis>. Second Edition (MIT
+            Press, 2001)
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.dreizin"/>dreizin</term>
+        <listitem>
+          <para>
+            Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. <emphasis>Policy-Based
+            Data Structures</emphasis>, <ulink url="http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/">http://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.ekman"/>ekman</term>
+        <listitem>
+          <para>
+            Ekman, Rasmus. <emphasis>Structured Associative Containers</emphasis>,
+            <ulink url="http://www.abc.se/~re/code/tst">http://www.abc.se/~re/code/tst</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.gottschlich"/>gottschlich</term>
+        <listitem>
+          <para>
+            Gottschlich, Justin. <emphasis>C++ Trees</emphasis>, <ulink url="http://www.gamedev.net/reference/articles/article2192.asp">http://www.gamedev.net/reference/articles/article2192.asp</ulink>
+            and <ulink url="http://www.gamedev.net/reference/articles/article2233.asp">http://www.gamedev.net/reference/articles/article2233.asp</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.haas"/>haas</term>
+        <listitem>
+          <para>
+            Haas, Mitchell. <emphasis>Tree Container Library</emphasis>, <ulink url="http://www.datasoftsolutions.net/tree_container_library/overview.php">http://www.datasoftsolutions.net/tree_container_library/overview.php</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.karas"/>karas</term>
+        <listitem>
+          <para>
+            Karas, Walt. <emphasis>C++ AVL Tree Template</emphasis>, <ulink url="http://us.geocities.com/wkaras/gen_cpp/avl_tree.html">http://us.geocities.com/wkaras/gen_cpp/avl_tree.html</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.knuth97"/>knuth97</term>
+        <listitem>
+          <para>
+            Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
+            Volume 1: Fundamental Algorithms. Third Edition (Reading, Massachusetts:
+            Addison-Wesley, 1997)
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.knuth98"/>knuth98</term>
+        <listitem>
+          <para>
+            Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
+            Volume 3: Sorting and Searching. Second Edition (Reading, Massachusetts:
+            Addison-Wesley, 1998)
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.mirwaisi"/>mirwaisi</term>
+        <listitem>
+          <para>
+            Mirwaisi, Jeff. <emphasis>treelib</emphasis>, <ulink url="https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2">https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.parent"/>parent</term>
+        <listitem>
+          <para>
+            Parent, Sean et al. <emphasis>forest</emphasis>, <ulink url="http://opensource.adobe.com/group__forest__related.html">http://opensource.adobe.com/group__forest__related.html</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.peeters"/>peeters</term>
+        <listitem>
+          <para>
+            Peeters, Kasper. <emphasis>tree.hh: an STL-like C++ tree class</emphasis>,
+            <ulink url="http://www.aei.mpg.de/~peekas/tree/">http://www.aei.mpg.de/~peekas/tree/</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term> <anchor id="ref.rivera"/>rivera</term>
+        <listitem>
+          <para>
+            Rivera, René. <emphasis>RankTree.h</emphasis>, <ulink url="http://redshift-software.com/~grafik/RankTree.h">http://redshift-software.com/~grafik/RankTree.h</ulink>
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </section>
 </article>
