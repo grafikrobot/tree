@@ -153,14 +153,14 @@ tradeoffs?]
 
 Trees, being recursively defined data structures, seem to somewhat lend themselves to
 recursive implementation, i.e. declaring them in a way so they consist of a client value
-part and a certain number of trees in turn (as e.g. in case of [link haas \[haas\]]). Such
+part and a certain number of trees in turn (as e.g. in case of [link ref.haas \[haas\]]). Such
 an approach would allow for uniform treatment of the subtrees, but would duplicate
 allocators and imply structure that need not be present. The tree, like existing STL
 containers, should be responsible for data representation and storage.
 
 [heading Augmentors/balancers as policies]
 
-Inspired by [link austern \[austern\]] and [link dreizin \[dreizin\]], the original
+Inspired by [link ref.austern \[austern\]] and [link ref.dreizin \[dreizin\]], the original
 approach undertaken when working on the reference implementation was to pass policy
 template arguments to template class [^binary_tree]. While reproducing the (otherwise
 unbalanced) tree/cursor interface seemed logical at first, it turned out that this was
@@ -184,7 +184,7 @@ implementation of trees, partly diverge in their usage from plain node objects.
 Wherever reasonably possible, strong time complexity guarantees are given, which mostly,
 while trying not to require much space overhead, demand implementations that make use of
 any time and space saving techniques available (e.g. using arrays for both children of a
-binary tree node, see e.g. [link austern \[austern\]]), which may partly restrict
+binary tree node, see e.g. [link ref.austern \[austern\]]), which may partly restrict
 implementors to one "proper" way of doing things.
 
 [endsect]
@@ -207,14 +207,14 @@ Trees, having attracted much attention in the C++ community, are found in variou
 implementations and as subjects of a number of papers. Contrary to the present proposal,
 practically all of them deal either with trees as used for sorted associative containers
 (with logarithmic time complexity for more relevant operations, achieved by some sort of
-balancing; examples are [link dreizin \[dreizin\]], [link ekman \[ekman\]] and 
-[link karas \[karas\]]; plus, most current STL implementations use a red-black tree as their
+balancing; examples are [link ref.dreizin \[dreizin\]], [link ref.ekman \[ekman\]] and 
+[link ref.karas \[karas\]]; plus, most current STL implementations use a red-black tree as their
 associative containers' base) or with what we call "external" hierarchies in the
 following (whose structure is dictated e.g. by a file system directory tree, an XML file
-or an AST; see e.g. [link gottschlich \[gottschlich\]], [link haas \[haas\]], 
-[link parent \[parent\]] and [link peeters \[peeters\]]), but rarely both fields of application.
+or an AST; see e.g. [link ref.gottschlich \[gottschlich\]], [link ref.haas \[haas\]], 
+[link ref.parent \[parent\]] and [link ref.peeters \[peeters\]]), but rarely both fields of application.
 
-Approaches as found in [link austern \[austern\]] or [link mirwaisi \[mirwaisi\]] go some
+Approaches as found in [link ref.austern \[austern\]] or [link ref.mirwaisi \[mirwaisi\]] go some
 steps further and have provided valuable inspiration for this project, but still do not
 formalize anything similar as the cursor-based interface in this proposal for dealing
 with a tree's contents.

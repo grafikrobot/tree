@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/19 04:33:27 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/19 13:50:13 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -58,7 +58,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-Jun-18
+            2013-Jun-19
           </para>
         </listitem>
       </varlistentry>
@@ -235,7 +235,7 @@
           Trees, being recursively defined data structures, seem to somewhat lend
           themselves to recursive implementation, i.e. declaring them in a way so
           they consist of a client value part and a certain number of trees in turn
-          (as e.g. in case of <link linkend="haas">[haas]</link>). Such an approach
+          (as e.g. in case of <link linkend="ref.haas">[haas]</link>). Such an approach
           would allow for uniform treatment of the subtrees, but would duplicate
           allocators and imply structure that need not be present. The tree, like
           existing STL containers, should be responsible for data representation
@@ -246,7 +246,7 @@
           as policies</link>
         </bridgehead>
         <para>
-          Inspired by <link linkend="austern">[austern]</link> and <link linkend="dreizin">[dreizin]</link>,
+          Inspired by <link linkend="ref.austern">[austern]</link> and <link linkend="ref.dreizin">[dreizin]</link>,
           the original approach undertaken when working on the reference implementation
           was to pass policy template arguments to template class <literal moreinfo="none">binary_tree</literal>.
           While reproducing the (otherwise unbalanced) tree/cursor interface seemed
@@ -274,7 +274,7 @@
           Wherever reasonably possible, strong time complexity guarantees are given,
           which mostly, while trying not to require much space overhead, demand implementations
           that make use of any time and space saving techniques available (e.g. using
-          arrays for both children of a binary tree node, see e.g. <link linkend="austern">[austern]</link>),
+          arrays for both children of a binary tree node, see e.g. <link linkend="ref.austern">[austern]</link>),
           which may partly restrict implementors to one "proper" way of
           doing things.
         </para>
@@ -302,20 +302,21 @@
           to the present proposal, practically all of them deal either with trees
           as used for sorted associative containers (with logarithmic time complexity
           for more relevant operations, achieved by some sort of balancing; examples
-          are <link linkend="dreizin">[dreizin]</link>, <link linkend="ekman">[ekman]</link>
-          and <link linkend="karas">[karas]</link>; plus, most current STL implementations
+          are <link linkend="ref.dreizin">[dreizin]</link>, <link linkend="ref.ekman">[ekman]</link>
+          and <link linkend="ref.karas">[karas]</link>; plus, most current STL implementations
           use a red-black tree as their associative containers' base) or with what
           we call "external" hierarchies in the following (whose structure
           is dictated e.g. by a file system directory tree, an XML file or an AST;
-          see e.g. <link linkend="gottschlich">[gottschlich]</link>, <link linkend="haas">[haas]</link>,
-          <link linkend="parent">[parent]</link> and <link linkend="peeters">[peeters]</link>),
+          see e.g. <link linkend="ref.gottschlich">[gottschlich]</link>, <link linkend="ref.haas">[haas]</link>,
+          <link linkend="ref.parent">[parent]</link> and <link linkend="ref.peeters">[peeters]</link>),
           but rarely both fields of application.
         </para>
         <para>
-          Approaches as found in <link linkend="austern">[austern]</link> or <link linkend="mirwaisi">[mirwaisi]</link> go some steps further and have provided
-          valuable inspiration for this project, but still do not formalize anything
-          similar as the cursor-based interface in this proposal for dealing with
-          a tree's contents.
+          Approaches as found in <link linkend="ref.austern">[austern]</link> or
+          <link linkend="ref.mirwaisi">[mirwaisi]</link> go some steps further and
+          have provided valuable inspiration for this project, but still do not formalize
+          anything similar as the cursor-based interface in this proposal for dealing
+          with a tree's contents.
         </para>
         <para>
           The <ulink url="http://www.boost.org/libs/graph/">BGL</ulink>, finally,
@@ -4947,7 +4948,7 @@
       <variablelist>
         <title>References</title>
         <varlistentry>
-          <term>austern</term>
+          <term> <anchor id="ref.austern"/>austern</term>
           <listitem>
             <para>
               Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
@@ -4958,7 +4959,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>cormen</term>
+          <term> <anchor id="ref.cormen"/>cormen</term>
           <listitem>
             <para>
               Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein,
@@ -4968,7 +4969,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>dreizin</term>
+          <term> <anchor id="ref.dreizin"/>dreizin</term>
           <listitem>
             <para>
               Dreizin, Vladimir; Kosnik, Benjamin; Tavory, Ami. <emphasis>Policy-Based
@@ -4977,7 +4978,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>ekman</term>
+          <term> <anchor id="ref.ekman"/>ekman</term>
           <listitem>
             <para>
               Ekman, Rasmus. <emphasis>Structured Associative Containers</emphasis>,
@@ -4986,7 +4987,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>gottschlich</term>
+          <term> <anchor id="ref.gottschlich"/>gottschlich</term>
           <listitem>
             <para>
               Gottschlich, Justin. <emphasis>C++ Trees</emphasis>, <ulink url="http://www.gamedev.net/reference/articles/article2192.asp">http://www.gamedev.net/reference/articles/article2192.asp</ulink>
@@ -4995,7 +4996,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>haas</term>
+          <term> <anchor id="ref.haas"/>haas</term>
           <listitem>
             <para>
               Haas, Mitchell. <emphasis>Tree Container Library</emphasis>, <ulink url="http://www.datasoftsolutions.net/tree_container_library/overview.php">http://www.datasoftsolutions.net/tree_container_library/overview.php</ulink>
@@ -5003,7 +5004,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>karas</term>
+          <term> <anchor id="ref.karas"/>karas</term>
           <listitem>
             <para>
               Karas, Walt. <emphasis>C++ AVL Tree Template</emphasis>, <ulink url="http://us.geocities.com/wkaras/gen_cpp/avl_tree.html">http://us.geocities.com/wkaras/gen_cpp/avl_tree.html</ulink>
@@ -5011,7 +5012,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>knuth97</term>
+          <term> <anchor id="ref.knuth97"/>knuth97</term>
           <listitem>
             <para>
               Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
@@ -5021,7 +5022,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>knuth98</term>
+          <term> <anchor id="ref.knuth98"/>knuth98</term>
           <listitem>
             <para>
               Knuth, Donald E. <emphasis>The Art of Computer Programming</emphasis>.
@@ -5031,7 +5032,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>mirwaisi</term>
+          <term> <anchor id="ref.mirwaisi"/>mirwaisi</term>
           <listitem>
             <para>
               Mirwaisi, Jeff. <emphasis>treelib</emphasis>, <ulink url="https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2">https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2</ulink>
@@ -5039,7 +5040,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>parent</term>
+          <term> <anchor id="ref.parent"/>parent</term>
           <listitem>
             <para>
               Parent, Sean et al. <emphasis>forest</emphasis>, <ulink url="http://opensource.adobe.com/group__forest__related.html">http://opensource.adobe.com/group__forest__related.html</ulink>
@@ -5047,7 +5048,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>peeters</term>
+          <term> <anchor id="ref.peeters"/>peeters</term>
           <listitem>
             <para>
               Peeters, Kasper. <emphasis>tree.hh: an STL-like C++ tree class</emphasis>,
@@ -5056,7 +5057,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term>rivera</term>
+          <term> <anchor id="ref.rivera"/>rivera</term>
           <listitem>
             <para>
               Rivera, René. <emphasis>RankTree.h</emphasis>, <ulink url="http://redshift-software.com/~grafik/RankTree.h">http://redshift-software.com/~grafik/RankTree.h</ulink>
