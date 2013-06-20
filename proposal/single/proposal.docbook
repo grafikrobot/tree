@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/20 03:25:48 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/20 16:29:10 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -58,7 +58,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-Jun-19
+            2013-Jun-20
           </para>
         </listitem>
       </varlistentry>
@@ -312,11 +312,10 @@
           but rarely both fields of application.
         </para>
         <para>
-          Approaches as found in <link linkend="ref.austern">[austern]</link> or
-          <link linkend="ref.mirwaisi">[mirwaisi]</link> go some steps further and
-          have provided valuable inspiration for this project, but still do not formalize
-          anything similar as the cursor-based interface in this proposal for dealing
-          with a tree's contents.
+          Approaches as found in <link linkend="ref.austern">[austern]</link> go
+          some steps further and have provided valuable inspiration for this project,
+          but still do not formalize anything similar as the cursor-based interface
+          in this proposal for dealing with a tree's contents.
         </para>
         <para>
           The <ulink url="http://www.boost.org/libs/graph/">BGL</ulink>, finally,
@@ -4960,7 +4959,7 @@
             Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson,
             John. <emphasis>Untangling the Balancing and Searching of Balanced Binary
             Search Trees</emphasis>, Software: Practice and Experience 33(13): 1273-1298
-            (2003) Electronic Appendix: <ulink url="http://www.research.att.com/~bs/tree-appendix.pdf">http://www.research.att.com/~bs/tree-appendix.pdf</ulink>
+            (2003) Electronic Appendix: <ulink url="http://www.stroustrup.com/tree-appendix.pdf">http://www.stroustrup.com/tree-appendix.pdf</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -4988,7 +4987,7 @@
         <listitem>
           <para>
             Ekman, Rasmus. <emphasis>Structured Associative Containers</emphasis>,
-            <ulink url="http://www.abc.se/~re/code/tst">http://www.abc.se/~re/code/tst</ulink>
+            <ulink url="http://www.abc.se/~re/code/tst/tst_docs/index.html">http://www.abc.se/~re/code/tst/tst_docs/index.html</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -4996,8 +4995,8 @@
         <term> <anchor id="ref.gottschlich"/>gottschlich</term>
         <listitem>
           <para>
-            Gottschlich, Justin. <emphasis>C++ Trees</emphasis>, <ulink url="http://www.gamedev.net/reference/articles/article2192.asp">http://www.gamedev.net/reference/articles/article2192.asp</ulink>
-            and <ulink url="http://www.gamedev.net/reference/articles/article2233.asp">http://www.gamedev.net/reference/articles/article2233.asp</ulink>
+            Gottschlich, Justin. <emphasis>C++ Trees</emphasis>, <ulink url="http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-1-r2192">http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-1-r2192</ulink>
+            and <ulink url="http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-2-basic-coretreefun-r2233">http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-2-basic-coretreefun-r2233</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -5013,7 +5012,7 @@
         <term> <anchor id="ref.karas"/>karas</term>
         <listitem>
           <para>
-            Karas, Walt. <emphasis>C++ AVL Tree Template</emphasis>, <ulink url="http://us.geocities.com/wkaras/gen_cpp/avl_tree.html">http://us.geocities.com/wkaras/gen_cpp/avl_tree.html</ulink>
+            Karas, Walt. <emphasis>C++ AVL Tree Template</emphasis>, <ulink url="http://wkaras.webs.com/gen_cpp/avl_tree.html">http://wkaras.webs.com/gen_cpp/avl_tree.html</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -5038,18 +5037,10 @@
         </listitem>
       </varlistentry>
       <varlistentry>
-        <term> <anchor id="ref.mirwaisi"/>mirwaisi</term>
-        <listitem>
-          <para>
-            Mirwaisi, Jeff. <emphasis>treelib</emphasis>, <ulink url="https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2">https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2</ulink>
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
         <term> <anchor id="ref.parent"/>parent</term>
         <listitem>
           <para>
-            Parent, Sean et al. <emphasis>forest</emphasis>, <ulink url="http://opensource.adobe.com/group__forest__related.html">http://opensource.adobe.com/group__forest__related.html</ulink>
+            Parent, Sean et al. <emphasis>forest</emphasis>, <ulink url="http://stlab.adobe.com/group__forest__related.html">http://stlab.adobe.com/group__forest__related.html</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -5058,7 +5049,7 @@
         <listitem>
           <para>
             Peeters, Kasper. <emphasis>tree.hh: an STL-like C++ tree class</emphasis>,
-            <ulink url="http://www.aei.mpg.de/~peekas/tree/">http://www.aei.mpg.de/~peekas/tree/</ulink>
+            <ulink url="http://tree.phi-sci.com/">http://tree.phi-sci.com/</ulink>
           </para>
         </listitem>
       </varlistentry>
@@ -5066,7 +5057,7 @@
         <term> <anchor id="ref.rivera"/>rivera</term>
         <listitem>
           <para>
-            Rivera, René. <emphasis>RankTree.h</emphasis>, <ulink url="http://redshift-software.com/~grafik/RankTree.h">http://redshift-software.com/~grafik/RankTree.h</ulink>
+            Rivera, René. <emphasis>rank_tree.h</emphasis>, <ulink url="http://redshift-software.com/sites/redshift-software.com/files/grafik/rank_tree.h">http://redshift-software.com/sites/redshift-software.com/files/grafik/rank_tree.h</ulink>
           </para>
         </listitem>
       </varlistentry>

@@ -214,7 +214,7 @@ following (whose structure is dictated e.g. by a file system directory tree, an 
 or an AST; see e.g. [link ref.gottschlich \[gottschlich\]], [link ref.haas \[haas\]], 
 [link ref.parent \[parent\]] and [link ref.peeters \[peeters\]]), but rarely both fields of application.
 
-Approaches as found in [link ref.austern \[austern\]] or [link ref.mirwaisi \[mirwaisi\]] go some
+Approaches as found in [link ref.austern \[austern\]] go some
 steps further and have provided valuable inspiration for this project, but still do not
 formalize anything similar as the cursor-based interface in this proposal for dealing
 with a tree's contents.

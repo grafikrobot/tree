@@ -112,7 +112,7 @@
     [
     [[#ref.austern] austern]
     [Austern, Matthew H.; Stroustrup, Bjarne; Thorup, Mikkel; Wilikinson, John. /Untangling the Balancing and Searching of Balanced Binary Search Trees/, Software: Practice and Experience 33(13): 1273-1298 (2003)
-    Electronic Appendix: [@http://www.research.att.com/~bs/tree-appendix.pdf]]
+    Electronic Appendix: [@http://www.stroustrup.com/tree-appendix.pdf]]
     ]
     [
     [[#ref.cormen] cormen]
@@ -124,11 +124,11 @@
     ]
     [
     [[#ref.ekman] ekman]
-    [Ekman, Rasmus. /Structured Associative Containers/, [@http://www.abc.se/~re/code/tst]]
+    [Ekman, Rasmus. /Structured Associative Containers/, [@http://www.abc.se/~re/code/tst/tst_docs/index.html]]
     ]
     [
     [[#ref.gottschlich] gottschlich]
-    [Gottschlich, Justin. /C++ Trees/, [@http://www.gamedev.net/reference/articles/article2192.asp] and [@http://www.gamedev.net/reference/articles/article2233.asp]]
+    [Gottschlich, Justin. /C++ Trees/, [@http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-1-r2192] and [@http://www.gamedev.net/page/resources/_/technical/general-programming/c-trees-part-2-basic-coretreefun-r2233]]
     ]
     [
     [[#ref.haas] haas]
@@ -136,7 +136,7 @@
     ]
     [
     [[#ref.karas] karas]
-    [Karas, Walt. /C++ AVL Tree Template/, [@http://us.geocities.com/wkaras/gen_cpp/avl_tree.html]]
+    [Karas, Walt. /C++ AVL Tree Template/, [@http://wkaras.webs.com/gen_cpp/avl_tree.html]]
     ]
     [
     [[#ref.knuth97] knuth97]
@@ -147,20 +147,16 @@
     [Knuth, Donald E. /The Art of Computer Programming/. Volume 3: Sorting and Searching. Second Edition (Reading, Massachusetts: Addison-Wesley, 1998)]
     ]
     [
-    [[#ref.mirwaisi] mirwaisi]
-    [Mirwaisi, Jeff. /treelib/, [@https://boost-consulting.com:8443/trac/soc/attachment/wiki/tree/resources/trees/treelib.tar.bz2]]
-    ]
-    [
     [[#ref.parent] parent]
-    [Parent, Sean et al. /forest/, [@http://opensource.adobe.com/group__forest__related.html]]
+    [Parent, Sean et al. /forest/, [@http://stlab.adobe.com/group__forest__related.html]]
     ]
     [
     [[#ref.peeters] peeters]
-    [Peeters, Kasper. /tree.hh: an STL-like C++ tree class/, [@http://www.aei.mpg.de/~peekas/tree/]]
+    [Peeters, Kasper. /tree.hh: an STL-like C++ tree class/, [@http://tree.phi-sci.com/]]
     ]
     [
     [[#ref.rivera] rivera]
-    [Rivera, René. /RankTree.h/, [@http://redshift-software.com/~grafik/RankTree.h]]
+    [Rivera, René. /rank_tree.h/, [@http://redshift-software.com/sites/redshift-software.com/files/grafik/rank_tree.h]]
     ]
 ]
 
