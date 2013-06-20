@@ -50,17 +50,18 @@ namespace std {
     explicit forest_tree(Hierarchy&& = Hierarchy());
     template <class InputCursor>
       forest_tree(InputCursor subtree);
-    forest_tree(const forest_tree<value_type, Hierarchy>& x);
-    forest_tree(forest_tree&& x);
-    forest_tree<value_type, Hierarchy>&
-      operator=(const forest_tree<value_type, Hierarchy>&);
+    forest_tree(const forest_tree&);
+    forest_tree(forest_tree&&);
+    forest_tree& operator=(const forest_tree&);
     template <class InputCursor>
       void assign(InputCursor subtree);
 
     // cursors:
-    cursor        root()    { return h.root(); }
-    const_cursor  croot()   { return h.croot(); }
+    cursor        root() { return h.root(); }
+    const_cursor  root() const { return h.root(); }
+    const_cursor  croot() const { return h.croot(); }
     cursor        shoot();
+    const_cursor  shoot() const;
     const_cursor  cshoot() const;
 
     // capacity:
@@ -69,13 +70,13 @@ namespace std {
     size_type max_size() const;
 
     // modifiers:
-    cursor    insert(cursor position, const value_type& x);
-    cursor    insert(cursor position, value_type&& x);
+    cursor    insert(cursor position, const value_type&);
+    cursor    insert(cursor position, value_type&&);
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
-    cursor    insert_above(cursor position, const value_type& x);
-    cursor    insert_above(cursor position, value_type&& x);
-    void      swap(forest_tree<value_type, Hierarchy>&);
+    cursor    insert_above(cursor position, const value_type&);
+    cursor    insert_above(cursor position, value_type&&);
+    void      swap(forest_tree&);
     void      clear(cursor position);
     void      clear();
   };
@@ -160,7 +161,7 @@ are for =b= as they are for =f=):
 ``
 	template <class InputCursor>
 	  forest_tree (InputCursor subtree);
-	forest_tree (forest_tree<T, Hierarchy> const&);
+	forest_tree (const forest_tree&);
 ``
 [std_end]
 
@@ -186,8 +187,7 @@ determine the size of =subtree= and then do copying.
 
 ``
 clear();
-for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
-  insert(root.end(), *i);
+for(auto v : subtree) insert(root().end(), v);
 ``
 [std_end]
 

@@ -86,18 +86,21 @@ namespace std {
 
     // construct/copy/destroy:
     template <class InputCursor> rank_tree(InputCursor subtree);
-    rank_tree(const rank_tree<T, Hierarchy>&);
+    rank_tree(const rank_tree&);
     rank_tree(rank_tree&&);
-    rank_tree<T, Hierarchy>& operator=(const rank_tree<T, Hierarchy>&);
-    rank_tree<T, Hierarchy>& operator=(rank_tree<T, Hierarchy>&&);
+    rank_tree& operator=(const rank_tree&);
+    rank_tree& operator=(rank_tree&&);
     template <class InputCursor> void assign(InputCursor subtree);
 
     // cursors:
     cursor        root() noexcept;
+    const_cursor  root() const noexcept;
     const_cursor  croot() const noexcept;
     cursor        shoot() noexcept;
+    const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
     cursor        inorder_first() noexcept;
+    const_cursor  inorder_first() const noexcept;
     const_cursor  inorder_cfirst() const noexcept;
 
     cursor        rank(size_type n);
@@ -114,7 +117,7 @@ namespace std {
     template <class InputCursor>
       cursor  insert(cursor position, InputCursor subtree);
     void      rotate(cursor position);
-    void      swap(rank_tree<T, Hierarchy>&);
+    void      swap(rank_tree&);
     void      clear(cursor position);
     void      clear();
   };

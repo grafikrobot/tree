@@ -20,7 +20,7 @@ If exactly one application of the expression `i = i.begin()`, followed by a
 finite sequence of applications of the expression `++j` makes `i == j`, `j` is
 a /child/ (or /immediate descendant/) of `i`, and `i` is the /parent/ (or the
 /immediate ancestor/) of `j`. A cursor `j` is another cursor `i`'s descendant
-if there is a finite sequential combination of applications of either of the
+if there is a finite sequential combination of applications of the
 expressions `++i` and `i = i.begin()` that makes `i == j`; `i` is then called
 `j`'s ancestor. If two cursors `i` and `j` share at least one common ancestor,
 they refer to the same container. The descending traversal capabilities of a
@@ -37,7 +37,7 @@ is ancestor to all other cursors within a hierarchy; and just as
 for past-the-end ones, the library generally does not assume on-top cursors be
 dereferenceable.
 
-A cursor `c` for which `c.emtpy() == true` is called a /leaf cursor/. A leaf
+A cursor `c` for which `c.empty() == true` is called a /leaf cursor/. A leaf
 cursor's children are never assumed to be dereferenceable. A cursor which is
 either on-top or a descendant of an on-top cursor, but in either case not a
 leaf cursor, nor a descendant of a leaf cursor, is called an /internal cursor/.
@@ -347,7 +347,7 @@ satisfying the requirements for descending cursors ([descending.cursors]):
 	]
 ]
 
-/Notes:/ Those entries marked "(Note A)" should have at worst linear complexity.
+/Notes:/ Those entries marked "(Note A)" shall have at worst linear complexity.
 See the individual hierarchy containers for specific complexity.
 [std_end]
 

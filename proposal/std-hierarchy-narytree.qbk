@@ -38,25 +38,26 @@ namespace std {
     template <class InputCursor>
       nary_tree (InputCursor subtree,
         const Allocator& = Allocator());
-    nary_tree (const nary_tree<T, Allocator>&);
+    nary_tree (const nary_tree&);
     nary_tree (nary_tree&&);
     nary_tree (const nary_tree&, const Allocator&);
     nary_tree (nary_tree&&, const Allocator&);
     ~nary_tree();
-    nary_tree<T, Allocator>&
-      operator=(const nary_tree<T, Allocator>&);
-    nary_tree<T, Allocator>&
-      operator=(nary_tree<T, Allocator>&&);
+    nary_tree& operator=(const nary_tree&);
+    nary_tree& operator=(nary_tree&&);
     template <class InputCursor> void assign(InputCursor subtree);
     Allocator get_allocator() const noexcept;
 
     // cursors:
     cursor        root() noexcept;
+    const_cursor  root() const noexcept;
     const_cursor  croot() const noexcept;
     cursor        shoot() noexcept;
+    const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
     cursor        inorder_first() noexcept;
-    const_cursor  inorder_cfirst const() noexcept;
+    const_cursor  inorder_first() const noexcept;
+    const_cursor  inorder_cfirst() const noexcept;
 
     // capacity:
     bool      empty() const noexcept;
@@ -73,7 +74,7 @@ namespace std {
       cursor  insert(cursor position, InputCursor subtree);
     cursor    insert_above(cursor position, const T&);
     cursor    insert_above(cursor position, T&&);
-    void      swap(nary_tree<T, Allocator>&);
+    void      swap(nary_tree&);
     void      clear(cursor position);
     void      clear();
   };
@@ -131,7 +132,7 @@ Both =cursor= and =const_cursor= have to fulfill the plain cursor
     template <class InputCursor>
       nary_tree (InputCursor subtree,
         const Allocator& = Allocator());
-    nary_tree (const nary_tree<T, Allocator>& x);
+    nary_tree (const nary_tree& x);
 ``
 [std_end]
 
@@ -157,8 +158,7 @@ determine the size of =subtree= and then do copying.
 
 ``
 clear();
-for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
-  insert(root.end(), *i);
+for(auto v : subtree) insert(root().end(), *i);
 ``
 [std_end]
 
@@ -170,6 +170,7 @@ for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
 [std_def]
 ``
 	cursor        shoot() noexcept;
+	const_cursor  shoot() const noexcept;
 	const_cursor  cshoot() const noexcept;
 ``
 [std_end]
@@ -181,6 +182,7 @@ for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
 [std_def]
 ``
 	cursor        inorder_first() noexcept;
+	const_cursor  inorder_first() const noexcept;
 	const_cursor  inorder_cfirst() const noexcept;
 ``
 [std_end]

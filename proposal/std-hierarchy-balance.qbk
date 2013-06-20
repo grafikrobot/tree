@@ -261,8 +261,8 @@ namespace std {
     avl_tree(const avl_tree<T,Hierarchy>&);
     avl_tree(avl_tree&&);
     avl_tree(initializer_list<T>);
-    avl_tree<T,Hierarchy>& operator=(const avl_tree<T,Hierarchy>&);
-    avl_tree<T,Hierarchy>& operator=(avl_tree<T,Hierarchy>&&);
+    avl_tree& operator=(const avl_tree&);
+    avl_tree& operator=(avl_tree&&);
     avl_tree& operator=(initializer_list<T>);
     template <class InputIterator>
       void assign(InputIterator first, InputIterator last);
@@ -316,7 +316,7 @@ namespace std {
     iterator insert(const_iterator position, initializer_list<T>);
     iterator erase(const_iterator position);
     iterator erase(const_iterator position, const_iterator last);
-    void     swap(avl_tree<T, Hierarchy>&);
+    void     swap(avl_tree&);
     void     clear() noexcept { h.clear(); }
   };
   

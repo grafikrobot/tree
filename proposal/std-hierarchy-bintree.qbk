@@ -44,25 +44,26 @@ namespace std {
     template <class InputCursor>
       binary_tree(InputCursor subtree,
         const Allocator& = Allocator());
-    binary_tree(const binary_tree<T, Allocator>& x);
+    binary_tree(const binary_tree&);
     binary_tree(binary_tree&&);
     binary_tree(const binary_tree&, const Allocator&);
     binary_tree(binary_tree&&, const Allocator&);
     ~binary_tree();
-    binary_tree<T, Allocator>&
-      operator=(const binary_tree<T, Allocator>& x);
-    binary_tree<T, Allocator>&
-      operator=(binary_tree<T, Allocator>&& x);
+    binary_tree& operator=(const binary_tree&);
+    binary_tree& operator=(binary_tree&&);
     template <class InputCursor> void assign(InputCursor subtree);
     Allocator get_allocator() const noexcept;
 
     // cursors:
     cursor        root() noexcept;
+    const_cursor  root() const noexcept;
     const_cursor  croot() const noexcept;
     cursor        shoot() noexcept;
+    const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
     cursor        inorder_first() noexcept;
-    const_cursor  inorder_cfirst const() noexcept;
+    const_cursor  inorder_first() const noexcept;
+    const_cursor  inorder_cfirst() const noexcept;
 
     // capacity:
     bool      empty() const noexcept;
@@ -70,12 +71,12 @@ namespace std {
     size_type max_size() const noexcept;
 
     // modifiers:
-    cursor    insert(const_cursor position, const T& x);
-    cursor    insert(const_cursor position, T&& x);
+    cursor    insert(const_cursor position, const T&);
+    cursor    insert(const_cursor position, T&&);
     template <class InputCursor>
       cursor  insert(const_cursor position, InputCursor subtree);
     void      rotate(const_cursor position);
-    void      swap(binary_tree<T, Allocator>&);
+    void      swap(binary_tree&);
     void      clear(cursor position);
     void      clear();
   };
@@ -87,7 +88,7 @@ namespace std {
     bool operator!=(  const binary_tree<T, Allocator>& x,
                       const binary_tree<T, Allocator>& y);
 
-  // 23.7.4.1.6, specialized algorithms:
+  // specialized algorithms:
   template <class T, class Allocator>
     void swap(  binary_tree<T, Allocator>& x,
                 binary_tree<T, Allocator>& y);
@@ -137,7 +138,7 @@ Additionally, for any instance a of either type =cursor= or
 	template <class InputCursor>
 	  binary_tree (InputCursor subtree,
 	    const Allocator& = Allocator());
-	binary_tree (binary_tree<T, Allocator> const& x);
+	binary_tree (const binary_tree& x);
 ``
 [std_end]
 
@@ -162,9 +163,8 @@ template <class InputCursor>
 [std_spec]
 /Effects:/
 ``
-	clear(); 
-	for(InputCursor i = subtree.begin(); i != subtree.end(); ++i)
-	  insert(root().end(), *i);
+	clear();
+	for(auto v : subtree) insert(root().end(), v);
 ``
 [std_end]
 
@@ -176,6 +176,7 @@ template <class InputCursor>
 [std_def]
 ``
 	cursor        shoot();
+	const_cursor  shoot() const;
 	const_cursor  cshoot() const;
 ``
 [std_end]
@@ -187,6 +188,7 @@ template <class InputCursor>
 [std_def]
 ``
 	cursor        inorder_first();
+	const_cursor  inorder_first() const;
 	const_cursor  inorder_cfirst() const;
 ``
 [std_end]
