@@ -503,8 +503,16 @@ div div.legalnotice p {
   clear: both;
 }
 
+.article {
+  padding-top: 8em;
+}
+
 .std_doc_info {
-  float: right;
+  position: absolute;
+  top: 1em;
+  font-size: 90%;
+  width: 35em;
+  right: 1em;
 }
 
 .std_doc_info .variablelist dl dt {

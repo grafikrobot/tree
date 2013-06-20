@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/20 16:29:10 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/20 19:35:56 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -42,7 +42,7 @@
         <term>Document No.</term>
         <listitem>
           <para>
-            WG21/D????=J16/??-????
+            WG21/N????=J16/??-????
           </para>
         </listitem>
       </varlistentry>
@@ -66,7 +66,7 @@
         <term>Project</term>
         <listitem>
           <para>
-            Programming Language C++
+            Programming Language C++, Library Working Group
           </para>
         </listitem>
       </varlistentry>

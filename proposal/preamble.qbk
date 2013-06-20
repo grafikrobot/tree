@@ -14,10 +14,10 @@ C++ Standard Library]
 
 [std_doc]
 	[variablelist
-		[[Document No.] [WG21/D????=J16/??-????]]
+		[[Document No.] [WG21/N????=J16/??-????]]
 		[[Supercedes]   [WG21/N2101=J16/06-0171]]
 		[[Date]         [__DATE__]]
-		[[Project]      [Programming Language C++]]
+		[[Project]      [Programming Language C++, Library Working Group]]
 		[[Reply to]     [René Rivera <[@mailto:rrivera@acm.org rrivera@acm.org]>]]
 	]
 [std_end]
