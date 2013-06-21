@@ -91,8 +91,10 @@ namespace std {
     const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
 
-    cursor        rank(size_type n);
-    const_cursor  rank(size_type n) const;
+    cursor        rank_is(size_type n);
+    const_cursor  rank_is(size_type n) const;
+    size_type     rank_of(cursor);
+    size_type     rank_of(const_cursor) const;
 
     // capacity:
     bool      empty() const noexcept;
@@ -128,7 +130,7 @@ operations with guaranteed logarithmic time complexity in total.
 This means that operational semantics and time complexities are as specified
 by the =hierarchy_type=; and that a function can only be called if a
 function of the same name is present in the public interface of =hierarchy_type=.
-(The only exception to the above stated are the functions =rank()=,
+(The only exception to the above stated are the functions =rank_is()= and =rank_of()=,
 which are newly introduced.)
 
 [endsect] [/defn]
@@ -137,14 +139,30 @@ which are newly introduced.)
 
 [std_def]
 ``
-	cursor        rank(size_type n);
-	const_cursor  rank(size_type n) const;
+	cursor        rank_is(size_type n);
+	const_cursor  rank_is(size_type n) const;
 ``
 [std_end]
 
 [std_spec]
-/Returns:/ A cursor (or =const_cursor=) to the =n=th element of the hierarchy
+/Returns:/ A cursor (or =const_cursor=) to the [^n]th element of the hierarchy
 in inorder, counting from =inorder::begin(h)=.
+[std_end]
+
+[std_spec]
+/Complexity:/ logarithmic in =size()=.
+[std_end]
+
+[std_def]
+``
+	size_type     rank_of(cursor position);
+	size_type     rank_of(cons_cursor position) const;
+``
+[std_end]
+
+[std_spec]
+/Returns:/ The rank of element for cursor =position=
+counting from =inorder::begin(h)=.
 [std_end]
 
 [std_spec]

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/21 13:49:39 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/21 14:02:26 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -2485,8 +2485,10 @@
     <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">shoot</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase> <phrase role="keyword">noexcept</phrase><phrase role="special">;</phrase>
     <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">cshoot</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase> <phrase role="keyword">noexcept</phrase><phrase role="special">;</phrase>
 
-    <phrase role="identifier">cursor</phrase>        <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
-    <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">cursor</phrase>        <phrase role="identifier">rank_is</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">rank_is</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+    <phrase role="identifier">size_type</phrase>     <phrase role="identifier">rank_of</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase><phrase role="special">);</phrase>
+    <phrase role="identifier">size_type</phrase>     <phrase role="identifier">rank_of</phrase><phrase role="special">(</phrase><phrase role="identifier">const_cursor</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 
     <phrase role="comment">// capacity:</phrase>
     <phrase role="keyword">bool</phrase>      <phrase role="identifier">empty</phrase><phrase role="special">()</phrase> <phrase role="keyword">const</phrase> <phrase role="keyword">noexcept</phrase><phrase role="special">;</phrase>
@@ -2523,22 +2525,35 @@
               and time complexities are as specified by the <literal moreinfo="none">hierarchy_type</literal>;
               and that a function can only be called if a function of the same name
               is present in the public interface of <literal moreinfo="none">hierarchy_type</literal>.
-              (The only exception to the above stated are the functions <literal moreinfo="none">rank()</literal>,
-              which are newly introduced.)
+              (The only exception to the above stated are the functions <literal moreinfo="none">rank_is()</literal>
+              and <literal moreinfo="none">rank_of()</literal>, which are newly introduced.)
             </para>
           </section>
           <section id="tree.tree.adaptors.augment.ranktree.cursors">
             <title><link linkend="tree.tree.adaptors.augment.ranktree.cursors"><literal moreinfo="none">rank_tree</literal>
             cursors <phrase role="std_section_label">[ranktree.cursors]</phrase></link></title>
             <simplesect role="std_definition">
-<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
-<phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">rank</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">cursor</phrase>        <phrase role="identifier">rank_is</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">const_cursor</phrase>  <phrase role="identifier">rank_is</phrase><phrase role="special">(</phrase><phrase role="identifier">size_type</phrase> <phrase role="identifier">n</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
 </programlisting>
             </simplesect> <simplesect role="std_specification">
             <para>
               <emphasis>Returns:</emphasis> A cursor (or <literal moreinfo="none">const_cursor</literal>)
-              to the <literal moreinfo="none">n=th element of the hierarchy in inorder, counting
-              from =inorder::begin(h)</literal>.
+              to the <literal moreinfo="none">n</literal>th element of the hierarchy in inorder,
+              counting from <literal moreinfo="none">inorder::begin(h)</literal>.
+            </para>
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Complexity:</emphasis> logarithmic in <literal moreinfo="none">size()</literal>.
+            </para>
+            </simplesect> <simplesect role="std_definition">
+<programlisting xmlns:xi="http://www.w3.org/2001/XInclude"><phrase role="identifier">size_type</phrase>     <phrase role="identifier">rank_of</phrase><phrase role="special">(</phrase><phrase role="identifier">cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">);</phrase>
+<phrase role="identifier">size_type</phrase>     <phrase role="identifier">rank_of</phrase><phrase role="special">(</phrase><phrase role="identifier">cons_cursor</phrase> <phrase role="identifier">position</phrase><phrase role="special">)</phrase> <phrase role="keyword">const</phrase><phrase role="special">;</phrase>
+</programlisting>
+            </simplesect> <simplesect role="std_specification">
+            <para>
+              <emphasis>Returns:</emphasis> The rank of element for cursor <literal moreinfo="none">position</literal>
+              counting from <literal moreinfo="none">inorder::begin(h)</literal>.
             </para>
             </simplesect> <simplesect role="std_specification">
             <para>
