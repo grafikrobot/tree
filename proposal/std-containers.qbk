@@ -357,15 +357,6 @@ namespace std {
     bool operator!=(const binary_tree<T, Allocator>&, const binary_tree<T, Allocator>&);
   template <class T, class Allocator>
     void swap(binary_tree<T, Allocator>&, binary_tree<T, Allocator>&);
-  namespace inorder {
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::cursor>
-      begin(binary_tree<T, Allocator>&);
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::const_cursor>
-      cbegin(const binary_tree<T, Allocator>&);
-  } // namespace inorder
-
 } // namespace std
 ``
 
@@ -381,14 +372,6 @@ namespace std {
     bool operator!=(const nary_tree<T, Allocator>&, const nary_tree<T, Allocator>&);
   template <class T, class Allocator>
     void swap(nary_tree<T, Allocator>&, nary_tree<T, Allocator>&);
-  namespace inorder {
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::cursor>
-      begin(binary_tree<T, Allocator>&);
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::const_cursor>
-      cbegin(const binary_tree<T, Allocator>&);
-  } // namespace inorder
 } // namespace std
 ``
 
@@ -428,14 +411,6 @@ namespace std {
     bool operator!=(const forest_tree<T, Hierarchy>&, const forest_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
     void swap(forest_tree<T, Hierarchy>&, forest_tree<T, Hierarchy>&);
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<forest_tree<T, Hierarchy>::cursor>
-      begin(forest_tree<T, Hierarchy>&);
-  template <class T, class Allocator>
-    inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
-      cbegin(const forest_tree<T, Hierarchy>&);
-  } // namespace inorder
 } // namespace std
 ``
 
@@ -454,14 +429,6 @@ namespace std {
       const multiway_tree<T, Hierarchy>&, const multiway_tree<T, Hierarchy>&);
   template <class T, class Hierarchy>
     void swap(multiway_tree<T, Hierarchy>&, multiway_tree<T, Hierarchy>&);
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
-      begin(multiway_tree<T, Hierarchy>&);
-  template <class T, class Allocator>
-    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
-      cbegin(const multiway_tree<T, Hierarchy>&);
-  } // namespace inorder
 } // namespace std
 ``
 

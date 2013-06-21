@@ -64,9 +64,6 @@ namespace std {
     cursor        shoot();
     const_cursor  shoot() const;
     const_cursor  cshoot() const;
-    cursor        inorder_first();
-    const_cursor  inorder_first() const;
-    const_cursor  inorder_cfirst() const;
 
     // capacity:
     bool      empty() const;
@@ -97,15 +94,6 @@ namespace std {
   template <class T, class Hierarchy>
     void swap(  multiway_tree<T, Hierarchy>& x,
                 multiway_tree<T, Hierarchy>& y);
-
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
-      begin(multiway_tree<T, Hierarchy>& h);
-  template <class T, class Hierarchy>
-    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
-      cbegin(multiway_tree<T, Hierarchy> const& h);
-  } // namespace inorder
   
 } // namespace std
 ``
@@ -206,23 +194,6 @@ for(auto v : subtree) insert(root().end(), v);
 /Complexity:/ constant
 [std_end]
 
-[std_def]
-``
-	cursor        inorder_first();
-	const_cursor  inorder_first() const;
-	const_cursor  inorder_cfirst() const;
-``
-[std_end]
-
-[std_spec]
-/Returns:/ A cursor to the =multiway_tree='s first element in inorder
-(see [order.iterators]).
-[std_end]
-
-[std_spec]
-/Complexity:/ constant.
-[std_end]
-
 [endsect] [/cursors]
 
 
@@ -312,42 +283,6 @@ call to `reserve()` until the time when an insertion would make
 
 [std_spec]
 /Effects:/ `x.swap(y);`
-[std_end]
-
-[std_def]
-``
-	namespace inorder {
-	  template <class T, class Hierarchy>
-	    inorder::iterator<multiway_tree<T, Hierarchy>::cursor>
-	      begin(multiway_tree<T, Hierarchy>& h);
-	} // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<multiway_tree<T, Hierarchy>::cursor>(h.inorder_first())`.
-[std_end]
-
-[std_spec]
-/Complexity:/ constant
-[std_end]
-
-[std_def]
-``
-	namespace inorder {
-	  template <class T, class Hierarchy>
-	    inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>
-	      cbegin(multiway_tree<T, Hierarchy> const& h);
-	} // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<multiway_tree<T, Hierarchy>::const_cursor>(h.inorder_cfirst())`.
-[std_end]
-
-[std_spec]
-/Complexity:/ constant
 [std_end]
 
 [endsect] [/special]

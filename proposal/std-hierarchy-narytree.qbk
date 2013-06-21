@@ -55,9 +55,6 @@ namespace std {
     cursor        shoot() noexcept;
     const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
-    cursor        inorder_first() noexcept;
-    const_cursor  inorder_first() const noexcept;
-    const_cursor  inorder_cfirst() const noexcept;
 
     // capacity:
     bool      empty() const noexcept;
@@ -90,15 +87,6 @@ namespace std {
   template <class T, class Allocator>
     void swap(  nary_tree<T, Allocator>& x,
                 nary_tree<T, Allocator>& y);
-
-  namespace inorder {
-  template <class T, class Allocator>
-    inorder::iterator<nary_tree<T, Allocator>::cursor>
-      begin(nary_tree<T, Allocator>& h);
-  template <class T, class Allocator>
-    inorder::iterator<nary_tree<T, Allocator>::const_cursor>
-      cbegin(const nary_tree<T, Allocator>& h);
-  } // namespace inorder
               
 } // namespace std
 ``
@@ -177,23 +165,6 @@ for(auto v : subtree) insert(root().end(), *i);
 
 [std_spec]
 /Complexity:/ constant
-[std_end]
-
-[std_def]
-``
-	cursor        inorder_first() noexcept;
-	const_cursor  inorder_first() const noexcept;
-	const_cursor  inorder_cfirst() const noexcept;
-``
-[std_end]
-
-[std_spec]
-/Returns:/ A cursor to the nary_tree's first element in inorder (see
-[order.iterators]).
-[std_end]
-
-[std_spec]
-/Complexity:/ constant.
 [std_end]
 
 [endsect] [/cursors]
@@ -287,38 +258,6 @@ call to `reserve()` until the time when an insertion would make
 
 [std_spec]
 /Effects:/ `x.swap(y);`
-[std_end]
-
-[std_def]
-``
-    namespace inorder {
-      template <class T, class Allocator>
-        inorder::iterator<nary_tree<T, Allocator>::cursor>
-          begin(nary_tree<T, Allocator>& h);
-    } // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<nary_tree<T, Allocator>::cursor>(h.inorder_first())`.
-[std_end]
-
-[std_spec]
-/Complexity:/ constant
-[std_end]
-
-[std_def]
-``
-    namespace inorder {
-      template <class T, class Allocator>
-        inorder::iterator<nary_tree<T, Allocator>::const_cursor>
-          cbegin(const nary_tree<T, Allocator>& h);
-    } // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<nary_tree<T, Allocator>::const_cursor>(h.inorder_cfirst())`.
 [std_end]
 
 [endsect] [/special]

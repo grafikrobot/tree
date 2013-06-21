@@ -22,11 +22,17 @@ namespace preorder {
       begin(Hierarchy& h);
   template <class Hierarchy>
     iterator<typename Hierarchy::const_cursor>
+      begin(Hierarchy const& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
       cbegin(Hierarchy const& h);
   
   template <class Hierarchy>
     iterator<typename Hierarchy::cursor>
       end(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      end(Hierarchy const& h);
   template <class Hierarchy>
     iterator<typename Hierarchy::const_cursor>
       cend(Hierarchy const& h);
@@ -38,11 +44,17 @@ namespace postorder {
       begin(Hierarchy& h);
   template <class Hierarchy>
     iterator<typename Hierarchy::const_cursor>
+      begin(Hierarchy const& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
       cbegin(Hierarchy const& h);
   
   template <class Hierarchy>
     iterator<typename Hierarchy::cursor>
       end(Hierarchy& h);
+  template <class Hierarchy>
+    iterator<typename Hierarchy::const_cursor>
+      end(Hierarchy const& h);
   template <class Hierarchy>
     iterator<typename Hierarchy::const_cursor>
       cend(Hierarchy const& h);
@@ -54,11 +66,17 @@ namespace inorder {
       begin(MultiwayHierarchy& m);
   template <class MultiwayHierarchy>
     iterator<typename MultiwayHierarchy::const_cursor>
+      begin(MultiwayHierarchy const& m);
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::const_cursor>
       cbegin(MultiwayHierarchy const& m);
   
   template <class MultiwayHierarchy>
     iterator<typename MultiwayHierarchy::cursor>
       end(MultiwayHierarchy& m);
+  template <class MultiwayHierarchy>
+    iterator<typename MultiwayHierarchy::const_cursor>
+      end(MultiwayHierarchy const& m);
   template <class MultiwayHierarchy>
     iterator<typename MultiwayHierarchy::const_cursor>
       cend(MultiwayHierarchy const& m);
@@ -109,6 +127,9 @@ Insert after section 25.2 Non-modifying sequence operations \[alg.nonmodifying\]
 	      begin(Hierarchy& h);
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::const_cursor>
+	      begin(Hierarchy const& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
 	      cbegin(Hierarchy const& h);
 	} // namespace preorder
 ``
@@ -132,6 +153,9 @@ Insert after section 25.2 Non-modifying sequence operations \[alg.nonmodifying\]
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
 	      end(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      end(Hierarchy const& h);
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::const_cursor>
 	      cend(Hierarchy const& h);
@@ -164,6 +188,9 @@ in preorder.
 	      begin(Hierarchy& h);
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::const_cursor>
+	      begin(Hierarchy const& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
 	      cbegin(Hierarchy const& h);
 	} // namespace postorder
 ``
@@ -187,6 +214,9 @@ in preorder.
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::cursor>
 	      end(Hierarchy& h);
+	  template <class Hierarchy>
+	    iterator<typename Hierarchy::const_cursor>
+	      end(Hierarchy const& h);
 	  template <class Hierarchy>
 	    iterator<typename Hierarchy::const_cursor>
 	      cend(Hierarchy const& h);
@@ -219,6 +249,9 @@ postorder.
 	      begin(MultiwayHierarchy& m);
 	  template <class MultiwayHierarchy>
 	    iterator<typename MultiwayHierarchy::const_cursor>
+	      begin(MultiwayHierarchy const& m);
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::const_cursor>
 	      cbegin(MultiwayHierarchy const& m);
 	} // namespace inorder
 ``
@@ -242,6 +275,9 @@ postorder.
 	  template <class MultiwayHierarchy>
 	    iterator<typename MultiwayHierarchy::cursor>
 	      end(MultiwayHierarchy& m);
+	  template <class MultiwayHierarchy>
+	    iterator<typename MultiwayHierarchy::const_cursor>
+	      end(MultiwayHierarchy const& m);
 	  template <class MultiwayHierarchy>
 	    iterator<typename MultiwayHierarchy::const_cursor>
 	      cend(MultiwayHierarchy const& m);

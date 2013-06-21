@@ -61,9 +61,6 @@ namespace std {
     cursor        shoot() noexcept;
     const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
-    cursor        inorder_first() noexcept;
-    const_cursor  inorder_first() const noexcept;
-    const_cursor  inorder_cfirst() const noexcept;
 
     // capacity:
     bool      empty() const noexcept;
@@ -92,15 +89,6 @@ namespace std {
   template <class T, class Allocator>
     void swap(  binary_tree<T, Allocator>& x,
                 binary_tree<T, Allocator>& y);
-              
-  namespace inorder {
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::cursor>
-      begin(binary_tree<T, Allocator>& h);
-  template <class T, class Allocator>
-    inorder::iterator<binary_tree<T, Allocator>::const_cursor>
-      cbegin(const binary_tree<T, Allocator>& h);
-  } // namespace inorder
   
 } // namespace std
 ``
@@ -183,23 +171,6 @@ template <class InputCursor>
 
 [std_spec]
 /Complexity:/ constant
-[std_end]
-
-[std_def]
-``
-	cursor        inorder_first();
-	const_cursor  inorder_first() const;
-	const_cursor  inorder_cfirst() const;
-``
-[std_end]
-
-[std_spec]
-/Returns:/ A cursor to the =binary_tree='s first element in inorder
-(see \[order.iterators\]).
-[std_end]
-
-[std_spec]
-/Complexity:/ constant.
 [std_end]
 
 [endsect] [/cursors]
@@ -323,42 +294,6 @@ operations on binary trees that are especially required by balancers.
 
 [std_spec]
 /Effects:/ `x.swap(y)`;
-[std_end]
-
-[std_def]
-``
-    namespace inorder {
-      template <class T, class Allocator>
-        inorder::iterator<binary_tree<T, Allocator>::cursor>
-          begin(binary_tree<T, Allocator>& h);
-    } // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<binary_tree<T, Allocator>::cursor>(h.inorder_first())`.
-[std_end]
-
-[std_spec]
-/Complexity:/ constant
-[std_end]
-
-[std_def]
-``
-    namespace inorder {
-      template <class T, class Allocator>
-        inorder::iterator<binary_tree<T, Allocator>::const_cursor>
-          cbegin(binary_tree<T, Allocator> const& h);
-    } // namespace inorder
-``
-[std_end]
-
-[std_spec]
-/Returns:/ `inorder::iterator<binary_tree<T, Allocator>::const_cursor>(h.inorder_cfirst())`.
-[std_end]
-
-[std_spec]
-/Complexity:/ constant
 [std_end]
 
 [endsect] [/special]

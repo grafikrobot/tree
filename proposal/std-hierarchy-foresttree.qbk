@@ -93,15 +93,6 @@ namespace std {
     void swap(  forest_tree<T, Hierarchy>& x,
                 forest_tree<T, Hierarchy>& y);
 
-  namespace inorder {
-  template <class T, class Hierarchy>
-    inorder::iterator<forest_tree<T, Hierarchy>::cursor>
-      begin(forest_tree<T, Hierarchy>& h);
-  template <class T, class Hierarchy>
-    inorder::iterator<forest_tree<T, Hierarchy>::const_cursor>
-      cbegin(forest_tree<T, Hierarchy> const& h);
-  } // namespace inorder
-
 } // namespace std
 ``
 [std_end]

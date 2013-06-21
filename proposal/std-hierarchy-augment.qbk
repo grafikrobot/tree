@@ -36,15 +36,6 @@ namespace std {
 
   template <class T, class Hierarchy>
     void swap(rank_tree<T, Hierarchy>&, rank_tree<T, Hierarchy>&);
-              
-  namespace inorder {
-    template <class T, class Hierarchy>
-      inorder::iterator<rank_tree<T, Hierarchy>::cursor>
-        begin(rank_tree<T, Hierarchy>&);
-    template <class Tp, class Hierarchy>
-      inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
-        cbegin(const rank_tree<T, Hierarchy>&);
-  } // namespace inorder
 
 } // namespace std
 ``
@@ -99,9 +90,6 @@ namespace std {
     cursor        shoot() noexcept;
     const_cursor  shoot() const noexcept;
     const_cursor  cshoot() const noexcept;
-    cursor        inorder_first() noexcept;
-    const_cursor  inorder_first() const noexcept;
-    const_cursor  inorder_cfirst() const noexcept;
 
     cursor        rank(size_type n);
     const_cursor  rank(size_type n) const;
@@ -130,15 +118,6 @@ namespace std {
   // specialized algorithms:
   template <class T, class Hierarchy>
     void swap(rank_tree<T, Hierarchy>&, rank_tree<T, Hierarchy>&);
-              
-  namespace inorder {
-    template <class T, class Hierarchy>
-      inorder::iterator<rank_tree<T, Hierarchy>::cursor>
-        begin(rank_tree<T, Hierarchy>& h);
-    template <class Tp, class Hierarchy>
-      inorder::iterator<rank_tree<T, Hierarchy>::const_cursor>
-        cbegin(const rank_tree<T, Hierarchy>& h);
-  } // namespace inorder
   
 } // namespace std
 ``
@@ -165,7 +144,7 @@ which are newly introduced.)
 
 [std_spec]
 /Returns:/ A cursor (or =const_cursor=) to the =n=th element of the hierarchy
-in inorder, counting from =inorder_first()=.
+in inorder, counting from =inorder::begin(h)=.
 [std_end]
 
 [std_spec]
