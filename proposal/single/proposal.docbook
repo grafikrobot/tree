@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/21 14:02:26 $">
+<article xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" id="tree" rev:last-revision="$Date: 2013/06/22 19:32:14 $">
   <title>Hierarchical Data Structures and Related Concepts for the C++ Standard Library</title>
   <articleinfo>
     <authorgroup>
@@ -58,7 +58,7 @@
         <term>Date</term>
         <listitem>
           <para>
-            2013-Jun-21
+            2013-Jun-22
           </para>
         </listitem>
       </varlistentry>
@@ -530,14 +530,14 @@
           </tbody>
         </tgroup>
       </table>
-      </simplesect><para>
+      </simplesect> <simplesect role="std_requisite">
+      <para>
         Non-constant complexity requirements in this clause are stated in one of
         a number of possible different ways: unless specified otherwise, they are
         expressed in terms of the number of operations <literal moreinfo="none">n</literal>, which
         stands for the total number of elements in the hierarchy; in some cases,
         however, they are stated in terms of another value.
       </para>
-      <simplesect role="std_requisite">
       <table frame="all" id="tree.req.general.table2">
         <title>Hierarchy requirements (in addition to container)</title>
         <tgroup cols="4">
@@ -4274,7 +4274,7 @@
   </para>
   <section id="tree.order_iterator">
     <title><link linkend="tree.order_iterator">Class template <literal moreinfo="none">iterator</literal>
-    <phrase role="std_section_label">[order.iterator]</phrase></link></title> <simplesect role="std_definition">
+    <phrase role="std_section_label">[order.iterator]</phrase></link></title> <simplesect role="std_paragraph">
     <para>
       In the following, the template class <literal moreinfo="none">iterator</literal> and related
       operators only as in <literal moreinfo="none">namespace</literal> <literal moreinfo="none">preorder</literal>

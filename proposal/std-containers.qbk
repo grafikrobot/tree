@@ -63,12 +63,12 @@ hierarchy container class:
 	]
 [std_end]
 
+[std_req]
 Non-constant complexity requirements in this clause are stated in one of a number of
 possible different ways: unless specified otherwise, they are expressed in terms of
 the number of operations =n=, which stands for the total number of elements in the
 hierarchy; in some cases, however, they are stated in terms of another value.
 
-[std_req]
 [table:table2 Hierarchy requirements (in addition to container)
 	[
 	[expression]

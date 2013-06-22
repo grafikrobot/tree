@@ -31,7 +31,7 @@ requirements.
 
 [section:order_iterator Class template =iterator= [label order.iterator]]
 
-[std_def]
+[std_par]
 In the following, the template class =iterator= and related operators only as
 in =namespace= =preorder= are shown. Note that template classes and operators
 of same name and interface must also be present in =namespace= =postorder= as
