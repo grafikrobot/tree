@@ -1,8 +1,9 @@
-#  Copyright (c) 2006-2009, Bernhard Reiter
+# Copyright 2014 Rene Rivera
+# Copyright (c) 2006-2009, Bernhard Reiter
 #
-#  Distributed under the Boost Software License, Version 1.0.
-#  (See accompanying file LICENSE_1_0.txt or copy at
-#  http:#www.boost.org/LICENSE_1_0.txt)
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at
+# http:#www.boost.org/LICENSE_1_0.txt)
 
 using testing ;
 
@@ -13,8 +14,9 @@ if ! $(BOOST_ROOT)
 
 project :
 	:	requirements
-		<include>$(BOOST_ROOT)
-		<include>../../../
+		<include>$(BOOST_TREE_ROOT)/include
+#		<include>$(BOOST_ROOT)
+#		<include>../../../
 #		<define>BOOST_TEST_DYN_LINK
 #		<define>BOOST_TEST_MAIN
 #		<link>shared
@@ -23,32 +25,34 @@ project :
 	
 test-suite tree :
 # Algorithms
-	[ run equal_test.cpp ]
-	[ run to_first_test.cpp ]
-	[ run to_last_test.cpp ]
-	[ run successor_test.cpp ]
-	[ run predecessor_test.cpp ]
-	[ run for_each_test.cpp ]
+#R	[ run equal_test.cpp ]
+#R	[ run to_first_test.cpp ]
+#R	[ run to_last_test.cpp ]
+#R	[ run successor_test.cpp ]
+#R	[ run predecessor_test.cpp ]
+#R	[ run for_each_test.cpp ]
 ##	[ run copy_test.cpp ]
 ##	[ run transform_test.cpp ]
 #
-	[ run range_helpers_test.cpp ]
-	[ run binary_tree_test.cpp ]
-	[ run lower_bound_test.cpp ]
-	[ run upper_bound_test.cpp ]
+#R	[ run range_helpers_test.cpp ]
+#R	[ run binary_tree_test.cpp ]
+#R	[ run lower_bound_test.cpp ]
+#R	[ run upper_bound_test.cpp ]
 #	[ run key_search_binary_tree_test.cpp ]	
 #	[ run rank_search_binary_tree_test.cpp ]
-	[ run ascending_cursor_test.cpp ]
-	[ run horizontal_reverse_cursor_test.cpp ]
-	[ run insert_cursor_test.cpp ]
-	[ run algorithm_concepts_test.cpp ]	
-	[ run cursor_algorithm_test.cpp ]
-	[ run iterator_algorithm_test.cpp ]
+#R	[ run ascending_cursor_test.cpp ]
+#R	[ run horizontal_reverse_cursor_test.cpp ]
+#R	[ run insert_cursor_test.cpp ]
+#R	[ run algorithm_concepts_test.cpp ]	
+#R	[ run cursor_algorithm_test.cpp ]
+#R	[ run iterator_algorithm_test.cpp ]
 #	[ run red_black_tree_test.cpp ]
-	[ run treap_test.cpp ]
-	[ run forest_test.cpp ]
+#R	[ run treap_test.cpp ]
+#R	[ run forest_test.cpp ]
 #	[ run nary_tree_test.cpp ]
-	[ run multiway_tree_test.cpp ]
-	[ run balance_test.cpp ]
+#R	[ run multiway_tree_test.cpp ]
+#R	[ run balance_test.cpp ]
 #	[ run graph_test.cpp ]
+
+	[ compile header_parse.cpp ]
 	;
